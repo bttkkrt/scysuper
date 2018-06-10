@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findAqscwyhtjByMap">
+		select new com.jshx.aqscwyhtj.entity.Aqscwyhtj(t.id, t.yearTime) from Aqscwyhtj t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startYearTime">
+			<![CDATA[and t.yearTime >= :startYearTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endYearTime">
+			<![CDATA[and t.yearTime <= :endYearTime]]>
+		</isNotEmpty>
+	</select>
+	
+	
+	<select id="getAqscwyhtjListByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqscwyhtj.entity.AqscwyhtjBean">
+      SELECT  SUBSTRING(CONVERT(varchar(100), t.month_time, 23), 1,7 ) as data1,
+     t.zkwccs as data3,
+     t.zywccs as data5,
+     t.fgwccs as data7,
+     t.qtwccs as data9,
+     t.zyaqsccs as data10,
+     t.gwwccs as data12,
+     (select t.zkndjhs from AQSCWYHTJ  t where t.delflag=0 and  t.row_id=#id#) as data2,
+	(select t.zyndjhcs from AQSCWYHTJ  t where t.delflag=0 and  t.row_id=#id#) as data4,
+	(select t.fgndjhcs from AQSCWYHTJ  t where t.delflag=0 and  t.row_id=#id#) as data6,
+	(select t.qtndjhcs from AQSCWYHTJ  t where t.delflag=0 and  t.row_id=#id#) as data8,
+	(select t.gwndjhcs from AQSCWYHTJ  t where t.delflag=0 and  t.row_id=#id#) as data11
+     from AQSCWYHYWC t where t.delflag=0 and t.GLID=#id#
+	</select>
+	
+	<select id="getTotalAqscwyhtjListByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqscwyhtj.entity.AqscwyhtjBean">
+     select  b.data3,b.data5,b.data7,b.data9,b.data10,b.data12,
+	(select t.zkndjhs from AQSCWYHTJ  t where t.delflag=0 and  t.row_id=#id#) as data2,
+	(select t.zyndjhcs from AQSCWYHTJ  t where t.delflag=0 and  t.row_id=#id#) as data4,
+	(select t.fgndjhcs from AQSCWYHTJ  t where t.delflag=0 and  t.row_id=#id#) as data6,
+	(select t.qtndjhcs from AQSCWYHTJ  t where t.delflag=0 and  t.row_id=#id#) as data8,
+	(select t.gwndjhcs from AQSCWYHTJ  t where t.delflag=0 and  t.row_id=#id#) as data11
+	 from
+	 (select
+	sum(cast(a.zkwccs as int))as  data3,
+	sum(cast(a.zywccs as int))as  data5,
+	sum(cast(a.fgwccs as int))as  data7,
+	sum(cast(a.qtwccs as int))as  data9,
+	sum(cast(a.zyaqsccs as int))as  data10,
+	sum(cast(a.gwwccs as int))as  data12
+	from
+	AQSCWYHYWC a where a.delflag=0 and a.GLID=#id#) b
+     
+	</select>
+</sqlMap>

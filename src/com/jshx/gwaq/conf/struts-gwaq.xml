@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHX_GWAQ" extends="default" namespace="/jsp/gwaq">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxGwaqQuery" class="com.jshx.gwaq.web.JshxGwaqAction" method="list">
+		</action>
+		
+		<action name="jshxGwaqList" class="com.jshx.gwaq.web.JshxGwaqAction" method="init">
+			<result name="success">/WEB-INF/pages/gwaq/JshxGwaq_List.jsp</result>
+		</action>
+		
+		<action name="jshxGwaqView" class="com.jshx.gwaq.web.JshxGwaqAction" method="view">
+			<result name="view">/WEB-INF/pages/gwaq/JshxGwaq_Detail.jsp</result>
+		</action>
+
+		<action name="jshxGwaqInitEdit" class="com.jshx.gwaq.web.JshxGwaqAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/gwaq/JshxGwaq_Edit.jsp</result>
+		</action>
+
+		<action name="jshxGwaqSave" class="com.jshx.gwaq.web.JshxGwaqAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="jshxGwaqDel" class="com.jshx.gwaq.web.JshxGwaqAction" method="delete">
+		</action>
+		
+		<action name="fileUpload" class="com.jshx.gwaq.web.JshxGwaqAction" method="fileUpload">
+		</action>
+		
+		<action name="deleteFile" class="com.jshx.gwaq.web.JshxGwaqAction" method="deleteFile">
+		</action>
+		
+		<action name="download" class="com.jshx.gwaq.web.JshxGwaqAction" method="download">
+		</action>
+		
+	</package>
+</struts>

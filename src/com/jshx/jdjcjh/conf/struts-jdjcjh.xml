@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SUP_PLA" extends="default" namespace="/jsp/jdjcjh">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="supPlaQuery" class="com.jshx.jdjcjh.web.SupPlaAction" method="list">
+		</action>
+		
+		<action name="supPlaList" class="com.jshx.jdjcjh.web.SupPlaAction" method="init">
+			<result name="success">/WEB-INF/pages/jdjcjh/SupPla_List.jsp</result>
+		</action>
+		
+		<action name="supPlaView" class="com.jshx.jdjcjh.web.SupPlaAction" method="view">
+			<result name="view">/WEB-INF/pages/jdjcjh/SupPla_Detail.jsp</result>
+		</action>
+
+		<action name="supPlaInitEdit" class="com.jshx.jdjcjh.web.SupPlaAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/jdjcjh/SupPla_Edit.jsp</result>
+		</action>
+
+		<action name="supPlaSave" class="com.jshx.jdjcjh.web.SupPlaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_supPla</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="supPlaDel" class="com.jshx.jdjcjh.web.SupPlaAction" method="delete">
+		</action>
+		<action name="supPlaLink" class="com.jshx.jdjcjh.web.SupPlaAction" method="supPlaLink">
+		<result name="success">/WEB-INF/pages/jdjcrw/SupTas_LinkList.jsp</result>
+		</action>
+		<action name="checks" class="com.jshx.jdjcjh.web.SupPlaAction" method="checks">
+		</action>
+		<!-- 年计划选择企业 -->
+		<action name="selectCompanys" class="com.jshx.jdjcjh.web.SupPlaAction" method="selectCompanys">
+			<result name="success">/WEB-INF/pages/jdjcjh/SupPla_SelectCompanys.jsp</result>
+		</action>
+		<action name="getDepartUser" class="com.jshx.jdjcjh.web.SupPlaAction" method="getDepartUser">
+		</action>
+		<action name="SearchCompanys" class="com.jshx.jdjcjh.web.SupPlaAction" method="SearchCompanys">
+		</action>
+		<!-- 周计划选择企业 -->
+		<action name="selectCompanys2" class="com.jshx.jdjcjh.web.SupPlaAction" method="selectCompanys2">
+			<result name="success1">/WEB-INF/pages/jdjcjh/SupPla_SelectCompanys2.jsp</result>
+			<result name="success2">/WEB-INF/pages/jdjcjh/select_company_list.jsp</result>
+		</action>
+		<action name="getDepartUser2" class="com.jshx.jdjcjh.web.SupPlaAction" method="getDepartUser2">
+		</action>
+		
+		<action name="initImportPlan" class="com.jshx.jdjcjh.web.SupPlaAction" method="initImportPlan">
+			<result name="success">/WEB-INF/pages/jdjcjh/importPlan.jsp</result>
+		</action>
+		
+		<action name="importPlan" class="com.jshx.jdjcjh.web.SupPlaAction" method="importPlan">
+			<result name="success" >
+				/common/successToSelf.jsp?windowId=importPlan
+			</result>
+			<result name="error" >
+				/common/successToSelf.jsp?windowId=importPlan
+			</result>
+		</action>
+		
+		
+		<action name="supPlaXccsInitEdit" class="com.jshx.jdjcjh.web.SupPlaAction" method="initXccsEdit">
+			<result name="edit">/WEB-INF/pages/jdjcjh/SupPla_Xccs.jsp</result>
+		</action>
+
+		<action name="supPlaXccsSave" class="com.jshx.jdjcjh.web.SupPlaAction" method="saveXccs">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_supPla</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="selectCompanyForImportPlan" class="com.jshx.jdjcjh.web.SupPlaAction" method="selectCompanyForImportPlan">
+		</action>
+		
+	</package>
+</struts>

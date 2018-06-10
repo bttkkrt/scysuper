@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	
+	<!-- 根据搜索条件查询  -->
+	<select id="findGpdbByMap">
+		from Gpdb t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = :createUserID]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="yhmc">
+			<![CDATA[and t.yhmc like :yhmc]]>
+		</isNotEmpty>
+		<isNotEmpty property="startGpsj">
+			<![CDATA[and t.gpsj >= :startGpsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endGpsj">
+			<![CDATA[and t.gpsj <= :endGpsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="yhlb">
+			<![CDATA[and t.yhlb in (:yhlb)]]>
+		</isNotEmpty>
+		<isNotEmpty property="yhlbs">
+			<![CDATA[and t.yhlb = :yhlbs]]>
+		</isNotEmpty>
+		<isNotEmpty property="startZgwcsj">
+			<![CDATA[and t.zgwcsj >= :startZgwcsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endZgwcsj">
+			<![CDATA[and t.zgwcsj <= :endZgwcsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="startYssj">
+			<![CDATA[and t.yssj >= :startYssj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endYssj">
+			<![CDATA[and t.yssj <= :endYssj]]>
+		</isNotEmpty>
+		<isNotEmpty property="state">
+			<![CDATA[and t.state = :state]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyid">
+			<![CDATA[and t.qyid = :qyid]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifwhpqylx">
+			<![CDATA[and t.ifwhpqylx = :ifwhpqylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifzywhqylx">
+			<![CDATA[and t.ifzywhqylx = :ifzywhqylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		<isNotEmpty property="tt">
+			<![CDATA[and (t.yhlb in (:yhlbs) or t.deptId in (:deptCodess))]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+</sqlMap>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="YGTJBGHZB" extends="default" namespace="/jsp/ygtjbghzb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="ygtjbghzbQuery" class="com.jshx.ygtjbghzb.web.YgtjbghzbAction" method="list">
+		</action>
+		
+		<action name="ygtjbghzbQuerys" class="com.jshx.ygtjbghzb.web.YgtjbghzbAction" method="lists">
+		</action>
+		
+		<action name="ygtjbghzbList" class="com.jshx.ygtjbghzb.web.YgtjbghzbAction" method="initlist">
+			<result name="success">/WEB-INF/pages/ygtjbghzb/Ygtjbghzb_List.jsp</result>
+		</action>
+		
+		<action name="ygtjbghzbLists" class="com.jshx.ygtjbghzb.web.YgtjbghzbAction" method="initlists">
+			<result name="success">/WEB-INF/pages/ygtjbghzb/Ygtjbghzb_Lists.jsp</result>
+		</action>
+		
+		<action name="ygtjbghzbView" class="com.jshx.ygtjbghzb.web.YgtjbghzbAction" method="view">
+			<result name="view">/WEB-INF/pages/ygtjbghzb/Ygtjbghzb_Detail.jsp</result>
+		</action>
+
+		<action name="ygtjbghzbInitEdit" class="com.jshx.ygtjbghzb.web.YgtjbghzbAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/ygtjbghzb/Ygtjbghzb_Edit.jsp</result>
+		</action>
+
+		<action name="ygtjbghzbSave" class="com.jshx.ygtjbghzb.web.YgtjbghzbAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="ygtjbghzbDel" class="com.jshx.ygtjbghzb.web.YgtjbghzbAction" method="delete">
+		</action>
+		
+		
+		<action name="ygtjbghzbExport" class="com.jshx.ygtjbghzb.web.YgtjbghzbAction" method="export">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ACC_PLA_REC" extends="default" namespace="/jsp/sgyjjyya">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="accPlaRecQuery" class="com.jshx.sgyjjyya.web.AccPlaRecAction" method="list">
+		</action>
+		
+		<action name="accPlaRecList"  class="com.jshx.sgyjjyya.web.AccPlaRecAction" method="init">
+			<result name="success">/WEB-INF/pages/sgyjjyya/AccPlaRec_List.jsp</result>
+		</action>
+		
+		<action name="accPlaRecView" class="com.jshx.sgyjjyya.web.AccPlaRecAction" method="view">
+			<result name="view">/WEB-INF/pages/sgyjjyya/AccPlaRec_Detail.jsp</result>
+		</action>
+
+		<action name="accPlaRecInitEdit" class="com.jshx.sgyjjyya.web.AccPlaRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/sgyjjyya/AccPlaRec_Edit.jsp</result>
+		</action>
+
+		<action name="accPlaRecSave" class="com.jshx.sgyjjyya.web.AccPlaRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_accPlaRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="accPlaRecDel" class="com.jshx.sgyjjyya.web.AccPlaRecAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

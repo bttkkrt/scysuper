@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="GRID_MANAGER" extends="default" namespace="/jsp/gridManager">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="gridManagerQuery" class="com.jshx.gridManager.web.GridManagerAction" method="list">
+		</action>
+		
+		<action name="gridManagerList"  class="com.jshx.gridManager.web.GridManagerAction" method="initList">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_List.jsp</result>
+			<result name="townDZ">/WEB-INF/pages/gridManager/GridManager_BindTownDzList.jsp</result>
+			<result name="townFZR">/WEB-INF/pages/gridManager/GridManager_BindCountryUserList.jsp</result>
+			<result name="townZR">/WEB-INF/pages/gridManager/GridManager_BindTownUserList.jsp</result>
+			<result name="town">/WEB-INF/pages/gridManager/GridManager_TownList.jsp</result>
+			<result name="fgld">/WEB-INF/pages/gridManager/GridManager_BindFgldList.jsp</result>
+		</action>
+		
+		
+		<action name="gridManagerListss"  class="com.jshx.gridManager.web.GridManagerAction" method="initListss">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_Listss.jsp</result>
+		</action>
+		
+		<action name="gridManagerLists"  class="com.jshx.gridManager.web.GridManagerAction" method="initLists">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_Lists.jsp</result>
+		</action>
+		
+		<action name="gridManagerView" class="com.jshx.gridManager.web.GridManagerAction" method="view">
+			<result name="view">/WEB-INF/pages/gridManager/GridManager_Detail.jsp</result>
+		</action>
+
+		<action name="gridManagerInitEdit" class="com.jshx.gridManager.web.GridManagerAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/gridManager/GridManager_Edit.jsp</result>
+		</action>
+
+		<action name="gridManagerSave" class="com.jshx.gridManager.web.GridManagerAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="gridManagerDel" class="com.jshx.gridManager.web.GridManagerAction" method="delete">
+		</action>
+		
+		<!-- 跳转到绑定镇级中队分管领导的列表页面 lj 2014-06-20 -->
+		<action name="gridManagerBindFgld"  class="com.jshx.gridManager.web.GridManagerAction" method="bindFgld">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_BindFgldList.jsp</result>
+		</action>
+		<!-- 查询镇级分管领导的列表信息 lj 2014-06-20 -->
+		<action name="gridManagerBindFgldQuery"  class="com.jshx.gridManager.web.GridManagerAction" method="bindFgldQuery">
+		</action>
+		
+		<!-- 跳转到指定的某个乡镇列表页面 lj 2014-06-20 -->
+		<action name="gridManagerTownView"  class="com.jshx.gridManager.web.GridManagerAction" method="townView">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_TownList.jsp</result>
+		</action>
+		<!-- 查询某个乡镇列表信息 lj 2014-06-20 -->
+		<action name="gridManagerTownQuery"  class="com.jshx.gridManager.web.GridManagerAction" method="townQuery">
+		</action>
+		
+		<!-- 跳转到绑定镇级中队队长的列表页面 lj 2014-06-20 -->
+		<action name="gridManagerBindTownDz"  class="com.jshx.gridManager.web.GridManagerAction" method="bindTownDz">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_BindTownDzList.jsp</result>
+		</action>
+		<!-- 查询镇级安全责任人的列表信息 lj 2014-06-20 -->
+		<action name="gridManagerBindTownDzQuery"  class="com.jshx.gridManager.web.GridManagerAction" method="bindTownDzQuery">
+		</action>
+		
+		<!-- 跳转到绑定镇级安全责任人的列表页面 lj 2014-06-20 -->
+		<action name="gridManagerBindTownUser"  class="com.jshx.gridManager.web.GridManagerAction" method="bindTownUser">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_BindTownUserList.jsp</result>
+		</action>
+		<!-- 查询镇级安全责任人的列表信息 lj 2014-06-20 -->
+		<action name="gridManagerBindTownUserQuery"  class="com.jshx.gridManager.web.GridManagerAction" method="bindTownUserQuery">
+		</action>
+		<!-- 绑定关联人  lj2014-06-23-->
+		<action name="gridManagerBindUser"  class="com.jshx.gridManager.web.GridManagerAction" method="bindUser">
+		</action>
+		
+		<!-- 解除绑定关联人  lt 2014-10-14-->
+		<action name="gridManagerJcBindUser"  class="com.jshx.gridManager.web.GridManagerAction" method="jcbindUser">
+		</action>
+		
+		<!-- 跳转到绑定村级安全负责人界面  lj 2014-06-23-->
+		<action name="gridManagerCountryUser"  class="com.jshx.gridManager.web.GridManagerAction" method="bindCountryUser">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_BindCountryUserList.jsp</result>
+		</action>
+		<!-- 查询镇级安全责任人的列表信息 lj 2014-06-23 -->
+		<action name="gridManagerBindCountryUserQuery"  class="com.jshx.gridManager.web.GridManagerAction" method="bindCountryUserQuery">
+		</action>
+		
+		<!-- 跳转到绑定无证照企业界面  lj 2014-06-24-->
+		<action name="gridManagerCompanyUser"  class="com.jshx.gridManager.web.GridManagerAction" method="companyUser">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_BindCompanyUserList.jsp</result>
+		</action>
+		<!-- 查询无证照企业列表信息 lj 2014-06-24 -->
+		<action name="gridManagerBindCompanyUserQuery"  class="com.jshx.gridManager.web.GridManagerAction" method="bindCompanyUserQuery">
+		</action>
+		<!-- 绑定无证照企业和村责任人  lj 2014-06-24 -->
+		<action name="gridManagerBindCompanyUser"  class="com.jshx.gridManager.web.GridManagerAction" method="bindCompanyUser">
+		</action>
+		
+		<!-- 解除绑定无证照企业和村责任人  lt 2014-10-14 -->
+		<action name="gridManagerJcBindCompanyUser"  class="com.jshx.gridManager.web.GridManagerAction" method="jcbindCompanyUser">
+		</action>
+		
+		<!-- 跳转到绑定无证照企业界面  lj 2014-06-24-->
+		<action name="gridManagerNoCompanyUser"  class="com.jshx.gridManager.web.GridManagerAction" method="noCompanyUser">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_BindNoCompanyUserList.jsp</result>
+		</action>
+		<!-- 查询无证照企业列表信息 lj 2014-06-24 -->
+		<action name="gridManagerBindNoCompanyUserQuery"  class="com.jshx.gridManager.web.GridManagerAction" method="bindNoCompanyUserQuery">
+		</action>
+		<!-- 绑定无证照企业和村责任人  lj 2014-06-24 -->
+		<action name="gridManagerBindNoCompanyUser"  class="com.jshx.gridManager.web.GridManagerAction" method="bindNoCompanyUser">
+		</action>
+		
+		<!-- 解除绑定无证照企业和村责任人    lt 2014-10-14  -->
+		<action name="gridManagerJcBindNoCompanyUser"  class="com.jshx.gridManager.web.GridManagerAction" method="jcbindNoCompanyUser">
+		</action>
+		
+		<!-- 查询某个镇 显示地图信息 lj 2014-07-21-->
+		<action name="gridManagerTownMapView"  class="com.jshx.gridManager.web.GridManagerAction" method="mapView">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_Map.jsp</result>
+		</action>
+		
+		<!-- 查询某个镇 显示地图信息 lj 2014-07-21-->
+		<action name="gridManagerFgldMapView"  class="com.jshx.gridManager.web.GridManagerAction" method="mapFgldView">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_Map.jsp</result>
+		</action>
+		<!-- 查询某个镇的某个主任 显示地图信息 lj 2014-07-21-->
+		<action name="gridManagerTownZRMapView"  class="com.jshx.gridManager.web.GridManagerAction" method="mapZRView">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_Map.jsp</result>
+		</action>
+		<!-- 查询某个镇的某个主任的某个队长 显示地图信息 lj 2014-07-22-->
+		<action name="gridManagerTownDZMapView"  class="com.jshx.gridManager.web.GridManagerAction" method="mapDzView">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_Map.jsp</result>
+		</action>
+		<!-- 查询某个镇的某个队长的某个安全员 显示地图信息 lj 2014-07-22-->
+		<action name="gridManagerTownAQYMapView"  class="com.jshx.gridManager.web.GridManagerAction" method="mapAQYView">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_Map.jsp</result>
+		</action>
+		<!-- 查询某个镇的某个主任的某个安全员 下 某个村安全员的 显示地图信息 lj 2014-07-22-->
+		<action name="gridManagerCountryAQYMapView"  class="com.jshx.gridManager.web.GridManagerAction" method="mapCountryAQYView">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_Map.jsp</result>
+		</action>
+		<!-- 查询某个镇的某个主任的某个安全员 下 某个村安全员的  某个企业 显示地图信息 lj 2014-07-22-->
+		<action name="gridManagerCompanyMapView"  class="com.jshx.gridManager.web.GridManagerAction" method="mapCompanyView">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_Map.jsp</result>
+		</action>
+		
+		<action name="gridManagerYzcompanyQuery"  class="com.jshx.gridManager.web.GridManagerAction" method="yzcompanyQuery">
+		</action>
+		<action name="gridManagerYzcompany"  class="com.jshx.gridManager.web.GridManagerAction" method="yzcompany">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_YzcompanyList.jsp</result>
+		</action>
+		
+		<action name="gridManagerWzcompanyQuery"  class="com.jshx.gridManager.web.GridManagerAction" method="wzcompanyQuery">
+		</action>
+		<action name="gridManagerWzcompany"  class="com.jshx.gridManager.web.GridManagerAction" method="wzcompany">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_WzcompanyList.jsp</result>
+		</action>
+		
+		
+		<action name="gridManagerGxfw"  class="com.jshx.gridManager.web.GridManagerAction" method="gxfw">
+			<result name="success">/WEB-INF/pages/gridManager/GridManager_Gxfw.jsp</result>
+		</action>
+		<action name="gridManagerGxfwSave"  class="com.jshx.gridManager.web.GridManagerAction" method="gxfwSave">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+	</package>
+</struts>

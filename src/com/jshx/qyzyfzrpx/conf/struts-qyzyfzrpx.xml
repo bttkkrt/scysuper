@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MAI_CHA_TRA" extends="default" namespace="/jsp/qyzyfzrpx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="maiChaTraQuery" class="com.jshx.qyzyfzrpx.web.MaiChaTraAction" method="list">
+		</action>
+		
+		<action name="maiChaTraList" class="com.jshx.qyzyfzrpx.web.MaiChaTraAction" method="init">
+			<result name="success">/WEB-INF/pages/qyzyfzrpx/MaiChaTra_List.jsp</result>
+		</action>
+		
+		<action name="maiChaTraView" class="com.jshx.qyzyfzrpx.web.MaiChaTraAction" method="view">
+			<result name="view">/WEB-INF/pages/qyzyfzrpx/MaiChaTra_Detail.jsp</result>
+		</action>
+
+		<action name="maiChaTraInitEdit" class="com.jshx.qyzyfzrpx.web.MaiChaTraAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/qyzyfzrpx/MaiChaTra_Edit.jsp</result>
+		</action>
+
+		<action name="maiChaTraSave" class="com.jshx.qyzyfzrpx.web.MaiChaTraAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_maiChaTra</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="maiChaTraDel" class="com.jshx.qyzyfzrpx.web.MaiChaTraAction" method="delete">
+		</action>
+		
+		<action name="sendInfo" class="com.jshx.qyzyfzrpx.web.MaiChaTraAction" method="sendInfo">
+		</action>
+		
+	</package>
+</struts>

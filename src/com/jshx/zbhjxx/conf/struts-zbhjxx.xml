@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ENV_INF" extends="default" namespace="/jsp/zbhjxx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="envInfQuery" class="com.jshx.zbhjxx.web.EnvInfAction" method="list">
+		</action>
+		
+		<action name="envInfList" class="com.jshx.zbhjxx.web.EnvInfAction" method="init">
+			<result name="success">/WEB-INF/pages/zbhjxx/EnvInf_List.jsp</result>
+		</action>
+		
+		<action name="envInfView" class="com.jshx.zbhjxx.web.EnvInfAction" method="view">
+			<result name="view">/WEB-INF/pages/zbhjxx/EnvInf_Detail.jsp</result>
+		</action>
+
+		<action name="envInfInitEdit" class="com.jshx.zbhjxx.web.EnvInfAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zbhjxx/EnvInf_Edit.jsp</result>
+		</action>
+
+		<action name="envInfSave" class="com.jshx.zbhjxx.web.EnvInfAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_envInf</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="envInfDel" class="com.jshx.zbhjxx.web.EnvInfAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findYhqdByMap">
+		from Yhqd t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="yhContent">
+			<![CDATA[and t.yhContent like :yhContent]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.basic.company.companyname like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyId">
+			<![CDATA[and t.basic.company.id like :qyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="startChecktime">
+			<![CDATA[and t.basic.checkTime >= :startChecktime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endChecktime">
+			<![CDATA[and t.basic.checkTime <= :endChecktime]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+</sqlMap>

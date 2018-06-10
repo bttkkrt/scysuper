@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findCheckResultByMap">
+		select new com.jshx.checkResult.entity.CheckResult(t.id, t.checkContent, t.checkResult, t.ifOk,t.remark) from CheckResult t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkTableId">
+			<![CDATA[and t.checkTableId = (:checkTableId)]]>
+		</isNotEmpty>
+		
+	</select>
+	
+	<update id="deleteOldResults" parameterClass="java.util.Map">
+		update CHECK_RESULT  set delFlag=1  where CHECK_TABLE_ID=#checkTableId#
+		
+	</update>
+	
+	
+	
+</sqlMap>

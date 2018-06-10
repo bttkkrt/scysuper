@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<update id="updateGUIDcompanyBackup" parameterClass="java.util.Map">
+		update COMPANYBACKUP set GUID = #guid# where ROW_ID = #row_id#
+	</update>
+	<!-- 企业基本信息 -->
+	<select id="query_companys_httpData"  resultClass="java.util.HashMap">
+		select
+		  row_id as ID,
+		  GUID,
+		  ZZJGDM,
+		  companyname as QYMC,
+		 gddh as QYLXDH ,
+		 date_format(qyclsj,'%Y-%m-%d %H:%i:%s') as CLRQ,
+		 fddbr as FRDBMC, 
+		 fddbrlxhm as FRYDDH,
+		lxr as  AQSCFZR,
+		mobile as AQSCFZRYDDH,
+		lxfs as  AQSCFZRGDDH,
+		ifzywhqylx as SFSJZYWH,
+		dwdz1 as XZJDDM,
+		dwdz2 as SCJYDZ,
+		yzbm as YZBM,
+		hyfl as HYLYIDS,
+		jyfw as HYLYSTRS,
+		zdmj as JYMJ,
+		jzmj as JZMJPFM,
+		cyry as QYRS,
+		zsqytype as ZGBMJB,
+		longitude as QYWZJD,
+		latitude as QYWZWD 
+		 from CompanyBackUp where delflag != 1 and basepass!=0 order by createtime desc 
+	</select>
+	<select id="query_companys_count_httpData" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(1) from CompanyBackUp_test where delflag != 1 and basepass=1
+	</select>
+	<!-- 企业账号信息 -->
+	<select id="query_Qyzhxx_httpData" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select
+		t.row_id as QYID,
+		t.loginname as QYZH,
+		u.password as QYZHMM
+		from CompanyBackUp_test t left join Users u on t.loginname=u.login_id where t.delflag!=1 and t.basepass=1  and u.password is not null
+	</select>
+	<select id="query_Qyzhxx_count_httpData" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*) from CompanyBackUp_test t left join Users u on t.loginname=u.login_id where t.delflag!=1 and t.basepass=1  and u.password is not null
+	</select>
+	<!-- 网格信息 -->
+	<select id="query_Wgxx_httpData" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select 
+			(select d.dept_name from department d where d.dept_code=g.xzname and d.del_flag = 0) SZJZMC,
+			g.xzname SZJZQHBM,
+			g.points WGBJZB,
+			g.gridname WGMC,
+			g.row_id WGBM
+		from grid_info g where  g.delflag=0 and g.points is not null and g.xzname is not null
+	</select>
+	<select id="query_Wgxx_count_httpData" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*) from grid_info g where  g.delflag=0 and g.points is not null and g.xzname is not null
+	</select>
+	
+	<!-- 街镇安监办部门信息 -->
+	<select id="query_Jzajbbmxx_httpData" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select 
+			g.dept_code BMBH,
+			g.dept_name BMMC,
+			g.row_id BMID
+		from department g where  g.del_flag != 1
+	</select>
+	<select id="query_Jzajbbmxx_count_httpData" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*) from department where del_flag != 1
+	</select>
+	
+	<!-- 街镇安监办人员基本信息 -->
+	<select id="query_Jzajbryxx_httpData" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select 
+			u.dept_code BMBH,
+			u.display_name XM,
+			u.duty ZW,
+			u.mobile LXDH,
+			u.row_id RYID
+		from Users u where  u.del_flag != 1 and not regexp_like(dept_code,'^033*')
+	</select>
+	<select id="query_Jzajbryxx_count_httpData" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*) from Users u where  u.del_flag != 1 and not regexp_like(dept_code,'^033*')
+	</select>
+	
+	<!-- 非危化企业审核信息 -->
+	<select id="query_Fwhqysh_httpData" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select
+		t.row_id as QYID,
+		t.hyfl as HYLB,
+		t.dwdz1 as SSQY
+		from CompanyBackUp t where t.delflag!=1 and t.basepass=1 and t.ifwhpqylx=0
+	</select>
+	<select id="query_Fwhqysh_count_httpData" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*) from CompanyBackUp t where t.delflag!=1 and t.basepass=1 and t.ifwhpqylx=0
+	</select>
+	
+	<!-- 企业安全生产管理机构信息 -->
+	<select id="query_qygljgxx_count_httpData" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(1) from CompanyBackUp_test where delflag != 1 and basepass=1 and lxr is not null
+	</select>
+	<select id="query_qygljgxx_httpData" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select
+		t.row_id as QYID,
+		t.lxr as ZYFZRXM,
+		t.lxfs as ZYFZRDH,
+		t.mobile as ZYFZRSJ
+		from CompanyBackUp_test t where t.delflag!=1 and t.basepass=1 and lxr is not null
+	</select>
+	
+	<select id="query_zcyhsb_httpData" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+    select t.GUID,t.ROW_ID,t.CSFA,t.FCR,date_format(t.fcsj,'%Y-%m-%d %H:%i:%s') as FCSJ,t.FCYSQK,t.JB,t.JCLB,t.JCRY,date_format(t.jcsj,'%Y-%m-%d %H:%i:%s') as JCSJ,date_format(t.JHWCSJ,'%Y-%m-%d %H:%i:%s') as JHWCSJ,t.MQZT,t.QYMC,t.SZZID,t.SZZNAME,t.WTYH,t.ZGTRZJ,t.LINKID,t.YHSL,q.JCBW,q.YHDL,q.YHZL,q.ZGZRBM,q.ZGZRR,q.YHZGWCSJ from jshx_zcyhsb t left join qyzcyhglb q on t.row_id=q.yhid
+	</select>
+</sqlMap> 

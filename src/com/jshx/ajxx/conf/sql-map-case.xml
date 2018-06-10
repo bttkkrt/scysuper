@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findCaseInfoByMap">
+		select new com.jshx.ajxx.entity.CaseInfo(t.id, t.areaName, t.companyName, t.caseTime, t.caseName, t.caseSource,t.caseStatus,t.createUserID,t.undertakerId,t.undertakerName) from CaseInfo t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and (t.companyName like :searchLike or t.caseName like :searchLike)]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseId">
+			<![CDATA[and t.caseId like :caseId]]>
+		</isNotEmpty>
+		<isNotEmpty property="accidentCategory">
+			<![CDATA[and t.accidentCategory = :accidentCategory]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseName">
+			<![CDATA[and t.caseName like :caseName]]>
+		</isNotEmpty>
+		<isNotEmpty property="accidentLevel">
+			<![CDATA[and t.accidentLevel = :accidentLevel]]>
+		</isNotEmpty>
+		<isNotEmpty property="startCaseTime">
+			<![CDATA[and t.caseTime >= :startCaseTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCaseTime">
+			<![CDATA[and t.caseTime <= :endCaseTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseSource">
+			<![CDATA[and t.caseSource = :caseSource]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseStatus">
+			<![CDATA[and t.caseStatus = :caseStatus]]>
+		</isNotEmpty>
+		<isNotEmpty property="userId">
+			<![CDATA[and (t.createUserID = :userId  or t.undertakerId = :userId)]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="level">
+			<isEqual  property="level" compareValue="0000">
+				and t.caseStatus in ('0','1','7','8')
+			</isEqual>
+			<isEqual  property="level" compareValue="0001">
+				and (t.caseStatus = '8' or (t.caseStatus = '7' and t.undertakerId = :undertakerId))
+			</isEqual>
+			<isEqual  property="level" compareValue="0010">
+				and t.caseStatus = '7' and t.undertakerId = :undertakerId
+			</isEqual>
+			<isEqual  property="level" compareValue="0011">
+				and (t.caseStatus = '8' or (t.caseStatus = '7' and t.undertakerId = :undertakerId))
+			</isEqual>
+			<isEqual  property="level" compareValue="0100">
+				and (t.caseStatus = '0' or (t.caseStatus = '7' and t.undertakerId = :undertakerId))
+			</isEqual>
+			<isEqual  property="level" compareValue="0101">
+				and (t.caseStatus in ('0','8') or (t.caseStatus = '7' and t.undertakerId = :undertakerId))
+			</isEqual>
+			<isEqual  property="level" compareValue="0110">
+				and (t.caseStatus = '0' or (t.caseStatus = '7' and t.undertakerId = :undertakerId))
+			</isEqual>
+			<isEqual  property="level" compareValue="0111">
+				and (t.caseStatus = '0' or t.caseStatus = '8' or (t.caseStatus = '7' and t.undertakerId = :undertakerId))
+			</isEqual>
+			<isEqual  property="level" compareValue="1000">
+				and t.caseStatus = '1'
+			</isEqual>
+			<isEqual  property="level" compareValue="1001">
+				and (t.caseStatus in ('1','8') or (t.caseStatus = '7' and t.undertakerId = :undertakerId))
+			</isEqual>
+			<isEqual  property="level" compareValue="1010">
+				and (t.caseStatus = '1' or (t.caseStatus = '7' and t.undertakerId = :undertakerId))
+			</isEqual>
+			<isEqual  property="level" compareValue="1011">
+				and (t.caseStatus in ('1','8') or  (t.caseStatus = '7' and t.undertakerId = :undertakerId))
+			</isEqual>
+			<isEqual  property="level" compareValue="1100">
+				and (t.caseStatus in ('0','1') or (t.caseStatus = '7' and t.undertakerId = :undertakerId))
+			</isEqual>
+			<isEqual  property="level" compareValue="1101">
+				and (t.caseStatus in ('0','1','8') or (t.caseStatus = '7' and t.undertakerId = :undertakerId))
+			</isEqual>
+			<isEqual  property="level" compareValue="1110">
+				and (t.caseStatus in ('0','1') or (t.caseStatus = '7' and t.undertakerId = :undertakerId))
+			</isEqual>
+			<isEqual  property="level" compareValue="1111">
+				and (t.caseStatus in ('0','1','8') or (t.caseStatus = '7' and t.undertakerId = :undertakerId))
+			</isEqual>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="getUserByRole" parameterClass="java.util.Map" resultClass="String">
+	select stuff(  
+		(select ','+convert(varchar(25), u.row_id) from users u,user_right ur,userrole r 
+		where u.del_flag = 0 and  r.delflag = 0 and u.row_id = ur.user_id
+		and ur.role_id = r.row_id and r.role_code = #roleCode#
+		FOR XML PATH('')), 1, 1, '') 
+	</select>
+	
+	<select id="getCaseInfoListByUserAndType" parameterClass="java.util.Map" resultClass="com.jshx.ajxx.entity.CaseInfo">
+	select t.ROW_ID as id,t.company_name as companyName,t.CASE_TIME as caseTime,t.CASE_NAME as caseName,t.CASE_SOURCE as caseSource,t.CASE_STATUS as caseStatus  from CASE_INFO t where t.delflag = 0
+		<isNotEmpty property="caseStatus">
+			<![CDATA[and t.CASE_STATUS = #caseStatus# ]]>
+		</isNotEmpty>
+		<isNotEmpty property="userId">
+			<![CDATA[and (t.createUserID = #userId#  or t.UNDERTAKER_ID = #userId#)]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.AREA_NAME like #areaName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseCause">
+			<![CDATA[and t.CASE_CAUSE like #caseCause#]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseName">
+			<![CDATA[and t.CASE_NAME like #caseName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="person">
+			<![CDATA[and t.PERSON like #person#]]>
+		</isNotEmpty>
+		<isNotEmpty property="sfzh">
+			<![CDATA[and t.SFZH like #sfzh#]]>
+		</isNotEmpty>
+		<isNotEmpty property="zipCode">
+			<![CDATA[and t.ZIP_CODE like #zipCode#]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseCondition">
+			<![CDATA[and t.CASE_CONDITION like #caseCondition#]]>
+		</isNotEmpty>
+		<isNotEmpty property="level">
+			<isEqual  property="level" compareValue="0000">
+				and t.CASE_STATUS in ('0','1','7','8')
+			</isEqual>
+			<isEqual  property="level" compareValue="0001">
+				and (t.CASE_STATUS = '8' or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="0010">
+				and t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#
+			</isEqual>
+			<isEqual  property="level" compareValue="0011">
+				and (t.CASE_STATUS = '8' or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="0100">
+				and (t.CASE_STATUS = '0' or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="0101">
+				and (t.CASE_STATUS in ('0','8') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="0110">
+				and (t.CASE_STATUS = '0' or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="0111">
+				and (t.CASE_STATUS in('0','8') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1000">
+				and t.CASE_STATUS = '1'
+			</isEqual>
+			<isEqual  property="level" compareValue="1001">
+				and (t.CASE_STATUS in ('1','8') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1010">
+				and (t.CASE_STATUS = '1' or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1011">
+				and (t.CASE_STATUS in ('1','8') or  (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1100">
+				and (t.CASE_STATUS in ('0','1') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1101">
+				and (t.CASE_STATUS in ('0','1','8') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1110">
+				and (t.CASE_STATUS in ('0','1') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1111">
+				and (t.CASE_STATUS in ('0','1','8') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="getCaseInfoListSizeByUserAndType" parameterClass="java.util.Map" resultClass="int">
+	select count(*) from CASE_INFO t where t.delflag = 0
+		<isNotEmpty property="caseStatus">
+			<![CDATA[and t.CASE_STATUS = #caseStatus# ]]>
+		</isNotEmpty>
+		<isNotEmpty property="userId">
+			<![CDATA[and (t.createUserID = #userId#  or t.UNDERTAKER_ID = #userId#)]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.AREA_NAME like #areaName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseCause">
+			<![CDATA[and t.CASE_CAUSE like #caseCause#]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseName">
+			<![CDATA[and t.CASE_NAME like #caseName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="person">
+			<![CDATA[and t.PERSON like #person#]]>
+		</isNotEmpty>
+		<isNotEmpty property="sfzh">
+			<![CDATA[and t.SFZH like #sfzh#]]>
+		</isNotEmpty>
+		<isNotEmpty property="zipCode">
+			<![CDATA[and t.ZIP_CODE like #zipCode#]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseCondition">
+			<![CDATA[and t.CASE_CONDITION like #caseCondition#]]>
+		</isNotEmpty>
+		<isNotEmpty property="level">
+			<isEqual  property="level" compareValue="0000">
+				and t.CASE_STATUS in ('0','1','7','8')
+			</isEqual>
+			<isEqual  property="level" compareValue="0001">
+				and (t.CASE_STATUS = '8' or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="0010">
+				and t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#
+			</isEqual>
+			<isEqual  property="level" compareValue="0011">
+				and (t.CASE_STATUS = '8' or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="0100">
+				and (t.CASE_STATUS = '0' or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="0101">
+				and (t.CASE_STATUS in ('0','8') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="0110">
+				and (t.CASE_STATUS = '0' or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="0111">
+				and (t.CASE_STATUS in('0','8') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1000">
+				and t.CASE_STATUS = '1'
+			</isEqual>
+			<isEqual  property="level" compareValue="1001">
+				and (t.CASE_STATUS in ('1','8') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1010">
+				and (t.CASE_STATUS = '1' or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1011">
+				and (t.CASE_STATUS in ('1','8') or  (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1100">
+				and (t.CASE_STATUS in ('0','1') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1101">
+				and (t.CASE_STATUS in ('0','1','8') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1110">
+				and (t.CASE_STATUS in ('0','1') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+			<isEqual  property="level" compareValue="1111">
+				and (t.CASE_STATUS in ('0','1','8') or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #undertakerId#))
+			</isEqual>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getMaxGlhNumByMap" parameterClass="java.util.Map" resultClass="String">
+	select max(t.GLH_NUM) from CASE_INFO t where t.delflag = 0 
+		<isNotEmpty property="fineType">
+			<![CDATA[and t.FINE_TYPE = #fineType# ]]>
+		</isNotEmpty>
+		<isNotEmpty property="glh">
+			<![CDATA[and t.GLH = #glh# ]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getMaxGahNumByMap" parameterClass="java.util.Map" resultClass="String">
+	select max(t.GAH_NUM) from CASE_INFO t where t.delflag = 0
+		<isNotEmpty property="fineType">
+			<![CDATA[and t.FINE_TYPE = #fineType# ]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="queryCaseUserList" parameterClass="java.util.Map" resultClass="com.jshx.module.admin.entity.User">
+		select t.row_id as id,t.display_name as displayName from users t where t.del_flag = 0 and t.dept_code like '%002001004%'
+		<isNotEmpty property="deptCode">
+			<![CDATA[and t.dept_code = #deptCode# ]]>
+		</isNotEmpty>
+		<isNotEmpty property="userId">
+			<![CDATA[and t.row_id != #userId# ]]>
+		</isNotEmpty>
+		<isNotEmpty property="lockTime">
+			<![CDATA[and t.row_id not in(select l.userId from lock_user l where l.lockTime = #lockTime#)]]>
+		</isNotEmpty>
+	</select>
+	
+	
+	<select id="findCaseClByMap">
+		from CaseCl t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="caseId">
+			<![CDATA[and t.caseId = :caseId]]>
+		</isNotEmpty>
+		<isNotEmpty property="zjType">
+			<![CDATA[and t.zjType = :zjType]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="findCaseClByMaps">
+		from CaseCl t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="caseId">
+			<![CDATA[and t.caseId = :caseId]]>
+		</isNotEmpty>
+		<isNotEmpty property="zjType">
+			<![CDATA[and t.zjType = :zjType]]>
+		</isNotEmpty>
+		order by t.createTime asc
+	</select>
+	
+	<select id="findCaseZjByMap">
+		from CaseZj t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="caseId">
+			<![CDATA[and t.caseId = :caseId]]>
+		</isNotEmpty>
+		<isNotEmpty property="zjContent">
+			<![CDATA[and t.zjContent like :zjContent]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="findCaseZjByMaps">
+		from CaseZj t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="caseId">
+			<![CDATA[and t.caseId = :caseId]]>
+		</isNotEmpty>
+		<isNotEmpty property="zjContent">
+			<![CDATA[and t.zjContent like :zjContent]]>
+		</isNotEmpty>
+		order by t.createTime asc
+	</select>
+	
+	<select id="getGlhNumListByMap" parameterClass="java.util.Map" resultClass="String">
+	select t.GLH_NUM from CASE_INFO t where t.delflag = 0 
+		<isNotEmpty property="fineType">
+			<![CDATA[and t.FINE_TYPE = #fineType# ]]>
+		</isNotEmpty>
+		<isNotEmpty property="glh">
+			<![CDATA[and t.GLH = #glh# ]]>
+		</isNotEmpty>
+		order by t.GLH_NUM desc
+	</select>
+</sqlMap>

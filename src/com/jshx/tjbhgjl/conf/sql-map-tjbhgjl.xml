@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findPhyUnqRecByMap">
+		select new com.jshx.tjbhgjl.entity.PhyUnqRec(t.id, t.areaName,t.companyName, t.identification, t.jshxName, t.medicalExaminationDate, t.physicalExaminatioResults) from PhyUnqRec t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName = :areaName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="identification">
+			<![CDATA[and t.identification like :identification]]>
+		</isNotEmpty>
+		<isNotEmpty property="jshxName">
+			<![CDATA[and t.jshxName like :jshxName]]>
+		</isNotEmpty>
+		<isNotEmpty property="startMedicalExaminationDate">
+			<![CDATA[and t.medicalExaminationDate >= :startMedicalExaminationDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endMedicalExaminationDate">
+			<![CDATA[and t.medicalExaminationDate <= :endMedicalExaminationDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="physicalExaminatioResults">
+			<![CDATA[and t.physicalExaminatioResults like :physicalExaminatioResults]]>
+		</isNotEmpty>
+			<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="searchLike">
+			<![CDATA[and ( t.companyName like :searchLike or  t.jshxName like :searchLike or  t.identification like :searchLike)]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+</sqlMap>

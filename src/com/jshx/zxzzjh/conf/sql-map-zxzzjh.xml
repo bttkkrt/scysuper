@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findRecPlaByMap">
+		select new com.jshx.zxzzjh.entity.RecPla(t.id, t.workGoal, t.workTimeStart, t.workTimeEnd,t.planName,t.status,t.createUserID) from RecPla t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="workGoal">
+			<![CDATA[and t.workGoal like :workGoal]]>
+		</isNotEmpty>
+		<isNotEmpty property="startWorkTime">
+			<![CDATA[and t.workTimeEnd >= :startWorkTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endWorkTime">
+			<![CDATA[and t.workTimeStart <= :endWorkTime]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="planName">
+			<![CDATA[and t.planName like :planName]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="status">
+			<![CDATA[and t.status = :status]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  charindex(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="searchLike">
+			<![CDATA[and ( t.planName like :searchLike or t.workGoal like :searchLike)]]>
+		</isNotEmpty>
+		
+		
+		
+		order by t.createTime desc
+	</select>
+</sqlMap>

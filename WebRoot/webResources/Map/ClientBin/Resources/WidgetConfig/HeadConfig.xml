@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<configuration>
+  <SymInfo id="symInfo" Name1="QS应用系统开发框架模板" Name2="业务版" >
+
+  </SymInfo>
+
+  <!--<Node id="w_AppBar" label="系统功能条" icon="/.../x.png" widget="w_toolBar" visible="1" selected="0" openFun="m_showOneWidget" defaultId="w_g1">-->
+    <!--id:模块编号
+    label：显示名称
+    icon：图标相对地址
+    widget：需要打开的模块编号（在主配置文件中注册的模块id号）
+    visible：此模块显示状态：1：显示，2，隐藏
+    selected：此模块选中状态：1：选中，0，未选中
+    openFun：发出事件的消息id（AppEvent的消息编号）-->
+     <!--<Node id="w_g1" label="系统1"  icon="Images/leftBar/icon_01_CTB.png"        widget="w_g1"       visible="1"  selected="1"    openFun="ChangeNowConfig"/>
+    <Node id="w_g2" label="系统2" icon="Images/leftBar/icon_07_overlay.png"   widget="w_g2"      visible="1"  selected="0"   openFun="ChangeNowConfig"/>
+   <Node id="w_g3" label="系统3" icon="Images/leftBar/icon_03_CTB.png"        widget="w_g3"      visible="1"  selected="0"   openFun="ChangeNowConfig"/>-->
+  <!--</Node>-->
+  
+</configuration>

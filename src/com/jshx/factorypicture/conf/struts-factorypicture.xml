@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="FACTORYPICTURE" extends="default" namespace="/jsp/factorypicture">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="factorypictureQuery" class="com.jshx.factorypicture.web.FactorypictureAction" method="list">
+		</action>
+		
+		<action name="factorypictureList" class="com.jshx.factorypicture.web.FactorypictureAction" method="initlist">
+			<result name="success">/WEB-INF/pages/factorypicture/Factorypicture_List.jsp</result>
+			<result name="qiye">/WEB-INF/pages/factorypicture/FactorypictureQiye_List.jsp</result>
+		</action>
+		
+		<action name="factorypictureView" class="com.jshx.factorypicture.web.FactorypictureAction" method="view">
+			<result name="view">/WEB-INF/pages/factorypicture/Factorypicture_Detail.jsp</result>
+		</action>
+
+		<action name="factorypictureInitEdit" class="com.jshx.factorypicture.web.FactorypictureAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/factorypicture/Factorypicture_Edit.jsp</result>
+		</action>
+
+		<action name="factorypictureSave" class="com.jshx.factorypicture.web.FactorypictureAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="factorypictureDel" class="com.jshx.factorypicture.web.FactorypictureAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

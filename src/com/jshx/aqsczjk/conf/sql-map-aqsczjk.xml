@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findSafetyExpertsByMap">
+		select new com.jshx.aqsczjk.entity.SafetyExperts(t.id, t.safetyName, t.education, t.jobTitle, t.mobile,t.createUserID) from SafetyExperts t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="safetyName">
+			<![CDATA[and t.safetyName like :safetyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="mobile">
+			<![CDATA[and t.mobile like :mobile]]>
+		</isNotEmpty>
+		<isNotEmpty property="jobTitle">
+			<![CDATA[and t.jobTitle like :jobTitle]]>
+		</isNotEmpty>
+		<isNotEmpty property="education">
+			<![CDATA[and t.education = :education]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and (t.safetyName like :searchLike or t.mobile like  :searchLike )]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+	<select id="findAqsczjList" parameterClass="java.util.Map" resultClass="com.jshx.aqsczjk.entity.SafetyExperts">
+		SELECT t.ROW_ID as id, t.CREATETIME as createTime,t.SAFETY_NAME  as safetyName from SAFETY_EXPERTS t where t.delFlag=0 order by t.CREATETIME desc
+	</select>
+	
+	<select id="findAqsczjListSize" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from SAFETY_EXPERTS t where t.delFlag=0  
+	</select>
+</sqlMap>

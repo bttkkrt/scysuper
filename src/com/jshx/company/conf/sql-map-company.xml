@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findCompanyByMap">
+		from Company t 
+		<dynamic prepend="WHERE">
+		t.delFlag = 0
+		<isNotEmpty property="deptCode">
+			<![CDATA[and t.dwdz1 like :deptCode]]>
+		</isNotEmpty>
+		<isNotEmpty property="hyflTwoLevel">
+			<![CDATA[and t.hyflTwoLevel in (:hyflTwoLevel)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyname">
+			<![CDATA[and t.companyname like :companyname]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyAddress">
+			<![CDATA[and t.dwdz like :companyAddress]]>
+		</isNotEmpty>
+		<isNotEmpty property="fddbr">
+			<![CDATA[and t.fddbr like :fddbr]]>
+		</isNotEmpty>
+		<isNotEmpty property="zzjgdm">
+			<![CDATA[and t.zzjgdm like :zzjgdm]]>
+		</isNotEmpty>
+		<isNotEmpty property="gszch">
+			<![CDATA[and t.gszch like :gszch]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<![CDATA[and t.qylx = :qylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="hyfl">
+			<![CDATA[and t.hyfl = :hyfl]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyzclx">
+			<![CDATA[and t.qyzclx = :qyzclx]]>
+		</isNotEmpty>
+		<isNotEmpty property="whpqylx">
+			<![CDATA[and t.whpqylx = :whpqylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="whpqylx">
+			<![CDATA[and t.whpqylx = :whpqylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="Qwhpqylx">
+			<![CDATA[and t.companyType like :Qwhpqylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="Qzywhqylx">
+			<![CDATA[and t.companyType like :Qzywhqylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="Qyhbzjyqy">
+			<![CDATA[and t.companyType like :Qyhbzjyqy]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="dwdz1">
+			<![CDATA[and t.dwdz1 like :dwdz1]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		<isNotEmpty property="szcs">
+			<![CDATA[and t.szc = :szcs]]>
+		</isNotEmpty>
+		<isNotEmpty property="startQyclsj">
+			<![CDATA[and t.qyclsj >= :startQyclsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endQyclsj">
+			<![CDATA[and t.qyclsj <= :endQyclsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="passTer">
+			<![CDATA[and t.basePass= :passTer]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifwhpqylx">
+			<![CDATA[and t.ifwhpqylx= :ifwhpqylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifzywhqylx">
+			<![CDATA[and t.ifzywhqylx= :ifzywhqylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifyhbzjyqy">
+			<![CDATA[and t.ifyhbzjyqy =:ifyhbzjyqy]]>
+		</isNotEmpty>
+		<isNotEmpty property="iffmksjyqy">
+			<![CDATA[and t.iffmksjyqy =:iffmksjyqy]]>
+		</isNotEmpty>
+		<isNotEmpty property="iffmgmqylx">
+			<![CDATA[and t.iffmgmqylx =:iffmgmqylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="basePass">
+			<isEqual  property="basePass"  compareValue="0"> 
+				and (t.basePass=3 or t.basePass=0)
+			</isEqual>
+			<isEqual  property="basePass"  compareValue="1"> 
+				and t.basePass=1
+			</isEqual>
+			<isEqual  property="basePass"  compareValue="2"> 
+				and t.basePass=2
+			</isEqual>
+		</isNotEmpty>
+		<isNotEmpty property="loginname">
+			<![CDATA[and t.loginname like :loginname]]>
+		</isNotEmpty>
+		<isNotEmpty property="aqbzdbjb">
+			<![CDATA[and t.aqbzdbjb = :aqbzdbjb]]>
+		</isNotEmpty>
+		<!-- hanxc 20141210 修改 start -->
+		<isNotEmpty property="zsqytype">
+			<![CDATA[and t.zsqytype =:zsqytype and t.ifzsqy = 1]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifzsqy">
+			<![CDATA[and t.ifzsqy =:ifzsqy]]>
+		</isNotEmpty>
+		<isNotEmpty property="isNotZsqy">
+			<![CDATA[and (t.ifzsqy != 1 or t.ifzsqy is null) ]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyType">
+			<![CDATA[and ( t.companyType like $companyType$ )]]>
+		</isNotEmpty>
+		<isNotEmpty property="dutyFlag">
+			<![CDATA[and t.dutyFlag = :dutyFlag]]>
+		</isNotEmpty>
+		<isNotEmpty property="feature">
+			<![CDATA[and t.feature like :feature]]>
+		</isNotEmpty>
+		<!-- hanxc 20141210 修改 end -->
+        </dynamic>
+		order by t.createTime desc
+	</select>
+	
+	
+	<select id="getCompanyBackupById">
+	from CompanyBackUp t where t.delFlag = 0
+	<isNotEmpty property="companyId">
+		<![CDATA[and t.companyId= :companyId]]>
+	</isNotEmpty>
+	<isNotEmpty property="companyname">
+		<![CDATA[and t.companyname= :companyname]]>
+	</isNotEmpty>
+	<isNotEmpty property="id">
+		<![CDATA[and t.id= :id]]>
+	</isNotEmpty>
+	<isNotEmpty property="gszch">
+		<![CDATA[and t.gszch= :gszch]]>
+	</isNotEmpty>
+	</select>
+	
+	<!-- 删除企业注册信息 company 李军 2013-09-09 -->
+	<delete id="delete_company_lj_byId" parameterClass="java.lang.String">
+		delete from  company where row_id = #value#
+	</delete>
+	<!-- 删除企业注册信息 companyback 李军 2013-09-09 -->
+	<delete id="delete_companyback_lj_byId" parameterClass="java.lang.String">
+		delete from companybackup where companyid = #value#
+	</delete>
+	<!-- 删除用户信息 company 李军 2013-09-09 -->
+	<delete id="delete_users_lj_byId" parameterClass="java.lang.String">
+		update users u set u.del_flag = 1 where u.login_id in (select t.loginname from company t where t.row_id= #value#)
+	</delete>
+	
+	<select id="findCompanyBackUpList">
+		from CompanyBackUp t where t.delFlag = 0
+		<isNotEmpty property="dwdz1">
+			<![CDATA[and t.dwdz1 like :dwdz1]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyname">
+			<![CDATA[and t.companyname like :companyname]]>
+		</isNotEmpty>
+		<isNotEmpty property="hyfl">
+			<![CDATA[and t.hyflOneLevel like :hyflOneLevel]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="findCompanyByMaps" parameterClass="java.util.Map" resultClass="com.jshx.company.entity.Company">
+		select t.row_id as id,t.* from Company t where t.delFlag = 0
+		<isNotEmpty property="deptCode">
+			<![CDATA[and t.dwdz1 like #deptCode#]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="companyname">
+			<![CDATA[and t.companyname like #companyname#]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyAddress">
+			<![CDATA[and t.dwdz like #companyAddress#]]>
+		</isNotEmpty>
+		<isNotEmpty property="fddbr">
+			<![CDATA[and t.fddbr like #fddbr#]]>
+		</isNotEmpty>
+		<isNotEmpty property="zzjgdm">
+			<![CDATA[and t.zzjgdm like #zzjgdm#]]>
+		</isNotEmpty>
+		<isNotEmpty property="gszch">
+			<![CDATA[and t.gszch like #gszch#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<![CDATA[and t.qylx = #qylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="hyfl">
+			<![CDATA[and t.hyfl = #hyfl#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyzclx">
+			<![CDATA[and t.qyzclx = #qyzclx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="whpqylx">
+			<![CDATA[and t.whpqylx = #whpqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="whpqylx">
+			<![CDATA[and t.whpqylx = #whpqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="Qwhpqylx">
+			<![CDATA[and t.whpqylx like #Qwhpqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="Qzywhqylx">
+			<![CDATA[and t.zywhqylx like #Qzywhqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="Qyhbzjyqy">
+			<![CDATA[and t.yhbzjyqy like #Qyhbzjyqy#]]>
+		</isNotEmpty>
+		<isNotEmpty property="dwdz1">
+			<![CDATA[and t.dwdz1 like #dwdz1#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = #szc#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szcs">
+			<![CDATA[and t.szc = #szcs#]]>
+		</isNotEmpty>
+		<isNotEmpty property="startQyclsj">
+			<![CDATA[and t.qyclsj >= #startQyclsj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endQyclsj">
+			<![CDATA[and t.qyclsj <= #endQyclsj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="passTer">
+			<![CDATA[and t.basePass= #passTer#]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifwhpqylx">
+			<![CDATA[and t.ifwhpqylx= #ifwhpqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifzywhqylx">
+			<![CDATA[and t.ifzywhqylx= #ifzywhqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifyhbzjyqy">
+			<![CDATA[and t.ifyhbzjyqy =#ifyhbzjyqy#]]>
+		</isNotEmpty>
+		<isNotEmpty property="basePass">
+			<isEqual  property="basePass"  compareValue="0"> 
+				and (t.basePass=3 or t.basePass=0)
+			</isEqual>
+			<isEqual  property="basePass"  compareValue="1"> 
+				and t.basePass=1
+			</isEqual>
+			<isEqual  property="basePass"  compareValue="2"> 
+				and t.basePass=2
+			</isEqual>
+		</isNotEmpty>
+		<isNotEmpty property="loginname">
+			<![CDATA[and t.loginname like #loginname#]]>
+		</isNotEmpty>
+		<!-- hanxc 20141210 修改 start -->
+		<isNotEmpty property="zsqytype">
+			<![CDATA[and t.zsqytype =#zsqytype# and t.ifzsqy = 1]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifzsqy">
+			<![CDATA[and t.ifzsqy =:ifzsqy]]>
+		</isNotEmpty>
+		<isNotEmpty property="isNotZsqy">
+			<![CDATA[and (t.ifzsqy != 1 or t.ifzsqy is null) ]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyType">
+			<![CDATA[and ( t.companyType like $companyType$ )]]>
+		</isNotEmpty>
+		<isNotEmpty property="dutyFlag">
+			<![CDATA[and t.duty_Flag = :dutyFlag]]>
+		</isNotEmpty>
+		<!-- hanxc 20141210 修改 end -->
+		order by t.createTime desc
+	</select>
+	
+	
+	<insert id="saveXfjUser" parameterClass="com.jshx.module.admin.entity.User">
+	insert into USERS (ROW_ID, CREATETIME, CREATEUSERID, UPDATETIME, UPDATEUSERID, CSS_ID, DEL_FLAG, DEPT_CODE, DISPLAY_NAME, DISPLAY_NUM, DUTY, EMAIL, LOGIN_ID, MOBILE, PASSWORD, SORT_SQ, TEL, DEPT_ID)
+	values (#id#, #createTime#, #createUserID#, #updateTime#, #updateUserID#, 'default', 0, '003', #displayName#, null, null, null, #loginId#, #mobile#, #password#, 1, null, '4028e53a487c61c301487c700f0d000b')
+	</insert>
+	
+	<insert id="saveXfjUserRight" parameterClass="com.jshx.module.admin.entity.User">
+	insert into USER_RIGHT (ROW_ID,ROLE_ID, USER_ID)
+	values (#id#, '4028e53a488b576d01488b740d350007',#id#)
+	</insert>
+	
+	<insert id="saveXfjcompany" parameterClass="com.jshx.company.entity.XfjCompany">
+	insert into COMPANY 
+	(ROW_ID,DEPTID,DELFLAG,LOGINNAME,LOGINWORD,COMPANYNAME,FDDBR,DWDZ,ZZJGDM,GSZCH,QYYX,QYCLSJ,GDDH,CZ,YZBM,
+  	ZDMJ,JZMJ,CYRY,DWDZ1,DWDZ2,BASEPASS,FDDBRLXHM,LATITUDE,LONGITUDE,CREATETIME)
+	values 
+	(#id#,#deptId#,#delFlag#,#loginname#,#loginword#,#companyname#,#fddbr#,#dwdz#,#zzjgdm#,#gszch#,#qyyx#,#qyclsj#,#gddh#,#cz#,#yzbm#,
+  	#zdmj#,#jzmj#,#cyry#,#dwdz1#,#dwdz2#,#basePass#,#fddbrlxhm#,#latitude#,#longitude#,#createTime#)
+	</insert>
+	
+	<insert id="saveXfjcompanyBackup" parameterClass="com.jshx.company.entity.XfjCompany">
+	insert into CompanyBackUp 
+	(ROW_ID,DEPTID,DELFLAG,LOGINNAME,LOGINWORD,COMPANYNAME,FDDBR,DWDZ,ZZJGDM,GSZCH,QYYX,QYCLSJ,GDDH,CZ,YZBM,
+  	ZDMJ,JZMJ,CYRY,DWDZ1,DWDZ2,BASEPASS,FDDBRLXHM,LATITUDE,LONGITUDE,COMPANYID,CREATETIME)
+	values 
+	(#companyId#,#deptId#,#delFlag#,#loginname#,#loginword#,#companyname#,#fddbr#,#dwdz#,#zzjgdm#,#gszch#,#qyyx#,#qyclsj#,#gddh#,#cz#,#yzbm#,
+  	#zdmj#,#jzmj#,#cyry#,#dwdz1#,#dwdz2#,#basePass#,#fddbrlxhm#,#latitude#,#longitude#,#id#,#createTime#)
+	</insert>
+	
+	<update id="updateXfjcompany" parameterClass="java.util.Map">
+	update COMPANY set LOGINWORD = '123456' where LOGINNAME = #loginname#
+	</update>
+	
+	<update id="updateXfjcompanyBackup" parameterClass="java.util.Map">
+	update CompanyBackUp set LOGINWORD = '123456' where LOGINNAME = #loginname#
+	</update>
+	
+	<update id="updateXfjcompanyUser" parameterClass="java.util.Map">
+	update users set PASSWORD = #password# where LOGIN_ID = #loginname#
+	</update>
+	<!-- select MAX(to_number(substr(t.zc_code,length(t.zc_code)-5,6))) num from company t -->
+	<select id="findMaxCode">
+		select MAX(cast(t.zc_code as unsigned int)) num from company t
+	</select>
+	
+	<select id="finditemText" >
+		SELECT ITEM_TEXT FROM codevalue WHERE DEL_FLAG=0 AND CODE_ID='8a818405478f026101478f2a97b10002' AND ITEM_VALUE=:itemValue
+	</select>
+	<select id="findCompanyByMaps2_count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select  count(*) from Company t where 1=1
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.dwdz1 like #deptCodes#]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="companyname">
+			<![CDATA[and t.companyname like #companyname#]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyAddress">
+			<![CDATA[and t.dwdz like #companyAddress#]]>
+		</isNotEmpty>
+		<isNotEmpty property="fddbr">
+			<![CDATA[and t.fddbr like #fddbr#]]>
+		</isNotEmpty>
+		<isNotEmpty property="zzjgdm">
+			<![CDATA[and t.zzjgdm like #zzjgdm#]]>
+		</isNotEmpty>
+		<isNotEmpty property="gszch">
+			<![CDATA[and t.gszch like #gszch#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<![CDATA[and t.qylx = #qylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="hyfl">
+			<![CDATA[and t.hyfl = #hyfl#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyzclx">
+			<![CDATA[and t.qyzclx = #qyzclx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="whpqylx">
+			<![CDATA[and t.whpqylx = #whpqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="whpqylx">
+			<![CDATA[and t.whpqylx = #whpqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="Qwhpqylx">
+			<![CDATA[and t.whpqylx like #Qwhpqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="Qzywhqylx">
+			<![CDATA[and t.zywhqylx like #Qzywhqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="Qyhbzjyqy">
+			<![CDATA[and t.yhbzjyqy like #Qyhbzjyqy#]]>
+		</isNotEmpty>
+		
+		
+		<isNotEmpty property="dwdz1">
+			<![CDATA[and t.dwdz1 = #dwdz1#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = #szc#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szcs">
+			<![CDATA[and t.szc = #szcs#]]>
+		</isNotEmpty>
+		<isNotEmpty property="startQyclsj">
+			<![CDATA[and t.qyclsj >= #startQyclsj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endQyclsj">
+			<![CDATA[and t.qyclsj <= #endQyclsj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="passTer">
+			<![CDATA[and t.basePass= #passTer#]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifwhpqylx">
+			<![CDATA[and t.ifwhpqylx= #ifwhpqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifzywhqylx">
+			<![CDATA[and t.ifzywhqylx= #ifzywhqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifyhbzjyqy">
+			<![CDATA[and t.ifyhbzjyqy =#ifyhbzjyqy#]]>
+		</isNotEmpty>
+		<isNotEmpty property="basePass">
+			<isEqual  property="basePass"  compareValue="0"> 
+				and (t.basePass=3 or t.basePass=0)
+			</isEqual>
+			<isEqual  property="basePass"  compareValue="1"> 
+				and t.basePass=1
+			</isEqual>
+			<isEqual  property="basePass"  compareValue="2"> 
+				and t.basePass=2
+			</isEqual>
+		</isNotEmpty>
+		<isNotEmpty property="loginname">
+			<![CDATA[and t.loginname like #loginname#]]>
+		</isNotEmpty>
+		<!-- hanxc 20150225 修改 start -->
+		<isNotEmpty property="zsqytype">
+			<![CDATA[and t.zsqytype = #zsqytype# and t.ifzsqy = 1]]>
+		</isNotEmpty>
+		<!-- hanxc 20150225 修改 end -->
+		order by t.createTime desc
+	</select>
+</sqlMap>

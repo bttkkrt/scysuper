@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MANAGER_TRAINING" extends="default" namespace="/jsp/aqscgljlpx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="managerTrainingQuery" class="com.jshx.aqscgljlpx.web.ManagerTrainingAction" method="list">
+		</action>
+		
+		<action name="managerTrainingList" class="com.jshx.aqscgljlpx.web.ManagerTrainingAction" method="init">
+			<result name="success">/WEB-INF/pages/aqscgljlpx/ManagerTraining_List.jsp</result>
+		</action>
+		
+		<action name="managerTrainingView" class="com.jshx.aqscgljlpx.web.ManagerTrainingAction" method="view">
+			<result name="view">/WEB-INF/pages/aqscgljlpx/ManagerTraining_Detail.jsp</result>
+		</action>
+
+		<action name="managerTrainingInitEdit" class="com.jshx.aqscgljlpx.web.ManagerTrainingAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqscgljlpx/ManagerTraining_Edit.jsp</result>
+		</action>
+
+		<action name="managerTrainingSave" class="com.jshx.aqscgljlpx.web.ManagerTrainingAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_managerTraining</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="managerTrainingDel" class="com.jshx.aqscgljlpx.web.ManagerTrainingAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

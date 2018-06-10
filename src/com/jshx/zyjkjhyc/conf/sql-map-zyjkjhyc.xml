@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findZyjkjhycByMap">
+		from Zyjkjhyc t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="proid">
+			<![CDATA[and t.proid = :proid]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryTjrqStart">
+			<![CDATA[and t.tjrq >= :queryTjrqStart]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryTjrqEnd">
+			<![CDATA[and t.tjrq <= :queryTjrqEnd]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+</sqlMap>

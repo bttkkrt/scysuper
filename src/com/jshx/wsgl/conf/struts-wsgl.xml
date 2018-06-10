@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="INSTRUMENTS_INFO" extends="default" namespace="/jsp/wsgl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="instrumentsInfoQuery" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="list">
+		</action>
+		
+		<action name="instrumentsInfoList" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="init">
+			<result name="success">/WEB-INF/pages/wsgl/InstrumentsInfo_List.jsp</result>
+		</action>
+		
+		<action name="instrumentsInfoView" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="view">
+			<result name="view">/WEB-INF/pages/wsgl/InstrumentsInfo_Detail.jsp</result>
+			<result name="views">/WEB-INF/pages/wsgl/InstrumentsInfo_Details.jsp</result>
+		</action>
+
+		<action name="instrumentsInfoInitEdit" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/wsgl/InstrumentsInfo_Edit.jsp</result>
+			<result name="edits">/WEB-INF/pages/wsgl/InstrumentsInfo_Edits.jsp</result>
+		</action>
+
+		<action name="instrumentsInfoSave" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_instrumentsInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="instrumentsInfoDel" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="delete">
+		</action>
+		
+		<action name="instrumentsInfoExport" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="export">
+		</action>
+		
+		<action name="instrumentsInfoPic" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="returnPic">
+			<result name="success">/WEB-INF/pages/wsgl/InstrumentsInfo_Pic.jsp</result>
+		</action>
+		
+		<action name="instrumentsInfoPicSave" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="picSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_instrumentsInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="instrumentsInfoShenhe" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="shenhe">
+			<result name="success">/WEB-INF/pages/wsgl/InstrumentsInfo_Shenhe.jsp</result>
+		</action>
+		
+		
+		<action name="instrumentsInfoShenheSave" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="shenheSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_instrumentsInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="queryWsxx" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="queryWsxx">
+		</action>
+		
+		<action name="queryWsType" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="queryWsType">
+			<result name="success">/WEB-INF/pages/wsgl/InstrumentsInfo_WsList.jsp</result>
+		</action>
+		
+		<action name="instrumentsInfoShenheAll" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="shenheAll">
+			<result name="success">/WEB-INF/pages/wsgl/InstrumentsInfo_ShenheAll.jsp</result>
+		</action>
+		
+		
+		<action name="instrumentsInfoShenheAllSave" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="shenheAllSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_instrumentsInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="selectUsers" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="selectUsers">
+			<result name="success">/WEB-INF/pages/wsgl/InstrumentsInfo_SelectUser.jsp</result>
+		</action>
+		
+		<action name="getDepartUser" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="getDepartUser">
+		</action>
+		
+		<action name="lockUser" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="lockUser">
+		</action>
+		
+		<action name="lockAndShowUser" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="lockAndShowUser">
+		</action>
+		
+		<action name="unlockUser" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="unlockUser">
+		</action>
+		
+		<action name="instrumentsInfoSaves" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="saves">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_instrumentsInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+	</package>
+</struts>

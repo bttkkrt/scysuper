@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PRO_DEV" extends="default" namespace="/jsp/scsbss">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="proDevQuery" class="com.jshx.scsbss.web.ProDevAction" method="list">
+		</action>
+		
+		<action name="proDevList" class="com.jshx.scsbss.web.ProDevAction" method="init">
+			<result name="success">/WEB-INF/pages/scsbss/ProDev_List.jsp</result>
+		</action>
+		
+		<action name="proDevView" class="com.jshx.scsbss.web.ProDevAction" method="view">
+			<result name="view">/WEB-INF/pages/scsbss/ProDev_Detail.jsp</result>
+		</action>
+
+		<action name="proDevInitEdit" class="com.jshx.scsbss.web.ProDevAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/scsbss/ProDev_Edit.jsp</result>
+		</action>
+
+		<action name="proDevSave" class="com.jshx.scsbss.web.ProDevAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_proDev</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proDevDel" class="com.jshx.scsbss.web.ProDevAction" method="delete">
+		</action>
+		
+		
+		<action name="initImportProDev" class="com.jshx.scsbss.web.ProDevAction" method="initImport">
+		    <result name="success">/WEB-INF/pages/scsbss/importProDev.jsp</result>
+		</action>
+		
+		<action name="importProDev" class="com.jshx.scsbss.web.ProDevAction" method="importProDev">
+			<result name="success" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+		</action>
+		
+	</package>
+</struts>

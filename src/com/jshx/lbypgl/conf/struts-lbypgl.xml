@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PPE_MANAG" extends="default" namespace="/jsp/lbypgl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="ppeManagQuery" class="com.jshx.lbypgl.web.PpeManagAction" method="list">
+		</action>
+		
+		<action name="ppeManagList" class="com.jshx.lbypgl.web.PpeManagAction" method="init">
+			<result name="success">/WEB-INF/pages/lbypgl/PpeManag_List.jsp</result>
+		</action>
+		
+		<action name="ppeManagView" class="com.jshx.lbypgl.web.PpeManagAction" method="view">
+			<result name="view">/WEB-INF/pages/lbypgl/PpeManag_Detail.jsp</result>
+		</action>
+
+		<action name="ppeManagInitEdit" class="com.jshx.lbypgl.web.PpeManagAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/lbypgl/PpeManag_Edit.jsp</result>
+		</action>
+
+		<action name="ppeManagSave" class="com.jshx.lbypgl.web.PpeManagAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_ppeManag</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="ppeManagDel" class="com.jshx.lbypgl.web.PpeManagAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

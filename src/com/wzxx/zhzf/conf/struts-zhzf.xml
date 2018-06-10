@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZHZF" extends="default" namespace="/jsp/zhzf">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zhzfQuery" class="com.wzxx.zhzf.web.ZhzfAction" method="list">
+		</action>
+		
+		<action name="zhzfList">
+			<result name="success">/WEB-INF/wzPage/zhzf/Zhzf_List.jsp</result>
+		</action>
+		
+		<action name="zhzfView" class="com.wzxx.zhzf.web.ZhzfAction" method="view">
+			<result name="view">/WEB-INF/wzPage/zhzf/Zhzf_Detail.jsp</result>
+		</action>
+
+		<action name="zhzfInitEdit" class="com.wzxx.zhzf.web.ZhzfAction" method="initEdit">
+			<result name="edit">/WEB-INF/wzPage/zhzf/Zhzf_Edit.jsp</result>
+		</action>
+
+		<action name="zhzfSave" class="com.wzxx.zhzf.web.ZhzfAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_zhzf</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zhzfDel" class="com.wzxx.zhzf.web.ZhzfAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

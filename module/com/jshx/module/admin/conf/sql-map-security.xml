@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <!-- 根据用户以及模块查找按键 -->
+    <select id="querySecurityForButton">
+        from ModuleButton b where 1=1
+        <isNotEmpty property="module">
+            and b.module = :module
+        </isNotEmpty>
+        <isNotEmpty property="user">
+            and b in (select r.button from ButtonRight r where r.role in (select r1.role from UserRight r1 where r1.user = :user))
+        </isNotEmpty>
+    </select>
+    
+    <!-- 查找用户所能查看的模块 -->
+    <select id="findModules">
+    	from Module m where ((
+    	<!-- 所有有公开权限功能的模块 -->
+        select count(*) from Module cm where cm.isPublic=1 
+        and cm.moduleCode like concat(m.moduleCode , '%') )>0
+       or (
+       <!-- 用户有权限的模块 -->
+       select count(*) from Permission p where p.roleId in (select ur.role.id from UserRight ur where ur.user.id=:userId) and p.permissionType=0 
+       and p.permissionExpression like concat(concat('module:', m.moduleCode),'%'))>0
+       ) and m.isVisible=1 and length(m.moduleCode)=3 order by m.sortSq
+    	<!--
+         from Module m
+       where m.isVisible = 1
+         and length(m.moduleCode)=3 
+         and (m.isPublic = 1 or
+             (m.moduleCode in
+              (select substring(r.module.moduleCode, 1, length(m.moduleCode))
+               from ModuleRight r
+                  left join r.module
+               where r.role in
+                 (select rr.role
+                    from UserRight rr
+                    where 1=1
+                  <dynamic>
+                    <isNotEmpty property="userId">
+                     and rr.user.id = :userId )
+                    </isNotEmpty>
+                  </dynamic>
+             and r.module.moduleCode like concat(m.moduleCode, '%'))))
+             order by m.sortSq
+             -->
+    </select>
+    <select id="cntModule">
+        select count(m) from Module m where m.isVisible=1 and ((m.isPublic=1 and m.moduleCode like :moduleCode) or m in (select r.module from ModuleRight r where r.role in (select rr.role from UserRight rr where rr.user = :user) and r.module.moduleCode like :moduleCode))
+    </select>
+    
+    <!-- 查找用户可看的模块（菜单显示用） -->
+    <!-- <select id="findModuleTree">
+    	
+        from Module m where m.isVisible=1 and (
+        
+        m.isPublic=1 or 
+        (m.moduleCode in (select substring(r.module.moduleCode,1,:length+2) from ModuleRight r where r.role in (select rr.role from UserRight rr where rr.user = :user and r.module.moduleCode like concat(m.moduleCode,'%')))) or 
+        
+        (m.moduleCode in (select substring(mm.moduleCode,1,:length+2) from Module mm where mm.moduleCode like  :moduleCode and mm.isPublic=1))
+        ) 
+        and length(m.moduleCode) = :length+2 and m.moduleCode like :moduleCode order by m.sortSq, m.moduleName desc
+       
+        from Module m where (
+(select count(*) from Module cm where cm.isPublic=1 and cm.isVisible=1 and cm.moduleCode like :moduleCode)>0 
+ or  
+(select count(*) from Permission p where p.roleId in (select new UserRight(tbt.role.id) from (select ur.role.id from UserRight ur where ur.user.id=:userId) as tbt) 
+ and p.permissionType=0 
+ and p.permissionExpression like concat('module:',:moduleCode)
+)>0
+) and m.isVisible=1 and length(m.moduleCode)=:length and m.moduleCode like :moduleCode order by m.sortSq, m.moduleName desc
+    </select> -->
+    
+    <!-- <select id="findModuleTree" parameterClass="java.util.Map" >
+      select * from Module m where 
+(
+select count(*) from Module cm where cm.is_Public=1 and cm.is_Visible=1
+and cm.module_Code like :moduleCode
+)>0
+or 
+concat('module:',m.module_Code) in (select p.permission_Expression from Permission p where p.role_Id in
+	(select role_id from(select ur.role_id from User_Right ur where ur.user_id=:userId)  as tbt) 
+and p.permission_Type=0 
+and p.permission_Expression like concat('module:',:moduleCode)
+)
+ and m.is_Visible=1 and length(m.module_Code)=:length and m.module_Code like :moduleCode order by m.sort_Sq, m.module_Name desc;
+    </select> -->
+    
+    <select id="findModuleTree" parameterClass="java.util.Map" >
+      select * from Module m where (
+(
+select count(*) from Module cm where cm.is_Public=1 and cm.is_Visible=1
+and cm.module_Code like :moduleCode
+)>0
+or 
+(select count(*) from Permission p where p.role_Id in
+	(select role_id from(select ur.role_id from User_Right ur where ur.user_id=:userId)  as tbt) 
+and p.permission_Type=0 
+and p.permission_Expression like concat('module:',:moduleCode)
+)>0
+)
+and m.module_Code in (select SUBSTR(p.permission_Expression,INSTR(p.permission_Expression,':')+1,LENGTH(p.permission_Expression)) from Permission p where p.role_Id in
+	(select role_id from(select ur.role_id from User_Right ur where ur.user_id=:userId)  as tbt) 
+and p.permission_Type=0 
+and p.permission_Expression like concat('module:',:moduleCode))
+ and m.is_Visible=1 and length(m.module_Code)=:length and m.module_Code like :moduleCode 
+ <dynamic>
+    <isNotEmpty property="otherProperty">
+     and m.other_property=:otherProperty 
+    </isNotEmpty>
+  </dynamic>
+ 
+ order by m.sort_Sq, m.module_Name desc;
+    </select>
+    
+    <!-- 查找用户可看的模块（菜单显示用） -->
+    <select id="findModuleTreeAdmin">
+    	 from Module m where m.isVisible=1
+            <isNotEmpty property="moduleCode">
+            	and m.moduleCode like :moduleCode
+            </isNotEmpty>
+            <isNotEmpty property="length">
+                and length(m.moduleCode) =:length
+            </isNotEmpty>
+        order by m.sortSq, m.moduleName desc
+    </select>
+    <!-- 查找用户所能看到的所有模块 -->
+    <select id="findMyModuleCodes">
+      select m.moduleCode
+        from Module m
+       where m.isVisible = 1
+         and (m.isPublic = 1 or
+             (m.moduleCode in
+              (select substring(r.module.moduleCode, 1, length(m.moduleCode))
+               from ModuleRight r
+                  left join r.module
+               where r.role in
+                 (select rr.role
+                    from UserRight rr
+                    where 1=1
+                  <dynamic>
+                    <isNotEmpty property="userId">
+                     and rr.user.id = :userId )
+                    </isNotEmpty>
+                  </dynamic>
+             and r.module.moduleCode like concat(m.moduleCode, '%'))))
+    </select>
+    
+    <!-- 查找权限 -->
+    <select id="findPermission">
+    	from Permission p
+    	<dynamic prepend="where">
+    		<isNotEmpty property="userId" prepend="and">
+    			p.userId = :userId
+    		</isNotEmpty>
+    		<isNotEmpty property="roleId" prepend="and">
+    			p.roleId = :roleId
+    		</isNotEmpty>
+    		<isNotEmpty property="permissionType" prepend="and">
+    			p.permissionType = :permissionType
+    		</isNotEmpty>
+    		<isNotEmpty property="permissionExpression" prepend="and">
+    			p.permissionExpression like :permissionExpression
+    		</isNotEmpty>
+    		<isNotEmpty property="stricPermissionExpression" prepend="and">
+    		    p.permissionExpression = :stricPermissionExpression
+    		</isNotEmpty>
+    	</dynamic>
+    </select>
+    
+    <!-- 删除权限 -->
+    <select id="removePermission">
+    	delete from Permission p
+    	<dynamic prepend="where">
+    		<isNotEmpty property="permissionType" prepend="and">
+    			p.permissionType = :permissionType
+    		</isNotEmpty>
+    		<isNotEmpty property="permissionExpression" prepend="and">
+    			p.permissionExpression like :permissionExpression
+    		</isNotEmpty>
+    		<isNotEmpty property="userId" prepend="and">
+    			p.userId = :userId
+    		</isNotEmpty>
+    		
+    		<isNotEmpty property="roleId" prepend="and">
+    			p.roleId = :roleId
+    		</isNotEmpty>
+    		<!--
+    		<isEmpty property="userId" prepend="and">
+    			p.userId is null
+    		</isEmpty>
+    		<isEmpty property="roleId" prepend="and">
+    			p.roleId is null
+    		</isEmpty>
+    		-->
+    	</dynamic>
+    </select>
+    
+    <!-- 更新模块的Code时需要执行 -->
+    <select id="updateModulePermission">
+    	update Permission p set p.permissionExpression = :newPermissionExpression where p.permissionExpression = :oldPermissionExpression
+    </select>
+    
+    <!--  
+    <select id="findMyModuleCodes">
+      select m.module_Code
+        from Module m
+       where m.is_Visible = 1
+         and (m.is_Public = 1 or
+             (m.module_Code in
+              (select substr(mm.module_Code, 1, length(m.module_Code))
+               from Module_Right r
+                  left join Module mm on r.module_id = mm.row_id
+               where r.role_id in
+                 (select rr.role_id
+                    from User_Right rr
+                    where 1=1
+                  <dynamic>
+                    <isNotEmpty property="userId">
+                     and rr.user_id = :userId )
+                    </isNotEmpty>
+                  </dynamic>
+             and mm.module_Code like concat(m.module_Code, '%'))))
+    </select>
+    -->
+    <select id="findModuleByRole">
+        from Module m where ((
+    	<!-- 所有有公开权限功能的模块 -->
+        select count(*) from Module cm where cm.isPublic=1 
+        and cm.moduleCode like concat(m.moduleCode , '%') )>0
+       or (
+       <!-- 用户有权限的模块 -->
+       select count(*) from Permission p where p.roleId = :roleId and p.permissionType=0 
+       and p.permissionExpression like concat(concat('module:', m.moduleCode),'%'))>0
+       ) and m.isVisible=1 and length(m.moduleCode)=:length and m.moduleCode like :moduleCode order by m.sortSq
+    </select>
+</sqlMap>

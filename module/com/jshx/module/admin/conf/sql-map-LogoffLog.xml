@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findLogoffLogByMap">
+		select new com.jshx.module.admin.entity.LogoffLog(t.id, t.userId, t.fromIp, t.logoffType, t.logoffDate, t.userAgent, t.browser, t.operationsystem) from LogoffLog t where t.delFlag = 0
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="userId">
+			<![CDATA[and t.userId like :userId]]>
+		</isNotEmpty>
+		<isNotEmpty property="fromIp">
+			<![CDATA[and t.fromIp like :fromIp]]>
+		</isNotEmpty>
+		<isNotEmpty property="logoffType">
+			<![CDATA[and t.logoffType like :logoffType]]>
+		</isNotEmpty>
+		<isNotEmpty property="startLogoffDate">
+			<![CDATA[and t.logoffDate >= :startLogoffDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endLogoffDate">
+			<![CDATA[and t.logoffDate <= :endLogoffDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="userAgent">
+			<![CDATA[and t.userAgent like :userAgent]]>
+		</isNotEmpty>
+		<isNotEmpty property="browser">
+			<![CDATA[and t.browser like :browser]]>
+		</isNotEmpty>
+		<isNotEmpty property="operationsystem">
+			<![CDATA[and t.operationsystem like :operationsystem]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="queryLogoffLog">
+		from LogoffLog l where 1=1
+        <dynamic>
+            <isNotEmpty property="beginDate">
+            and l.logoffDate &gt;= :beginDate
+            </isNotEmpty>
+            <isNotEmpty property="endDate">
+            and l.logoffDate &lt;= :endDate
+            </isNotEmpty>
+            <isNotEmpty property="deptCode">
+            and l.user.deptCode like :deptCode
+            </isNotEmpty>
+            <isNotEmpty property="userName">
+            and (l.user.displayName like :userName or l.user.loginId like :userName)
+            </isNotEmpty>
+            <isNotEmpty property="browser">
+            and l.browser = :browser
+            </isNotEmpty>
+            <isNotEmpty property="os">
+            and l.operationsystem = :os
+            </isNotEmpty>
+            <isNotEmpty property="logoffType">
+            and l.logoffType = :logoffType
+            </isNotEmpty>
+        </dynamic>
+        order by l.logoffDate desc
+	</select>
+</sqlMap>

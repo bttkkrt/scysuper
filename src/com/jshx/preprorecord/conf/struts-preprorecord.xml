@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PRE_PRO_REC" extends="default" namespace="/jsp/preprorecord">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="preProRecQuery" class="com.jshx.preprorecord.web.PreProRecAction" method="list">
+		</action>
+		
+		<action name="preProRecList" class="com.jshx.preprorecord.web.PreProRecAction" method="init">
+			<result name="success">/WEB-INF/pages/preprorecord/PreProRec_List.jsp</result>
+		</action>
+		
+		<action name="preProRecView" class="com.jshx.preprorecord.web.PreProRecAction" method="view">
+			<result name="view">/WEB-INF/pages/preprorecord/PreProRec_Detail.jsp</result>
+		</action>
+
+		<action name="preProRecInitEdit" class="com.jshx.preprorecord.web.PreProRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/preprorecord/PreProRec_Edit.jsp</result>
+		</action>
+
+		<action name="preProRecSave" class="com.jshx.preprorecord.web.PreProRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_preProRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="preProRecDel" class="com.jshx.preprorecord.web.PreProRecAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

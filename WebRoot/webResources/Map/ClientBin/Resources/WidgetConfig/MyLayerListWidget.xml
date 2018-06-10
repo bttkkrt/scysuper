@@ -1,0 +1,43 @@
+﻿<?xml version="1.0"?>
+
+<!--企业所属图层树结构-->
+
+<configuration>
+  <!--<node  id="l_xzdtfw" name = "网格" type="ROOT" selected = "0" enabled="1" icon="/Images/icon_layer_layer.png" >
+    --><!--<node id = "l_a_wg" name = "园区网格" type="NODE" selected = "1" enabled="1" icon="/images/icon_layer_group.png"/>--><!--
+    <node id = "0101" name = "一中队" type="NODE" selected = "0" enabled="1" icon="/Images/icon_layer_group.png"/>
+    <node id = "0102" name = "二中队" type="NODE" selected = "0" enabled="1" icon="/Images/icon_layer_group.png"/>
+    <node id = "0103" name = "三中队" type="NODE" selected = "0" enabled="1" icon="/Images/icon_layer_group.png"/>
+    <node id = "0110" name = "科教创新区社工委" type="NODE" selected = "0" enabled="1" icon="/Images/icon_layer_group.png"/>
+    <node id = "0106" name = "唯亭街道" type="NODE" selected = "0" enabled="1" icon="/Images/icon_layer_group.png"/> 
+    <node id = "0107" name = "娄葑街道" type="NODE" selected = "0" enabled="1" icon="/Images/icon_layer_group.png"/>
+    <node id = "0108" name = "国际商务区" type="NODE" selected = "0" enabled="1" icon="/Images/icon_layer_group.png"/>
+    <node id = "0104" name = "斜塘街道" type="NODE" selected = "0" enabled="1" icon="/Images/icon_layer_group.png"/>
+    <node id = "0105" name = "胜浦街道" type="NODE" selected = "0" enabled="1" icon="/Images/icon_layer_group.png"/>
+    <node id = "0109" name = "阳澄半岛" type="NODE" selected = "0" enabled="1" icon="/Images/icon_layer_group.png"/>
+    
+  </node>-->
+
+  <node  id="l_dytc" name = "多源图层" type="ROOT" selected = "0" enabled="1" icon="/Images/icon_layer_layer.png" >
+   
+    <node id = "l_qyhxt" name = "企业红线图" type="ROOT" selected = "0" enabled="1" icon="/Images/icon_layer_layer.png">
+      <node id = "l_a_yq" name = "宗地红线图" type="NODE" selected = "0" enabled="1" icon="/Images/icon_layer_layer.png"/>
+    </node>
+    <node id = "l_xfss" name = "消防设施图层" type="ROOT" selected = "0" enabled="1" icon="/Images/icon_layer_layer.png">
+      <node id = "l_a_xfs" name = "消防设施" type="NODE" selected = "0" enabled="1" icon="/Images/icon_layer_layer.png"/>
+    </node>
+    <node id = "l_zjzttc" name = "质监专题图层" type="ROOT" selected = "0" enabled="1" icon="/Images/icon_layer_layer.png">
+      <node id = "l_a_dt" name = "电梯" type="NODE" selected = "0" enabled="1" icon="/Images/specialequipment/电梯.png"/>
+      <node id = "l_a_gl" name = "锅炉" type="NODE" selected = "0" enabled="1" icon="/Images/specialequipment/锅炉.png"/>
+      <node id = "l_a_qzjx" name = "起重机械" type="NODE" selected = "0" enabled="1" icon="/Images/specialequipment/起重机械.png"/>
+      <node id = "l_a_ylrq" name = "压力容器" type="NODE" selected = "0" enabled="1" icon="/Images/specialequipment/压力容器.png"/>
+      <node id = "l_a_cc" name = "厂车" type="NODE" selected = "0" enabled="1" icon="/Images/specialequipment/厂车.png"/>
+    </node>
+    <node id = "l_zj" name = "25D地图的注记信息" type="ROOT" selected = "0" enabled="1" icon="/Images/icon_layer_layer.png">
+      <node id = "l_a_roadname" name = "道路注记" type="NODE" selected = "1" enabled="1" icon="/Images/icon_layer_roadname.png"/>
+    </node>
+   
+  </node>
+  
+  
+</configuration>

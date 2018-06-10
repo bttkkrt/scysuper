@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="TERMINAL_LOGIN_INFO" extends="default" namespace="/jsp/terminalLoginInfo">
+		<!-- 修改前的配置 
+		<action name="terminalLoginInfoList" class="com.jshx.terminlLoginInfo.web.TerminalLoginInfoAction" method="list">
+			<result name="list">/WEB-INF/pages/terminalLoginInfo/TerminalLoginInfo_List.jsp</result>
+		</action>
+		-->
+		
+		<!-- 修改列表方法，返回Json数据 -->
+		<action name="terminalLoginInfoQuery" class="com.jshx.terminlLoginInfo.web.TerminalLoginInfoAction" method="list">
+		</action>
+		
+		<action name="terminalLoginInfoList" class="com.jshx.terminlLoginInfo.web.TerminalLoginInfoAction" method="initList">
+			<result name="success">/WEB-INF/pages/terminalLoginInfo/TerminalLoginInfo_List.jsp</result>
+		</action>
+		
+		<action name="terminalLoginInfoView" class="com.jshx.terminlLoginInfo.web.TerminalLoginInfoAction" method="view">
+			<result name="view">/WEB-INF/pages/terminalLoginInfo/TerminalLoginInfo_Detail.jsp</result>
+		</action>
+
+		<action name="terminalLoginInfoInitEdit" class="com.jshx.terminlLoginInfo.web.TerminalLoginInfoAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/terminalLoginInfo/TerminalLoginInfo_Edit.jsp</result>
+		</action>
+
+		<action name="terminalLoginInfoSave" class="com.jshx.terminlLoginInfo.web.TerminalLoginInfoAction" method="save">
+			<result name="reload">/common/successToSelf.jsp</result>
+		</action>
+
+		<action name="terminalLoginInfoDel" class="com.jshx.terminlLoginInfo.web.TerminalLoginInfoAction" method="delete">
+		</action>
+		
+		<action name="terminalLoginInfoExport" class="com.jshx.terminlLoginInfo.web.TerminalLoginInfoAction" method="export">
+		</action>
+	</package>
+</struts>

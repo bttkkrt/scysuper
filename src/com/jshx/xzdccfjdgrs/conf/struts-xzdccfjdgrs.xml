@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SPO_PEN_DEC_PER" extends="default" namespace="/jsp/xzdccfjdgrs">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="spoPenDecPerQuery" class="com.jshx.xzdccfjdgrs.web.SpoPenDecPerAction" method="list">
+		</action>
+		
+		<action name="spoPenDecPerList" class="com.jshx.xzdccfjdgrs.web.SpoPenDecPerAction" method="init">
+			<result name="success">/WEB-INF/pages/xzdccfjdgrs/SpoPenDecPer_List.jsp</result>
+		</action>
+		
+		<action name="spoPenDecPerView" class="com.jshx.xzdccfjdgrs.web.SpoPenDecPerAction" method="view">
+			<result name="view">/WEB-INF/pages/xzdccfjdgrs/SpoPenDecPer_Detail.jsp</result>
+		</action>
+
+		<action name="spoPenDecPerInitEdit" class="com.jshx.xzdccfjdgrs.web.SpoPenDecPerAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/xzdccfjdgrs/SpoPenDecPer_Edit.jsp</result>
+		</action>
+
+		<action name="spoPenDecPerSave" class="com.jshx.xzdccfjdgrs.web.SpoPenDecPerAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_spoPenDecPer</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="spoPenDecPerDel" class="com.jshx.xzdccfjdgrs.web.SpoPenDecPerAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

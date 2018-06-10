@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findJshxZazPxbByMap">
+		from JshxZazPxb t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = :createUserID]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzname">
+			<![CDATA[and t.szzname = :szzname]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="personName">
+			<![CDATA[and t.personName like :personName]]>
+		</isNotEmpty>
+		<isNotEmpty property="zw">
+			<![CDATA[and t.zw = :zw]]>
+		</isNotEmpty>
+		<isNotEmpty property="xl">
+			<![CDATA[and t.xl = :xl]]>
+		</isNotEmpty>
+		<isNotEmpty property="sfz">
+			<![CDATA[and t.sfz like :sfz]]>
+		</isNotEmpty>
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="pxzh">
+			<![CDATA[and t.pxzh like :pxzh]]>
+		</isNotEmpty>
+		<isNotEmpty property="whpqylx">
+			<![CDATA[and t.whpqylx like :whpqylx]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="getJshxZazPxbListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zazPxb.entity.JshxZazPxb">
+		select distinct t.qyid,t.szzid,t.qymc,t.szzname from jshx_zaz_pxb t where t.delflag = 0
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like #qymc#]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifwhpqylx">
+			<![CDATA[and t.ifwhpqylx = #ifwhpqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifzywhqylx">
+			<![CDATA[and t.ifzywhqylx = #ifzywhqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifyhbzjyqy">
+			<![CDATA[and t.ifyhbzjyqy = #ifyhbzjyqy#]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = #createUserID#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = #szc#]]>
+		</isNotEmpty>
+	</select>
+	
+	<update id="deleteByQyid" parameterClass="java.util.Map">
+	update jshx_zaz_pxb t set t.delFlag = 1 where t.qyid = #qyid#
+	</update>
+	
+	<select id="getJshxPxListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zazPxb.entity.JshxPx">
+	select c.item_text as szzname,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '化工生产企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data1,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '化工生产企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data2,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '危险化学品经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data3,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '危险化学品经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data4,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '烟花爆竹经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data5,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '烟花爆竹经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data6,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '其它工贸企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data7,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data8,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '化工生产企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data9,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '化工生产企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data10,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '危险化学品经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data11,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '危险化学品经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data12,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '烟花爆竹经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data13,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '烟花爆竹经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data14,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '其它工贸企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data15,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data16,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '化工生产企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data17,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '化工生产企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data18,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '危险化学品经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data19,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '危险化学品经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data20,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '烟花爆竹经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data21,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '烟花爆竹经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data22,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '其它工贸企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data23,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data24,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '职业卫生管理员' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data25,
+	(
+	   	select count(*) from jshx_tzzy_pxb t where t.delflag = 0 and t.qylx = '化工生产企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.sj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.sj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data27,
+	(
+	    select count(*) from jshx_tzzy_pxb t where t.delflag = 0 and t.qylx = '危险化学品经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.sj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.sj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data28,
+	(
+	    select count(*) from jshx_tzzy_pxb t where t.delflag = 0 and t.qylx = '烟花爆竹经营企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.sj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.sj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data29,
+	(
+	    select count(*) from jshx_tzzy_pxb t where t.delflag = 0 and t.qylx = '其它工贸企业' and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.sj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.sj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data30,
+	(
+	    select count(*) from jshx_tzzy_pxb t where t.delflag = 0 and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.sj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.sj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data31,
+	(
+	    select count(*) from zjjtzsbzyry t where t.delflag = 0 and t.szzname = c.item_text
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.pzrq >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.pzrq <= :endPxsj]]>
+		</isNotEmpty>
+	) as data32
+	from codevalue c where c.code_id = '4028e56c4014f290014014f981510003' and c.del_flag = 0
+	</select>
+	
+	
+	
+	<select id="getTotalJshxPxListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zazPxb.entity.JshxPx">
+	select 
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '化工生产企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data1,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '化工生产企业'
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data2,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '危险化学品经营企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data3,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '危险化学品经营企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data4,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '烟花爆竹经营企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data5,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '烟花爆竹经营企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data6,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' and t.whpqylx = '其它工贸企业'
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data7,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '法人' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data8,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '化工生产企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data9,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '化工生产企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data10,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '危险化学品经营企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data11,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '危险化学品经营企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data12,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '烟花爆竹经营企业'
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data13,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '烟花爆竹经营企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data14,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' and t.whpqylx = '其它工贸企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data15,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '主要负责人' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data16,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '化工生产企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data17,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '化工生产企业'
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data18,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '危险化学品经营企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data19,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '危险化学品经营企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data20,
+	(
+	   	select count(distinct t.qymc) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '烟花爆竹经营企业'
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data21,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '烟花爆竹经营企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data22,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' and t.whpqylx = '其它工贸企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data23,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '安全管理员' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data24,
+	(
+	   	select count(*) from jshx_zaz_pxb t where t.delflag = 0 and t.zw = '职业卫生管理员' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.cpsj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.cpsj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data25,
+	(
+	   	select count(*) from jshx_tzzy_pxb t where t.delflag = 0 and t.qylx = '化工生产企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.sj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.sj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data27,
+	(
+	    select count(*) from jshx_tzzy_pxb t where t.delflag = 0 and t.qylx = '危险化学品经营企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.sj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.sj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data28,
+	(
+	    select count(*) from jshx_tzzy_pxb t where t.delflag = 0 and t.qylx = '烟花爆竹经营企业' 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.sj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.sj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data29,
+	(
+	    select count(*) from jshx_tzzy_pxb t where t.delflag = 0 and t.qylx = '其它工贸企业'
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.sj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.sj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data30,
+	(
+	    select count(*) from jshx_tzzy_pxb t where t.delflag = 0 
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.sj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.sj <= :endPxsj]]>
+		</isNotEmpty>
+	) as data31,
+	(
+	    select count(*) from zjjtzsbzyry t where t.delflag = 0
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.pzrq >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.pzrq <= :endPxsj]]>
+		</isNotEmpty>
+	) as data32
+	from dual
+	</select>
+</sqlMap>

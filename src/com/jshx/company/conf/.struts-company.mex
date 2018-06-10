@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="COMPANY" location="0,0" size="0,0">
+    <action name="companyRegisterUI" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="CompanyRegisterStep1.jsp" />
+      </result>
+    </action>
+    <action name="companyRegisterNextUI" location="0,0" size="0,0">
+      <result name="1">
+        <resourceEdge source="1" routing="0" target="CompanyRegisterStep1.jsp" />
+      </result>
+      <result name="2">
+        <resourceEdge source="2" routing="0" target="CompanyRegisterStep2.jsp" />
+      </result>
+      <result name="3">
+        <resourceEdge source="3" routing="0" target="CompanyRegisterStep3.jsp" />
+      </result>
+      <result name="4">
+        <resourceEdge source="4" routing="0" target="CompanyRegisterStep4.jsp" />
+      </result>
+    </action>
+    <action name="companyRegister" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="CompanyRegisterStep5.jsp" />
+      </result>
+      <result name="false">
+        <resourceEdge source="false" routing="0" target="CompanyRegisterStep4.jsp" />
+      </result>
+    </action>
+    <action name="isCompanyExsit" location="0,0" size="0,0" />
+    <action name="companyQuery" location="0,0" size="0,0" />
+    <action name="findReviewLogState" location="0,0" size="0,0" />
+    <action name="companyList" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="Company_List.jsp" />
+      </result>
+    </action>
+    <action name="companyView" location="0,0" size="0,0">
+      <result name="view">
+        <resourceEdge source="view" routing="0" target="Company_Detail.jsp" />
+      </result>
+      <result name="shenhe">
+        <resourceEdge source="shenhe" routing="0" target="CompanyShenhe_Detail.jsp" />
+      </result>
+    </action>
+    <action name="companyInitEdit" location="0,0" size="0,0">
+      <result name="edit">
+        <resourceEdge source="edit" routing="0" target="Company_Edit.jsp" />
+      </result>
+      <result name="view">
+        <resourceEdge source="view" routing="0" target="Company_Detail.jsp" />
+      </result>
+    </action>
+    <action name="companySaveBase" location="0,0" size="0,0">
+      <result name="reload">
+        <resourceEdge source="reload" routing="0" target="successToClose1.jsp" />
+      </result>
+      <result name="invalid.token">
+        <resourceEdge source="invalid.token" routing="0" target="invalid.jsp" />
+      </result>
+    </action>
+    <action name="companySave" location="0,0" size="0,0">
+      <result name="reload">
+        <resourceEdge source="reload" routing="0" target="successToClose1.jsp" />
+      </result>
+      <result name="invalid.token">
+        <resourceEdge source="invalid.token" routing="0" target="invalid.jsp" />
+      </result>
+    </action>
+    <action name="companySaveMySelf" location="0,0" size="0,0">
+      <result name="reload">
+        <resourceEdge source="reload" routing="0" target="successToCompany.jsp" />
+      </result>
+      <result name="invalid.token">
+        <resourceEdge source="invalid.token" routing="0" target="invalid.jsp" />
+      </result>
+    </action>
+    <action name="companyDel" location="0,0" size="0,0" />
+    <action name="companyQuerys" location="0,0" size="0,0" />
+    <action name="companyLists" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="Company_Lists.jsp" />
+      </result>
+    </action>
+    <action name="updatePass" location="0,0" size="0,0" />
+    <action name="queryCompanyList" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="Jshx_companyList.jsp" />
+      </result>
+    </action>
+    <action name="companyListQuery" location="0,0" size="0,0" />
+    <action name="companyInfo" location="0,0" size="0,0" />
+    <action name="companyToSelf" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="companyQuerySzc" location="0,0" size="0,0" />
+    <action name="companyQuerySzz" location="0,0" size="0,0" />
+    <action name="companyExport" location="0,0" size="0,0" />
+    <action name="companyUser" location="0,0" size="0,0" />
+    <action name="initImportCompany" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="importCompany" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+  </package>
+  <webResource name="CompanyRegisterStep1.jsp" path="/WEB-INF/pages/company/CompanyRegisterStep1.jsp" location="0,0" size="0,0" />
+  <webResource name="CompanyRegisterStep2.jsp" path="/WEB-INF/pages/company/CompanyRegisterStep2.jsp" location="0,0" size="0,0" />
+  <webResource name="CompanyRegisterStep3.jsp" path="/WEB-INF/pages/company/CompanyRegisterStep3.jsp" location="0,0" size="0,0" />
+  <webResource name="CompanyRegisterStep4.jsp" path="/WEB-INF/pages/company/CompanyRegisterStep4.jsp" location="0,0" size="0,0" />
+  <webResource name="CompanyRegisterStep5.jsp" path="/WEB-INF/pages/company/CompanyRegisterStep5.jsp" location="0,0" size="0,0" />
+  <webResource name="Company_List.jsp" path="/WEB-INF/pages/company/Company_List.jsp" location="0,0" size="0,0" />
+  <webResource name="Company_Detail.jsp" path="/WEB-INF/pages/company/Company_Detail.jsp" location="0,0" size="0,0" />
+  <webResource name="CompanyShenhe_Detail.jsp" path="/WEB-INF/pages/company/CompanyShenhe_Detail.jsp" location="0,0" size="0,0" />
+  <webResource name="Company_Edit.jsp" path="/WEB-INF/pages/company/Company_Edit.jsp" location="0,0" size="0,0" />
+  <webResource name="successToClose1.jsp" path="/WEB-INF/pages/common/successToClose1.jsp" location="0,0" size="0,0" />
+  <webResource name="invalid.jsp" path="/invalid.jsp" location="0,0" size="0,0" />
+  <webResource name="successToCompany.jsp" path="/WEB-INF/pages/common/successToCompany.jsp" location="0,0" size="0,0" />
+  <webResource name="Company_Lists.jsp" path="/WEB-INF/pages/company/Company_Lists.jsp" location="0,0" size="0,0" />
+  <webResource name="Jshx_companyList.jsp" path="/WEB-INF/pages/company/Jshx_companyList.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="OCC_HAZ_BAS" extends="default" namespace="/jsp/zywhjbysqk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="occHazBasQuery" class="com.jshx.zywhjbysqk.web.OccHazBasAction" method="list">
+		</action>
+		
+		<action name="occHazBasList" class="com.jshx.zywhjbysqk.web.OccHazBasAction" method="init">
+			<result name="success">/WEB-INF/pages/zywhjbysqk/OccHazBas_List.jsp</result>
+		</action>
+		
+		<action name="occHazBasView" class="com.jshx.zywhjbysqk.web.OccHazBasAction" method="view">
+			<result name="view">/WEB-INF/pages/zywhjbysqk/OccHazBas_Detail.jsp</result>
+		</action>
+
+		<action name="occHazBasInitEdit" class="com.jshx.zywhjbysqk.web.OccHazBasAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zywhjbysqk/OccHazBas_Edit.jsp</result>
+		</action>
+
+		<action name="occHazBasSave" class="com.jshx.zywhjbysqk.web.OccHazBasAction" method="save">
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_occHazBas</result>
+		</action>
+
+		<action name="occHazBasDel" class="com.jshx.zywhjbysqk.web.OccHazBasAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findProRecByMap">
+		select new com.jshx.dgjl.entity.ProRec(t.id,t.areaName, t.companyName, t.jshxTime,t.jshxName,t.identification) from ProRec t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName = :areaName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="startJshxTime">
+			<![CDATA[and t.jshxTime >= :startJshxTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJshxTime">
+			<![CDATA[and t.jshxTime <= :endJshxTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="jshxName">
+			<![CDATA[and t.jshxName like :jshxName]]>
+		</isNotEmpty>
+		<isNotEmpty property="identification">
+			<![CDATA[and t.identification like :identification]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+			<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and ( t.companyName like :searchLike or  t.jshxName like :searchLike or  t.identification like :searchLike)]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+</sqlMap>

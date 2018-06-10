@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PRODUCTCHART" extends="default" namespace="/jsp/productChart">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="productchartQuery" class="com.jshx.productChart.web.ProductchartAction" method="list">
+		</action>
+		
+		<action name="productchartList" class="com.jshx.productChart.web.ProductchartAction" method="initlist">
+			<result name="success">/WEB-INF/pages/productChart/Productchart_List.jsp</result>
+			<result name="qiye">/WEB-INF/pages/productChart/ProductchartQiye_List.jsp</result>
+		</action>
+		
+		<action name="productchartView" class="com.jshx.productChart.web.ProductchartAction" method="view">
+			<result name="view">/WEB-INF/pages/productChart/Productchart_Detail.jsp</result>
+		</action>
+
+		<action name="productchartInitEdit" class="com.jshx.productChart.web.ProductchartAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/productChart/Productchart_Edit.jsp</result>
+		</action>
+
+		<action name="productchartSave" class="com.jshx.productChart.web.ProductchartAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="productchartDel" class="com.jshx.productChart.web.ProductchartAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

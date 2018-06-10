@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JDHXP" extends="default" namespace="/jsp/jdhxp">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jdhxpQuery" class="com.jshx.jdhxp.web.JdhxpAction" method="list">
+		</action>
+		
+		<action name="jdhxpList">
+			<result name="success">/WEB-INF/pages/jdhxp/Jdhxp_List.jsp</result>
+		</action>
+		
+		<action name="jdhxpView" class="com.jshx.jdhxp.web.JdhxpAction" method="view">
+			<result name="view">/WEB-INF/pages/jdhxp/Jdhxp_Detail.jsp</result>
+		</action>
+
+		<action name="jdhxpInitEdit" class="com.jshx.jdhxp.web.JdhxpAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/jdhxp/Jdhxp_Edit.jsp</result>
+		</action>
+
+		<action name="jdhxpSave" class="com.jshx.jdhxp.web.JdhxpAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="jdhxpDel" class="com.jshx.jdhxp.web.JdhxpAction" method="delete">
+		</action>
+		
+		<action name="queryJdhxpList">
+			<result name="success">/WEB-INF/pages/jdhxp/Jdhxp_Lists.jsp</result>
+		</action>
+		
+	</package>
+</struts>

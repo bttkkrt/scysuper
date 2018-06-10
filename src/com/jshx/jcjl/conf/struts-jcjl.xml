@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="INS_REC" extends="default" namespace="/jsp/jcjl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="insRecQuery" class="com.jshx.jcjl.web.InsRecAction" method="list">
+		</action>
+		
+		<action name="insRecList" class="com.jshx.jcjl.web.InsRecAction" method="init">
+			<result name="success">/WEB-INF/pages/jcjl/InsRec_List.jsp</result>
+		</action>
+		
+		<action name="insRecView" class="com.jshx.jcjl.web.InsRecAction" method="view">
+			<result name="view">/WEB-INF/pages/jcjl/InsRec_Detail.jsp</result>
+		</action>
+
+		<action name="insRecInitEdit" class="com.jshx.jcjl.web.InsRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/jcjl/InsRec_Edit.jsp</result>
+		</action>
+
+		<action name="insRecSave" class="com.jshx.jcjl.web.InsRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_insRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="insRecDel" class="com.jshx.jcjl.web.InsRecAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

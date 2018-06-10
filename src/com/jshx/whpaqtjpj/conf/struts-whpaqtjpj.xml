@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CHE_REP_FIL" extends="default" namespace="/jsp/whpaqtjpj">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="cheRepFilQuery" class="com.jshx.whpaqtjpj.web.CheRepFilAction" method="list">
+		</action>
+		
+		<action name="cheRepFilList"  class="com.jshx.whpaqtjpj.web.CheRepFilAction" method="init">
+			<result name="success">/WEB-INF/pages/whpaqtjpj/CheRepFil_List.jsp</result>
+		</action>
+		
+		<action name="cheRepFilView" class="com.jshx.whpaqtjpj.web.CheRepFilAction" method="view">
+			<result name="view">/WEB-INF/pages/whpaqtjpj/CheRepFil_Detail.jsp</result>
+		</action>
+
+		<action name="cheRepFilInitEdit" class="com.jshx.whpaqtjpj.web.CheRepFilAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/whpaqtjpj/CheRepFil_Edit.jsp</result>
+		</action>
+
+		<action name="cheRepFilSave" class="com.jshx.whpaqtjpj.web.CheRepFilAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_cheRepFil</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="cheRepFilDel" class="com.jshx.whpaqtjpj.web.CheRepFilAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

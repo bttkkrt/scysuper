@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findExpTabDetByMap">
+		select new com.wzxx.bgtxx.entity.ExpTabDet(t.id, t.descriptor, t.publicDate) from ExpTabDet t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="descriptor">
+			<![CDATA[and t.descriptor like :descriptor]]>
+		</isNotEmpty>
+		<isNotEmpty property="titleId">
+			<![CDATA[and t.titleId = :titleId]]>
+		</isNotEmpty>
+		<isNotEmpty property="startPublicDate">
+			<![CDATA[and CONVERT(varchar(100), t.publicDate, 23) >= :startPublicDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPublicDate">
+			<![CDATA[and CONVERT(varchar(100), t.publicDate, 23) <= :endPublicDate]]>
+		</isNotEmpty>
+		order by t.publicDate desc
+	</select>
+	<!-- 查询曝光台详细信息 -->
+	<select id="findBgtxx" parameterClass="java.util.Map" resultClass="com.wzxx.bgtxx.entity.ExpTabDetBean">
+	SELECT t.ROW_ID as id ,t.DESCRIPTOR as descriptor,t.LINK_ID as linkId from EXP_TAB_DET t where t.delFlag=0
+	<isNotEmpty property="titleId">
+			<![CDATA[and t.TITLE_ID=#titleId# ]]>
+		</isNotEmpty>
+	</select>
+</sqlMap>

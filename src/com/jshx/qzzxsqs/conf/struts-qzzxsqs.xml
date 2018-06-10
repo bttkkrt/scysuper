@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ENF_APP" extends="default" namespace="/jsp/qzzxsqs">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="enfAppQuery" class="com.jshx.qzzxsqs.web.EnfAppAction" method="list">
+		</action>
+		
+		<action name="enfAppList" class="com.jshx.qzzxsqs.web.EnfAppAction" method="init">
+			<result name="success">/WEB-INF/pages/qzzxsqs/EnfApp_List.jsp</result>
+		</action>
+		
+		<action name="enfAppView" class="com.jshx.qzzxsqs.web.EnfAppAction" method="view">
+			<result name="view">/WEB-INF/pages/qzzxsqs/EnfApp_Detail.jsp</result>
+		</action>
+
+		<action name="enfAppInitEdit" class="com.jshx.qzzxsqs.web.EnfAppAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/qzzxsqs/EnfApp_Edit.jsp</result>
+		</action>
+
+		<action name="enfAppSave" class="com.jshx.qzzxsqs.web.EnfAppAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_enfApp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="enfAppDel" class="com.jshx.qzzxsqs.web.EnfAppAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <!-- Activiti工作流管理 -->
+	<package name="activiti" extends="default" namespace="/activiti">
+		<action name="initProcessDefList">
+			<result name="success">/WEB-INF/pages/activiti/processList.jsp</result>
+		</action>
+		
+	    <action name="findProcessDefList" class="com.jshx.activiti.web.ActivitiControllerAction" 
+	    	method="findProcessDefList">
+		</action>
+		
+		<action name="initDeploy">
+			<result name="success">/WEB-INF/pages/activiti/initDeploy.jsp</result>
+		</action>
+		
+		<action name="deploy" class="com.jshx.activiti.web.ActivitiControllerAction" method="deploy">
+			<!-- <interceptor-ref name="tokenInterceptor" />   -->
+    		<interceptor-ref name="coreStack" />
+    		<result name="input" type="redirect">initDeploy.action</result>
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=deploy_process</result>
+			<result name="invalid.token">/invalid.jsp</result>			
+		</action>
+		
+		<action name="deleteProcessDef" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="deleteProcessDef">
+		</action>
+		
+		<action name="suspendProcessDefinition" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="suspendProcessDefinition">
+		</action>
+		
+		<action name="activateProcessDefinition" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="activateProcessDefinition">
+		</action>
+		
+		<action name="initToClaimTaskList">
+			<result name="success">/WEB-INF/pages/activiti/toClaimTaskList.jsp</result>
+		</action>
+		
+	    <action name="findToClaimTaskList" class="com.jshx.activiti.web.ActivitiControllerAction" 
+	    	method="findToClaimTaskList">
+		</action>	
+		
+		<action name="claimTask" class="com.jshx.activiti.web.ActivitiControllerAction" 
+	    	method="claimTask">
+		</action>
+		
+		<action name="initClaimedTaskList">
+			<result name="success">/WEB-INF/pages/activiti/claimedTaskList.jsp</result>
+		</action>	
+		
+	    <action name="findClaimedTaskList" class="com.jshx.activiti.web.ActivitiControllerAction" 
+	    	method="findClaimedTaskList">
+		</action>		
+		
+		<!-- 外置表单 -->
+		<action name="initStartProcessInstance" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="initStartProcessInstance">
+			<result name="success">/WEB-INF/pages/activiti/initStartProcessInstance.jsp</result>
+		</action>	
+		
+		<action name="startProcessInstanceFormKey" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="startProcessInstanceFormKey">
+			<result name="reload" type="redirect">/common/successToSelf.jsp</result>
+		</action>		
+		
+		<action name="initCompleteTaskFormKey" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="initCompleteTaskFormKey">
+			<result name="success">/WEB-INF/pages/activiti/initCompleteTaskFormKey.jsp</result>
+		</action>	
+		
+		<action name="completeTaskFormKey" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="completeTaskFormKey">
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=newWindow</result>
+		</action>
+		
+		<action name="initTodoTaskListFormKey">
+			<result name="success">/WEB-INF/pages/activiti/todoTaskListFormKey.jsp</result>
+		</action>
+		
+		<action name="findTodoTaskListFormKey" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="findTodoTaskListFormKey">
+		</action>
+		
+		<!-- Model管理 -->
+		<action name="initModelList">
+			<result name="success">/WEB-INF/pages/activiti/modelList.jsp</result>
+		</action>
+		
+		<action name="findModelList" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="findModelList">
+		</action>
+		
+		<action name="initAddModel">
+			<result name="success">/WEB-INF/pages/activiti/addModel.jsp</result>
+		</action>
+		
+		<action name="addModel" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="addModel">
+		</action>
+		
+		<action name="deployModel" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="deployModel">
+		</action>
+		
+		<action name="deleteModel" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="deleteModel">
+		</action>
+		
+		<action name="exportModelXml" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="exportModelXml">
+		</action>
+		
+		<action name="initDeployModelForFormkey" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="initDeployModelForFormkey">
+			<result name="success">/WEB-INF/pages/activiti/initDeployModelForFormkey.jsp</result>
+		</action>
+		
+		<action name="deployModelForFormkey" class="com.jshx.activiti.web.ActivitiControllerAction"
+			method="deployModelForFormkey">
+			<!-- <interceptor-ref name="tokenInterceptor" />   -->
+    		<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=newWindow</result>
+			<result name="invalid.token">/invalid.jsp</result>				
+		</action>
+		
+	</package>
+</struts>

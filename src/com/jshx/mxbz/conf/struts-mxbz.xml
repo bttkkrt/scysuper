@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SIGNS" extends="default" namespace="/jsp/mxbz">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="signsQuery" class="com.jshx.mxbz.web.SignsAction" method="list">
+		</action>
+		
+		<action name="signsList" class="com.jshx.mxbz.web.SignsAction" method="init">
+			<result name="success">/WEB-INF/pages/mxbz/Signs_List.jsp</result>
+		</action>
+		
+		<action name="signsView" class="com.jshx.mxbz.web.SignsAction" method="view">
+			<result name="view">/WEB-INF/pages/mxbz/Signs_Detail.jsp</result>
+		</action>
+
+		<action name="signsInitEdit" class="com.jshx.mxbz.web.SignsAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/mxbz/Signs_Edit.jsp</result>
+		</action>
+
+		<action name="signsSave" class="com.jshx.mxbz.web.SignsAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_signs</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="signsDel" class="com.jshx.mxbz.web.SignsAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

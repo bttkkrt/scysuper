@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZDWXYBADJ" extends="default" namespace="/jsp/zdwxybadj">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zdwxybadjQuery" class="com.jshx.zdwxybadj.web.ZdwxybadjAction" method="list">
+		</action>
+		
+		<action name="zdwxybadjList" class="com.jshx.zdwxybadj.web.ZdwxybadjAction" method="init">
+			<result name="success">/WEB-INF/pages/zdwxybadj/Zdwxybadj_List.jsp</result>
+		</action>
+		
+		<action name="zdwxybadjView" class="com.jshx.zdwxybadj.web.ZdwxybadjAction" method="view">
+			<result name="view">/WEB-INF/pages/zdwxybadj/Zdwxybadj_Detail.jsp</result>
+		</action>
+
+		<action name="zdwxybadjInitEdit" class="com.jshx.zdwxybadj.web.ZdwxybadjAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zdwxybadj/Zdwxybadj_Edit.jsp</result>
+		</action>
+
+		<action name="zdwxybadjSave" class="com.jshx.zdwxybadj.web.ZdwxybadjAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zdwxybadjDel" class="com.jshx.zdwxybadj.web.ZdwxybadjAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

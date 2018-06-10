@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findCheckTableByMap">
+		select new com.jshx.checkTable.entity.CheckTable(t.id, t.companyName, t.checkTime,t.companyType,t.areaId,t.areaName) from CheckTable t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="startCheckTime">
+			<![CDATA[and t.checkTime >= :startCheckTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCheckTime">
+			<![CDATA[and t.checkTime <= :endCheckTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyType">
+			<![CDATA[and t.companyType = :companyType]]>
+		</isNotEmpty>
+		
+		
+		order by t.createTime desc
+	</select>
+</sqlMap>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <!-- 创建模块编号 -->
+    <select id="getMaxModuleCodeByParent">
+        select max(cast(SUBSTRING(m.moduleCode,
+        <dynamic>
+            <isNotEmpty property="length">
+            :length ,2) as integer)) from Module m where 1=1
+            <isEqual property="parentModuleCode" compareValue="%">
+                    and length(m.moduleCode)=3
+                </isEqual>
+                <isNotEqual property="parentModuleCode" compareValue="%">
+                    and length(m.moduleCode)=:length+1 and m.moduleCode like :parentModuleCode 
+                </isNotEqual>
+            </isNotEmpty>
+        </dynamic>
+    </select>
+    
+    <!-- 检查模块编号是否存在 -->
+    <select id="cntModuleByCode">
+    select count(*) from Module m where 1=1
+        <dynamic>
+            <isNotEmpty property="moduleCode">
+            and m.moduleCode = :moduleCode
+            </isNotEmpty>
+        </dynamic>
+    </select>
+    
+    <select id="cntUserForExport">
+    select m.display_name,m.dept_code from USERS m where 1=1 and m.delFlag!=2
+    </select>
+    
+    <!-- 搜索模块 -->
+    <select id="searchModule">
+        from Module m
+        <dynamic prepend="where"> 
+            <isNotEmpty property="isVisible" prepend="and">
+                m.isVisible= :isVisible
+            </isNotEmpty>
+            <isNotEmpty property="moduleName" prepend="and">
+                m.moduleName like :moduleName
+            </isNotEmpty>
+            <isNotEmpty property="parentModuleCode" prepend="and">
+            <isNotEqual property="parentModuleCode" compareValue="%">
+            	m.moduleCode like :parentModuleCode
+            </isNotEqual>
+            </isNotEmpty>
+            <isNotEmpty property="parentModule" prepend="and">
+                m.parentModule = :parentModule
+            </isNotEmpty>
+            <isNotEmpty property="length" prepend="and">
+                length(m.moduleCode) =length(:length)
+            </isNotEmpty>
+        </dynamic>
+        order by m.sortSq, m.moduleName desc
+    </select>
+    
+    <!-- 禁用模块 -->
+    <select id="inactiveModule">
+        update Module m set m.isVisible=0 where 1=1
+        <dynamic>
+            <isNotEqual property="moduleCode" compareValue="0">
+                and m.moduleCode like :moduleCode 
+            </isNotEqual>
+        </dynamic>
+    </select>
+    
+    <!-- 变更上层模块 -->
+    <select id="updateModule">
+        <isNotEqual property="moduleCode" compareValue="%">
+            <isNotEmpty property="length">
+                update Module m set m.moduleCode=concat(:newModuleCode,substring(m.moduleCode,:length,length(m.moduleCode))) where m.moduleCode like :oldModuleCode and length(m.moduleCode)> (:length -1)
+            </isNotEmpty>
+        </isNotEqual>
+    </select>
+    
+    <!-- 查找模块的按键 -->
+    <select id="queryButton">
+        select b.buttonName, b.funcName, b.eventCode, b.module, b.sortSq, b.id from ModuleButton b where 1=1
+        <isNotEmpty property="module">
+            and b.module = :module
+        </isNotEmpty>
+        order by b.sortSq
+    </select>
+    
+    <!-- 查找按键的参数 -->
+    <select id="queryParameter">
+        from ButtonParameter p where 1=1
+        <isNotEmpty property="button">
+            and p.button = :button
+        </isNotEmpty>
+        order by p.sortSq
+    </select>
+    
+    <!-- 查找按键的权限 -->
+    <select id="queryRight">
+        from ButtonRight r where 1=1
+        <isNotEmpty property="button">
+            and r.button = :button
+        </isNotEmpty>
+        <isNotEmpty property="role">
+            and r.role = :role
+        </isNotEmpty>
+    </select>
+    
+     <!-- 删除模块角色 -->
+	<select id="delModuleRight">
+	    delete from ModuleRight r where 1=2
+	    <isNotEmpty property="module">
+	        or r.module = :module
+	    </isNotEmpty>
+	</select>
+    
+    <!-- 删除按键角色 -->
+	<select id="delButtonRight">
+	    delete from ButtonRight r where 1=2
+	    <isNotEmpty property="button">
+	        or r.button = :button
+	    </isNotEmpty>
+	</select>
+	
+	<!-- 删除按键参数 -->
+	<select id="delParameter">
+	    delete from ButtonParameter p where 1=2
+	    <isNotEmpty property="button">
+	        or p.button = :button
+	    </isNotEmpty>
+	</select>
+	
+	<!-- 查找某模块是否有某角色 -->
+	<select id="cntModuleRight">
+	    select count(r) from ModuleRight r where r.role = :role and r.module = :module
+	</select>
+	
+	<!-- 根据角色删除某块权限 -->
+	<select id="delModuleRightByRole">
+	    delete from ModuleRight r where r.role = :role
+	</select>
+	
+	<select id="findModuleRightByRole">
+	    from ModuleRight r where r.role = :role order by r.module
+	</select>
+	
+	<select id="findParamByModule">
+	    from ModuleParameter p where p.module = :module order by p.paramName
+	</select>
+	
+	<select id="findModuleTrace">
+	    from Module m where :moduleCode like concat(m.moduleCode,'%') order by length(m.moduleCode) asc
+	</select>
+	
+	<select id="findRightForModule">
+	    from ModuleRight r where r.role = :role and r.module = :module order by r.module
+	</select>
+</sqlMap>

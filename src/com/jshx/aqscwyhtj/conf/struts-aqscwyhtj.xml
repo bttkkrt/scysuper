@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="AQSCWYHTJ" extends="default" namespace="/jsp/aqscwyhtj">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="aqscwyhtjQuery" class="com.jshx.aqscwyhtj.web.AqscwyhtjAction" method="list">
+		</action>
+		
+		<action name="aqscwyhtjList">
+			<result name="success">/WEB-INF/pages/aqscwyhtj/Aqscwyhtj_List.jsp</result>
+		</action>
+		
+		<action name="aqscwyhtjView" class="com.jshx.aqscwyhtj.web.AqscwyhtjAction" method="view">
+			<result name="view">/WEB-INF/pages/aqscwyhtj/Aqscwyhtj_Detail.jsp</result>
+		</action>
+
+		<action name="aqscwyhtjInitEdit" class="com.jshx.aqscwyhtj.web.AqscwyhtjAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqscwyhtj/Aqscwyhtj_Edit.jsp</result>
+		</action>
+
+		<action name="aqscwyhtjSave" class="com.jshx.aqscwyhtj.web.AqscwyhtjAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_aqscwyhtj</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="aqscwyhtjDel" class="com.jshx.aqscwyhtj.web.AqscwyhtjAction" method="delete">
+		</action>
+		
+		<action name="aqscwyhtjExport" class="com.jshx.aqscwyhtj.web.AqscwyhtjAction" method="export">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="QYGSRDQK" extends="default" namespace="/jsp/qygsrdqk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="qygsrdqkQuery" class="com.jshx.qygsrdqk.web.QygsrdqkAction" method="list">
+		</action>
+		
+		<action name="qygsrdqkList">
+			<result name="success">/WEB-INF/pages/qygsrdqk/Qygsrdqk_List.jsp</result>
+		</action>
+		
+		<action name="qygsrdqkView" class="com.jshx.qygsrdqk.web.QygsrdqkAction" method="view">
+			<result name="view">/WEB-INF/pages/qygsrdqk/Qygsrdqk_Detail.jsp</result>
+		</action>
+
+		<action name="qygsrdqkInitEdit" class="com.jshx.qygsrdqk.web.QygsrdqkAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/qygsrdqk/Qygsrdqk_Edit.jsp</result>
+		</action>
+
+		<action name="qygsrdqkSave" class="com.jshx.qygsrdqk.web.QygsrdqkAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_qygsrdqk</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="qygsrdqkDel" class="com.jshx.qygsrdqk.web.QygsrdqkAction" method="delete">
+		</action>
+		<action name="qygsrdqkExport" class="com.jshx.qygsrdqk.web.QygsrdqkAction" method="export">
+		</action>
+	</package>
+</struts>

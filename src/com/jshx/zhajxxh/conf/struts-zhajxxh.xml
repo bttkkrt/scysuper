@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZHAJXXH" extends="default" namespace="/jsp/zhajxxh">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zhajxxhQuery" class="com.jshx.zhajxxh.web.ZhajxxhAction" method="list">
+		</action>
+		
+		<action name="zhajxxhList">
+			<result name="success">/WEB-INF/pages/zhajxxh/Zhajxxh_List.jsp</result>
+		</action>
+		
+		<action name="zhajxxhView" class="com.jshx.zhajxxh.web.ZhajxxhAction" method="view">
+			<result name="view">/WEB-INF/pages/zhajxxh/Zhajxxh_Detail.jsp</result>
+		</action>
+
+		<action name="zhajxxhInitEdit" class="com.jshx.zhajxxh.web.ZhajxxhAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zhajxxh/Zhajxxh_Edit.jsp</result>
+		</action>
+
+		<action name="zhajxxhSave" class="com.jshx.zhajxxh.web.ZhajxxhAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_zhajxxh</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zhajxxhDel" class="com.jshx.zhajxxh.web.ZhajxxhAction" method="delete">
+		</action>
+		<action name="zhajxxhExport" class="com.jshx.zhajxxh.web.ZhajxxhAction" method="export">
+		</action>
+	</package>
+</struts>

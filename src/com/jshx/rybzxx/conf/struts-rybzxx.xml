@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="HON_REC" extends="default" namespace="/jsp/rybzxx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="honRecQuery" class="com.jshx.rybzxx.web.HonRecAction" method="list">
+		</action>
+		<action name="honRecList" class="com.jshx.rybzxx.web.HonRecAction" method="init">
+			<result name="success">/WEB-INF/pages/rybzxx/HonRec_List.jsp</result>
+		</action>
+		
+		<action name="honRecView" class="com.jshx.rybzxx.web.HonRecAction" method="view">
+			<result name="view">/WEB-INF/pages/rybzxx/HonRec_Detail.jsp</result>
+		</action>
+
+		<action name="honRecInitEdit" class="com.jshx.rybzxx.web.HonRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/rybzxx/HonRec_Edit.jsp</result>
+		</action>
+
+		<action name="honRecSave" class="com.jshx.rybzxx.web.HonRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_honRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="honRecDel" class="com.jshx.rybzxx.web.HonRecAction" method="delete">
+		</action>
+		<action name="honRecCheck" class="com.jshx.rybzxx.web.HonRecAction" method="check">
+			<result name="check">/WEB-INF/pages/rybzxx/HonRec_Check.jsp</result>
+		</action>
+		
+		<action name="honRecCheckSave" class="com.jshx.rybzxx.web.HonRecAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_honRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+	</package>
+</struts>

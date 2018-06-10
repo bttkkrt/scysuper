@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="DET_OVER_STA_MAN" extends="default" namespace="/jsp/jccbgl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="detOverStaManQuery" class="com.jshx.jccbgl.web.DetOverStaManAction" method="list">
+		</action>
+		
+		<action name="detOverStaManList" class="com.jshx.jccbgl.web.DetOverStaManAction" method="init">
+			<result name="success">/WEB-INF/pages/jccbgl/DetOverStaMan_List.jsp</result>
+		</action>
+		
+		<action name="detOverStaManView" class="com.jshx.jccbgl.web.DetOverStaManAction" method="view">
+			<result name="view">/WEB-INF/pages/jccbgl/DetOverStaMan_Detail.jsp</result>
+		</action>
+
+		<action name="detOverStaManInitEdit" class="com.jshx.jccbgl.web.DetOverStaManAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/jccbgl/DetOverStaMan_Edit.jsp</result>
+		</action>
+
+		<action name="detOverStaManSave" class="com.jshx.jccbgl.web.DetOverStaManAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_detOverStaMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="detOverStaManDel" class="com.jshx.jccbgl.web.DetOverStaManAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

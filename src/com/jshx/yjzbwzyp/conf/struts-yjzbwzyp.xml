@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="YJZBWZYP" extends="default" namespace="/jsp/yjzbwzyp">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="yjzbwzypQuery" class="com.jshx.yjzbwzyp.web.YjzbwzypAction" method="list">
+		</action>
+		
+		<action name="yjzbwzypList" class="com.jshx.yjzbwzyp.web.YjzbwzypAction" method="initlist">
+			<result name="success">/WEB-INF/pages/yjzbwzyp/Yjzbwzyp_List.jsp</result>
+			<result name="qiye">/WEB-INF/pages/yjzbwzyp/YjzbwzypQiye_List.jsp</result>
+		</action>
+		
+		<action name="yjzbwzypView" class="com.jshx.yjzbwzyp.web.YjzbwzypAction" method="view">
+			<result name="view">/WEB-INF/pages/yjzbwzyp/Yjzbwzyp_Detail.jsp</result>
+		</action>
+
+		<action name="yjzbwzypInitEdit" class="com.jshx.yjzbwzyp.web.YjzbwzypAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/yjzbwzyp/Yjzbwzyp_Edit.jsp</result>
+		</action>
+
+		<action name="yjzbwzypSave" class="com.jshx.yjzbwzyp.web.YjzbwzypAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="yjzbwzypDel" class="com.jshx.yjzbwzyp.web.YjzbwzypAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

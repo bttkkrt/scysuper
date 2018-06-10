@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title></title>
+	<link rel="stylesheet" type="text/css" href="../../resources/jquery_mobile_1.0b1/jquery.mobile-1.0b1.min.css" />
+	<script type="text/javascript" src="../../resources/jquery-1.6.1.min.js"></script>
+	<script type="text/javascript" src="../../resources/jquery_mobile_1.0b1/jquery.mobile-1.0b1.min.js"></script>
+	<script type="text/javascript" src="../../resources/mobile-common.js"></script>
+</head>
+<body>
+	<div data-role="page" id="%ObjectName%LocalPage">
+		<script>
+			$("#%ObjectName%LocalPage").live("pagebeforeshow", findLocal%ClassName%s);
+			function findLocal%ClassName%s(){
+				var db=openDataBase();
+				if(!db){
+					alert("打开数据库失败！");
+					return;
+				}
+				var %ObjectName%s=findObjects(db,"%ObjectName%",listLocal%ClassName%s,empty%ClassName%LocalList);
+				$("#%ObjectName%LocalPage form").closest("div").hide();
+			}
+			function listLocal%ClassName%s(%ObjectName%s){
+				if(!%ObjectName%s||%ObjectName%s.length==0){
+					empty%ClassName%LocalList();
+					return;
+				}
+				var $list=$("#%ObjectName%LocalList");
+				for(var i=0;i<%ObjectName%s.length;i++){
+					var %ObjectName%Detail=%ListElementDetail%;
+					var $li=create$li(%ObjectName%Detail,"delete",false);
+					$li.data("data",%ObjectName%s[i]);
+					$li.find("button:last").click(function($ele){
+						return function(e){
+							var db=openDataBase();
+							if(!db){
+								alert("打开数据库失败！");
+								return;
+							}
+							deleteObject(db,"%ObjectName%",$ele.data("data"),function(){
+								$ele.remove();
+							});
+							e.stopPropagation();
+						}
+					}($li));
+					$li.click(function($ele){
+						return function(){
+							objectToForm($ele.data("data"),$("#%ObjectName%LocalPage form"));
+							$("#%ObjectName%LocalPage form").data("$li",$ele);
+							$("#%ObjectName%LocalPage form").closest("div").show();
+						}
+					}($li));
+					$li.appendTo($list);
+				}
+			}
+			function updateLocal%ClassName%(){
+				var $li=$("#%ObjectName%LocalPage form").data("$li");
+				var %ObjectName%=$li.data("data");
+				var new%ClassName%=formToObject($("#%ObjectName%LocalPage form"));
+				new%ClassName%.id=%ObjectName%.id;
+
+				var db=openDataBase();
+				if(!db){
+					alert("打开数据库失败！");
+					return;
+				}
+				updateObject(db,"%ObjectName%",new%ClassName%,function(){
+					var %ObjectName%Detail=%LocalElementDetail%;
+					update$li($li,%ObjectName%Detail,"delete");
+					$li.data("data",new%ClassName%);
+					
+					$("#%ObjectName%LocalPage form")[0].reset();
+					$("#%ObjectName%LocalPage form").removeData("$li");
+					$("#%ObjectName%LocalPage form").closest("div").hide();				
+				});
+			}
+			function saveLocal%ClassName%s(){
+				var %ObjectName%s=new Array();
+				$("#%ObjectName%LocalPage li").each(function(){
+					var %ObjectName%=$(this).data("data");
+					delete %ObjectName%.id;
+					%ObjectName%s.push(%ObjectName%);
+				});
+				if(%ObjectName%s.length==0){
+					empty%ClassName%LocalList();
+					return false;
+				}
+				var postString=objArrayToURLString(%ObjectName%s);
+				$.ajax({
+                	url:window.serverUrl+"/mobile/%ObjectName%/save%ClassName%s.action?callback=?",
+                	async: false,
+                	type:"GET",
+                	data:postString,
+                	dataType:"jsonp",
+               		success:saveLocal%ClassName%sSuccess
+             	});
+			 }
+			 function saveLocal%ClassName%sSuccess(){
+				$("#%ObjectName%LocalPage li").each(function(){
+					var db=openDataBase();
+					deleteObject(db,"%ObjectName%",$(this).data("data"));
+				});
+				$("#%ObjectName%LocalList").empty();
+				emptyl%ClassName%LocalList();
+			 }
+			 function empty%ClassName%LocalList(){
+			 	$("#%ObjectName%LocalList")[0].innerHTML="没有可以显示的数据！";
+			 	$("#submitLocal%ClassName%").hide();
+			 }
+		</script>
+		<div data-role="header" data-theme="b" data-position="fixed">
+			<h1>未上报%ClassDisplayName%</h1><a data-rel="back">后退</a>
+		</div>
+		<div data-role="content">
+			<div>
+				<form>
+%Form%
+				</form>
+				<button onclick="updateLocal%ClassName%();">保存</button>
+			</div>
+			<div data-role="fieldcontain" style="border-bottom-style: none; padding-top: 1.5em;">
+				<ul data-role="listview" id="%ObjectName%LocalList">
+				</ul>
+			</div>
+			<div id="submitLocal%ClassName%">
+				<button onclick="saveLocal%ClassName%s();">上报</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

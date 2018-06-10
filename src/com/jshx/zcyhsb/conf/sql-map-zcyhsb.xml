@@ -1,0 +1,1625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findJshxZcyhsbByMap">
+		from JshxZcyhsb t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="hyflTwoLevel">
+			<![CDATA[and t.hyflTwoLevel in (:hyflTwoLevel)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startJcsj">
+			<![CDATA[and t.jcsj >= :startJcsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJcsj">
+			<![CDATA[and t.jcsj <= :endJcsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="jcry">
+			<![CDATA[and t.jcry like :jcry]]>
+		</isNotEmpty>
+		<isNotEmpty property="startJhwcsj">
+			<![CDATA[and t.jhwcsj >= :startJhwcsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJhwcsj">
+			<![CDATA[and t.jhwcsj <= :endJhwcsj]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = :createUserID]]>
+		</isNotEmpty>
+		<isNotEmpty property="deptCode">
+			<![CDATA[and t.szzid like :deptCode]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="qyids">
+			<![CDATA[and t.qyid in (:qyids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="whp">
+			<![CDATA[and t.ifwhpqylx = :whp]]>
+		</isNotEmpty>
+		<isNotEmpty property="zyjk">
+			<![CDATA[and t.ifzywhqylx = :zyjk]]>
+		</isNotEmpty>
+		<isNotEmpty property="yhbz">
+			<![CDATA[and t.ifyhbzjyqy = :yhbz]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid like :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyid">
+			<![CDATA[and t.qyid = :qyid]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		<isNotEmpty property="mqzt">
+			<![CDATA[and t.mqzt = :mqzt]]>
+		</isNotEmpty>
+		<!--hanxc 20141223 start-->
+		<isNotEmpty property="ifzsqy">
+			<![CDATA[and t.ifzsqy =:ifzsqy]]>
+		</isNotEmpty>
+		<isNotEmpty property="isNotZsqy">
+			<![CDATA[and (t.ifzsqy != 1 or t.ifzsqy is null) ]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyType">
+			<![CDATA[and ( t.companyType like $companyType$ )]]>
+		</isNotEmpty>
+		<!--hanxc 20141223 end-->
+		order by t.createTime desc
+	</select>
+	
+	<delete id="deleteQyzcyhglbByMap" parameterClass="java.util.Map">
+	delete from QYZCYHGLB where yhid = #yhid#
+	</delete>
+	
+	<select id="tjyhsb" parameterClass="java.util.Map"   resultClass="java.lang.Integer" >
+	<isEmpty property="mqzt">
+		 select  IFNULL(a.counts,0)   from 
+	 (
+	 select count(*) counts,date_format(t.createtime,'%Y-%m-%d') ct from jshx_zcyhsb t left join users u on u.row_id = t.createuserid left join companybackup c on c.loginname = u.login_id where t.delflag=0  	
+	  <![CDATA[
+	 and   c.dwdz1 like #deptCode# 
+	 ]]> 
+	 
+	 <isNotEmpty property="qyid">
+	 	 <![CDATA[
+	 	and   t.qyid like #qyid#  
+		 ]]> 
+	 </isNotEmpty>
+	   group by  date_format(t.createtime,'%Y-%m-%d')
+	 ) a
+	  right join  ( 
+	 SELECT 
+	  <![CDATA[
+	  ADDDATE(y.first, x.d - 1) as d
+	  ]]> 
+FROM
+(
+SELECT 1 AS d UNION ALL
+SELECT 2 UNION ALL
+SELECT 3 UNION ALL
+SELECT 4 UNION ALL
+SELECT 5 UNION ALL
+SELECT 6 UNION ALL
+SELECT 7 UNION ALL
+SELECT 8 UNION ALL
+SELECT 9 UNION ALL
+SELECT 10 UNION ALL
+SELECT 11 UNION ALL
+SELECT 12 UNION ALL
+SELECT 13 UNION ALL
+SELECT 14 UNION ALL
+SELECT 15 UNION ALL
+SELECT 16 UNION ALL
+SELECT 17 UNION ALL
+SELECT 18 UNION ALL
+SELECT 19 UNION ALL
+SELECT 20 UNION ALL
+SELECT 21 UNION ALL
+SELECT 22 UNION ALL
+SELECT 23 UNION ALL
+SELECT 24 UNION ALL
+SELECT 25 UNION ALL
+SELECT 26 UNION ALL
+SELECT 27 UNION ALL
+SELECT 28 UNION ALL
+SELECT 29 UNION ALL
+SELECT 30 UNION ALL
+SELECT 31
+) x,
+(
+SELECT 
+<![CDATA[
+CURDATE() - INTERVAL DAY(CURDATE()) - 1 DAY AS first, 
+       DAY(LAST_DAY(CURDATE())) AS last) y
+       ]]>   
+WHERE 
+<![CDATA[
+x.d <= y.last
+]]> 
+	  <!--  SELECT 
+	  <![CDATA[
+	    to_char(TO_DATE(#cMonth#,'YYYYMMDD')+LEVEL-1,'yyyymmdd') DAY  
+	     ]]>
+ 	 FROM DUAL
+  		<![CDATA[ CONNECT BY LEVEL <= to_char(SYSDATE,'dd') ]]>   
+	 ORDER BY DAY -->
+	 ) b 
+ 		on a.ct = b.d order by b.d
+	
+	</isEmpty>
+	<isNotEmpty property="mqzt">
+	
+	 select  IFNULL(a.counts,0)   from 
+	 (
+	 select count(*) counts,date_format(t.updatetime,'%Y-%m-%d') ct from jshx_zcyhsb t left join users u on u.row_id = t.updateuserid  left join companybackup c on c.loginname = u.login_id where t.delflag=0 and mqzt=0  
+	 <![CDATA[
+	 and   c.dwdz1 like #deptCode#  
+	 ]]> 
+	 
+	 <isNotEmpty property="qyid">
+	 	 <![CDATA[
+	 	and   t.qyid like #qyid#  
+		 ]]> 
+	 </isNotEmpty>
+	 group by   date_format(t.updatetime,'%Y-%m-%d')
+	 ) a
+	  right join  (
+	  SELECT 
+	  <![CDATA[
+	  ADDDATE(y.first, x.d - 1) as d
+	  ]]> 
+FROM
+(
+SELECT 1 AS d UNION ALL
+SELECT 2 UNION ALL
+SELECT 3 UNION ALL
+SELECT 4 UNION ALL
+SELECT 5 UNION ALL
+SELECT 6 UNION ALL
+SELECT 7 UNION ALL
+SELECT 8 UNION ALL
+SELECT 9 UNION ALL
+SELECT 10 UNION ALL
+SELECT 11 UNION ALL
+SELECT 12 UNION ALL
+SELECT 13 UNION ALL
+SELECT 14 UNION ALL
+SELECT 15 UNION ALL
+SELECT 16 UNION ALL
+SELECT 17 UNION ALL
+SELECT 18 UNION ALL
+SELECT 19 UNION ALL
+SELECT 20 UNION ALL
+SELECT 21 UNION ALL
+SELECT 22 UNION ALL
+SELECT 23 UNION ALL
+SELECT 24 UNION ALL
+SELECT 25 UNION ALL
+SELECT 26 UNION ALL
+SELECT 27 UNION ALL
+SELECT 28 UNION ALL
+SELECT 29 UNION ALL
+SELECT 30 UNION ALL
+SELECT 31
+) x,
+(
+SELECT 
+<![CDATA[
+CURDATE() - INTERVAL DAY(CURDATE()) - 1 DAY AS first, 
+       DAY(LAST_DAY(CURDATE())) AS last) y
+       ]]>   
+WHERE 
+<![CDATA[
+x.d <= y.last
+]]>   
+	 <!--  SELECT 
+	  <![CDATA[
+	     to_char(TO_DATE(#cMonth#,'YYYYMMDD')+LEVEL-1,'yyyymmdd') DAY  
+	    ]]>   
+ 	 FROM DUAL
+  		<![CDATA[ CONNECT BY LEVEL <= to_char(SYSDATE,'dd') ]]>   
+	 ORDER BY DAY -->
+	 ) b 
+ 		on a.ct = b.d order by b.d
+	
+	</isNotEmpty>
+	
+	</select>
+	<!-- 李军 查询企业自查隐患上报数据 2013-11-1 -->
+	<select id="query_tjYh_data" parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.TjYhBean"> 
+		select 
+		(
+			select count(*) from company c where c.delflag = 0
+			<isNotEmpty property="szzid">
+				<![CDATA[and c.dwdz1 like #szzid#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymc">
+				<![CDATA[and c.companyname like #qymc#]]>
+			</isNotEmpty>
+			<isNotEmpty property="whpqylx">
+				<![CDATA[and c.whpqylx like #whpqylx#]]>
+			</isNotEmpty>
+			<isNotEmpty property="aqbzdbjb">
+				<![CDATA[and c.aqbzdbjb = #aqbzdbjb#]]>
+			</isNotEmpty>
+			<isNotEmpty property="szzid">
+				<![CDATA[and c.dwdz1 like #szzid#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ifzsqy">
+				<![CDATA[and c.ifzsqy = #ifzsqy#]]>
+			</isNotEmpty>
+		) as qyTotal,
+		(
+			select count(*) from company c where c.delflag = 0 and c.basepass= 1
+			<!-- select count(distinct t.qyid) from jshx_zcyhsb t where t.delFlag = 0  -->
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="szzid">
+				<![CDATA[and t.szzid = #szzid#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymc">
+				<![CDATA[and t.qymc like #qymc#]]>
+			</isNotEmpty>
+			<isNotEmpty property="whpqylx">
+				<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+			</isNotEmpty>
+			<isNotEmpty property="aqbzdbjb">
+				<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+			</isNotEmpty>	
+		) as sbqy,
+		(select  IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u where  u.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+			</isNotEmpty> 
+			<isNotEmpty property="szzid">
+				<![CDATA[and u.szzid like #szzid#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymc">
+				<![CDATA[and u.qymc like #qymc#]]>
+			</isNotEmpty>
+			<isNotEmpty property="whpqylx">
+				<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+			</isNotEmpty>
+			<isNotEmpty property="aqbzdbjb">
+				<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+			</isNotEmpty>	
+		)  as yhTotal,
+		(select  IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '0' and  zu.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+			</isNotEmpty> 
+			<isNotEmpty property="szzid">
+				<![CDATA[and zu.szzid = #szzid#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymc">
+				<![CDATA[and zu.qymc like #qymc#]]>
+			</isNotEmpty>
+			<isNotEmpty property="whpqylx">
+				<![CDATA[and zu.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+			</isNotEmpty>
+			<isNotEmpty property="aqbzdbjb">
+				<![CDATA[and zu.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+			</isNotEmpty>	
+		)  as zgwc,
+		(select  IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '1'  and  zu.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+			</isNotEmpty> 
+			<isNotEmpty property="szzid">
+				<![CDATA[and zu.szzid = #szzid#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymc">
+				<![CDATA[and zu.qymc like #qymc#]]>
+			</isNotEmpty>
+			<isNotEmpty property="whpqylx">
+				<![CDATA[and zu.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+			</isNotEmpty>
+			<isNotEmpty property="aqbzdbjb">
+				<![CDATA[and zu.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+			</isNotEmpty>	
+		)  as zgwwc,
+		(select count(distinct t.qyid) from jshx_zcyhsb t where t.mqzt = '0'  and  t.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+			</isNotEmpty> 
+			<isNotEmpty property="szzid">
+				<![CDATA[and t.szzid = #szzid#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymc">
+				<![CDATA[and t.qymc like #qymc#]]>
+			</isNotEmpty>
+			<isNotEmpty property="whpqylx">
+				<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+			</isNotEmpty>
+			<isNotEmpty property="aqbzdbjb">
+				<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+			</isNotEmpty>	
+		) as zeroCount    
+		from dual
+	</select>
+	<select id="query_type_data" parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.TypeBean">
+		select t.jclb,
+       		(select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u where u.jclb = t.jclb and u.mqzt = '1'  and  u.delFlag = 0 
+       			<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+       		) as wzgCount,
+       		(select IFNULL(sum(v.yhsl),0) from jshx_zcyhsb v where v.jclb = t.jclb and v.mqzt = '0'   and  v.delFlag = 0 
+       			<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and v.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and v.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and v.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and v.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and v.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and v.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+       		) as yzgCount
+		 from jshx_zcyhsb t where  t.delFlag = 0 
+				<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and t.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and t.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+		group by t.jclb
+	</select>
+	<select id="query_yhType_data"  parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.TypeBean">
+		select distinct t.yhdl as jclb,
+		 (
+		 	select count(*) from QYZCYHGLB q where q.yhdl = t.yhdl and q.delflag = 0 
+		 	and q.yhid in
+		 	( 
+		 	   select u.row_id from jshx_zcyhsb u where u.delFlag = 0 
+			   <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+			)	
+		 ) as yhlbTotal,
+		(
+			select count(*) from QYZCYHGLB q where q.yhdl = t.yhdl and q.delflag = 0 
+		 	and q.yhid in
+		 	( 
+		 	   select u.row_id from jshx_zcyhsb u where u.delFlag = 0 and u.mqzt = '1'
+			   <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+			)
+		) as wzgCount,
+         (
+         	select count(*) from QYZCYHGLB q where q.yhdl = t.yhdl and q.delflag = 0 
+		 	and q.yhid in
+		 	( 
+		 	   select u.row_id from jshx_zcyhsb u where u.delFlag = 0 and u.mqzt = '0'
+			   <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+			)
+         ) as yzgCount
+          from QYZCYHGLB t  where  t.delFlag = 0 and t.yhdl is not null
+	</select>
+	<select id="query_zlType_data" parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.TypeBean">
+		select distinct t.yhdl as jclb,t.yhzl,
+		 (
+		 	select count(*) from QYZCYHGLB q where q.yhdl = t.yhdl and q.yhzl = t.yhzl and q.delflag = 0 
+		 	and q.yhid in
+		 	( 
+		 	   select u.row_id from jshx_zcyhsb u where u.delFlag = 0 
+			   <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+			)	
+		 ) as yhlbTotal
+          from QYZCYHGLB t  where  t.delFlag = 0 and t.yhdl is not null and t.yhzl is not null
+	</select>
+	<!-- 自查隐患信息统计 2013-11-11 李军 -->
+	<select id="query_tjyh_list_data_old" parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.TjYhBean">
+		select 
+		    (
+		    	select count(*) from companybackup cb where cb.basepass = 1 and cb.dwdz1 like c.item_value
+		    	<isNotEmpty property="szzid">
+					<![CDATA[and cb.dwdz1 like #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and cb.companyname like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and cb.whpqylx like #whpqylx#]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and cb.aqbzdbjb = #aqbzdbjb#]]>
+				</isNotEmpty>
+		    ) as qyTotal,
+		    (select count(distinct t.qyid) from jshx_zcyhsb t where t.szzid = c.item_value  and  t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and t.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and t.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>	
+		     ) as sbqy,
+		    (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.szzid = c.item_value and  u.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>	
+		    )  as yhTotal,
+		    (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '0'  and zu.szzid = c.item_value and  zu.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and zu.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and zu.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and zu.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and zu.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>	
+		    )  as zgwc,
+		    (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '1'  and zu.szzid = c.item_value and  zu.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and zu.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and zu.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and zu.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and zu.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+		    )  as zgwwc,
+		    (select count(distinct t.qyid) from jshx_zcyhsb t where t.mqzt = '0' and t.szzid = c.item_value and  t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and t.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and t.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>	
+		     ) as zeroCount,
+		    c.item_text as dwdz
+		    from codevalue c where c.code_id = '4028e56c4014f290014014f981510003' and c.del_flag = 0
+		    <isNotEmpty property="szzid">
+				<![CDATA[and c.item_value = #szzid#]]>
+			</isNotEmpty>
+	</select>
+	<!-- 根据行业分类查询隐患信息 2013-11-11 李军 -->
+	<select id="query_hyfl_list_data" parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.HyflDataBean">
+		select  c.item_text as hyfl,
+        (
+        	select count(*) from companybackup cb where cb.basepass = 1 and cb.hyfl = c.item_value
+        	<isNotEmpty property="szzid">
+				<![CDATA[and cb.dwdz1 like #szzid#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymc">
+				<![CDATA[and cb.companyname like #qymc#]]>
+			</isNotEmpty>
+			<isNotEmpty property="whpqylx">
+				<![CDATA[and cb.whpqylx like #whpqylx#]]>
+			</isNotEmpty>
+			<isNotEmpty property="aqbzdbjb">
+				<![CDATA[and cb.aqbzdbjb = #aqbzdbjb#]]>
+			</isNotEmpty>
+        ) as qyTotal,
+        (select count(distinct t.qyid) from jshx_zcyhsb t where t.hyfl = c.item_value and  t.delFlag = 0 
+        		<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and t.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and t.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>	
+         ) as sbqy,
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '0' and u.hyfl = c.item_value and  u.delFlag = 0 
+        	   <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb01,
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '0' and u.hyfl = c.item_value and u.mqzt = '0'  and  u.delFlag = 0 
+        	  <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb0101,
+        
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '1' and u.hyfl = c.item_value and  u.delFlag = 0 
+        	   <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb02,
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '1' and u.hyfl = c.item_value and u.mqzt = '0'  and  u.delFlag = 0 
+        	    <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb0202,
+        
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '2' and u.hyfl = c.item_value and  u.delFlag = 0 
+        	   <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb03,
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '2' and u.hyfl = c.item_value and u.mqzt = '0'  and  u.delFlag = 0 
+        	   <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb0303,
+       
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '3' and u.hyfl = c.item_value and  u.delFlag = 0 
+        	 <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb04,
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '3' and u.hyfl = c.item_value and u.mqzt = '0' and  u.delFlag = 0 
+        	   <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb0404,
+        (select IFNULL(sum(u.zgtrzj),0) from jshx_zcyhsb u  where   u.hyfl = c.item_value and  u.delFlag = 0 
+        	   <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as zgzj
+        from codevalue c where c.code_id = '402880484076bce30140a04236590a02' and c.del_flag = 0
+		
+	</select>
+	<select id="query_hyfl_bean_data" parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.HyflDataBean">
+		select 
+        (
+        	select count(*) from companybackup c where c.basepass = 1
+        	<isNotEmpty property="szzid">
+				<![CDATA[and c.dwdz1 like #szzid#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymc">
+				<![CDATA[and c.companyname like #qymc#]]>
+			</isNotEmpty>
+			<isNotEmpty property="whpqylx">
+				<![CDATA[and c.whpqylx like #whpqylx#]]>
+			</isNotEmpty>
+			<isNotEmpty property="aqbzdbjb">
+				<![CDATA[and c.aqbzdbjb = #aqbzdbjb#]]>
+			</isNotEmpty>
+        ) as qyTotal,
+        (select count(distinct t.qyid) from jshx_zcyhsb t where  t.delFlag = 0 
+        	   <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and t.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and t.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and t.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>	
+        ) as sbqy,
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '0' and u.delFlag = 0 
+        	    <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb01,
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '0' and u.mqzt = '0' and u.delFlag = 0 
+        	   <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb0101,
+        
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '1' and u.delFlag = 0 
+        	   <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb02,
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '1'  and u.mqzt = '0' and u.delFlag = 0 
+        	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb0202,
+        
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '2'  and u.delFlag = 0 
+      		  <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+		)  as jb03,
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '2' and u.mqzt = '0' and u.delFlag = 0 
+        	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb0303,
+       
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '3' and u.delFlag = 0 
+        	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb04,
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.jb = '3' and u.mqzt = '0' and u.delFlag = 0 
+        	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as jb0404,
+        (select IFNULL(sum(u.zgtrzj),0) from jshx_zcyhsb u  where u.delFlag = 0 
+        	  <isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				<isNotEmpty property="szzid">
+					<![CDATA[and u.szzid = #szzid#]]>
+				</isNotEmpty>
+				<isNotEmpty property="qymc">
+					<![CDATA[and u.qymc like #qymc#]]>
+				</isNotEmpty>
+				<isNotEmpty property="whpqylx">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.whpqylx like #whpqylx#)]]>
+				</isNotEmpty>
+				<isNotEmpty property="aqbzdbjb">
+					<![CDATA[and u.qyid in (select c.row_id from companybackup c where c.aqbzdbjb = #aqbzdbjb#)]]>
+				</isNotEmpty>
+        )  as zgzj
+        from  dual
+	</select>
+	
+	<!--  安全标准化企业达标信息统计  -->
+	<select id="query_bzh_list_data" parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.BzhBean"> 
+	  select 
+		    (select count(*) from companybackup cb where  cb.dwdz1 like concat(c.item_value,'%') and cb.aqbzdbjb in('1','2','3')) as qyTotal,
+		    (select count(distinct t.qyid) from jshx_zcyhsb t where t.szzid like concat(c.item_value,'%')  and  t.delFlag = 0 
+		    and t.qyid in(select cb.row_id from companybackup cb where  cb.dwdz1 like concat(c.item_value,'%') and cb.aqbzdbjb in('1','2','3'))
+		    	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				
+		     ) as sbqy,
+		    (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.szzid like concat(c.item_value,'%') and  u.delFlag = 0 
+		    and u.qyid in(select cb.row_id from companybackup cb where  cb.dwdz1 like concat(c.item_value,'%') and cb.aqbzdbjb in('1','2','3'))
+		    	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				
+		    )  as yhTotal,
+		    (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '0'  and zu.szzid like concat(c.item_value,'%') and  zu.delFlag = 0 
+		    and zu.qyid in(select cb.row_id from companybackup cb where  cb.dwdz1 like concat(c.item_value,'%') and cb.aqbzdbjb in('1','2','3'))
+		    	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				
+		    )  as zgwc,
+		    (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '1'  and zu.szzid like concat(c.item_value,'%') and  zu.delFlag = 0 
+		    and zu.qyid in(select cb.row_id from companybackup cb where cb.dwdz1 like concat(c.item_value,'%') and cb.aqbzdbjb in('1','2','3'))
+		    	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				
+		    )  as zgwwc,
+		    
+		    c.item_text as dwdz
+		    from codevalue c where c.code_id = '4028e56c4014f290014014f981510003' and c.del_flag = 0
+	</select>
+	
+	
+	
+	<!--  查询安全标准化企业达标上报数据  -->
+	<select id="query_bzh_data" parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.BzhBean"> 
+		select 
+		(select count(*) from companybackup cb where  cb.aqbzdbjb!=0
+		) as qyTotal,
+		(select count(distinct t.qyid) from jshx_zcyhsb t where t.delFlag = 0 
+		and t.qyid in(select cb.row_id from companybackup cb where  cb.aqbzdbjb in('1','2','3'))
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+			</isNotEmpty>
+			
+			) as sbqy,
+			
+		(select  IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u where  u.delFlag = 0 
+		and u.qyid in(select cb.row_id from companybackup cb where cb.basepass = 1 and cb.aqbzdbjb in('1','2','3'))
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+			</isNotEmpty> 
+			
+		)  as yhTotal,
+		(select  IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '0' and  zu.delFlag = 0 
+		and zu.qyid in(select cb.row_id from companybackup cb where cb.basepass = 1 and cb.aqbzdbjb in('1','2','3'))
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+			</isNotEmpty> 
+			
+		)  as zgwc,
+		(select  IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '1'  and  zu.delFlag = 0 
+		and zu.qyid in(select cb.row_id from companybackup cb where cb.basepass = 1 and cb.aqbzdbjb in('1','2','3'))
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+			</isNotEmpty> 
+			
+		)  as zgwwc
+		
+		from dual
+	</select>
+	
+	
+	<!--  职业危害企业信息统计  -->
+	<select id="query_zywh_list_data" parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.ZywhBean"> 
+	  select 
+		    (select count(*) from companybackup cb where cb.basepass = 1 and cb.dwdz1 like c.item_value and cb.ifzywhqylx = 1 ) as qyTotal,
+		    (select count(distinct t.qyid) from jshx_zcyhsb t where t.szzid = c.item_value  and  t.delFlag = 0 and t.ifzywhqylx = 1
+		    	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				
+		     ) as sbqy,
+		    (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.szzid = c.item_value and  u.delFlag = 0 and u.ifzywhqylx = 1
+		    	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				
+		    )  as yhTotal,
+		    (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '0'  and zu.szzid = c.item_value and  zu.delFlag = 0 and zu.ifzywhqylx = 1
+		    	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				
+		    )  as zgwc,
+		    (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '1'  and zu.szzid = c.item_value and  zu.delFlag = 0 and zu.ifzywhqylx = 1
+		    	<isNotEmpty property="queryJcsjStart">
+					<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+					<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+				</isNotEmpty> 
+				
+		    )  as zgwwc,
+		    
+		    c.item_text as dwdz
+		    from codevalue c where c.code_id = '4028e56c4014f290014014f981510003' and c.del_flag = 0
+	</select>
+	
+	
+	<!--  查询职业危害企业上报数据  -->
+	<select id="query_zywh_data" parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.ZywhBean"> 
+		select 
+		(select count(*) from companybackup cb where cb.basepass = 1 and cb.ifzywhqylx = 1
+		) as qyTotal,
+		(select count(distinct t.qyid) from jshx_zcyhsb t where t.delFlag = 0 and t.ifzywhqylx = 1
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+			</isNotEmpty>
+			
+			) as sbqy,
+			
+		(select  IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u where  u.delFlag = 0 and u.ifzywhqylx = 1
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+			</isNotEmpty> 
+			
+		)  as yhTotal,
+		(select  IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '0' and  zu.delFlag = 0 and zu.ifzywhqylx = 1
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+			</isNotEmpty> 
+			
+		)  as zgwc,
+		(select  IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '1'  and  zu.delFlag = 0 and zu.ifzywhqylx = 1
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+			</isNotEmpty> 
+			
+		)  as zgwwc
+		
+		from dual
+	</select>
+	
+	
+	<!--  危险化学品企业统计  -->
+	<select id="query_whp_list_data" parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.WhpBean"> 
+	select 
+        (select count(*) from companybackup cb where cb.basepass = 1 and cb.dwdz1 like c.item_value and cb.ifwhpqylx=1) as qyTotal,
+        c.item_text as dwdz,
+        (select count(distinct t.qyid) from jshx_zcyhsb t where t.szzid = c.item_value  and  t.delFlag = 0 and t.ifwhpqylx=1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+         ) as sbqy,
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where u.szzid = c.item_value and  u.delFlag = 0 and u.ifwhpqylx=1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+        )  as yhTotal,
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '0'  and zu.szzid = c.item_value and  zu.delFlag = 0 and zu.ifwhpqylx=1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+        )  as zgwc,
+        
+        
+        (select count(*) from companybackup cb where cb.basepass = 1 and cb.dwdz1 like c.item_value and cb.ifwhpqylx=1 and cb.whpqylx like'%2%'
+
+        ) as hgscqyTotal,
+        
+        
+         (select count(distinct t.qyid) from jshx_zcyhsb t ,companybackup cb where   t.qyid=cb.row_id  and t.szzid = c.item_value  and  t.delFlag = 0 and cb.ifwhpqylx=1 and cb.whpqylx like'%2%' and cb.basepass = 1
+          <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+		  </isNotEmpty>
+		  <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+		  </isNotEmpty> 
+         ) as hgscsbqy,
+        
+        
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u ,companybackup cb  where u.qyid=cb.row_id and u.szzid = c.item_value and  u.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%2%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		  <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+	     </isNotEmpty> 
+        )  as hgscyhTotal,
+        
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu ,companybackup cb where zu.qyid=cb.row_id and zu.mqzt = '0'  and zu.szzid = c.item_value and  zu.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%2%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+        )  as hgsczgwc,
+        
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu ,companybackup cb where zu.qyid=cb.row_id and zu.mqzt = '1'  and zu.szzid = c.item_value and  zu.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%2%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+        )  as hgsczgwwc,
+        
+        (select count(*) from companybackup cb where cb.basepass = 1 and cb.dwdz1 like c.item_value and cb.ifwhpqylx=1 and cb.whpqylx like'%4%'
+        
+        ) as whpjyqyTotal,
+        
+        (select count(distinct t.qyid) from jshx_zcyhsb t ,companybackup cb where   t.qyid=cb.row_id  and t.szzid = c.item_value  and  t.delFlag = 0 and cb.ifwhpqylx=1 and cb.whpqylx like'%4%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		  <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+         ) as whpjysbqy,
+        
+        
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u ,companybackup cb  where u.qyid=cb.row_id and u.szzid = c.item_value and  u.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%4%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+		  </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+        )  as whpjyyhTotal,
+        
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu ,companybackup cb where zu.qyid=cb.row_id and zu.mqzt = '0'  and zu.szzid = c.item_value and  zu.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%4%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		  </isNotEmpty>
+		  <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		  </isNotEmpty> 
+        )  as whpjyzgwc,
+        
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu ,companybackup cb where zu.qyid=cb.row_id and zu.mqzt = '1'  and zu.szzid = c.item_value and  zu.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%4%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		  </isNotEmpty> 
+        )  as whpjyzgwwc,
+        
+        (select count(*) from companybackup cb where cb.basepass = 1 and cb.dwdz1 like c.item_value and cb.ifwhpqylx=1 and cb.whpqylx like'%5%'
+       
+        ) as whpsyqyTotal,
+        
+        (select count(distinct t.qyid) from jshx_zcyhsb t ,companybackup cb where   t.qyid=cb.row_id  and t.szzid = c.item_value  and  t.delFlag = 0 and cb.ifwhpqylx=1 and cb.whpqylx like'%5%' and cb.basepass = 1
+          <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+		  </isNotEmpty>
+		  <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+		  </isNotEmpty> 
+         ) as whpsysbqy,
+        
+        
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u ,companybackup cb  where u.qyid=cb.row_id and u.szzid = c.item_value and  u.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%5%' and cb.basepass = 1
+      	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+        )  as whpsyyhTotal,
+        
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu ,companybackup cb where zu.qyid=cb.row_id and zu.mqzt = '0'  and zu.szzid = c.item_value and  zu.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%5%' and cb.basepass = 1
+       	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+        )  as whpsyzgwc,
+        
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu ,companybackup cb where zu.qyid=cb.row_id and zu.mqzt = '1'  and zu.szzid = c.item_value and  zu.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%5%' and cb.basepass = 1
+       	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+        )  as whpsyzgwwc
+        
+  
+          from codevalue c   where c.code_id = '4028e56c4014f290014014f981510003' and c.del_flag = 0
+	
+	
+	</select>
+	
+	<!--  查询危险化学品企业上报数据  -->
+	<select id="query_whp_data" parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.WhpBean"> 
+	select 
+        (select count(*) from companybackup cb where cb.basepass = 1  and cb.ifwhpqylx=1) as qyTotal,
+       
+        (select count(distinct t.qyid) from jshx_zcyhsb t where   t.delFlag = 0 and t.ifwhpqylx=1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+         ) as sbqy,
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u  where  u.delFlag = 0 and u.ifwhpqylx=1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+        )  as yhTotal,
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu where zu.mqzt = '0'  and  zu.delFlag = 0 and zu.ifwhpqylx=1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+        )  as zgwc,
+        
+        
+        (select count(*) from companybackup cb where cb.basepass = 1  and cb.ifwhpqylx=1 and cb.whpqylx like'%2%'
+
+        ) as hgscqyTotal,
+        
+        
+         (select count(distinct t.qyid) from jshx_zcyhsb t ,companybackup cb where   t.qyid=cb.row_id    and  t.delFlag = 0 and cb.ifwhpqylx=1 and cb.whpqylx like'%2%' and cb.basepass = 1
+          <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+		  </isNotEmpty>
+		  <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+		  </isNotEmpty> 
+         ) as hgscsbqy,
+        
+        
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u ,companybackup cb  where u.qyid=cb.row_id and  u.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%2%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		  <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+	     </isNotEmpty> 
+        )  as hgscyhTotal,
+        
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu ,companybackup cb where zu.qyid=cb.row_id and zu.mqzt = '0'   and  zu.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%2%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+        )  as hgsczgwc,
+        
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu ,companybackup cb where zu.qyid=cb.row_id and zu.mqzt = '1'   and  zu.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%2%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+        )  as hgsczgwwc,
+        
+        (select count(*) from companybackup cb where cb.basepass = 1  and cb.ifwhpqylx=1 and cb.whpqylx like'%4%'
+        
+        ) as whpjyqyTotal,
+        
+        (select count(distinct t.qyid) from jshx_zcyhsb t ,companybackup cb where   t.qyid=cb.row_id    and  t.delFlag = 0 and cb.ifwhpqylx=1 and cb.whpqylx like'%4%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		  <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+         ) as whpjysbqy,
+        
+        
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u ,companybackup cb  where u.qyid=cb.row_id  and  u.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%4%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+		  </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+		 </isNotEmpty> 
+        )  as whpjyyhTotal,
+        
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu ,companybackup cb where zu.qyid=cb.row_id and zu.mqzt = '0'   and  zu.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%4%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		  </isNotEmpty>
+		  <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		  </isNotEmpty> 
+        )  as whpjyzgwc,
+        
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu ,companybackup cb where zu.qyid=cb.row_id and zu.mqzt = '1'   and  zu.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%4%' and cb.basepass = 1
+         <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		 </isNotEmpty>
+		 <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		  </isNotEmpty> 
+        )  as whpjyzgwwc,
+        
+        (select count(*) from companybackup cb where cb.basepass = 1  and cb.ifwhpqylx=1 and cb.whpqylx like'%5%'
+       
+        ) as whpsyqyTotal,
+        
+        (select count(distinct t.qyid) from jshx_zcyhsb t ,companybackup cb where   t.qyid=cb.row_id    and  t.delFlag = 0 and cb.ifwhpqylx=1 and cb.whpqylx like'%5%' and cb.basepass = 1
+          <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.jcsj >= #queryJcsjStart#]]>
+		  </isNotEmpty>
+		  <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.jcsj <= #queryJcsjEnd#]]>
+		  </isNotEmpty> 
+         ) as whpsysbqy,
+        
+        
+        (select IFNULL(sum(u.yhsl),0) from jshx_zcyhsb u ,companybackup cb  where u.qyid=cb.row_id  and  u.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%5%' and cb.basepass = 1
+          <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and u.jcsj >= #queryJcsjStart#]]>
+		  </isNotEmpty>
+		  <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and u.jcsj <= #queryJcsjEnd#]]>
+		  </isNotEmpty> 
+        )  as whpsyyhTotal,
+        
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu ,companybackup cb where zu.qyid=cb.row_id and zu.mqzt = '0'   and  zu.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%5%' and cb.basepass = 1
+          <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		  </isNotEmpty>
+		  <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		  </isNotEmpty> 
+        )  as whpsyzgwc,
+        
+        (select IFNULL(sum(zu.yhsl),0) from jshx_zcyhsb zu ,companybackup cb where zu.qyid=cb.row_id and zu.mqzt = '1'  and  zu.delFlag = 0 and cb.ifwhpqylx=1  and cb.whpqylx like'%5%' and cb.basepass = 1
+          <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and zu.jcsj >= #queryJcsjStart#]]>
+		  </isNotEmpty>
+		  <isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and zu.jcsj <= #queryJcsjEnd#]]>
+		  </isNotEmpty> 
+        )  as whpsyzgwwc
+        
+  
+          from dual
+          
+          	</select>
+</sqlMap>

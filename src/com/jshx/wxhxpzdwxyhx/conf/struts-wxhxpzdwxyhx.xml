@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MAJ_SOU_VER" extends="default" namespace="/jsp/wxhxpzdwxyhx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="majSouVerQuery" class="com.jshx.wxhxpzdwxyhx.web.MajSouVerAction" method="list">
+		</action>
+		
+		<action name="majSouVerList" class="com.jshx.wxhxpzdwxyhx.web.MajSouVerAction" method="init">
+			<result name="success">/WEB-INF/pages/wxhxpzdwxyhx/MajSouVer_List.jsp</result>
+		</action>
+		
+		<action name="majSouVerView" class="com.jshx.wxhxpzdwxyhx.web.MajSouVerAction" method="view">
+			<result name="view">/WEB-INF/pages/wxhxpzdwxyhx/MajSouVer_Detail.jsp</result>
+		</action>
+
+		<action name="majSouVerInitEdit" class="com.jshx.wxhxpzdwxyhx.web.MajSouVerAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/wxhxpzdwxyhx/MajSouVer_Edit.jsp</result>
+		</action>
+
+		<action name="majSouVerSave" class="com.jshx.wxhxpzdwxyhx.web.MajSouVerAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_majSouVer</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="majSouVerDel" class="com.jshx.wxhxpzdwxyhx.web.MajSouVerAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

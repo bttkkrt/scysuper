@@ -1,0 +1,403 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>QS应用系统开发框架模板</title>
+    <style type="text/css">
+    html, body {
+	    height: 100%;
+	    overflow: auto;
+    }
+    body {
+	    padding: 0;
+	    margin: 0;
+    }
+    #silverlightControlHost {
+	    height: 100%;
+	    text-align:center;
+    }
+    </style>
+    <script type="text/javascript" src="Silverlight.js"></script>
+    <script type="text/javascript" src="json.js"></script>
+    <script type="text/javascript">
+        function onSilverlightError(sender, args) {
+            var appSource = "";
+            if (sender != null && sender != 0) {
+                appSource = sender.getHost().Source;
+            }
+
+            var errorType = args.ErrorType;
+            var iErrorCode = args.ErrorCode;
+
+            if (errorType == "ImageError" || errorType == "MediaError") {
+                return;
+            }
+
+            var errMsg = "Silverlight 应用程序中未处理的错误 " + appSource + "\n";
+
+            errMsg += "代码: " + iErrorCode + "    \n";
+            errMsg += "类别: " + errorType + "       \n";
+            errMsg += "消息: " + args.ErrorMessage + "     \n";
+
+            if (errorType == "ParserError") {
+                errMsg += "文件: " + args.xamlFile + "     \n";
+                errMsg += "行: " + args.lineNumber + "     \n";
+                errMsg += "位置: " + args.charPosition + "     \n";
+            }
+            else if
+                (errorType == "RuntimeError") {
+                if (args.lineNumber != 0) {
+                    errMsg += "行: " + args.lineNumber + "     \n";
+                    errMsg += "位置: " + args.charPosition + "     \n";
+                }
+                errMsg += "方法名称: " + args.methodName + "     \n";
+            }
+
+            throw new Error(errMsg);
+        }
+
+        function onSymLoad(sender, args) {
+            var logon, sl;
+
+            //获取用户名密码
+            var username = getQueryString("username");
+            var psd = getQueryString("psd");
+
+            //获取SL对象
+            sl = document.getElementById("qsSym");
+
+            //获取与JS交互的SL注册对象
+            logon = sl.Content.Bootstrapper;
+
+            //设置是否需要通过登录界面来进行加载
+            if (username == null && psd == null) {
+                logon.IsNeedLogon = false;//当URL中不包含username和psd时默认设置为需要登录界面
+            }
+            else {
+                logon.IsNeedLogon = false;//不需要登录界面，直接根据url中携带的ID+PSD进行登录加载
+                document.cookie = "setUserName=" + escape(username);
+                document.cookie = "setPassWord=" + escape(psd);
+            }
+
+            //设定参数-----------此处设置是否需要加载默认的系统配置文件
+            //此处设置为true后，无论有否登录界面或外部授权，都只加载本地的默认配置信息
+            logon.IsLocalConfig = true;
+
+            //运行QS框架系统
+            logon.Run("");
+        }
+
+        //提取参数
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+
+    </script>
+    <script type="text/javascript">
+        function showNewTipWin(msg) {
+            window.open(msg, "newwindow", "toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no")
+        }
+    </script>
+</head>
+<body>
+
+    <script type="text/javascript">
+        function detectOS() {
+            var str;
+            var agent = navigator.userAgent.toLowerCase();
+            if (agent.indexOf("mac") > -1)
+                str = 'ClientBin/downloadSL/Silverlight5_MacOS.dmg';
+            else if (agent.indexOf("win64") > -1 || agent.indexOf("wow64") > -1)
+                str = 'ClientBin/downloadSL/Silverlight_x64.exe';
+            else
+                str = 'ClientBin/downloadSL/Silverlight_x32.exe';
+            window.open(str);
+        }
+    </script>
+
+    <script type="text/javascript">
+
+        //空间定位
+        function LocateComPany(ids,type)
+        {
+            
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+           // var ids = "024C53C0-0289-49E9-B347-F520865A5E82";
+            //var ids = "B204FDB6-F037-4C0A-B706-1306BA3FB9E2";
+            logon.LocateComPany(JSON.stringify(ids),type);
+        }
+
+        // 接收用户在地图上点击某个点的id，一般为组织机构代码，和该点的类型企业点或危险源点
+        function ReceiveID(ID, Type)
+        {
+        	var detail = window.parent.GetCompanyDetail(ID);
+            var Info
+            if (Type == "企业") {
+                 Info= eval('(' + detail + ')');
+            }
+           
+            ShowDataInfo(Info);
+        }
+
+        // 展示企业或危险源的详细信息，若果是危险源，则需带上相关的危险品WXPinfo
+        function ShowDataInfo(info) {
+
+            sl = document.getElementById("qsSym");
+            //获取与JS交互的SL注册对象
+            logon = sl.Content.Builder;
+            logon.ShowDataInfo(JSON.stringify(info));
+        }
+
+
+
+        function addDanger() {
+            //获取SL对象
+            sl = document.getElementById("qsSym");
+            //获取与JS交互的SL注册对象
+            logon = sl.Content.Builder;
+            logon.AddDanger();
+        }
+
+        // 获取坐标
+        function getCoor() {
+
+            //获取SL对象
+            sl = document.getElementById("qsSym");
+            //获取与JS交互的SL注册对象
+            logon = sl.Content.Builder;
+            logon.getCoor();
+        }
+
+        // 接收打点的经纬度
+        function receiveCoor(JD, WD) {
+            jd = JD;
+            wd = WD;
+            //JD 经度
+            //WD 纬度
+           // SaveShape(JD, WD, "0987", "危险源", "591123490")
+        }
+		
+		  function SaveShape(key,type,code,name) {//企业子模块信息保存
+		  	var shapeType = "ZMK";
+		  	  // 企业子模块
+            var ZMKshapeInfo = [{
+                "ZMKBM": key,
+                "MKMC": name,
+                "QYMC": "",
+                "DZ": "",
+                "QY": code,
+                "SHAPE": "POINT ("+jd+" "+wd+")"
+            }];
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            logon.SaveShape(shapeType, JSON.stringify(ZMKshapeInfo));
+		  }
+
+        // 存储空间信息
+        function SaveShape_ceshi() {
+            
+            var shapeType = "ZMK";//QY:企业  WXY:危险源  ZMK:企业子模块   WXP:危险品  对应的
+            // 企业
+            var ComshapeInfo = [{
+                "ZZJGDM": "769869777",
+                "QYMC": "测试",
+                "DZ": "这是一条神奇的道路",
+                "QY": "唯亭街道",
+                "SHAPE": "POINT (81497.111784796 -11387.768422104418)"
+            }];
+
+            // 危险源
+            var WXYshapeInfo = [{
+                "ZZJGDM": "769869000",
+                "QYMC": "富士胶片电子材料（苏州）有限公司",
+                "DZ": "江苏省苏州市苏州工业园区龙潭路206号",
+                "SHAPE": "POINT (81497.333784796 -11387.768422104418)"
+            }];
+
+            // 企业子模块
+            var ZMKshapeInfo = [{
+                "ZMKBM": "BA1ED326-B779-4E7C-B559-770DB367EEEE",
+                "MKMC": "11",
+                "QYMC": "11",
+                "DZ": "11",
+                "QY": "11",
+                "SHAPE": "POINT (81497.666784796 -11387.768422104418)"
+            }];
+
+            // 危险品
+            var WXPshapeInfo = [{
+                "QYMC": "碧迪医疗器械（苏州）有限公司",
+                "ZDWHP": "异丙醇",
+                "LB": "辅料",
+                "CL": "640",
+                "DW": "化学品仓库",
+                "CFDD": "化学品仓库",
+                "CFFS": "20公斤桶装",
+                "SHAPE": "POINT (81497.777784796 -11387.768422104418)"
+            }];
+
+
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            logon.SaveShape(shapeType, JSON.stringify(ZMKshapeInfo));
+        }
+
+        // 根据用户角色初始化地图，id为某个网格的Code时，初始定位到该网格，若id为null，则默认显示所有网格。
+        function InitGrid(id) {
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            logon.InitGrid(id);
+        }
+
+        // 查看企业子模块的地图定位
+        function ComChildLocate(childID)
+        {
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            logon.ComChildLocate(childID);
+        }
+
+        // 地图加载完成后调用此方法
+        //角色R0：安监局；角色R1：企业
+        function MapLoaded()
+        {
+           var mark = window.parent.getMark();
+           if(mark != '0' && mark != '-1'){
+           		InitLayerTree("R0");
+           }else if(mark == '-1'){
+        	    RemoveTool();
+                IOlayerControl('colse');
+           		var ids = window.parent.getChlidCode();
+           		LocateComPany(ids, "企业子模块")	
+           }else{
+        	    RemoveTool();
+                IOlayerControl('colse');
+           		var ids = window.parent.getCompanyCode();
+           		LocateComPany(ids, "企业")	
+           		InitLayerTree("R1");
+           }
+        }
+
+        //  点击查询的结果的点时调用此方法，参数为该点所在的区域名称
+        function ReceiveGrid(data)
+        {
+          parent.document.getElementById('mapKey').value = data;
+        }
+
+        // 网格查询完成后，调用此方法，参数为网格内所有的企业或者危险源代码
+        function ReceiveData(data)
+        {
+            //alert(data);
+        }
+
+        // 通过企业查找它所在的网格，直接返回结果，不定位
+        function FindGridByCom(ComID)
+        {
+           // var ComID = "737064826";
+
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            logon.FindGridByCom(ComID);
+        }
+
+        //通过网格查找网格中所有的企业，直接返回结果，不定位
+        function FindComByGrid(GridID)
+        {
+            //var GridID = "0101";
+
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            logon.FindComByGrid(GridID);
+        }
+       
+        //Qixx 2015.12.04图层管理器开关控制接口
+        function IOlayerControl(IO) {
+
+            var IO = "Close";//IO="Open" 时打开图层管理部件
+
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            logon.CloselayerControl(IO);
+        }
+
+        //Qixx 2015.12.04移除“网格查询危险源”和“网格查询企业”两个小工具
+        function RemoveTool() {
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            logon.RemoveTool();
+        }
+        
+        //根据用户角色初始化图层树
+        function InitLayerTree(role){
+        	sl = document.getElementById("qsSym");
+        	logon = sl.Content.Builder;
+        	logon.InitLayerTree(role);
+        }
+        
+        //点击某个网格时，将该网格编码传给JS
+        function ReceiveGridCode(data)
+        {
+        }
+        
+        //图层树创建完成后调用此方法，初始化网格
+        function LayerTreeCreateDone()
+        {
+        	InitGrid();
+        }
+        
+        
+        function zhcx(id)
+        {
+        	var s = id.split("+");
+        	window.parent.zhcx(s[0],s[1]);
+        }
+        
+        function YHGridID(id)
+        {
+        	getGridYhDataByMapKey(id);
+        }
+        
+        function getGridYhDataByMapKey(data)
+        {
+        	var str = window.parent.getGridYhDataByMapKey(data);
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            logon.ShowYHStatResult(JSON.stringify(str));
+        	
+        }
+        
+    </script>
+
+    <form id="form1"  runat="server" style="height:100%">
+     
+        <!--  <div style="width:100%; height:50px; background-color:lightskyblue">
+            <input type="button" style="height:20px; width:50px;" value="LocateComPany()" onclick="LocateComPany()"/>
+            <input type="button" style="height:20px; width:80px;" value="获取坐标" onclick="getCoor()"/>
+            <input type="button" style="height:20px; width:110px;" value="(用户角色)初始化网格" onclick="InitGrid()"/>
+            <input type="button" style="height:20px; width:110px;" value="企业查网格" onclick="RemoveTool()"/>
+             <input type="button" style="height:20px; width:110px;" value="网格中的企业" onclick="FindComByGrid()"/>
+            <input type="button" style="height:20px; width:110px;" value="SaveShape()" onclick="SaveShape('10001','0','10002','测试')"/>
+
+        </div>-->
+	 
+    <div id="silverlightControlHost">
+        <object id="qsSym" data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="100%" height="100%">
+		  <param name="source" value="ClientBin/Geone_QS.xap"/>
+		  <param name="onError" value="onSilverlightError" />
+		  <param name="background" value="white" />
+		  <param name="minRuntimeVersion" value="5.0.61118.0" />
+          <param name="onload" value="onSymLoad" />
+		  <param name="autoUpgrade" value="true" />
+            <param name="windowless" value="true" />
+          <a href="javascript: detectOS()" style="text-decoration:none">
+ 		      <img src="ClientBin/downloadSL/SLMedallion_CHS.png" alt="获取 Microsoft Silverlight" style="border-style:none"/>
+	     </a>
+	    </object><iframe id="_sl_historyFrame" style="visibility:hidden;height:0px;width:0px;border:0px"></iframe></div>
+    </form>
+</body>
+</html>

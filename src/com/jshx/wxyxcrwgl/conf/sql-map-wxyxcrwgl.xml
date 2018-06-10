@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findDanTasManByMap">
+		select new com.jshx.wxyxcrwgl.entity.DanTasMan(t.assPlanNo,t.id, t.dangerName, t.checkTime, t.checkPeopleName, t.areaName, t.companyName, t.taskName, t.checkType,t.checkTimeEnd,t.result) from DanTasMan t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="taskName">
+			<![CDATA[and t.taskName like :taskName]]>
+		</isNotEmpty>
+		<isNotEmpty property="dangerName">
+			<![CDATA[and t.dangerName like :dangerName]]>
+		</isNotEmpty>
+		<isNotEmpty property="startCheckTime">
+			<![CDATA[and t.checkTimeEnd >= :startCheckTime ]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCheckTime">
+			<![CDATA[and t.checkTime <= :endCheckTime ]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkPeopleName">
+			<![CDATA[and t.checkPeopleName like :checkPeopleName]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkType">
+			<![CDATA[and  t.checkType in (:checkType)]]>
+		</isNotEmpty>
+		<isNotEmpty property="result">
+			<![CDATA[and t.result = :result]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID = :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="assPlanNo">
+			<![CDATA[and t.assPlanNo = :assPlanNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and ( t.companyName like :searchLike or  t.taskName like :searchLike or  t.checkPeopleName like :searchLike)]]>
+		</isNotEmpty>
+		order by createTime desc 
+	</select>
+	<!-- 获取过期任务列表 lj 2015-12-19 -->
+	<select id="get_noDealTasksByMap" parameterClass="java.util.Map" resultClass="com.jshx.wxyxcrwgl.entity.DanTasMan">
+		select row_id as id from 
+		DAN_TAS_MAN where delflag = 0 and result = '待巡查' 
+		<![CDATA[and checkTimeEnd < #month#]]>
+	</select>
+	<!-- 更新任务状态 lj 2015-12-19 -->
+	<update id="update_taskResult_byMap" parameterClass="java.util.Map">
+		update DAN_TAS_MAN SET result = #result# where row_id = #id#
+	</update>
+	
+	<insert id="saveDanTask" parameterClass="com.jshx.wxyxcrwgl.entity.DanTasMan">
+	insert into DAN_TAS_MAN(row_id,delflag,DANGER_NAME,CHECK_TIME,CHECK_PEOPLE_ID,CHECK_PEOPLE_NAME,AREA_ID,AREA_NAME,COMPANY_ID,COMPANY_NAME,ASS_PLAN_NO,CHENK_NO,TASK_NAME,CHECK_TYPE,LINK_ID,checkTimeEnd,dangerId,result,CHECK_KIND,CHECK_ID,CHECK_NAME,CREATETIME,CREATEUSERID)
+	values(#id#,#delFlag#,#dangerName#,#checkTime#,#checkPeopleId#,#checkPeopleName#,#areaId#,#areaName#,#companyId#,#companyName#,#assPlanNo#,#chenkNo#,#taskName#,#checkType#,#linkId#,#checkTimeEnd#,#dangerId#,#result#,#checkKind#,#checkId#,#checkName#,#createTime#,#createUserID#)
+	</insert>
+</sqlMap>

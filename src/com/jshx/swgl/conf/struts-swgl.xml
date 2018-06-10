@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="RECEIVE_INFORMATION" extends="default" namespace="/jsp/swgl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="receiveInformationQuery" class="com.jshx.swgl.web.ReceiveInformationAction" method="list">
+		</action>
+		
+		<action name="receiveInformationList" class="com.jshx.swgl.web.ReceiveInformationAction" method="init">
+			<result name="success">/WEB-INF/pages/swgl/ReceiveInformation_List.jsp</result>
+		</action>
+		
+		<action name="receiveInformationView" class="com.jshx.swgl.web.ReceiveInformationAction" method="view">
+			<result name="view">/WEB-INF/pages/swgl/ReceiveInformation_Detail.jsp</result>
+		</action>
+
+		<action name="receiveInformationInitEdit" class="com.jshx.swgl.web.ReceiveInformationAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/swgl/ReceiveInformation_Edit.jsp</result>
+		</action>
+
+		<action name="receiveInformationSave" class="com.jshx.swgl.web.ReceiveInformationAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_receiveInformation</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="receiveInformationDel" class="com.jshx.swgl.web.ReceiveInformationAction" method="delete">
+		</action>
+		
+		<action name="selectUsers" class="com.jshx.swgl.web.ReceiveInformationAction" method="selectUsers">
+			<result name="success">/WEB-INF/pages/swgl/ReceiveInformation_SelectUser.jsp</result>
+		</action>
+		
+		<action name="getDepartUser" class="com.jshx.swgl.web.ReceiveInformationAction" method="getDepartUser">
+		</action>
+		<action name="receiveInformationCheck" class="com.jshx.swgl.web.ReceiveInformationAction" method="check">
+			<result name="check">/WEB-INF/pages/swgl/ReceiveInformation_Check.jsp</result>
+		</action>
+		
+		<action name="receiveInformationCheckSave" class="com.jshx.swgl.web.ReceiveInformationAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_receiveInformation</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="download" class="com.jshx.swgl.web.ReceiveInformationAction" method="download">
+		</action>
+	</package>
+</struts>

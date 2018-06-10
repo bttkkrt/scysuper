@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findAqscxzcfByMap">
+		from Aqscxzcf t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="deptname">
+			<![CDATA[and t.deptname like :deptname]]>
+		</isNotEmpty>
+		<isNotEmpty property="startYf">
+			<![CDATA[and t.yf >= :startYf]]>
+		</isNotEmpty>
+		<isNotEmpty property="endYf">
+			<![CDATA[and t.yf <= :endYf]]>
+		</isNotEmpty>
+		<isNotEmpty property="startTbrq">
+			<![CDATA[and t.createTime >= :startTbrq]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTbrq">
+			<![CDATA[and t.createTime <= :endTbrq]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<delete id="deleteAqscxzcfglbByMap" parameterClass="java.util.Map">
+	delete from AQSCXZCFGLB where proid = #proid#
+	</delete>
+	
+	<select id="getAqscxzcfIdsByMap" parameterClass="java.util.Map" resultClass="String">
+		select t.row_id from Aqscxzcf t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			and t.deptId in 
+			<iterate conjunction="," open="(" close=")" property="deptCodes">
+				#deptCodes[]# 
+			</iterate>
+		</isNotEmpty>
+		
+		<isNotEmpty property="deptname">
+			<![CDATA[and t.deptname like #deptname#]]>
+		</isNotEmpty>
+		<isNotEmpty property="startYf">
+			<![CDATA[and t.yf >= #startYf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endYf">
+			<![CDATA[and t.yf <= #endYf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="startTbrq">
+			<![CDATA[and t.createTime >= #startTbrq#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTbrq">
+			<![CDATA[and t.createTime <= #endTbrq#]]>
+		</isNotEmpty>
+	</select>
+	
+</sqlMap>

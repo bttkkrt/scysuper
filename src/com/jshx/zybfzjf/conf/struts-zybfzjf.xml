@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZYBFZJF" extends="default" namespace="/jsp/zybfzjf">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zybfzjfQuery" class="com.jshx.zybfzjf.web.ZybfzjfAction" method="list">
+		</action>
+		
+		<action name="zybfzjfList"  class="com.jshx.zybfzjf.web.ZybfzjfAction" method="init">
+			<result name="success">/WEB-INF/pages/zybfzjf/Zybfzjf_List.jsp</result>
+		</action>
+		
+		<action name="zybfzjfView" class="com.jshx.zybfzjf.web.ZybfzjfAction" method="view">
+			<result name="view">/WEB-INF/pages/zybfzjf/Zybfzjf_Detail.jsp</result>
+		</action>
+
+		<action name="zybfzjfInitEdit" class="com.jshx.zybfzjf.web.ZybfzjfAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zybfzjf/Zybfzjf_Edit.jsp</result>
+		</action>
+
+		<action name="zybfzjfSave" class="com.jshx.zybfzjf.web.ZybfzjfAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zybfzjfDel" class="com.jshx.zybfzjf.web.ZybfzjfAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

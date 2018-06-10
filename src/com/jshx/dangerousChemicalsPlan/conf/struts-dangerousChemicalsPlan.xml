@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="DANGEROUS_CHEMICALS_PLAN" extends="default" namespace="/jsp/dangerousChemicalsPlan">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="dangerousChemicalsPlanQuery" class="com.jshx.dangerousChemicalsPlan.web.DangerousChemicalsPlanAction" method="list">
+		</action>
+		
+		<action name="dangerousChemicalsPlanList" class="com.jshx.dangerousChemicalsPlan.web.DangerousChemicalsPlanAction" method="init">
+			<result name="success">/WEB-INF/pages/dangerousChemicalsPlan/DangerousChemicalsPlan_List.jsp</result>
+		</action>
+		
+		<action name="dangerousChemicalsPlanView" class="com.jshx.dangerousChemicalsPlan.web.DangerousChemicalsPlanAction" method="view">
+			<result name="view">/WEB-INF/pages/dangerousChemicalsPlan/DangerousChemicalsPlan_Detail.jsp</result>
+		</action>
+
+		<action name="dangerousChemicalsPlanInitEdit" class="com.jshx.dangerousChemicalsPlan.web.DangerousChemicalsPlanAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/dangerousChemicalsPlan/DangerousChemicalsPlan_Edit.jsp</result>
+		</action>
+
+		<action name="dangerousChemicalsPlanSave" class="com.jshx.dangerousChemicalsPlan.web.DangerousChemicalsPlanAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="dangerousChemicalsPlanDel" class="com.jshx.dangerousChemicalsPlan.web.DangerousChemicalsPlanAction" method="delete">
+		</action>
+		
+		
+		<action name="dangerousChemicalsPlanPrint" class="com.jshx.dangerousChemicalsPlan.web.DangerousChemicalsPlanAction" method="print">
+			<result name="success">/WEB-INF/pages/dangerousChemicalsPlan/DangerousChemicalsPlan_Print.jsp</result>
+		</action>
+		
+		<action name="dangerousChemicalsPlanUpload" class="com.jshx.dangerousChemicalsPlan.web.DangerousChemicalsPlanAction" method="upload">
+			<result name="success">/WEB-INF/pages/dangerousChemicalsPlan/DangerousChemicalsPlan_upload.jsp</result>
+		</action>
+		<action name="dangerousChemicalsPlanSavePhoto" class="com.jshx.dangerousChemicalsPlan.web.DangerousChemicalsPlanAction" method="savePhoto">
+		</action>
+		<action name="dangerousChemicalsPlanImageDel" class="com.jshx.dangerousChemicalsPlan.web.DangerousChemicalsPlanAction" method="deleteImage">
+		</action>
+		<action name="dangerousChemicalsPlanSaveFile" class="com.jshx.dangerousChemicalsPlan.web.DangerousChemicalsPlanAction" method="saveFile">
+		</action>
+	</package>
+</struts>

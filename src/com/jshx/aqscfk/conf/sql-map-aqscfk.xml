@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findAqscfkByMap">
+		from Aqscfk t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="fkfl">
+			<![CDATA[and t.fkfl like :fkfl]]>
+		</isNotEmpty>
+		<isNotEmpty property="startJasj">
+			<![CDATA[and t.jasj >= :startJasj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[and t.jasj <= :endJasj]]>
+		</isNotEmpty>
+		<isNotEmpty property="sgfl">
+			<![CDATA[and t.sgfl = :sgfl]]>
+		</isNotEmpty>
+		<isNotEmpty property="zfwsh">
+			<![CDATA[and t.zfwsh like :zfwsh]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	
+	
+	<!-- 安全生产行政处罚   -->
+	<select id="aqscfkReport1"  parameterClass="java.util.Map"  resultClass="com.jshx.aqscfk.entity.Aqscxzcf">
+		SELECT  
+		(
+			SELECT COUNT(*) FROM AQSCFK A 
+			WHERE A.DELFLAG = 0
+			<isNotEmpty property="startJasj">
+				<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+			</isNotEmpty>
+		
+			<isNotEmpty property="endJasj">
+				<![CDATA[AND A.CREATETIME< #endJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="xmnr">
+				<![CDATA[AND A.COMPANY_TYPE = #xmnr#]]>
+			</isNotEmpty>
+			<isNotEmpty property="szzid">
+				<![CDATA[and A.szzid = #szzid#]]>
+			</isNotEmpty>
+		) as zcs, 
+		(
+			SELECT COUNT(*) FROM AQSCFK A WHERE A.OBJECT_TYPE='0' AND A.DELFLAG = 0
+			<isNotEmpty property="startJasj">
+				<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+			</isNotEmpty>
+		
+			<isNotEmpty property="endJasj">
+				<![CDATA[AND A.CREATETIME< #endJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="xmnr">
+				<![CDATA[AND A.COMPANY_TYPE = #xmnr#]]>
+			</isNotEmpty>
+			<isNotEmpty property="szzid">
+				<![CDATA[and A.szzid = #szzid#]]>
+			</isNotEmpty>
+		) as scjydwcs
+		,
+		(
+			SELECT COUNT(*) FROM AQSCFK A WHERE A.OBJECT_TYPE='1' AND A.DELFLAG = 0
+			<isNotEmpty property="startJasj">
+				<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+			</isNotEmpty>
+		
+			<isNotEmpty property="endJasj">
+				<![CDATA[AND A.CREATETIME< #endJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="xmnr">
+				<![CDATA[AND A.COMPANY_TYPE = #xmnr#]]>
+			</isNotEmpty>
+			<isNotEmpty property="szzid">
+				<![CDATA[and A.szzid = #szzid#]]>
+			</isNotEmpty>
+		)  as zyfzrcs
+		FROM DUAL
+	</select>
+	
+	<!-- 安全生产行政执法文书使用情况   -->
+	<select id="aqscfkReport2"   parameterClass="java.util.Map"  resultClass="com.jshx.aqscfk.entity.Aqscxzcf">
+		SELECT B.ITEM_TEXT as xmnr,
+		(
+			SELECT COUNT(*) FROM aqscfk A WHERE INSTR(A.FILE_TYPE,B.ITEM_TEXT)>0 AND A.DELFLAG = 0
+			<isNotEmpty property="startJasj">
+				<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="endJasj">
+				<![CDATA[AND A.CREATETIME< #endJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="szzid">
+				<![CDATA[and A.szzid = #szzid#]]>
+			</isNotEmpty>
+		) as zcs
+		,(
+			SELECT COUNT(*) FROM AQSCFK A WHERE A.Company_Type='0' and INSTR(A.FILE_TYPE,B.ITEM_TEXT)>0 AND A.DELFLAG = 0
+			<isNotEmpty property="startJasj">
+				<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="endJasj">
+				<![CDATA[AND A.CREATETIME< #endJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="szzid">
+				<![CDATA[and A.szzid = #szzid#]]>
+			</isNotEmpty>
+		) as wxp
+		,( 
+			SELECT COUNT(*) FROM AQSCFK A WHERE A.Company_Type='1' and INSTR(A.FILE_TYPE,B.ITEM_TEXT)>0 AND A.DELFLAG = 0
+			<isNotEmpty property="startJasj">
+				<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="endJasj">
+				<![CDATA[AND A.CREATETIME< #endJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="szzid">
+				<![CDATA[and A.szzid = #szzid#]]>
+			</isNotEmpty>
+		) as yhbz
+		,(
+			SELECT COUNT(*) FROM AQSCFK A WHERE A.Company_Type='2' and INSTR(A.FILE_TYPE,B.ITEM_TEXT)>0 AND A.DELFLAG = 0
+			<isNotEmpty property="startJasj">
+				<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="endJasj">
+				<![CDATA[AND A.CREATETIME< #endJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="szzid">
+				<![CDATA[and A.szzid = #szzid#]]>
+			</isNotEmpty>
+		) as yj
+		,(
+			SELECT COUNT(*) FROM AQSCFK A WHERE A.Company_Type='3' and INSTR(A.FILE_TYPE,B.ITEM_TEXT)>0 AND A.DELFLAG = 0
+			<isNotEmpty property="startJasj">
+				<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="endJasj">
+				<![CDATA[AND A.CREATETIME< #endJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="szzid">
+				<![CDATA[and A.szzid = #szzid#]]>
+			</isNotEmpty>
+		) as youse
+		,(
+			SELECT COUNT(*) FROM AQSCFK A WHERE A.Company_Type='4' and INSTR(A.FILE_TYPE,B.ITEM_TEXT)>0 AND A.DELFLAG = 0
+			<isNotEmpty property="startJasj">
+				<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="endJasj">
+				<![CDATA[AND A.CREATETIME< #endJasj#]]>
+			</isNotEmpty>
+			<isNotEmpty property="szzid">
+				<![CDATA[and A.szzid = #szzid#]]>
+			</isNotEmpty>
+		) as qt
+		FROM codevalue B
+		WHERE B.code_id='4028804846047bd2014664a9441c6503' AND B.DEL_FLAG = 0
+    	ORDER BY B.ITEM_TEXT 
+	</select>
+	
+	<select id="getAqscxzcfglbByMaps" parameterClass="java.util.Map" resultClass="com.jshx.aqscfk.entity.Aqscxzcfglb">
+	select 
+	(
+		select count(*) from AQSCFK A 
+		WHERE A.DELFLAG = 0
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data1,
+	(
+		select count(*) from AQSCFK A 
+		WHERE A.DELFLAG = 0 and A.object_Type = 0
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data2,
+	(
+		select count(*) from AQSCFK A 
+		WHERE A.DELFLAG = 0 and A.object_Type = 1
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data3,
+	(
+		select count(*) from AQSCFK A 
+		WHERE A.DELFLAG = 0 and A.object_Type = 2
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data4,
+	(
+		select count(*) from AQSCFK A 
+		WHERE A.DELFLAG = 0
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data5,
+	(
+		select count(*) from AQSCFK A 
+		WHERE A.DELFLAG = 0 and A.fkfl = 0
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data6,
+	(
+		select count(*) from AQSCFK A 
+		WHERE A.DELFLAG = 0 and A.fkfl = 1
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data7,
+	(
+		select count(distinct A.qymc) from AQSCFK A 
+		WHERE A.DELFLAG = 0 and A.zltc = 1
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data8,
+	(
+		select IFNULL(sum(A.cfje),0) from AQSCFK A 
+		WHERE A.DELFLAG = 0
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data9,
+	(
+		select IFNULL(sum(A.cfje),0) from AQSCFK A 
+		WHERE A.DELFLAG = 0  and A.fkfl = 0
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data10,
+	(
+		select IFNULL(sum(A.cfje),0) from AQSCFK A 
+		WHERE A.DELFLAG = 0  and A.fkfl = 1
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data11,
+	(
+		select IFNULL(sum(A.sjfk),0) from AQSCFK A 
+		WHERE A.DELFLAG = 0
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data12,
+	(
+		select IFNULL(sum(A.sjfk),0) from AQSCFK A 
+		WHERE A.DELFLAG = 0  and A.fkfl = 0
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data13,
+	(
+		select IFNULL(sum(A.sjfk),0) from AQSCFK A 
+		WHERE A.DELFLAG = 0  and A.fkfl = 1
+		<isNotEmpty property="startJasj">
+			<![CDATA[AND A.CREATETIME>=#startJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endJasj">
+			<![CDATA[AND A.CREATETIME< #endJasj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and A.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<isEqual property="qylx" compareValue="1">
+				<![CDATA[and (A.COMPANY_TYPE = 0 or A.COMPANY_TYPE = 1)]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="2">
+				<![CDATA[and A.COMPANY_TYPE = 2]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="3">
+				<![CDATA[and A.COMPANY_TYPE = 3]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="4">
+				<![CDATA[and A.COMPANY_TYPE = 4]]>
+			</isEqual>
+			<isEqual property="qylx" compareValue="5">
+				<![CDATA[and (A.COMPANY_TYPE = 5 or A.COMPANY_TYPE is null)]]>
+			</isEqual>
+		</isNotEmpty>
+	) as data14
+	from dual
+	</select>
+	
+</sqlMap>

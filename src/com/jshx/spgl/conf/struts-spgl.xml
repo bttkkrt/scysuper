@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SPGL" extends="default" namespace="/jsp/spgl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="spglQuery" class="com.jshx.spgl.web.SpglAction" method="list">
+		</action>
+		
+		<action name="spglList" class="com.jshx.spgl.web.SpglAction" method="init">
+			<result name="success">/WEB-INF/pages/spgl/Spgl_List.jsp</result>
+		</action>
+		
+		<action name="spglView" class="com.jshx.spgl.web.SpglAction" method="view">
+			<result name="view">/WEB-INF/pages/spgl/Spgl_Detail.jsp</result>
+		</action>
+
+		<action name="spglInitEdit" class="com.jshx.spgl.web.SpglAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/spgl/Spgl_Edit.jsp</result>
+		</action>
+
+		<action name="spglSave" class="com.jshx.spgl.web.SpglAction" method="save">
+		</action>
+
+		<action name="spglDel" class="com.jshx.spgl.web.SpglAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

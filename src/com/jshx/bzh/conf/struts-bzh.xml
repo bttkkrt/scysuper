@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHX_BZH" extends="default" namespace="/jsp/bzh">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxBzhQuery" class="com.jshx.bzh.web.JshxBzhAction" method="list">
+		</action>
+		
+		<action name="jshxBzhQuerys" class="com.jshx.bzh.web.JshxBzhAction" method="lists">
+		</action>
+		<action name="jshxBzhList" class="com.jshx.bzh.web.JshxBzhAction" method="init">
+			<result name="success">/WEB-INF/pages/bzh/JshxBzh_List.jsp</result>
+		</action>
+		
+		<action name="jshxBzhLists" class="com.jshx.bzh.web.JshxBzhAction" method="inits">
+			<result name="success">/WEB-INF/pages/bzh/JshxBzh_Lists.jsp</result>
+		</action>
+		
+		<action name="jshxBzhView" class="com.jshx.bzh.web.JshxBzhAction" method="view">
+			<result name="view">/WEB-INF/pages/bzh/JshxBzh_Detail.jsp</result>
+		</action>
+
+		<action name="jshxBzhInitEdit" class="com.jshx.bzh.web.JshxBzhAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/bzh/JshxBzh_Edit.jsp</result>
+		</action>
+
+		<action name="jshxBzhSave" class="com.jshx.bzh.web.JshxBzhAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="jshxBzhDel" class="com.jshx.bzh.web.JshxBzhAction" method="delete">
+		</action>
+		
+		<action name="jshxBzhUpload" class="com.jshx.bzh.web.JshxBzhAction" method="upload">
+			<result name="success">/WEB-INF/pages/bzh/JshxBzh_upload.jsp</result>
+		</action>
+		<action name="jshxBzhSavePhoto" class="com.jshx.bzh.web.JshxBzhAction" method="savePhoto">
+		</action>
+		<action name="jshxBzhImageDel" class="com.jshx.bzh.web.JshxBzhAction" method="deleteImage">
+		</action>
+		<action name="jshxBzhSaveFile" class="com.jshx.bzh.web.JshxBzhAction" method="saveFile">
+		</action>
+		
+		<action name="jshxBzhExport" class="com.jshx.bzh.web.JshxBzhAction" method="export">
+		</action>
+		
+	</package>
+</struts>

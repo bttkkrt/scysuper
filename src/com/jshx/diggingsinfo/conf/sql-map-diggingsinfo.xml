@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findDiggingsinfoByMap">
+		from Diggingsinfo t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="county">
+			<![CDATA[and t.county like :county]]>
+		</isNotEmpty>
+		<isNotEmpty property="mainoreType">
+			<![CDATA[and t.mainoreType like :mainoreType]]>
+		</isNotEmpty>
+		<isNotEmpty property="exploitType">
+			<![CDATA[and t.exploitType like :exploitType]]>
+		</isNotEmpty>
+		<isNotEmpty property="startProduceStartdate">
+			<![CDATA[and t.produceStartdate >= :startProduceStartdate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endProduceStartdate">
+			<![CDATA[and t.produceStartdate <= :endProduceStartdate]]>
+		</isNotEmpty>
+		<isNotEmpty property="designServeAgelimit">
+			<![CDATA[and t.designServeAgelimit like :designServeAgelimit]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkNo">
+			<![CDATA[and t.checkNo like :checkNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkUnit">
+			<![CDATA[and t.checkUnit like :checkUnit]]>
+		</isNotEmpty>
+		<isNotEmpty property="certificateSum">
+			<![CDATA[and t.certificateSum like :certificateSum]]>
+		</isNotEmpty>
+		<isNotEmpty property="engineerSum">
+			<![CDATA[and t.engineerSum like :engineerSum]]>
+		</isNotEmpty>
+		<isNotEmpty property="startExploitCertificateStartdate">
+			<![CDATA[and t.exploitCertificateStartdate >= :startExploitCertificateStartdate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endExploitCertificateStartdate">
+			<![CDATA[and t.exploitCertificateStartdate <= :endExploitCertificateStartdate]]>
+		</isNotEmpty>
+		<isNotEmpty property="startExploitCertificateEnddate">
+			<![CDATA[and t.exploitCertificateEnddate >= :startExploitCertificateEnddate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endExploitCertificateEnddate">
+			<![CDATA[and t.exploitCertificateEnddate <= :endExploitCertificateEnddate]]>
+		</isNotEmpty>
+		<isNotEmpty property="exploitCertificateNo">
+			<![CDATA[and t.exploitCertificateNo like :exploitCertificateNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="exploitCertificateUnit">
+			<![CDATA[and t.exploitCertificateUnit like :exploitCertificateUnit]]>
+		</isNotEmpty>
+		<isNotEmpty property="startSafeCertificateStartdate">
+			<![CDATA[and t.safeCertificateStartdate >= :startSafeCertificateStartdate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endSafeCertificateStartdate">
+			<![CDATA[and t.safeCertificateStartdate <= :endSafeCertificateStartdate]]>
+		</isNotEmpty>
+		<isNotEmpty property="startSafeCertificateEnddate">
+			<![CDATA[and t.safeCertificateEnddate >= :startSafeCertificateEnddate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endSafeCertificateEnddate">
+			<![CDATA[and t.safeCertificateEnddate <= :endSafeCertificateEnddate]]>
+		</isNotEmpty>
+		<isNotEmpty property="safeCertificateNo">
+			<![CDATA[and t.safeCertificateNo like :safeCertificateNo]]>
+		</isNotEmpty>
+		order by t.createTime
+	</select>
+</sqlMap>

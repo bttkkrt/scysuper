@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ECHARTS" extends="default" namespace="/jsp/echarts">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="echartsQuery" class="com.jshx.echarts.web.EchartsAction" method="list">
+		</action>
+		
+		<action name="getSbqyCharts" class="com.jshx.echarts.web.EchartsAction" method="getSbqyCharts">
+		</action>
+		
+		<action name="echartsList">
+			<result name="success">/WEB-INF/pages/echarts/Echarts_List.jsp</result>
+		</action>
+		
+		<action name="echartsView" class="com.jshx.echarts.web.EchartsAction" method="view">
+			<result name="view">/WEB-INF/pages/echarts/Echarts_Detail.jsp</result>
+		</action>
+
+		<action name="echartsInitEdit" class="com.jshx.echarts.web.EchartsAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/echarts/Echarts_Edit.jsp</result>
+		</action>
+
+	</package>
+</struts>

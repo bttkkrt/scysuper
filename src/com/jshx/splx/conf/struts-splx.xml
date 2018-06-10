@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SPLX" extends="default" namespace="/jsp/splx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="splxQuery" class="com.jshx.splx.web.SplxAction" method="list">
+		</action>
+		
+		<action name="splxList" class="com.jshx.splx.web.SplxAction" method="init">
+			<result name="success">/WEB-INF/pages/splx/Splx_List.jsp</result>
+		</action>
+		
+		<action name="splxView" class="com.jshx.splx.web.SplxAction" method="view">
+			<result name="view">/WEB-INF/pages/splx/Splx_Detail.jsp</result>
+		</action>
+
+		<action name="splxInitEdit" class="com.jshx.splx.web.SplxAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/splx/Splx_Edit.jsp</result>
+		</action>
+
+		<action name="splxSave" class="com.jshx.splx.web.SplxAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_splx</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="splxDel" class="com.jshx.splx.web.SplxAction" method="delete">
+		</action>
+		<action name="saveSplxList" class="com.jshx.splx.web.SplxAction" method="saveSplxList">
+		</action>
+		
+		<action name="splxVedio" class="com.jshx.splx.web.SplxAction" method="splxVedio">
+			<result name="success">/WEB-INF/pages/splx/Splx_Vedio.jsp</result>
+		</action>
+	</package>
+</struts>

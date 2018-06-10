@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CHE_SAF_MAN" extends="default" namespace="/jsp/whaqglzd">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="cheSafManQuery" class="com.jshx.whaqglzd.web.CheSafManAction" method="list">
+		</action>
+		
+		<action name="cheSafManList" class="com.jshx.whaqglzd.web.CheSafManAction" method="init">
+			<result name="success">/WEB-INF/pages/whaqglzd/CheSafMan_List.jsp</result>
+		</action>
+		
+		<action name="cheSafManView" class="com.jshx.whaqglzd.web.CheSafManAction" method="view">
+			<result name="view">/WEB-INF/pages/whaqglzd/CheSafMan_Detail.jsp</result>
+		</action>
+
+		<action name="cheSafManInitEdit" class="com.jshx.whaqglzd.web.CheSafManAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/whaqglzd/CheSafMan_Edit.jsp</result>
+		</action>
+
+		<action name="cheSafManSave" class="com.jshx.whaqglzd.web.CheSafManAction" method="save">
+			<interceptor-ref name="tokenInterceptor" /> 
+			<interceptor-ref name="coreStack" /> 
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_cheSafMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="cheSafManDel" class="com.jshx.whaqglzd.web.CheSafManAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

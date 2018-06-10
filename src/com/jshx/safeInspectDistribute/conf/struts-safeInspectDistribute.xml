@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SAFE_INSPECT_DISTRIBUTE" extends="default" namespace="/jsp/safeInspectDistribute">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="safeInspectDistributeQuery" class="com.jshx.safeInspectDistribute.web.SafeInspectDistributeAction" method="list">
+		</action>
+		
+		<action name="safeInspectDistributeList">
+			<result name="success">/WEB-INF/pages/safeInspectDistribute/SafeInspectDistribute_List.jsp</result>
+		</action>
+		
+		<action name="safeInspectDistributeView" class="com.jshx.safeInspectDistribute.web.SafeInspectDistributeAction" method="view">
+			<result name="view">/WEB-INF/pages/safeInspectDistribute/SafeInspectDistribute_Detail.jsp</result>
+		</action>
+
+		<action name="safeInspectDistributeInitEdit" class="com.jshx.safeInspectDistribute.web.SafeInspectDistributeAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/safeInspectDistribute/SafeInspectDistribute_Edit.jsp</result>
+		</action>
+
+		<action name="safeInspectDistributeSave" class="com.jshx.safeInspectDistribute.web.SafeInspectDistributeAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="safeInspectDistributeDel" class="com.jshx.safeInspectDistribute.web.SafeInspectDistributeAction" method="delete">
+		</action>
+		
+		
+		<action name="findChildDeptAndUser" class="com.jshx.safeInspectDistribute.web.SafeInspectDistributeAction" method="findChildDeptAndUser">
+		</action>
+		<action name="findChildDept" class="com.jshx.safeInspectDistribute.web.SafeInspectDistributeAction" method="findChildDept">
+		</action>
+		<action name="findDeptnameByDeptcode" class="com.jshx.safeInspectDistribute.web.SafeInspectDistributeAction" method="findDeptnameByDeptcode">
+		</action>
+		<action name="findUsernameById" class="com.jshx.safeInspectDistribute.web.SafeInspectDistributeAction" method="findUsernameById">
+		</action>
+		
+		<!-- 检查项自动填充 GY-UPDATE 2015-02-02 -->
+		<action name="getSuggestion" method="getSuggestion" class="com.jshx.safeInspectDistribute.web.SafeInspectDistributeAction"></action>
+		
+		<!-- hanxc 20150324 登录日志统计 -->
+		<action name="safeInspectTongJi"  class="com.jshx.safeInspectDistribute.web.SafeInspectDistributeAction" method="safeInspectTongJi">
+			<result name="tongji">/WEB-INF/pages/safeInspectDistribute/safeInspectTongJi.jsp</result>
+		</action>
+	</package>
+</struts>

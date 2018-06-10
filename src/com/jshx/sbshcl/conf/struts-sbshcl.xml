@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHX_SBSHCL" extends="default" namespace="/jsp/sbshcl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxSbshclQuery" class="com.jshx.sbshcl.web.JshxSbshclAction" method="list">
+		</action>
+		
+		<action name="findState" class="com.jshx.sbshcl.web.JshxSbshclAction" method="findState">
+		</action>
+		
+		
+		<action name="jshxSbshclList" class="com.jshx.sbshcl.web.JshxSbshclAction" method="init">
+			<result name="success">/WEB-INF/pages/sbshcl/JshxSbshcl_List.jsp</result>
+		</action>
+		
+		<action name="jshxSbshclView" class="com.jshx.sbshcl.web.JshxSbshclAction" method="view">
+			<result name="view">/WEB-INF/pages/sbshcl/JshxSbshcl_Detail.jsp</result>
+		</action>
+
+		<action name="jshxSbshclInitEdit" class="com.jshx.sbshcl.web.JshxSbshclAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/sbshcl/JshxSbshcl_Edit.jsp</result>
+		</action>
+
+		<action name="jshxSbshclSave" class="com.jshx.sbshcl.web.JshxSbshclAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="jshxSbshclDel" class="com.jshx.sbshcl.web.JshxSbshclAction" method="delete">
+		</action>
+		<!-- 李军 2013-08-16 附件上传处理 -->
+		<action name="jshxSbshclUpload" class="com.jshx.sbshcl.web.JshxSbshclAction" method="upload">
+			<result name="success">/WEB-INF/pages/sbshcl/JshxSbshcl_upload.jsp</result>
+		</action>
+		<action name="jshxSbshclSavePhoto" class="com.jshx.sbshcl.web.JshxSbshclAction" method="savePhoto">
+		</action>
+		<action name="jshxSbshclImageDel" class="com.jshx.sbshcl.web.JshxSbshclAction" method="deleteImage">
+		</action>
+		<action name="jshxSbshclSaveFile" class="com.jshx.sbshcl.web.JshxSbshclAction" method="saveFile">
+		</action>
+		
+		<action name="jshxSbshclShenhe" class="com.jshx.sbshcl.web.JshxSbshclAction" method="shenhe">
+			<result name="success">/WEB-INF/pages/sbshcl/JshxSbshcl_shenhe.jsp</result>
+		</action>
+		
+		<action name="sbshClshenheSave" class="com.jshx.sbshcl.web.JshxSbshclAction" method="shenhesave">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+	</package>
+</struts>

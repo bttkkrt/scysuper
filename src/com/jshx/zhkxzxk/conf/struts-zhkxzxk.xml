@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZHKXZXK" extends="default" namespace="/jsp/zhkxzxk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zhkxzxkQuery" class="com.jshx.zhkxzxk.web.ZhkxzxkAction" method="list">
+		</action>
+		
+		<action name="zhkxzxkList" class="com.jshx.zhkxzxk.web.ZhkxzxkAction" method="init">
+			<result name="success">/WEB-INF/pages/zhkxzxk/Zhkxzxk_List.jsp</result>
+		</action>
+		
+		<action name="zhkxzxkView" class="com.jshx.zhkxzxk.web.ZhkxzxkAction" method="view">
+			<result name="view">/WEB-INF/pages/zhkxzxk/Zhkxzxk_Detail.jsp</result>
+		</action>
+
+		<action name="zhkxzxkInitEdit" class="com.jshx.zhkxzxk.web.ZhkxzxkAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zhkxzxk/Zhkxzxk_Edit.jsp</result>
+		</action>
+
+		<action name="zhkxzxkSave" class="com.jshx.zhkxzxk.web.ZhkxzxkAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zhkxzxkDel" class="com.jshx.zhkxzxk.web.ZhkxzxkAction" method="delete">
+		</action>
+		
+		<action name="zhkxzxkUpload" class="com.jshx.zhkxzxk.web.ZhkxzxkAction" method="upload">
+			<result name="success">/WEB-INF/pages/zhkxzxk/Zhkxzxk_upload.jsp</result>
+		</action>
+		<action name="zhkxzxkSavePhoto" class="com.jshx.zhkxzxk.web.ZhkxzxkAction" method="savePhoto">
+		</action>
+		<action name="zhkxzxkImageDel" class="com.jshx.zhkxzxk.web.ZhkxzxkAction" method="deleteImage">
+		</action>
+		<action name="zhkxzxkSaveFile" class="com.jshx.zhkxzxk.web.ZhkxzxkAction" method="saveFile">
+		</action>
+		
+		
+		<action name="zhkxzxkShenhe" class="com.jshx.zhkxzxk.web.ZhkxzxkAction" method="shenhe">
+			<result name="success">/WEB-INF/pages/zhkxzxk/Zhkxzxk_Shenhe.jsp</result>
+		</action>
+		
+		
+		<action name="zhkxzxkShenheSave" class="com.jshx.zhkxzxk.web.ZhkxzxkAction" method="shenhesave">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="zhkxzxkExport" class="com.jshx.zhkxzxk.web.ZhkxzxkAction" method="export">
+		</action>
+		
+	</package>
+</struts>

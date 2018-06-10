@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHX_GWZNB" extends="default" namespace="/jsp/gwznb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxGwznbQuery" class="com.jshx.gwznb.web.JshxGwznbAction" method="list">
+		</action>
+		
+		<action name="jshxGwznbList"  class="com.jshx.gwznb.web.JshxGwznbAction" method="init">
+			<result name="success">/WEB-INF/pages/gwznb/JshxGwznb_List.jsp</result>
+		</action>
+		
+		<action name="jshxGwznbView" class="com.jshx.gwznb.web.JshxGwznbAction" method="view">
+			<result name="view">/WEB-INF/pages/gwznb/JshxGwznb_Detail.jsp</result>
+		</action>
+
+		<action name="jshxGwznbInitEdit" class="com.jshx.gwznb.web.JshxGwznbAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/gwznb/JshxGwznb_Edit.jsp</result>
+		</action>
+
+		<action name="jshxGwznbSave" class="com.jshx.gwznb.web.JshxGwznbAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="jshxGwznbDel" class="com.jshx.gwznb.web.JshxGwznbAction" method="delete">
+		</action>
+		<!-- 李军 2013-08-17 附件上传处理 -->
+		<action name="jshxGwznbUpload" class="com.jshx.gwznb.web.JshxGwznbAction" method="upload">
+			<result name="success">/WEB-INF/pages/gwznb/JshxGwznb_upload.jsp</result>
+		</action>
+		<action name="jshxGwznbSavePhoto" class="com.jshx.gwznb.web.JshxGwznbAction" method="savePhoto">
+		</action>
+		<action name="jshxGwznbImageDel" class="com.jshx.gwznb.web.JshxGwznbAction" method="deleteImage">
+		</action>
+		<action name="jshxGwznbSaveFile" class="com.jshx.gwznb.web.JshxGwznbAction" method="saveFile">
+		</action>
+	</package>
+</struts>

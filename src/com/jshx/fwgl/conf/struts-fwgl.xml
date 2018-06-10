@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SEND_INFORMATION" extends="default" namespace="/jsp/fwgl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="sendInformationQuery" class="com.jshx.fwgl.web.SendInformationAction" method="list">
+		</action>
+		
+		<action name="sendInformationList" class="com.jshx.fwgl.web.SendInformationAction" method="init">
+			<result name="success">/WEB-INF/pages/fwgl/SendInformation_List.jsp</result>
+		</action>
+		
+		<action name="sendInformationView" class="com.jshx.fwgl.web.SendInformationAction" method="view">
+			<result name="view">/WEB-INF/pages/fwgl/SendInformation_Detail.jsp</result>
+		</action>
+
+		<action name="sendInformationInitEdit" class="com.jshx.fwgl.web.SendInformationAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/fwgl/SendInformation_Edit.jsp</result>
+		</action>
+
+		<action name="sendInformationSave" class="com.jshx.fwgl.web.SendInformationAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_sendInformation</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="sendInformationDel" class="com.jshx.fwgl.web.SendInformationAction" method="delete">
+		</action>
+		
+		<action name="selectUsers" class="com.jshx.fwgl.web.SendInformationAction" method="selectUsers">
+			<result name="success">/WEB-INF/pages/fwgl/SendInformation_SelectUser.jsp</result>
+		</action>
+		
+		<action name="getDepartUser" class="com.jshx.fwgl.web.SendInformationAction" method="getDepartUser">
+		</action>
+		<action name="sendInformationCheck" class="com.jshx.fwgl.web.SendInformationAction" method="check">
+			<result name="check">/WEB-INF/pages/fwgl/SendInformation_Check.jsp</result>
+		</action>
+		
+		<action name="sendInformationCheckSave" class="com.jshx.fwgl.web.SendInformationAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_sendInformation</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="download" class="com.jshx.fwgl.web.SendInformationAction" method="download">
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="WXHXP" extends="default" namespace="/jsp/wxhxp">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="wxhxpQuery" class="com.jshx.wxhxp.web.WxhxpAction" method="list">
+		</action>
+		
+		<action name="wxhxpList">
+			<result name="success">/WEB-INF/pages/wxhxp/Wxhxp_List.jsp</result>
+		</action>
+		
+		<action name="wxhxpView" class="com.jshx.wxhxp.web.WxhxpAction" method="view">
+			<result name="view">/WEB-INF/pages/wxhxp/Wxhxp_Detail.jsp</result>
+		</action>
+
+		<action name="wxhxpInitEdit" class="com.jshx.wxhxp.web.WxhxpAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/wxhxp/Wxhxp_Edit.jsp</result>
+		</action>
+
+		<action name="wxhxpSave" class="com.jshx.wxhxp.web.WxhxpAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="wxhxpDel" class="com.jshx.wxhxp.web.WxhxpAction" method="delete">
+		</action>
+		
+		<action name="queryWxhxpList">
+			<result name="success">/WEB-INF/pages/wxhxp/Wxhxp_Lists.jsp</result>
+		</action>
+		
+		<action name="wxhxpImportData" class="com.jshx.wxhxp.web.WxhxpAction">
+			<result name="success">/WEB-INF/pages/wxhxp/Wxhxp_upload.jsp</result>
+		</action>
+		
+		<action name="wxhxpSaveExcel" class="com.jshx.wxhxp.web.WxhxpAction" method="saveExcel">
+		</action>
+		
+	</package>
+</struts>

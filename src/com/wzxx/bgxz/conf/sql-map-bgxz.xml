@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findBgxzByMap">
+		from Bgxz t where  t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="infoTitle">
+			<![CDATA[and t.infoTitle like :infoTitle]]>
+		</isNotEmpty>
+		<isNotEmpty property="bgzl">
+			<![CDATA[and t.bgzl = :bgzl]]>
+		</isNotEmpty>
+		<isNotEmpty property="startPublicDate">
+			<![CDATA[and CONVERT(varchar(100), t.publicDate, 23) >= :startPublicDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPublicDate">
+			<![CDATA[and CONVERT(varchar(100), t.publicDate, 23) <= :endPublicDate]]>
+		</isNotEmpty>
+		order by t.publicDate desc 
+	</select>
+	
+	<select id="findBgxzList" parameterClass="java.util.Map" resultClass="com.wzxx.bgxz.entity.Bgxz">
+		select t.row_id as id,t.INFO_TITLE as infoTitle,t.PUBLIC_DATE as publicDate,t.bgzl as bgzl
+		from bgxz t where  t.DEL_FLAG = 0 
+		<isNotEmpty property="bgzl">
+			<![CDATA[and t.bgzl = #bgzl#]]>
+		</isNotEmpty>
+		order by t.PUBLIC_DATE desc
+	</select>
+	
+	<select id="findBgxzListSize" parameterClass="java.util.Map" resultClass="int">
+		select count(*)
+		from bgxz t where  t.DEL_FLAG = 0 
+		<isNotEmpty property="bgzl">
+			<![CDATA[and t.bgzl = #bgzl#]]>
+		</isNotEmpty>
+	</select>
+</sqlMap>

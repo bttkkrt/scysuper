@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="SGYHJB" location="165,10" size="1890,875">
+    <action name="sgyhjbQuery" location="1640,58" size="150,40" />
+    <action name="sgyhjbList" location="1640,162" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="Sgyhjb_List.jsp" />
+      </result>
+    </action>
+    <action name="sgyhjbView" location="1640,337" size="150,41">
+      <result name="view">
+        <resourceEdge source="view" routing="0" target="Sgyhjb_Detail.jsp" />
+      </result>
+    </action>
+    <action name="sgyhjbInitEdit" location="1640,512" size="150,41">
+      <result name="edit">
+        <resourceEdge source="edit" routing="0" target="Sgyhjb_Edit.jsp" />
+      </result>
+    </action>
+    <action name="sgyhjbSave" location="1640,607" size="150,62">
+      <result name="reload">
+        <resourceEdge source="reload" routing="0" target="successToClose1.jsp" />
+      </result>
+      <result name="invalid.token">
+        <resourceEdge source="invalid.token" routing="0" target="invalid.jsp" />
+      </result>
+    </action>
+    <action name="sgyhjbDel" location="1395,618" size="150,40" />
+    <action name="sgyhjbUpload" location="1150,617" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="Sgyhjb_Upload1.jsp" />
+      </result>
+    </action>
+    <action name="sgyhjbUploadSave" location="870,607" size="150,62">
+      <result name="reload">
+        <resourceEdge source="reload" routing="0" target="successToClose2.jsp" />
+      </result>
+      <result name="invalid.token">
+        <resourceEdge source="invalid.token" routing="0" target="invalid.jsp" />
+      </result>
+    </action>
+    <action name="sgyhjbPicUpload" location="555,617" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="Sgyhjb_PicUpload.jsp" />
+      </result>
+    </action>
+    <action name="sgyhjbSavePhoto" location="65,618" size="150,40" />
+    <action name="sgyhjbImageDel" location="65,793" size="150,40" />
+    <action name="sgyhjbSaveFile" location="310,793" size="150,40" />
+    <action name="sgyhjbExport" location="310,688" size="150,40" />
+  </package>
+  <webResource name="Sgyhjb_List.jsp" path="/WEB-INF/pages/sgyhjb/Sgyhjb_List.jsp" location="2103,135" size="150,55" />
+  <webResource name="Sgyhjb_Detail.jsp" path="/WEB-INF/pages/sgyhjb/Sgyhjb_Detail.jsp" location="2096,310" size="150,55" />
+  <webResource name="Sgyhjb_Edit.jsp" path="/WEB-INF/pages/sgyhjb/Sgyhjb_Edit.jsp" location="2102,485" size="150,55" />
+  <webResource name="successToClose1.jsp" path="/common/successToClose1.jsp" location="1778,940" size="150,55" />
+  <webResource name="invalid.jsp" path="/invalid.jsp" location="10,520" size="150,55" />
+  <webResource name="Sgyhjb_Upload.jsp" path="/WEB-INF/pages/sgyhjb/Sgyhjb_Upload.jsp" location="1251,940" size="150,55" />
+  <webResource name="successToClose2.jsp" path="/common/successToClose2.jsp" location="1008,940" size="150,55" />
+  <webResource name="Sgyhjb_PicUpload.jsp" path="/WEB-INF/pages/sgyhjb/Sgyhjb_PicUpload.jsp" location="648,940" size="150,55" />
+  <webResource name="Sgyhjb_Upload1.jsp" path="/WEB-INF/pages/sgyhjb/Sgyhjb_Upload1.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

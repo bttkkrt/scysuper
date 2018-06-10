@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CHE_PRO_LIC" extends="default" namespace="/jsp/cheprolicense">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="cheProLicQuery" class="com.jshx.cheprolicense.web.CheProLicAction" method="list">
+		</action>
+		
+		<action name="cheProLicList" class="com.jshx.cheprolicense.web.CheProLicAction" method="init">
+			<result name="success">/WEB-INF/pages/cheprolicense/CheProLic_List.jsp</result>
+		</action>
+		
+		<action name="cheProLicView" class="com.jshx.cheprolicense.web.CheProLicAction" method="view">
+			<result name="view">/WEB-INF/pages/cheprolicense/CheProLic_Detail.jsp</result>
+		</action>
+
+		<action name="cheProLicInitEdit" class="com.jshx.cheprolicense.web.CheProLicAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/cheprolicense/CheProLic_Edit.jsp</result>
+		</action>
+
+		<action name="cheProLicSave" class="com.jshx.cheprolicense.web.CheProLicAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_cheProLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="cheProLicDel" class="com.jshx.cheprolicense.web.CheProLicAction" method="delete">
+		</action>
+		<action name="cheProLicCheck" class="com.jshx.cheprolicense.web.CheProLicAction" method="check">
+			<result name="check">/WEB-INF/pages/cheprolicense/CheProLic_Check.jsp</result>
+		</action>
+		
+		<action name="cheProLicCheckSave" class="com.jshx.cheprolicense.web.CheProLicAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_cheProLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+	</package>
+</struts>

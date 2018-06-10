@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findSsjjcByMap">
+		select new com.jshx.ssjjc.entity.Ssjjc(t.id, t.jcsj, t.qylx, t.jcbl,t.createTime,t.ifrw) from Ssjjc t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		order by t.createTime asc 
+	</select>
+	
+	<select id="findSsjjcBeanByMap">
+		from SsjjcBean t where t.delFlag = 0 
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="cqid">
+			<![CDATA[and t.cqid = :cqid]]>
+		</isNotEmpty>
+		order by t.createTime asc 
+	</select>
+	
+	<select id="getQyListByLxAndWg" parameterClass="java.util.Map" resultClass="com.jshx.qyjbxx.entity.EntBaseInfo">
+	select top $jcbl$ percent t.row_id id,t.enterprise_name enterpriseName from ent_base_info t where t.delflag = 0 
+		<isNotEmpty property="qylx">
+			<iterate prepend="AND" property="qylx" open="(" close=")" conjunction="OR"> 
+				t.ENTERPRISE_TYPE like #qylx[]#
+			</iterate>
+		</isNotEmpty>
+		<isNotEmpty property="deptcode">
+			and t.grid in (select c.row_id from COM_GRI_MAN c where c.GRID_MANAGE_DEPT = #deptcode#)
+		</isNotEmpty>
+	order by newid()
+	</select>
+	
+	
+	<select id="getRyListByLdOrZd" parameterClass="java.util.Map" resultClass="com.jshx.module.admin.entity.User">
+	select t.row_id id,t.display_name displayName from users t where t.del_flag =  0
+	<isEqual property="deptCode" compareValue="zd">
+	and len(t.dept_code) = 12 and t.dept_code != '002001004004'
+		<isNotEmpty property="ryids">
+			and t.row_id in $ryids$
+		</isNotEmpty>
+	</isEqual>
+	<isEqual property="deptCode" compareValue="ldbm">
+	and t.dept_code in ('002001001','002001002','002001003')
+		<isNotEmpty property="ldids">
+			and t.row_id in $ldids$
+		</isNotEmpty>
+	</isEqual>
+		<isNotEmpty property="deptcode">
+			and t.dept_code = #deptcode#
+		</isNotEmpty>
+	</select>
+	
+	<select id="getSsjjcGzByMap">
+		from SsjjcGz t where t.delFlag = 0 
+	</select>
+</sqlMap>

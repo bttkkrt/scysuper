@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="INSPECT_ITEM" extends="default" namespace="/jsp/inspectItem">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="inspectItemQuery" class="com.jshx.inspectItem.web.InspectItemAction" method="list">
+		</action>
+		
+		<action name="inspectItemList">
+			<result name="success">/WEB-INF/pages/inspectItem/InspectItem_List.jsp</result>
+		</action>
+		
+		<action name="inspectItemView" class="com.jshx.inspectItem.web.InspectItemAction" method="view">
+			<result name="view">/WEB-INF/pages/inspectItem/InspectItem_Detail.jsp</result>
+		</action>
+
+		<action name="inspectItemInitEdit" class="com.jshx.inspectItem.web.InspectItemAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/inspectItem/InspectItem_Edit.jsp</result>
+		</action>
+
+		<action name="inspectItemSave" class="com.jshx.inspectItem.web.InspectItemAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="inspectItemDel" class="com.jshx.inspectItem.web.InspectItemAction" method="delete">
+		</action>
+		
+		<!-- 列表查询，返回combobox所需Json数据 -->
+		<action name="jsonList" class="com.jshx.inspectItem.web.InspectItemAction" method="jsonList">
+		</action>
+		
+		<!-- 导入安全检查配置 GY-UPDATE 2015-02-02 -->
+		<action name="inspectItemInitImport" class="com.jshx.inspectItem.web.InspectItemAction" method="initImport">
+			<result name="success">/WEB-INF/pages/inspectItem/InspectItem_InitImport.jsp</result>
+		</action>
+		
+		<action name="inspectItemImportSave" class="com.jshx.inspectItem.web.InspectItemAction" method="importSave">
+			<result name="success">/WEB-INF/pages/inspectItem/InspectItem_ImportResult.jsp</result>
+		</action>
+		
+			<!-- 检查项自动填充 GY-UPDATE 2015-02-02 -->
+		<action name="getSuggestion" method="getSuggestion" class="com.jshx.inspectItem.web.InspectItemAction"></action>
+	</package>
+</struts>

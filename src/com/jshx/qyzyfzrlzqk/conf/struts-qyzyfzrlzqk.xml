@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MAI_PER_REP" extends="default" namespace="/jsp/qyzyfzrlzqk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="maiPerRepQuery" class="com.jshx.qyzyfzrlzqk.web.MaiPerRepAction" method="list">
+		</action>
+		
+		<action name="maiPerRepList" class="com.jshx.qyzyfzrlzqk.web.MaiPerRepAction" method="init">
+			<result name="success">/WEB-INF/pages/qyzyfzrlzqk/MaiPerRep_List.jsp</result>
+		</action>
+		
+		<action name="maiPerRepView" class="com.jshx.qyzyfzrlzqk.web.MaiPerRepAction" method="view">
+			<result name="view">/WEB-INF/pages/qyzyfzrlzqk/MaiPerRep_Detail.jsp</result>
+		</action>
+
+		<action name="maiPerRepInitEdit" class="com.jshx.qyzyfzrlzqk.web.MaiPerRepAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/qyzyfzrlzqk/MaiPerRep_Edit.jsp</result>
+		</action>
+
+		<action name="maiPerRepSave" class="com.jshx.qyzyfzrlzqk.web.MaiPerRepAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_maiPerRep</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="maiPerRepDel" class="com.jshx.qyzyfzrlzqk.web.MaiPerRepAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

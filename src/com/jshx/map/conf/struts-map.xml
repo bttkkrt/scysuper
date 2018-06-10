@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="TB_MAP" extends="default" namespace="/jsp/map">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="tbMapQuery" class="com.jshx.map.web.TbMapAction" method="list">
+		</action>
+		
+		<action name="tbMapList">
+			<result name="success">/WEB-INF/pages/map/TbMap_List.jsp</result>
+		</action>
+		
+		<action name="tbMapView" class="com.jshx.map.web.TbMapAction" method="view">
+			<result name="view">/WEB-INF/pages/map/TbMap_Detail.jsp</result>
+		</action>
+
+		<action name="tbMapInitEdit" class="com.jshx.map.web.TbMapAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/map/TbMap_Edit.jsp</result>
+		</action>
+
+		<action name="tbMapSave" class="com.jshx.map.web.TbMapAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_tbMap</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="tbMapDel" class="com.jshx.map.web.TbMapAction" method="delete">
+		</action>
+		<!-- 获取企业列表数据 lj 2015-10-30 -->
+		<action name="tbMapGetCompanyJSON" class="com.jshx.map.web.TbMapAction" method="companyJSON">
+		</action>
+		<!-- 获取企业详情数据 lj 2015-10-31 -->
+		<action name="tbMapGetCompanyDetailJSON" class="com.jshx.map.web.TbMapAction" method="companyDetailJSON">
+		</action>
+		<!-- 获取网格列表数据 lj 2015-10-31 -->
+		<action name="tbMapGetGridJSON" class="com.jshx.map.web.TbMapAction" method="gridJSON">
+		</action>
+		
+		<!-- 判断用户userId是否拥有角色 role 费谦 2015-11-5 -->
+		<action name="judgeRoleCode" class="com.jshx.map.web.TbMapAction" method="judgeRoleCode">
+		</action>
+		
+		<action name="searchCom" class="com.jshx.map.web.TbMapAction" method="searchCom">
+		</action>
+	</package>
+</struts>

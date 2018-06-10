@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5D9545C4-C11D-4478-BB9E-FB3A1BB695DF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Geone_YQZHJT.Web</RootNamespace>
+    <AssemblyName>Geone_YQZHJT.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <SilverlightApplicationList>{00FB9DE8-4B75-435A-B94F-FB063A722AB5}|..\Geone_QS\Geone_QS.csproj|ClientBin|False</SilverlightApplicationList>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientBin\downloadSL\Silverlight_x32.exe" />
+    <Content Include="ClientBin\downloadSL\Silverlight_x64.exe" />
+    <Content Include="ClientBin\downloadSL\SLMedallion_CHS.png" />
+    <Content Include="ClientBin\Geone_AJ.xap" />
+    <Content Include="ClientBin\Geone_QS.xap" />
+    <Content Include="ClientBin\Images\AroundFX_bg.png" />
+    <Content Include="ClientBin\Images\bg_board.png" />
+    <Content Include="ClientBin\Images\bg_board_normal.png" />
+    <Content Include="ClientBin\Images\bg_toolPanelTitle.png" />
+    <Content Include="ClientBin\Images\btn_search_bg.png" />
+    <Content Include="ClientBin\Images\btn_search_bg_short.png" />
+    <Content Include="ClientBin\Images\btn_search_bg_width.png" />
+    <Content Include="ClientBin\Images\headerTag_bg_center.png" />
+    <Content Include="ClientBin\Images\headerTag_bg_left.png" />
+    <Content Include="ClientBin\Images\headerTag_bg_right.png" />
+    <Content Include="ClientBin\Images\header_bg_center.png" />
+    <Content Include="ClientBin\Images\header_bg_center_mid.png" />
+    <Content Include="ClientBin\Images\header_bg_center_short.png" />
+    <Content Include="ClientBin\Images\header_bg_img_left.png" />
+    <Content Include="ClientBin\Images\header_bg_img_right.png" />
+    <Content Include="ClientBin\Images\header_bg_left.png" />
+    <Content Include="ClientBin\Images\header_bg_left_mid.png" />
+    <Content Include="ClientBin\Images\header_bg_left_short.png" />
+    <Content Include="ClientBin\Images\header_bg_right.png" />
+    <Content Include="ClientBin\Images\header_bg_right_mid.png" />
+    <Content Include="ClientBin\Images\header_bg_right_short.png" />
+    <Content Include="ClientBin\Images\icon_CSFZ.png" />
+    <Content Include="ClientBin\Images\icon_CSYW.png" />
+    <Content Include="ClientBin\Images\icon_flat.png" />
+    <Content Include="ClientBin\Images\icon_hill.png" />
+    <Content Include="ClientBin\Images\icon_house.png" />
+    <Content Include="ClientBin\Images\icon_JJFZ.png" />
+    <Content Include="ClientBin\Images\icon_layer_group.png" />
+    <Content Include="ClientBin\Images\icon_layer_i.png" />
+    <Content Include="ClientBin\Images\icon_layer_layer.png" />
+    <Content Include="ClientBin\Images\icon_layer_root.png" />
+    <Content Include="ClientBin\Images\icon_SHRW.png" />
+    <Content Include="ClientBin\Images\icon_STHJ.png" />
+    <Content Include="ClientBin\Images\icon_ZRTJ.png" />
+    <Content Include="ClientBin\Images\img_logo.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_01_CTB.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_01_layer.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_02_search.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_03_analysis.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_03_CTB.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_03_stats.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_04_CTB.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_04_server.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_05_CTB.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_05_setting.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_06_approve.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_06_CTB.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_07_overlay.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_GKSP.png" />
+    <Content Include="ClientBin\Images\leftBar\icon_ZBFX.png" />
+    <Content Include="ClientBin\Images\LeftTab_header_bg.png" />
+    <Content Include="ClientBin\Images\LeftTab_header_bg_02.png" />
+    <Content Include="ClientBin\Images\light\icon_gray_light.png" />
+    <Content Include="ClientBin\Images\light\icon_green_light.png" />
+    <Content Include="ClientBin\Images\light\icon_red_light.png" />
+    <Content Include="ClientBin\Images\light\icon_yellow_light.png" />
+    <Content Include="ClientBin\Images\light\zbtjmx_linkpic.png" />
+    <Content Include="ClientBin\Images\login_bg.JPG" />
+    <Content Include="ClientBin\Images\login_header_bg.png" />
+    <Content Include="ClientBin\Images\logo.png" />
+    <Content Include="ClientBin\Images\logo_img.png" />
+    <Content Include="ClientBin\Images\logo_null.png" />
+    <Content Include="ClientBin\Images\mapControl\hand1.png" />
+    <Content Include="ClientBin\Images\mapControl\hand2.png" />
+    <Content Include="ClientBin\Images\mapControl\icon_arrow.png" />
+    <Content Include="ClientBin\Images\mapControl\icon_hand.png" />
+    <Content Include="ClientBin\Images\mapEditor\edit_addtoselection.png" />
+    <Content Include="ClientBin\Images\mapEditor\edit_autocompletepolygontool.png" />
+    <Content Include="ClientBin\Images\mapEditor\edit_extenttool.png" />
+    <Content Include="ClientBin\Images\mapEditor\edit_freehandpolygontool.png" />
+    <Content Include="ClientBin\Images\mapEditor\edit_freehandpolylinetool.png" />
+    <Content Include="ClientBin\Images\mapEditor\edit_genericdocument.png" />
+    <Content Include="ClientBin\Images\mapEditor\edit_linetool.png" />
+    <Content Include="ClientBin\Images\mapEditor\edit_markertool.png" />
+    <Content Include="ClientBin\Images\mapEditor\edit_polygontool.png" />
+    <Content Include="ClientBin\Images\mapEditor\edit_polylinetool.png" />
+    <Content Include="ClientBin\Images\mapEditor\edit_removefromselection.png" />
+    <Content Include="ClientBin\Images\mapStyle\mapStyle_color.png" />
+    <Content Include="ClientBin\Images\mapStyle\mapStyle_gray.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_Approve.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_clear.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_clearMap.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_clickSearch.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_drag.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_drawCircle.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_drawNew.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_drawNewCircle.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_drawNewLine.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_drawNewPoint.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_drawNewPolygon.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_drawNewRect.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_drawPoint.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_drawPolygon.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_drawRect.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_fourWin.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_fullMap.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_more.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_move.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_overlay.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_pipe.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_print.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_rulerArea.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_rulerAreaClick.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_rulerDist.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_spatialQ.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_twoWind.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_zoomIn.png" />
+    <Content Include="ClientBin\Images\mapTool\icon_btn_zoomOut.png" />
+    <Content Include="ClientBin\Images\poi_icon\1.png" />
+    <Content Include="ClientBin\Images\poi_icon\10.png" />
+    <Content Include="ClientBin\Images\poi_icon\11.png" />
+    <Content Include="ClientBin\Images\poi_icon\12.png" />
+    <Content Include="ClientBin\Images\poi_icon\13.png" />
+    <Content Include="ClientBin\Images\poi_icon\14.png" />
+    <Content Include="ClientBin\Images\poi_icon\15.png" />
+    <Content Include="ClientBin\Images\poi_icon\16.png" />
+    <Content Include="ClientBin\Images\poi_icon\17.png" />
+    <Content Include="ClientBin\Images\poi_icon\18.png" />
+    <Content Include="ClientBin\Images\poi_icon\19.png" />
+    <Content Include="ClientBin\Images\poi_icon\2.png" />
+    <Content Include="ClientBin\Images\poi_icon\20.png" />
+    <Content Include="ClientBin\Images\poi_icon\21.png" />
+    <Content Include="ClientBin\Images\poi_icon\22.png" />
+    <Content Include="ClientBin\Images\poi_icon\23.png" />
+    <Content Include="ClientBin\Images\poi_icon\24.png" />
+    <Content Include="ClientBin\Images\poi_icon\25.png" />
+    <Content Include="ClientBin\Images\poi_icon\26.png" />
+    <Content Include="ClientBin\Images\poi_icon\27.png" />
+    <Content Include="ClientBin\Images\poi_icon\28.png" />
+    <Content Include="ClientBin\Images\poi_icon\29.png" />
+    <Content Include="ClientBin\Images\poi_icon\3.png" />
+    <Content Include="ClientBin\Images\poi_icon\30.png" />
+    <Content Include="ClientBin\Images\poi_icon\4.png" />
+    <Content Include="ClientBin\Images\poi_icon\5.png" />
+    <Content Include="ClientBin\Images\poi_icon\6.png" />
+    <Content Include="ClientBin\Images\poi_icon\7.png" />
+    <Content Include="ClientBin\Images\poi_icon\8.png" />
+    <Content Include="ClientBin\Images\poi_icon\9.png" />
+    <Content Include="ClientBin\Images\poi_icon\icon_poi_null.png" />
+    <Content Include="ClientBin\Images\poi_icon\icon_poi_null2.png" />
+    <Content Include="ClientBin\Images\popUpHeader_bg_380.png" />
+    <Content Include="ClientBin\Images\popUpHeader_bg_430.png" />
+    <Content Include="ClientBin\Images\popUpHeader_bg_480.png" />
+    <Content Include="ClientBin\Images\popUp_arrows.png" />
+    <Content Include="ClientBin\Images\popUp_header_bg.png" />
+    <Content Include="ClientBin\Images\popUp_header_bg_long.png" />
+    <Content Include="ClientBin\Images\SIP_LOGO.png" />
+    <Content Include="ClientBin\Images\SIP_LOGO_little.png" />
+    <Content Include="ClientBin\Images\SIP_LOGO_little2.png" />
+    <Content Include="ClientBin\Images\SZ_LOGO.png" />
+    <Content Include="ClientBin\Images\SZ_LOGO_login.png" />
+    <Content Include="ClientBin\Images\topTab_arrows.png" />
+    <Content Include="ClientBin\Resources\MapLayers.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ClientBin\Resources\Services.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ClientBin\Resources\WidgetConfig\HeadConfig.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ClientBin\Resources\WidgetConfig\MapCompConfig.xml" />
+    <Content Include="ClientBin\Resources\WidgetConfig\MapEvents.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ClientBin\Resources\WidgetConfig\MapStyles.xml" />
+    <Content Include="ClientBin\Resources\WidgetConfig\MapToolsConfig.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ClientBin\Resources\WidgetConfig\MsgListener.xml" />
+    <Content Include="ClientBin\Resources\WidgetConfig\myCmpMap.xml" />
+    <Content Include="ClientBin\Resources\WidgetConfig\MyLayerListWidget.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ClientBin\Resources\WidgetConfig\mySwipeMap_new.xml" />
+    <Content Include="ClientBin\Resources\WidgetConfig\SearchToolConfig.xml" />
+    <Content Include="ClientBin\Resources\WidgetConfig\ToolbarConfig.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ClientBin\Resources\WidgetConfig\ZRTJ.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="index.aspx" />
+    <Content Include="index.html" />
+    <Content Include="json.js" />
+    <Content Include="Silverlight.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ClientBin\Resources\Data\" />
+    <Folder Include="ClientBin\Widgets\" />
+    <Folder Include="Lib\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientBin\downloadSL\Silverlight5_MacOS.dmg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientBin\Microsoft.CSharp.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientBin\System.Windows.Controls.Data.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientBin\System.Windows.Controls.Data.Input.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientBin\System.Windows.Controls.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientBin\System.Windows.Controls.Input.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientBin\System.Xml.Linq.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientBin\System.ComponentModel.DataAnnotations.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientBin\System.Windows.Data.zip" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>25145</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:28824/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

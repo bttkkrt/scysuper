@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="AQSC_DATA" extends="default" namespace="/jsp/aqscData">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="aqscDataQuery" class="com.jshx.aqscData.web.AqscDataAction" method="list">
+		</action>
+		
+		<action name="aqscDataList">
+			<result name="success">/WEB-INF/pages/aqscData/AqscData_List.jsp</result>
+		</action>
+		
+		<action name="aqscDataView" class="com.jshx.aqscData.web.AqscDataAction" method="view">
+			<result name="view">/WEB-INF/pages/aqscData/AqscData_Detail.jsp</result>
+		</action>
+
+		<action name="aqscDataInitEdit" class="com.jshx.aqscData.web.AqscDataAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqscData/AqscData_Edit.jsp</result>
+		</action>
+
+		<action name="aqscDataSave" class="com.jshx.aqscData.web.AqscDataAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="aqscDataDel" class="com.jshx.aqscData.web.AqscDataAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHX_TZZY_PXB" extends="default" namespace="/jsp/tzzyPxb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxTzzyPxbQuery" class="com.jshx.tzzyPxb.web.JshxTzzyPxbAction" method="list">
+		</action>
+		
+		<action name="jshxTzzyPxbList" class="com.jshx.tzzyPxb.web.JshxTzzyPxbAction" method="init">
+			<result name="success">/WEB-INF/pages/tzzyPxb/JshxTzzyPxb_List.jsp</result>
+		</action>
+		
+		<action name="jshxTzzyPxbView" class="com.jshx.tzzyPxb.web.JshxTzzyPxbAction" method="view">
+			<result name="view">/WEB-INF/pages/tzzyPxb/JshxTzzyPxb_Detail.jsp</result>
+		</action>
+
+		<action name="jshxTzzyPxbInitEdit" class="com.jshx.tzzyPxb.web.JshxTzzyPxbAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/tzzyPxb/JshxTzzyPxb_Edit.jsp</result>
+		</action>
+
+		<action name="jshxTzzyPxbSave" class="com.jshx.tzzyPxb.web.JshxTzzyPxbAction" method="save">
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+		</action>
+		<action name="jshxTzzyPxbSaves" class="com.jshx.tzzyPxb.web.JshxTzzyPxbAction" method="saves">
+			<result name="success">/WEB-INF/pages/tzzyPxb/JshxTzzyPxb_Edits.jsp</result>
+		</action>
+
+		<action name="jshxTzzyPxbDel" class="com.jshx.tzzyPxb.web.JshxTzzyPxbAction" method="delete">
+		</action>
+		<action name="jshxTzzyPxbDels" class="com.jshx.tzzyPxb.web.JshxTzzyPxbAction" method="deletes">
+		</action>
+		
+		<action name="jshxTzzyPxbQuerys" class="com.jshx.tzzyPxb.web.JshxTzzyPxbAction" method="lists">
+		</action>
+		
+		<action name="jshxTzzyPxbLists" class="com.jshx.tzzyPxb.web.JshxTzzyPxbAction" method="inits">
+			<result name="success">/WEB-INF/pages/tzzyPxb/JshxTzzyPxb_Lists.jsp</result>
+		</action>
+		
+		<action name="jshxTzzyPxbImportData" class="com.jshx.tzzyPxb.web.JshxTzzyPxbAction">
+			<result name="success">/WEB-INF/pages/tzzyPxb/JshxTzzyPxb_upload.jsp</result>
+		</action>
+		
+		<action name="jshxTzzyPxbSaveExcel" class="com.jshx.tzzyPxb.web.JshxTzzyPxbAction" method="saveExcel">
+		</action>
+		
+		<action name="jshxTzzyPxbExport" class="com.jshx.tzzyPxb.web.JshxTzzyPxbAction" method="export">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="TRA_CER" extends="default" namespace="/jsp/czrypxzs">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="traCerQuery" class="com.jshx.czrypxzs.web.TraCerAction" method="list">
+		</action>
+		
+		<action name="traCerList" class="com.jshx.czrypxzs.web.TraCerAction" method="init">
+			<result name="success">/WEB-INF/pages/czrypxzs/TraCer_List.jsp</result>
+		</action>
+		
+		<action name="traCerView" class="com.jshx.czrypxzs.web.TraCerAction" method="view">
+			<result name="view">/WEB-INF/pages/czrypxzs/TraCer_Detail.jsp</result>
+		</action>
+
+		<action name="traCerInitEdit" class="com.jshx.czrypxzs.web.TraCerAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/czrypxzs/TraCer_Edit.jsp</result>
+		</action>
+
+		<action name="traCerSave" class="com.jshx.czrypxzs.web.TraCerAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />
+			<interceptor-ref name="coreStack" />  
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_traCer</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="traCerDel" class="com.jshx.czrypxzs.web.TraCerAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="LEA_CLA" extends="default" namespace="/jsp/lddbqk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="leaClaQuery" class="com.jshx.lddbqk.web.LeaClaAction" method="list">
+		</action>
+		
+		<action name="leaClaList" class="com.jshx.lddbqk.web.LeaClaAction" method="init">
+			<result name="success">/WEB-INF/pages/lddbqk/LeaCla_List.jsp</result>
+		</action>
+		
+		<action name="leaClaView" class="com.jshx.lddbqk.web.LeaClaAction" method="view">
+			<result name="view">/WEB-INF/pages/lddbqk/LeaCla_Detail.jsp</result>
+		</action>
+
+		<action name="leaClaInitEdit" class="com.jshx.lddbqk.web.LeaClaAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/lddbqk/LeaCla_Edit.jsp</result>
+		</action>
+
+		<action name="leaClaSave" class="com.jshx.lddbqk.web.LeaClaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_leaCla</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="leaClaDel" class="com.jshx.lddbqk.web.LeaClaAction" method="delete">
+		</action>
+		
+		<action name="leaClaCheck" class="com.jshx.lddbqk.web.LeaClaAction" method="check">
+			<result name="check">/WEB-INF/pages/lddbqk/LeaCla_Check.jsp</result>
+		</action>
+		
+		<action name="leaClaCheckSave" class="com.jshx.lddbqk.web.LeaClaAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_leaCla</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+	</package>
+</struts>

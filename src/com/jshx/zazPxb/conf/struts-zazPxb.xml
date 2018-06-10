@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHX_ZAZ_PXB" extends="default" namespace="/jsp/zazPxb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxZazPxbQuery" class="com.jshx.zazPxb.web.JshxZazPxbAction" method="list">
+		</action>
+		
+		<action name="jshxZazPxbList" class="com.jshx.zazPxb.web.JshxZazPxbAction" method="init">
+			<result name="success">/WEB-INF/pages/zazPxb/JshxZazPxb_List.jsp</result>
+		</action>
+		
+		<action name="jshxZazPxbLists" class="com.jshx.zazPxb.web.JshxZazPxbAction" method="inits">
+			<result name="success">/WEB-INF/pages/zazPxb/JshxZazPxb_Lists.jsp</result>
+		</action>
+		
+		<action name="jshxZazPxbView" class="com.jshx.zazPxb.web.JshxZazPxbAction" method="view">
+			<result name="view">/WEB-INF/pages/zazPxb/JshxZazPxb_Detail.jsp</result>
+		</action>
+
+		<action name="jshxZazPxbInitEdit" class="com.jshx.zazPxb.web.JshxZazPxbAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zazPxb/JshxZazPxb_Edit.jsp</result>
+		</action>
+
+		<action name="jshxZazPxbSave" class="com.jshx.zazPxb.web.JshxZazPxbAction" method="save">
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+		</action>
+		
+		<action name="jshxZazPxbSaves" class="com.jshx.zazPxb.web.JshxZazPxbAction" method="saves">
+			<result name="success">/WEB-INF/pages/zazPxb/JshxZazPxb_Edits.jsp</result>
+		</action>
+
+		<action name="jshxZazPxbDel" class="com.jshx.zazPxb.web.JshxZazPxbAction" method="delete">
+		</action>
+		<action name="jshxZazPxbDels" class="com.jshx.zazPxb.web.JshxZazPxbAction" method="deletes">
+		</action>
+		
+		<action name="jshxZazPxbQuerys" class="com.jshx.zazPxb.web.JshxZazPxbAction" method="lists">
+		</action>
+		
+		<action name="jshxZazPxbLists" class="com.jshx.zazPxb.web.JshxZazPxbAction" method="inits">
+			<result name="success">/WEB-INF/pages/zazPxb/JshxZazPxb_Lists.jsp</result>
+		</action>
+		<!-- 跳转到数据导入界面 -->
+		<action name="jshxZazPxbImportData" class="com.jshx.zazPxb.web.JshxZazPxbAction">
+			<result name="success">/WEB-INF/pages/zazPxb/JshxZazPxb_upload.jsp</result>
+		</action>
+		<!-- 保存数据 -->
+		<action name="jshxZazPxbSaveExcel" class="com.jshx.zazPxb.web.JshxZazPxbAction" method="saveExcel">
+		</action>
+		
+		<action name="jshxZazPxbExport" class="com.jshx.zazPxb.web.JshxZazPxbAction" method="export">
+		</action>
+	</package>
+</struts>

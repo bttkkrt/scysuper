@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findLighthouseByMap">
+		select new com.wzxx.bgt.entity.Lighthouse(t.id, t.title, t.publicDate) from Lighthouse t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="title">
+			<![CDATA[and t.title like :title]]>
+		</isNotEmpty>
+		<isNotEmpty property="startPublicDate">
+			<![CDATA[and CONVERT(varchar(100), t.publicDate, 23) >= :startPublicDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPublicDate">
+			<![CDATA[and CONVERT(varchar(100), t.publicDate, 23) <= :endPublicDate]]>
+		</isNotEmpty>
+		order by t.publicDate desc
+	</select>
+	<!-- 根据证件类型查询图片 -->
+	<select id="get_photos" parameterClass="java.util.Map" resultClass="java.lang.String">
+		SELECT  t.PIC_NAME as picName from PHOTO_PIC t where t.delFlag=0 and t.LINK_ID=#linkId#
+	</select>
+
+		<select id="findBgtList" parameterClass="java.util.Map" resultClass="com.wzxx.bgt.entity.Lighthouse">
+		select t.ROW_ID as id,t.TITLE as title,t.PUBLIC_DATE as publicDate from LIGHTHOUSE t where t.delFlag=0
+		order by t.PUBLIC_DATE desc
+	</select>
+	
+	<select id="findBgtListSize" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from LIGHTHOUSE  t where t.delFlag=0
+	</select>
+</sqlMap>

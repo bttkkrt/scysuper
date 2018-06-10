@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SPE_JOB_PER" extends="default" namespace="/jsp/tzzyry">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="speJobPerQuery" class="com.jshx.tzzyry.web.SpeJobPerAction" method="list">
+		</action>
+		
+		<action name="speJobPerList" class="com.jshx.tzzyry.web.SpeJobPerAction" method="init">
+			<result name="success">/WEB-INF/pages/tzzyry/SpeJobPer_List.jsp</result>
+		</action>
+		
+		<action name="speJobPerLists" class="com.jshx.tzzyry.web.SpeJobPerAction" method="init">
+			<result name="success">/WEB-INF/pages/tzzyry/SpeJobPer_Lists.jsp</result>
+		</action>
+		
+		<action name="speJobPerView" class="com.jshx.tzzyry.web.SpeJobPerAction" method="view">
+			<result name="view">/WEB-INF/pages/tzzyry/SpeJobPer_Detail.jsp</result>
+		</action>
+
+		<action name="speJobPerInitEdit" class="com.jshx.tzzyry.web.SpeJobPerAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/tzzyry/SpeJobPer_Edit.jsp</result>
+		</action>
+
+		<action name="speJobPerSave" class="com.jshx.tzzyry.web.SpeJobPerAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_speJobPer</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="speJobPerDel" class="com.jshx.tzzyry.web.SpeJobPerAction" method="delete">
+		</action>
+		<action name="initImportSpeJobPer" class="com.jshx.tzzyry.web.SpeJobPerAction" method="initImport">
+		    <result name="success">/WEB-INF/pages/tzzyry/importSpeJobPer.jsp</result>
+		</action>
+		
+		<action name="importSpeJobPer" class="com.jshx.tzzyry.web.SpeJobPerAction" method="importSpeJobPer">
+			<result name="success" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		<action name="sendInfo" class="com.jshx.tzzyry.web.SpeJobPerAction" method="sendInfo">
+		</action>
+	</package>
+</struts>

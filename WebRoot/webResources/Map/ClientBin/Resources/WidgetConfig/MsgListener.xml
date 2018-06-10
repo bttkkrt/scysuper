@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<configuration>
+  <node id="socketLink" label="服务端连接" ip="192.168.81.221" port="4518"/>
+</configuration>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="BGXZ" extends="default" namespace="/jsp/bgxz">
+		
+		<!-- 修改列表方法，返回Json数据 -->
+		<action name="bgxzQuery" class="com.wzxx.bgxz.web.BgxzAction" method="list">
+		</action>
+		
+		<action name="bgxzList">
+			<result name="success">/WEB-INF/wzPage/bgxz/Bgxz_List.jsp</result>
+		</action>
+		
+		<action name="bgxzView" class="com.wzxx.bgxz.web.BgxzAction" method="view">
+			<result name="view">/WEB-INF/wzPage/bgxz/Bgxz_Detail.jsp</result>
+		</action>
+
+		<action name="bgxzInitEdit" class="com.wzxx.bgxz.web.BgxzAction" method="initEdit">
+			<result name="edit">/WEB-INF/wzPage/bgxz/Bgxz_Edit.jsp</result>
+		</action>
+
+		<action name="bgxzSave" class="com.wzxx.bgxz.web.BgxzAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_bgxz</result>
+			<result name="invalid.token">/invalid.jsp</result> 
+		</action>
+
+		<action name="bgxzDel" class="com.wzxx.bgxz.web.BgxzAction" method="delete">
+		</action>
+		
+
+	</package>
+	
+</struts>

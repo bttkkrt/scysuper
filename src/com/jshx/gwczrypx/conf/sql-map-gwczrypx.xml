@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findPosOpeTraByMap">
+		select new com.jshx.gwczrypx.entity.PosOpeTra(t.id,t.areaName,t.companyName, t.operateName, t.idCard, t.certificateNo, t.operateType,t.createUserID) from PosOpeTra t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName = :areaName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="operateName">
+			<![CDATA[and t.operateName like :operateName]]>
+		</isNotEmpty>
+		<isNotEmpty property="idCard">
+			<![CDATA[and t.idCard like :idCard]]>
+		</isNotEmpty>
+		<isNotEmpty property="certificateNo">
+			<![CDATA[and t.certificateNo like :certificateNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="operateType">
+			<![CDATA[and t.operateType = :operateType]]>
+		</isNotEmpty>
+			<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+</sqlMap>

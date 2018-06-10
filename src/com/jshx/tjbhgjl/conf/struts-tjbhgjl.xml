@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PHY_UNQ_REC" extends="default" namespace="/jsp/tjbhgjl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="phyUnqRecQuery" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="list">
+		</action>
+		
+		<action name="phyUnqRecList" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="init">
+			<result name="success">/WEB-INF/pages/tjbhgjl/PhyUnqRec_List.jsp</result>
+		</action>
+		
+		<action name="phyUnqRecView" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="view">
+			<result name="view">/WEB-INF/pages/tjbhgjl/PhyUnqRec_Detail.jsp</result>
+		</action>
+
+		<action name="phyUnqRecInitEdit" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/tjbhgjl/PhyUnqRec_Edit.jsp</result>
+		</action>
+
+		<action name="phyUnqRecSave" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" /> 
+			<interceptor-ref name="coreStack" /> 
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_phyUnqRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="phyUnqRecDel" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

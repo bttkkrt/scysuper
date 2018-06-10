@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="REGULATIONS_LEVEL" extends="default" namespace="/jsp/RegulationsLevel">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="regulationsLevelQuery" class="com.jshx.regulationsLevel.web.RegulationsLevelAction" method="list">
+		</action>
+		
+		<action name="regulationsLevelList">
+			<result name="success">/WEB-INF/pages/RegulationsLevel/RegulationsLevel_List.jsp</result>
+		</action>
+		
+		<action name="regulationsLevelView" class="com.jshx.regulationsLevel.web.RegulationsLevelAction" method="view">
+			<result name="view">/WEB-INF/pages/RegulationsLevel/RegulationsLevel_Detail.jsp</result>
+		</action>
+
+		<action name="regulationsLevelInitEdit" class="com.jshx.regulationsLevel.web.RegulationsLevelAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/RegulationsLevel/RegulationsLevel_Edit.jsp</result>
+		</action>
+
+		<action name="regulationsLevelSave" class="com.jshx.regulationsLevel.web.RegulationsLevelAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="regulationsLevelDel" class="com.jshx.regulationsLevel.web.RegulationsLevelAction" method="delete">
+		</action>
+		
+		<action name="getRegulationsLevelTree" class="com.jshx.regulationsLevel.web.RegulationsLevelAction" method="getRegulationsLevelTree">
+		</action>
+		<action name="checkExist" class="com.jshx.regulationsLevel.web.RegulationsLevelAction" method="checkExist">
+		</action>
+		<!-- 是否父节点是否变成子节点 -->
+		<action name="checkToBeChild" class="com.jshx.regulationsLevel.web.RegulationsLevelAction" method="checkToBeChild">
+		</action>
+		
+		<action name="findName" class="com.jshx.regulationsLevel.web.RegulationsLevelAction" method="findName">
+		</action>
+		
+		<!-- 是否此办公用品类别是否有子节点 -->
+		<action name="checkHasChild" class="com.jshx.regulationsLevel.web.RegulationsLevelAction" method="checkHasChild">
+		</action>
+		
+		
+		
+	</package>
+</struts>

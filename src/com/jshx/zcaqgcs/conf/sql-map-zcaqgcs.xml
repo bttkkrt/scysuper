@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findCerSafEngByMap">
+		select new com.jshx.zcaqgcs.entity.CerSafEng(t.id, t.areaName, t.companyName, t.saftyName, t.idCard, t.certificateNo,t.createUserID) from CerSafEng t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName = :areaName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="saftyName">
+			<![CDATA[and t.saftyName like :saftyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="idCard">
+			<![CDATA[and t.idCard like :idCard]]>
+		</isNotEmpty>
+		<isNotEmpty property="certificateNo">
+			<![CDATA[and t.certificateNo like :certificateNo]]>
+		</isNotEmpty>
+			<isNotEmpty property="companmyIds">
+			<![CDATA[and  charindex(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+</sqlMap>

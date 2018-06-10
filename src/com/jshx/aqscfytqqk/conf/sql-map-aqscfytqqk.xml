@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findSecProFeeExtByMap">
+		select new com.jshx.aqscfytqqk.entity.SecProFeeExt(t.id, t.areaName, t.companyName, t.feeExtractFee, t.feeExtractTime,t.feeExtractRemark) from SecProFeeExt t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="feeExtractFee">
+			<![CDATA[and t.feeExtractFee = :feeExtractFee]]>
+		</isNotEmpty>
+		<isNotEmpty property="startFeeExtractTime">
+			<![CDATA[and t.feeExtractTime >= :startFeeExtractTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endFeeExtractTime">
+			<![CDATA[and t.feeExtractTime <= :endFeeExtractTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="feeAccountMonth">
+			<![CDATA[and t.feeAccountMonth = :feeAccountMonth]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="searchLike">
+			<![CDATA[and (t.companyName like :searchLike   or t.feeExtractRemark like :searchLike)]]>
+		</isNotEmpty>
+		
+		order by t.feeExtractTime desc 
+	</select>
+	<select id="findSecProFeeExtByMaps">
+		from SecProFeeExt t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="feeExtractFee">
+			<![CDATA[and t.feeExtractFee = :feeExtractFee]]>
+		</isNotEmpty>
+		<isNotEmpty property="startFeeExtractTime">
+			<![CDATA[and t.feeExtractTime >= :startFeeExtractTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endFeeExtractTime">
+			<![CDATA[and t.feeExtractTime <= :endFeeExtractTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="feeAccountMonth">
+			<![CDATA[and t.feeAccountMonth = :feeAccountMonth]]>
+		</isNotEmpty>
+		order by t.feeExtractTime asc
+	</select>
+</sqlMap>

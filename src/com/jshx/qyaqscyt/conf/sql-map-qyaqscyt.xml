@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findQyaqscytByMap">
+		select new com.jshx.qyaqscyt.entity.Qyaqscyt(t.id, t.monthTime, t.areaName) from Qyaqscyt t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+		<isNotEmpty property="startMonthTime">
+			<![CDATA[and t.monthTime >= :startMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endMonthTime">
+			<![CDATA[and t.monthTime <= :endMonthTime]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getQyaqscytListByMap" parameterClass="java.util.Map" resultClass="com.jshx.qyaqscyt.entity.QyaqscytBean">
+	SELECT DISTINCT t.area_name as data1,
+      t.bndyyt as data2,
+      t.byytqys  as data3,
+      t.bnyljytqys  as data4,
+      t.remark as data5
+     from QYAQSCYT t where t.delflag=0
+    
+	and t.month_time =#startMonthTime#
+	
+	</select>
+	
+	<select id="getTotalQyaqscytListByMap" parameterClass="java.util.Map" resultClass="com.jshx.qyaqscyt.entity.QyaqscytBean">
+	SELECT 
+      sum(cast(t.bndyyt as int)) as data2,
+      sum(cast(t.byytqys as int)) as data3,
+      sum(cast(t.bnyljytqys as int)) as data4
+     from QYAQSCYT t where t.delflag=0
+    
+	and t.month_time =#startMonthTime#
+	</select>
+</sqlMap>

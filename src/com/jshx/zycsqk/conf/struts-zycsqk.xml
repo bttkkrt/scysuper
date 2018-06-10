@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZYCSQK" extends="default" namespace="/jsp/zycsqk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zycsqkQuery" class="com.jshx.zycsqk.web.ZycsqkAction" method="list">
+		</action>
+		
+		<action name="zycsqkList" class="com.jshx.zycsqk.web.ZycsqkAction" method="init">
+			<result name="success">/WEB-INF/pages/zycsqk/Zycsqk_List.jsp</result>
+		</action>
+		<!-- 跳转到 危害因素检测 李军 2013-11-26 -->
+		<action name="zycsqkjcList" class="com.jshx.zycsqk.web.ZycsqkAction" method="init">
+			<result name="success">/WEB-INF/pages/zybwhysjc/Zycsqk_jc_List.jsp</result>
+		</action>
+		
+		<action name="zycsqkView" class="com.jshx.zycsqk.web.ZycsqkAction" method="view">
+			<result name="view">/WEB-INF/pages/zycsqk/Zycsqk_Detail.jsp</result>
+		</action>
+
+		<action name="zycsqkInitEdit" class="com.jshx.zycsqk.web.ZycsqkAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zycsqk/Zycsqk_Edit.jsp</result>
+		</action>
+
+		<action name="zycsqkSave" class="com.jshx.zycsqk.web.ZycsqkAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zycsqkDel" class="com.jshx.zycsqk.web.ZycsqkAction" method="delete">
+		</action>
+		
+		<action name="zycsqkUpload" class="com.jshx.zycsqk.web.ZycsqkAction" method="upload">
+			<result name="success">/WEB-INF/pages/zycsqk/Zycsqk_upload.jsp</result>
+		</action>
+		<action name="zycsqkSavePhoto" class="com.jshx.zycsqk.web.ZycsqkAction" method="savePhoto">
+		</action>
+		<action name="zycsqkImageDel" class="com.jshx.zycsqk.web.ZycsqkAction" method="deleteImage">
+		</action>
+		<action name="zycsqkSaveFile" class="com.jshx.zycsqk.web.ZycsqkAction" method="saveFile">
+		</action>
+		
+		<!-- 职业病危害档案查询 陆婷 2013-11-27 -->
+		<action name="zybwhdaQuery" class="com.jshx.zycsqk.web.ZycsqkAction" method="zybwhdalist">
+		</action>
+		
+		<!-- 职业病危害档案列表 陆婷 2013-11-27 -->
+		<action name="zybwhdaList">
+			<result name="success">/WEB-INF/pages/zycsqk/Zybwhda_List.jsp</result>
+		</action>
+		<!-- add by  陆婷    2013-12-3 职业病危害档案统计导出 -->
+		<action name="zybwhdaListExport" class="com.jshx.zycsqk.web.ZycsqkAction" method="zybwhdaListExport">
+		</action>
+	</package>
+</struts>

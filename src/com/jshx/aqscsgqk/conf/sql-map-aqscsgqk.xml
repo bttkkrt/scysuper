@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findAqscsgqkByMap">
+		select new com.jshx.aqscsgqk.entity.Aqscsgqk(t.id, t.monthTime, t.areaName) from Aqscsgqk t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+		<isNotEmpty property="startMonthTime">
+			<![CDATA[and t.monthTime = :startMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endMonthTime">
+			<![CDATA[and t.monthTime <= :endMonthTime]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getAqscsgqkListByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqscsgqk.entity.AqscsgqkBean">
+	SELECT DISTINCT t.area_name as data1,
+    sum(cast(t.dysgqs as int)) as data2,
+     sum(cast(t.dysgscx as int))as data3,
+    sum(cast(t.dyswsgqs as int)) as data4,
+     sum(cast(t.dyswsgscx as int))as data5,
+     sum(cast(t.dyswsgrs as int)) as data6,
+     sum(cast(t.dyswsgscxs as int))as data7,
+     sum(cast(t.dyzssgqs as int))as data8,
+     sum(cast(t.dyzssgscx as int))as data9,
+     sum(cast(t.dyzssgrs as int))as data10,
+     sum(cast(t.dyzssgscxs as int))as data11,
+     sum(cast(t.ljsgqkqs as int))as data12,
+     sum(cast(t.ljsgqkscx as int))as data13,
+     sum(cast(t.ljwrsgqs as int))as data14,
+     sum(cast(t.ljwrsgscx as int))as data15,
+     sum(cast(t.ljzssgqs as int))as data16,
+     sum(cast(t.ljzssgscx as int))as data17
+
+     from AQSCSGQK t where t.delflag=0
+    
+	and t.month_time =#startMonthTime#
+	
+     group by t.area_name
+	</select>
+	
+	<select id="getTotalAqscsgqkListByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqscsgqk.entity.AqscsgqkBean">
+	SELECT 
+      sum(cast(t.dysgqs as int)) as data2,
+     sum(cast(t.dysgscx as int))as data3,
+    sum(cast(t.dyswsgqs as int)) as data4,
+     sum(cast(t.dyswsgscx as int))as data5,
+     sum(cast(t.dyswsgrs as int)) as data6,
+     sum(cast(t.dyswsgscxs as int))as data7,
+     sum(cast(t.dyzssgqs as int))as data8,
+     sum(cast(t.dyzssgscx as int))as data9,
+     sum(cast(t.dyzssgrs as int))as data10,
+     sum(cast(t.dyzssgscxs as int))as data11,
+     sum(cast(t.ljsgqkqs as int))as data12,
+     sum(cast(t.ljsgqkscx as int))as data13,
+     sum(cast(t.ljwrsgqs as int))as data14,
+     sum(cast(t.ljwrsgscx as int))as data15,
+     sum(cast(t.ljzssgqs as int))as data16,
+     sum(cast(t.ljzssgscx as int))as data17
+     from AQSCSGQK t where t.delflag=0
+    
+	and t.month_time =#startMonthTime#
+	</select>
+</sqlMap>

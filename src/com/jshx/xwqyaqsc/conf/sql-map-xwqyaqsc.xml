@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findXwqyaqscByMap">
+		select new com.jshx.xwqyaqsc.entity.Xwqyaqsc(t.id, t.yearTime, t.areaName) from Xwqyaqsc t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startYearTime">
+			<![CDATA[and t.yearTime = :startYearTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endYearTime">
+			<![CDATA[and t.yearTime <= :endYearTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getXwqyaqscListByMap" parameterClass="java.util.Map" resultClass="com.jshx.xwqyaqsc.entity.XwqyaqscBean">
+	 SELECT DISTINCT t.area_name as data1,
+     sum(cast(t.jnljdbs as int))as data2,
+     sum(cast(t.mncjmbs as int))as data3,
+     sum(cast(t.mnysqqys as int))as data4, 
+     sum(cast(t.pxqys as int))as data5, 
+     sum(cast(t.mnydbqys as int))as data6,  
+     sum(cast(t.xwqyljdbs as int))as data7
+     from XWQYAQSC t where t.delflag=0
+     <isNotEmpty property="startYearTime">
+			<![CDATA[and t.year_time = #startYearTime#]]>
+		</isNotEmpty>
+	
+     group by t.area_name
+	</select>
+	
+	<select id="getTotalXwqyaqscListByMap" parameterClass="java.util.Map" resultClass="com.jshx.xwqyaqsc.entity.XwqyaqscBean">
+	 SELECT 
+     sum(cast(t.jnljdbs as int))as data2,
+     sum(cast(t.mncjmbs as int))as data3,
+     sum(cast(t.mnysqqys as int))as data4, 
+     sum(cast(t.pxqys as int))as data5, 
+     sum(cast(t.mnydbqys as int))as data6,  
+     sum(cast(t.xwqyljdbs as int))as data7
+     from XWQYAQSC t where t.delflag=0
+     <isNotEmpty property="startYearTime">
+			<![CDATA[and t.year_time = #startYearTime#]]>
+		</isNotEmpty>
+
+	</select>
+</sqlMap>

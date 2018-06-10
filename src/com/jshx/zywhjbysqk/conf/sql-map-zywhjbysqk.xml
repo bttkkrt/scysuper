@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findOccHazBasByMap">
+		select new com.jshx.zywhjbysqk.entity.OccHazBas(t.id, t.total, t.areaId, t.companyName,t.ifDust,t.ifChemical,t.ifPhysical,t.ifRadioactivity,t.ifOther) from OccHazBas t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  charindex(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+	
+	
+	
+	<!-- 查询职业危害基本因素分布情况  费谦  2015-10-20 -->
+	<select id="findFbqkListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select A.WORK_PLACE,A.CONTACT_NUM,B.OCCUPATIONAL_DISEASE_NAME,B.FIELD_CONCENTRATION,B.CONTACT_NUMBER,
+		(SELECT COUNT(*) FROM OCC_DIS_IND C WHERE C.PRO_ID=A.ROW_ID) COU
+		from OCC_DIS A  LEFT JOIN OCC_DIS_IND B ON (B.PRO_ID=A.ROW_ID and B.delflag = 0) WHERE  A.delFlag=0 
+		AND A.PRO_ID=#occHazBasId# 
+		order by a.WORK_PLACE
+	</select>
+</sqlMap>

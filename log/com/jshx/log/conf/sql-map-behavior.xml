@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询 -->
+	<select id="findUserBehaviorByMap">
+		from UserBehavior t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+
+		<isNotEmpty property="behaviorType">
+			<![CDATA[and t.behaviorType = :behaviorType]]>
+		</isNotEmpty>
+		<isNotEmpty property="behaviorName">
+			<![CDATA[and t.behaviorName like :behaviorName]]>
+		</isNotEmpty>
+		<isNotEmpty property="behaviorUrl">
+			<![CDATA[and t.behaviorUrl like :behaviorUrl]]>
+		</isNotEmpty>
+		<isNotEmpty property="isContinue">
+			<![CDATA[and t.isContinue = :isContinue]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+
+	<!-- 根据搜索条件查询 -->
+	<select id="findUserBehaviorLogByMap">
+		from UserBehaviorLog t where t.delFlag = 0
+		<isNotEmpty property="behaviorId"> 
+<![CDATA[and t.behavior.id = :behaviorId]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryLoggedDateStart"> 
+<![CDATA[and t.loggedDate >= :queryLoggedDateStart]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryLoggedDateEnd"> 
+<![CDATA[and t.loggedDate <= :queryLoggedDateEnd]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids"> 
+<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		order by t.loggedDate desc
+	</select>
+
+	<select id="findBehaviorLogParamByMap">
+		from BehaviorLogParam t where t.delFlag = 0
+		<isNotEmpty property="deptCodes"> 
+<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids"> 
+<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="paramValue"> 
+<![CDATA[and t.paramValue like :paramValue]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+</sqlMap>

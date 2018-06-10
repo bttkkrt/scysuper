@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHX_XKZSB" extends="default" namespace="/jsp/xkzsb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxXkzsbQuery" class="com.jshx.xkzsb.web.JshxXkzsbAction" method="list">
+		</action>
+		
+		<action name="jshxXkzsbList" class="com.jshx.xkzsb.web.JshxXkzsbAction" method="init">
+			<result name="success">/WEB-INF/pages/xkzsb/JshxXkzsb_List.jsp</result>
+		</action>
+		
+		<action name="jshxXkzsbView" class="com.jshx.xkzsb.web.JshxXkzsbAction" method="view">
+			<result name="view">/WEB-INF/pages/xkzsb/JshxXkzsb_Detail.jsp</result>
+		</action>
+
+		<action name="jshxXkzsbInitEdit" class="com.jshx.xkzsb.web.JshxXkzsbAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/xkzsb/JshxXkzsb_Edit.jsp</result>
+		</action>
+
+		<action name="jshxXkzsbSave" class="com.jshx.xkzsb.web.JshxXkzsbAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="jshxXkzsbDel" class="com.jshx.xkzsb.web.JshxXkzsbAction" method="delete">
+		</action>
+		<!-- 李军 2013-08-16 附件上传处理 -->
+		<action name="jshxXkzsbUpload" class="com.jshx.xkzsb.web.JshxXkzsbAction" method="upload">
+			<result name="success">/WEB-INF/pages/xkzsb/JshxXkzsb_upload.jsp</result>
+		</action>
+		<action name="jshxXkzsbSavePhoto" class="com.jshx.xkzsb.web.JshxXkzsbAction" method="savePhoto">
+		</action>
+		<action name="jshxXkzsbImageDel" class="com.jshx.xkzsb.web.JshxXkzsbAction" method="deleteImage">
+		</action>
+		<!-- 下载 -->
+		<action name="jshxXkzsbSaveFile" class="com.jshx.xkzsb.web.JshxXkzsbAction" method="saveFile">
+		</action>
+	</package>
+</struts>

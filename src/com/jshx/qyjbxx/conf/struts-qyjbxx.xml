@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ENT_BASE_INFO" extends="default" namespace="/jsp/qyjbxx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="entBaseInfoQuery" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="list">
+		</action>
+		
+		<action name="entBaseInfoList" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="init">
+			<result name="success">/WEB-INF/pages/qyjbxx/EntBaseInfo_List.jsp</result>
+			<result name="edit">/WEB-INF/pages/qyjbxx/EntBaseInfo_Edit.jsp</result>
+		</action>
+		
+		<action name="entBaseInfoView" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="view">
+			<result name="view">/WEB-INF/pages/qyjbxx/EntBaseInfo_Detail.jsp</result>
+		</action>
+		
+		<action name="entBaseInfoInitView" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="initView">
+			<!-- <result name="view">/WEB-INF/pages/qyjbxx/EntBaseInfo_Detail.jsp</result> -->
+			<result name="view">/WEB-INF/pages/common/indexEnt.jsp</result>
+		</action>
+
+		<action name="entBaseInfoInitEdit" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/qyjbxx/EntBaseInfo_Edit.jsp</result>
+		</action>
+		
+		<action name="entBaseInfoInitEdits" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="initEdits">
+			<result name="edit">/WEB-INF/pages/qyjbxx/EntBaseInfo_Edits.jsp</result>
+		</action>
+
+		<action name="entBaseInfoSave" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="success">/WEB-INF/pages/qyjbxx/EntBaseInfo_List.jsp</result>
+			<result name="reload" type="redirect">entBaseInfoList.action?flag=1</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="entBaseInfoSaves" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="saves">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="success">/WEB-INF/pages/qyjbxx/EntBaseInfo_List.jsp?saveResult=1</result>
+			<result name="reload" >/common/successToSelf.jsp?windowId=win_entBaseInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="entBaseInfoPicSave" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="entBaseInfoPicSave">
+		</action>
+		<action name="getUploadFile" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="getUploadFile">
+		</action>
+
+		<action name="entBaseInfoDel" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="delete">
+		</action>
+		
+		<action name="queryCompanyList" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="init">
+			<result name="success">/WEB-INF/pages/qyjbxx/EntBaseInfo_Lists.jsp</result>
+		</action>
+		<!-- 选择多家企业 lj 2015-10-27 -->
+		<action name="queryCompanyListChx" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="init">
+			<result name="success">/WEB-INF/pages/qyjbxx/EntBaseInfo_List_chx.jsp</result>
+		</action>
+		<action name="entBaseInfoRegister" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="register">
+			<result name="edit">/WEB-INF/pages/qyjbxx/EntBaseInfo_Register.jsp</result>
+		</action>
+		
+		<action name="entBaseInfoNextRegister" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="nextRegister">
+			<result name="edit">/WEB-INF/pages/qyjbxx/EntBaseInfo_Register.jsp</result>
+			<result name="edit20">/WEB-INF/pages/qyjbxx/EntBaseInfo_Register20.jsp</result>
+			<result name="edit21">/WEB-INF/pages/qyjbxx/EntBaseInfo_Register21.jsp</result>
+			<result name="success">/WEB-INF/pages/qyjbxx/EntBaseInfo_RegisterSucc.jsp</result>
+		</action>
+		
+		<action name="entBaseInfoSaveRegister" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="saveRegister">
+			<result name="success">/WEB-INF/pages/qyjbxx/EntBaseInfo_RegisterSucc.jsp</result>
+		</action>
+		
+		<action name="entBaseInfoCheck" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="check">
+			<result name="edit">/WEB-INF/pages/qyjbxx/EntBaseInfo_Check.jsp</result>
+		</action>
+		<action name="entBaseInfoCheckSave" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_entBaseInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="isUserExit" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="isUserExit">
+		</action>
+		
+		
+		
+		<action name="zhcx"  >
+			<result name="success">/WEB-INF/pages/qyjbxx/EntBaseInfo_zhcxList.jsp</result>
+		</action>
+		<action name="zhcxTab" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zhcxTab">
+			<result name="success">/WEB-INF/pages/zhcx/zhcx.jsp</result>
+		</action>
+		
+		<action name="deptChange" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="deptChange">
+		</action>
+		
+		
+		<action name="sendInfo" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="sendInfo">
+		</action>
+		
+		<action name="test" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="test">
+		</action>
+		
+		<action name="sendSaj" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="sendSaj">
+		</action>
+		
+		<action name="getHylx" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="getHylx">
+		</action>
+	</package>
+</struts>

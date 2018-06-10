@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findMajSouVerByMap">
+		select new com.jshx.wxhxpzdwxyhx.entity.MajSouVer(t.id, t.areaName, t.companyName,t.uploadTime) from MajSouVer t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName = :areaName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="startUploadTime">
+			<![CDATA[and CONVERT(varchar(100), t.uploadTime, 23)>= :startUploadTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endUploadTime">
+			<![CDATA[and CONVERT(varchar(100), t.uploadTime, 23) <= :endUploadTime]]>
+		</isNotEmpty>
+			<isNotEmpty property="companmyIds">
+			<![CDATA[and  charindex(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+</sqlMap>

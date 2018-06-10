@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SAFETY_EXPERTS" extends="default" namespace="/jsp/aqsczjk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="safetyExpertsQuery" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="list">
+		</action>
+		
+		<action name="safetyExpertsList" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="init">
+			<result name="success">/WEB-INF/pages/aqsczjk/SafetyExperts_List.jsp</result>
+		</action>
+		
+		<action name="safetyExpertsView" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="view">
+			<result name="view">/WEB-INF/pages/aqsczjk/SafetyExperts_Detail.jsp</result>
+		</action>
+
+		<action name="safetyExpertsInitEdit" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqsczjk/SafetyExperts_Edit.jsp</result>
+		</action>
+
+		<action name="safetyExpertsSave" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_safetyExperts</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="safetyExpertsDel" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

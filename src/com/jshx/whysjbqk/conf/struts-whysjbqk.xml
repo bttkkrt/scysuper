@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="WHYSJBQK" extends="default" namespace="/jsp/whysjbqk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="whysjbqkQuery" class="com.jshx.whysjbqk.web.WhysjbqkAction" method="list">
+		</action>
+		
+		<action name="whysjbqkList" class="com.jshx.whysjbqk.web.WhysjbqkAction" method="init">
+			<result name="success">/WEB-INF/pages/whysjbqk/Whysjbqk_List.jsp</result>
+			<result name="edit">/WEB-INF/pages/whysjbqk/Whysjbqk_Edit.jsp</result>
+		</action>
+		
+		<action name="whysjbqkView" class="com.jshx.whysjbqk.web.WhysjbqkAction" method="view">
+			<result name="view">/WEB-INF/pages/whysjbqk/Whysjbqk_Detail.jsp</result>
+		</action>
+
+		<action name="whysjbqkInitEdit" class="com.jshx.whysjbqk.web.WhysjbqkAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/whysjbqk/Whysjbqk_Edit.jsp</result>
+		</action>
+
+		<action name="whysjbqkSave" class="com.jshx.whysjbqk.web.WhysjbqkAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose3.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="whysjbqkDel" class="com.jshx.whysjbqk.web.WhysjbqkAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

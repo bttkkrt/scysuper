@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PARTY_MANAGE" extends="default" namespace="/jsp/xgfgl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="partyManageQuery" class="com.jshx.xgfgl.web.PartyManageAction" method="list">
+		</action>
+		
+		<action name="partyManageList" class="com.jshx.xgfgl.web.PartyManageAction" method="init">
+			<result name="success">/WEB-INF/pages/xgfgl/PartyManage_List.jsp</result>
+		</action>
+		
+		<action name="partyManageView" class="com.jshx.xgfgl.web.PartyManageAction" method="view">
+			<result name="view">/WEB-INF/pages/xgfgl/PartyManage_Detail.jsp</result>
+		</action>
+
+		<action name="partyManageInitEdit" class="com.jshx.xgfgl.web.PartyManageAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/xgfgl/PartyManage_Edit.jsp</result>
+		</action>
+
+		<action name="partyManageSave" class="com.jshx.xgfgl.web.PartyManageAction" method="save">
+			<interceptor-ref name="tokenInterceptor" /> 
+			<interceptor-ref name="coreStack" /> 
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_partyManage</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="partyManageDel" class="com.jshx.xgfgl.web.PartyManageAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

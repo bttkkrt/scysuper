@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据条件查找表单项  -->
+	<select id="findformtable">
+		select t from FormTable t 
+		<isNotEmpty property="categoryNum">
+			, FormInCategory fc where t.id = fc.tableID and fc.categoryNum like :categoryNum
+		</isNotEmpty>
+		<isNotEmpty property="categoryNum00">
+			where t.id not in (select fc.tableID from  FormInCategory fc)
+		</isNotEmpty>
+		<isNotEmpty property="categoryNumnull">
+			where 1=1
+		</isNotEmpty>
+		<isNotEmpty property="tableName">
+			and t.tableName like :tableName
+		</isNotEmpty>
+		<isNotEmpty property="physicalName">
+			 and t.physicalName like :physicalName
+		</isNotEmpty>
+		order by t.sortSQ
+	</select>
+	
+		<!-- 根据条件查找字段  -->
+	<select id="findformfield">
+		from FormField f where 1=1
+		<dynamic>
+		<isNotEmpty property="tableId">
+		 and  f.table.id=:tableId 
+		</isNotEmpty>
+		</dynamic>
+		order by f.sortSQ
+	</select>
+	
+</sqlMap>

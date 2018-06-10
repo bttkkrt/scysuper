@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="AREACODE_RELATION" extends="default" namespace="/jsp/areacodeRelation">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="areacodeRelationQuery" class="com.jshx.areacodeRelation.web.AreacodeRelationAction" method="list">
+		</action>
+		
+		<action name="areacodeRelationList">
+			<result name="success">/WEB-INF/pages/areacodeRelation/AreacodeRelation_List.jsp</result>
+		</action>
+		
+		<action name="areacodeRelationView" class="com.jshx.areacodeRelation.web.AreacodeRelationAction" method="view">
+			<result name="view">/WEB-INF/pages/areacodeRelation/AreacodeRelation_Detail.jsp</result>
+		</action>
+
+		<action name="areacodeRelationInitEdit" class="com.jshx.areacodeRelation.web.AreacodeRelationAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/areacodeRelation/AreacodeRelation_Edit.jsp</result>
+		</action>
+
+		<action name="areacodeRelationSave" class="com.jshx.areacodeRelation.web.AreacodeRelationAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="areacodeRelationDel" class="com.jshx.areacodeRelation.web.AreacodeRelationAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

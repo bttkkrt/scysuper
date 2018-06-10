@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="VERSION" extends="default" namespace="/jsp/version">
+		<action name="versionQuery" class="com.jshx.module.mobile.version.web.VersionAction" method="list">
+		</action>
+		
+		<action name="versionList" class="com.jshx.module.mobile.version.web.VersionAction" method="initList">
+			<result name="success">/WEB-INF/pages/version/Version_List.jsp</result>
+		</action>
+		
+		<action name="versionView" class="com.jshx.module.mobile.version.web.VersionAction" method="view">
+			<result name="view">/WEB-INF/pages/version/Version_Detail.jsp</result>
+		</action>
+
+		<action name="versionInitEdit" class="com.jshx.module.mobile.version.web.VersionAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/version/Version_Edit.jsp</result>
+		</action>
+
+		<action name="versionSave" class="com.jshx.module.mobile.version.web.VersionAction" method="save">
+			<result name="reload">/common/successToSelf.jsp?windowId=versionWindow</result>
+		</action>
+
+		<action name="versionDel" class="com.jshx.module.mobile.version.web.VersionAction" method="delete">
+		</action>
+		
+		<action name="checkUpdate" class="com.jshx.module.mobile.version.web.VersionAction" method="checkUpdate">
+		</action>
+		
+		<action name="getLatestVersionUrl" class="com.jshx.module.mobile.version.web.VersionAction" method="getLatestVersionUrl">
+		</action>
+		
+		<action name="download"
+			class="com.jshx.module.mobile.version.web.VersionAction" method="download">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findSjzfgpdbByMap">
+		select new com.jshx.sjzfgpdb.entity.Sjzfgpdb(t.id, t.areaName, t.monthTime) from Sjzfgpdb t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startMonthTime">
+			<![CDATA[and t.monthTime >= :startMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endMonthTime">
+			<![CDATA[and t.monthTime <= :endMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+	</select>
+	<select id="getSjzfgpdListByMap" parameterClass="java.util.Map" resultClass="com.jshx.sjzfgpdb.entity.SjzfgpdbBean">
+	 SELECT DISTINCT t.area_name as data1,
+     sum(cast(t.ztgps as int))as data2,
+     sum(cast(t.ztyzgs as int))as data3,
+     sum(cast(t.zttrzgzj as float))as data5, 
+     sum(cast(t.sjgps as int))as data6, 
+     sum(cast(t.sjyzgs as int))as data7, 
+     sum(cast(t.sjtrjf as float))as data8, 
+     sum(cast(t.xjgps as int))as data9, 
+     sum(cast(t.xjyzgs as int))as data10, 
+     sum(cast(t.xjtrjf as float))as data11, 
+     sum(cast(t.zjgps as int))as data12, 
+     sum(cast(t.zjyzgs as int))as data13, 
+     sum(cast(t.zjtrjf as float))as data14
+     from SJZFGPDB t where t.delflag=0
+     
+     <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+     group by t.area_name 
+	</select>
+	
+	<select id="getTotalSjzfgpdListByMap" parameterClass="java.util.Map" resultClass="com.jshx.sjzfgpdb.entity.SjzfgpdbBean">
+		 SELECT 
+     sum(cast(t.ztgps as int))as data2,
+     sum(cast(t.ztyzgs as int))as data3,
+     sum(cast(t.zttrzgzj as float))as data5, 
+     sum(cast(t.sjgps as int))as data6, 
+     sum(cast(t.sjyzgs as int))as data7, 
+     sum(cast(t.sjtrjf as float))as data8, 
+     sum(cast(t.xjgps as int))as data9, 
+     sum(cast(t.xjyzgs as int))as data10, 
+     sum(cast(t.xjtrjf as float))as data11, 
+     sum(cast(t.zjgps as int))as data12, 
+     sum(cast(t.zjyzgs as int))as data13, 
+     sum(cast(t.zjtrjf as float))as data14
+     from SJZFGPDB t where t.delflag=0
+     <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+	</select>
+</sqlMap>

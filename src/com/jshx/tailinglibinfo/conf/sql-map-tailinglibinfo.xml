@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findTailingLibInfoByMap">
+		from TailingLibInfo t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="baseLocal">
+			<![CDATA[and t.baseLocal like :baseLocal]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseTrade">
+			<![CDATA[and t.baseTrade like :baseTrade]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseTailingType">
+			<![CDATA[and t.baseTailingType like :baseTailingType]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseTailingLevel">
+			<![CDATA[and t.baseTailingLevel like :baseTailingLevel]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseSafetyDegree">
+			<![CDATA[and t.baseSafetyDegree like :baseSafetyDegree]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseBuildDamType">
+			<![CDATA[and t.baseBuildDamType like :baseBuildDamType]]>
+		</isNotEmpty>
+		<isNotEmpty property="startBaseProduceStartdate">
+			<![CDATA[and t.baseProduceStartdate >= :startBaseProduceStartdate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endBaseProduceStartdate">
+			<![CDATA[and t.baseProduceStartdate <= :endBaseProduceStartdate]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="baseCompany">
+			<![CDATA[and t.baseCompany like :baseCompany]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseLegalPerson">
+			<![CDATA[and t.baseLegalPerson like :baseLegalPerson]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseMainbody">
+			<![CDATA[and t.baseMainbody like :baseMainbody]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="baseTailingHead">
+			<![CDATA[and t.baseTailingHead like :baseTailingHead]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseTailingHeadTel">
+			<![CDATA[and t.baseTailingHeadTel like :baseTailingHeadTel]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseCountyHead">
+			<![CDATA[and t.baseCountyHead like :baseCountyHead]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseCountyHeadTel">
+			<![CDATA[and t.baseCountyHeadTel like :baseCountyHeadTel]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseTownHead">
+			<![CDATA[and t.baseTownHead like :baseTownHead]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseTownHeadTel">
+			<![CDATA[and t.baseTownHeadTel like :baseTownHeadTel]]>
+		</isNotEmpty>
+		<isNotEmpty property="startBaseSafetyLicStartdate">
+			<![CDATA[and t.baseSafetyLicStartdate >= :startBaseSafetyLicStartdate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endBaseSafetyLicStartdate">
+			<![CDATA[and t.baseSafetyLicStartdate <= :endBaseSafetyLicStartdate]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseSafetyLicValidity">
+			<![CDATA[and t.baseSafetyLicValidity like :baseSafetyLicValidity]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseStandardLevel">
+			<![CDATA[and t.baseStandardLevel like :baseStandardLevel]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseTailingBelong">
+			<![CDATA[and t.baseTailingBelong like :baseTailingBelong]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseTailingLong">
+			<![CDATA[and t.baseTailingLong like :baseTailingLong]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseTailingLat">
+			<![CDATA[and t.baseTailingLat like :baseTailingLat]]>
+		</isNotEmpty>
+		<isNotEmpty property="baseTailingImg">
+			<![CDATA[and t.baseTailingImg like :baseTailingImg]]>
+		</isNotEmpty>
+		<isNotEmpty property="paraDesignTime">
+			<![CDATA[and t.paraDesignTime like :paraDesignTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="paraFactTime">
+			<![CDATA[and t.paraFactTime like :paraFactTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="paraDesignTotal">
+			<![CDATA[and t.paraDesignTotal like :paraDesignTotal]]>
+		</isNotEmpty>
+		<isNotEmpty property="paraAlready">
+			<![CDATA[and t.paraAlready like :paraAlready]]>
+		</isNotEmpty>
+		<isNotEmpty property="paraFinalHigh">
+			<![CDATA[and t.paraFinalHigh like :paraFinalHigh]]>
+		</isNotEmpty>
+		<isNotEmpty property="paraSafetyHigh">
+			<![CDATA[and t.paraSafetyHigh like :paraSafetyHigh]]>
+		</isNotEmpty>
+		<isNotEmpty property="paraMoistenHigh">
+			<![CDATA[and t.paraMoistenHigh like :paraMoistenHigh]]>
+		</isNotEmpty>
+		<isNotEmpty property="paraLength">
+			<![CDATA[and t.paraLength like :paraLength]]>
+		</isNotEmpty>
+		<isNotEmpty property="paraStackType">
+			<![CDATA[and t.paraStackType like :paraStackType]]>
+		</isNotEmpty>
+		<isNotEmpty property="paraDrainfloods">
+			<![CDATA[and t.paraDrainfloods like :paraDrainfloods]]>
+		</isNotEmpty>
+		<isNotEmpty property="primeDamHigh">
+			<![CDATA[and t.primeDamHigh like :primeDamHigh]]>
+		</isNotEmpty>
+		<isNotEmpty property="primeDamLength">
+			<![CDATA[and t.primeDamLength like :primeDamLength]]>
+		</isNotEmpty>
+		<isNotEmpty property="primeDamWidth">
+			<![CDATA[and t.primeDamWidth like :primeDamWidth]]>
+		</isNotEmpty>
+		<isNotEmpty property="primeInnerSlope">
+			<![CDATA[and t.primeInnerSlope like :primeInnerSlope]]>
+		</isNotEmpty>
+		<isNotEmpty property="primeOutSlope">
+			<![CDATA[and t.primeOutSlope like :primeOutSlope]]>
+		</isNotEmpty>
+		<isNotEmpty property="accumulateDesignHigh">
+			<![CDATA[and t.accumulateDesignHigh like :accumulateDesignHigh]]>
+		</isNotEmpty>
+		<isNotEmpty property="accumulateFactHigh">
+			<![CDATA[and t.accumulateFactHigh like :accumulateFactHigh]]>
+		</isNotEmpty>
+		<isNotEmpty property="accumulateDamLength">
+			<![CDATA[and t.accumulateDamLength like :accumulateDamLength]]>
+		</isNotEmpty>
+		<isNotEmpty property="accumulateInnerSlope">
+			<![CDATA[and t.accumulateInnerSlope like :accumulateInnerSlope]]>
+		</isNotEmpty>
+		<isNotEmpty property="accumulateOutSlope">
+			<![CDATA[and t.accumulateOutSlope like :accumulateOutSlope]]>
+		</isNotEmpty>
+		<isNotEmpty property="accumulateDamWidth">
+			<![CDATA[and t.accumulateDamWidth like :accumulateDamWidth]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkDanger">
+			<![CDATA[and t.checkDanger like :checkDanger]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkPercolation">
+			<![CDATA[and t.checkPercolation like :checkPercolation]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkBeautyspot">
+			<![CDATA[and t.checkBeautyspot like :checkBeautyspot]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkFamilyNo">
+			<![CDATA[and t.checkFamilyNo like :checkFamilyNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkPersonNo">
+			<![CDATA[and t.checkPersonNo like :checkPersonNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkRoadNo">
+			<![CDATA[and t.checkRoadNo like :checkRoadNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkRailwayNo">
+			<![CDATA[and t.checkRailwayNo like :checkRailwayNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkSchoolNo">
+			<![CDATA[and t.checkSchoolNo like :checkSchoolNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkFactoryNo">
+			<![CDATA[and t.checkFactoryNo like :checkFactoryNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkDrainfloodsState">
+			<![CDATA[and t.checkDrainfloodsState like :checkDrainfloodsState]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkMonitorEquipment">
+			<![CDATA[and t.checkMonitorEquipment like :checkMonitorEquipment]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkAqxzUnit">
+			<![CDATA[and t.checkAqxzUnit like :checkAqxzUnit]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkYpjbgbzUnit">
+			<![CDATA[and t.checkYpjbgbzUnit like :checkYpjbgbzUnit]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkYpjbaUnit">
+			<![CDATA[and t.checkYpjbaUnit like :checkYpjbaUnit]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkCbsjbzUnit">
+			<![CDATA[and t.checkCbsjbzUnit like :checkCbsjbzUnit]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkCbsjspUnit">
+			<![CDATA[and t.checkCbsjspUnit like :checkCbsjspUnit]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkJgyspjbgbzUnit">
+			<![CDATA[and t.checkJgyspjbgbzUnit like :checkJgyspjbgbzUnit]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkJgyspjspUnit">
+			<![CDATA[and t.checkJgyspjspUnit like :checkJgyspjspUnit]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkTdsyspUnit">
+			<![CDATA[and t.checkTdsyspUnit like :checkTdsyspUnit]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkHbysspUnit">
+			<![CDATA[and t.checkHbysspUnit like :checkHbysspUnit]]>
+		</isNotEmpty>
+		order by t.createTime
+	</select>
+</sqlMap>

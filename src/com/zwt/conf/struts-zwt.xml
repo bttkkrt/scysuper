@@ -1,0 +1,3934 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZWT_ENT_BASE_INFO" extends="default" namespace="/zwt">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="entBaseInfoQuery" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zwtList">
+		</action>
+		
+		<action name="entBaseInfoList" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/qyjbxx/EntBaseInfo_List.jsp</result>
+			<result name="edit">/WEB-INF/zwtPage/qyjbxx/EntBaseInfo_Edit.jsp</result>
+		</action>
+		
+		<action name="entBaseInfoView" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/qyjbxx_detail.jsp</result>
+		</action>
+
+		<action name="entBaseInfoInitEdit" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/qyjbxx/EntBaseInfo_Edit.jsp</result>
+		</action>
+		
+		<action name="entBaseInfoInitEdits" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="initEdits">
+			<result name="edit">/WEB-INF/zwtPage/qyjbxx/EntBaseInfo_Edits.jsp</result>
+		</action>
+
+		<action name="entBaseInfoSave" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_entBaseInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="entBaseInfoDel" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="delete">
+		</action>
+		
+		<action name="queryCompanyList" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/qyjbxx/EntBaseInfo_Lists.jsp</result>
+		</action>
+		<!-- 选择多家企业 lj 2015-10-27 -->
+		<action name="queryCompanyListChx" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/qyjbxx/EntBaseInfo_List_chx.jsp</result>
+		</action>
+		<action name="entBaseInfoRegister" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="register">
+			<result name="edit">/WEB-INF/zwtPage/qyjbxx/EntBaseInfo_Register.jsp</result>
+		</action>
+		
+		<action name="entBaseInfoNextRegister" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="nextRegister">
+			<result name="edit">/WEB-INF/zwtPage/qyjbxx/EntBaseInfo_Register.jsp</result>
+			<result name="edit20">/WEB-INF/zwtPage/qyjbxx/EntBaseInfo_Register20.jsp</result>
+			<result name="edit21">/WEB-INF/zwtPage/qyjbxx/EntBaseInfo_Register21.jsp</result>
+		</action>
+		
+		<action name="entBaseInfoSaveRegister" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="saveRegister">
+			<result name="success">/WEB-INF/zwtPage/qyjbxx/EntBaseInfo_RegisterSucc.jsp</result>
+		</action>
+		
+		<action name="entBaseInfoCheck" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="check">
+			<result name="edit">/WEB-INF/zwtPage/qyjbxx/EntBaseInfo_Check.jsp</result>
+		</action>
+		<action name="entBaseInfoCheckSave" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_entBaseInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="isUserExit" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="isUserExit">
+		</action>
+		
+		
+		
+		
+		 
+		 <!-- 企业安全基本信息查询 -->
+		<action name="entBaseInfoListZwt" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/qyjbxx_list.jsp</result>
+			
+		</action>
+		<action name="zwtList" class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zwtList">
+		</action>
+		
+		<action name="jdjcrwTongji" >
+			<result name="success">/WEB-INF/zwtPage/jdjcrwTongji.jsp</result>
+			
+		</action>
+		
+		<!-- 企业自查隐患查询 -->
+		<action name="qyzcyhListZwt" class="com.jshx.yhb.web.TroManAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/yhb/qyzcyh_list.jsp</result>
+			
+		</action>
+		
+		<!-- 监管部门检查隐患查询 -->
+		<action name="jgbmjcyhListZwt" class="com.jshx.yhb.web.TroManAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/yhb/jgbmjcyh_list.jsp</result>
+			
+		</action>
+		<action name="zwtQyzcyhList" class="com.jshx.yhb.web.TroManAction" method="zwtList">
+		</action>
+		
+		<!-- 列表查询，返回Json数据 -->
+		<action name="troManQueryAJ" class="com.jshx.yhb.web.TroManAction" method="listAJ">
+		</action>
+		<action name="troManViewAJ" class="com.jshx.yhb.web.TroManAction" method="viewAJ">	
+			<result name="view">/WEB-INF/zwtPage/yhb/TroMan_Detail.jsp</result>
+		</action>
+
+		<action name="troManInitEditAJ" class="com.jshx.yhb.web.TroManAction" method="initEditAJ">
+			<result name="edit">/WEB-INF/zwtPage/yhb/TroMan_Edit.jsp</result>
+			<result name="edit0">/WEB-INF/zwtPage/yhb/TroMan_Edit0.jsp</result>
+			<result name="edit1">/WEB-INF/zwtPage/yhb/TroMan_Edit1.jsp</result>
+			<result name="edit2">/WEB-INF/zwtPage/yhb/TroMan_Edit2.jsp</result>
+			<result name="edit3">/WEB-INF/zwtPage/yhb/TroMan_Edit3.jsp</result>
+			<result name="edit4">/WEB-INF/zwtPage/yhb/TroMan_Edit4.jsp</result>
+			<result name="edit5">/WEB-INF/zwtPage/yhb/TroMan_Edit5.jsp</result>
+			<result name="edit6">/WEB-INF/zwtPage/yhb/TroMan_Edit6.jsp</result>
+		</action>
+
+		<action name="troManSaveAJ" class="com.jshx.yhb.web.TroManAction" method="saveAJ">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_troMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		<action name="troManBaseSaveAJ" class="com.jshx.yhb.web.TroManAction" method="saveBaseAJ">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_troMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<!-- 上传整改信息  FQ 2015-10-30 -->
+		<action name="troManUploadRectAJ" class="com.jshx.yhb.web.TroManAction" method="uploadRectAJ">
+			<result name="edit">/WEB-INF/zwtPage/yhb/TroMan_UploadRect.jsp</result>
+		</action>
+		<!-- 保存整改信息 FQ 2015-10-30 -->
+		<action name="troManRectSaveAJ" class="com.jshx.yhb.web.TroManAction" method="rectSaveAJ">
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_troMan</result>
+		</action>
+		<!-- 跳转到审核界面 FQ 2015-10-30 -->
+		<action name="troManAuditAJ" class="com.jshx.yhb.web.TroManAction" method="auditAJ">
+			<result name="edit">/WEB-INF/zwtPage/yhb/TroMan_Audit.jsp</result>
+		</action>
+		<!-- 审核整改信息 FQ 2015-10-30 -->
+		<action name="troManAuditSaveAJ" class="com.jshx.yhb.web.TroManAction" method="auditSaveAJ">
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_troMan</result>
+		</action>
+		
+		<!-- 导出 FQ 2015-12-24 -->
+		<action name="troManExportXls" class="com.jshx.yhb.web.TroManAction" method="exportXls">
+		</action>
+		
+		<!-- 转接 -->
+		<action name="redirect" class="com.jshx.yhb.web.TroManAction" method="redirect">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_troMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		<!-- 生成现场检查记录 lt 2016-5-7 -->
+		<action name="troManXcjc" class="com.jshx.yhb.web.TroManAction" method="troManXcjc">
+			<result name="edit">/WEB-INF/zwtPage/yhb/TroMan_Xcjcjl.jsp</result>
+		</action>
+		
+		<action name="troManXcjcSave" class="com.jshx.yhb.web.TroManAction" method="troManXcjcSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_troMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="troManXcjcExport" class="com.jshx.yhb.web.TroManAction" method="exportXcjc">
+		</action>
+		
+		
+		<!-- 立案 lt 2016-5-7 -->
+		<action name="troManCase" class="com.jshx.yhb.web.TroManAction" method="troManCase">
+			<result name="edit">/WEB-INF/zwtPage/yhb/TroMan_Case.jsp</result>
+		</action>
+		
+		<action name="troManCaseSave" class="com.jshx.yhb.web.TroManAction" method="troManCaseSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_troMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		
+		
+		<!--专项整治计划-->
+		<action name="zxzzjh" class="com.jshx.zxzzjh.web.RecPlaAction" method="zxzzjh">
+			<result name="success">/WEB-INF/zwtPageNew/zxzzjh.jsp</result>
+		</action>
+		
+		<action name="zwtZxzzjhList" class="com.jshx.zxzzjh.web.RecPlaAction" method="zwtList">
+		</action>
+		
+		<action name="recPlaList" class="com.jshx.zxzzjh.web.RecPlaAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/zxzzjh/zxzzjh_list.jsp</result>
+		</action>
+		
+		<action name="recPlaView" class="com.jshx.zxzzjh.web.RecPlaAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zxzzjh/RecPla_Detail.jsp</result>
+		</action>
+
+		<action name="recPlaInitEdit" class="com.jshx.zxzzjh.web.RecPlaAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/zxzzjh/RecPla_Edit.jsp</result>
+		</action>
+
+		<action name="recPlaSave" class="com.jshx.zxzzjh.web.RecPlaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_recPla</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="recPlaDel" class="com.jshx.zxzzjh.web.RecPlaAction" method="delete">
+		</action>
+		
+		<!-- 专项整治检查记录管理 -->
+		<action name="zxzzjcjl" class="com.jshx.zxzzjcjl.web.RecResAction" method="zxzzjcjl">
+			<result name="success">/WEB-INF/zwtPageNew/zxzzjcjl.jsp</result>
+		</action>
+		
+		<action name="zwtZxzzjcjlList" class="com.jshx.zxzzjcjl.web.RecResAction" method="zwtList">
+		</action>
+		
+		<action name="recResList" class="com.jshx.zxzzjcjl.web.RecResAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/zxzzjcjl/zxzzjcjl_list.jsp</result>
+		</action>
+		
+		<action name="recResView" class="com.jshx.zxzzjcjl.web.RecResAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zxzzjcjl/RecRes_Detail.jsp</result>
+		</action>
+
+		<action name="recResInitEdit" class="com.jshx.zxzzjcjl.web.RecResAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/zxzzjcjl/RecRes_Edit.jsp</result>
+		</action>
+
+		<action name="recResSave" class="com.jshx.zxzzjcjl.web.RecResAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_recRes</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="recResDel" class="com.jshx.zxzzjcjl.web.RecResAction" method="delete">
+		</action>
+		
+		<action name="recResViewByPlan" class="com.jshx.zxzzjcjl.web.RecResAction" method="viewByPlan">
+			<result name="view">/WEB-INF/zwtPage/zxzzjcjl/RecRes_Detail.jsp</result>
+		</action>
+		
+		
+		<!-- 挂牌督办 -->
+		<action name="zwtSuperviceQuery" class="com.jshx.gpdb.web.SuperviceAction" method="zwtList">
+		</action>
+		
+		<action name="superviceList" class="com.jshx.gpdb.web.SuperviceAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/gpdb/gpdb_list.jsp</result>
+			<result name="successZHC">/WEB-INF/zwtPage/gpdb/Supervice_List_ZHC.jsp</result>
+			<result name="successZHCBSY">/WEB-INF/zwtPage/gpdb/Supervice_List_ZHCBSY.jsp</result>
+			<result name="successWGJGRY">/WEB-INF/zwtPage/gpdb/Supervice_List_WGJGRY.jsp</result>
+			<result name="successJDAJB">/WEB-INF/zwtPage/gpdb/Supervice_List_JDAJB.jsp</result>
+			<result name="successAJJLD">/WEB-INF/zwtPage/gpdb/Supervice_List_AJJLD.jsp</result>
+		</action>
+		
+		<action name="superviceView" class="com.jshx.gpdb.web.SuperviceAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/gpdb/Supervice_Detail.jsp</result>
+			<result name="viewZHC">/WEB-INF/zwtPage/gpdb/Supervice_Detail_ZHC.jsp</result>
+			<result name="viewWGJGRY">/WEB-INF/zwtPage/gpdb/Supervice_Detail_WGJGRY.jsp</result>
+			<result name="viewJDAJB">/WEB-INF/zwtPage/gpdb/Supervice_Detail_JDAJB.jsp</result>
+			<result name="viewAJJLD">/WEB-INF/zwtPage/gpdb/Supervice_Detail_AJJLD.jsp</result>
+		</action>
+
+		<action name="superviceInitEdit" class="com.jshx.gpdb.web.SuperviceAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/gpdb/Supervice_Edit.jsp</result>
+			<result name="editZHC">/WEB-INF/zwtPage/gpdb/Supervice_Edit_ZHC.jsp</result>
+			<result name="editWGJGRY">/WEB-INF/zwtPage/gpdb/Supervice_Edit_WGJGRY.jsp</result>
+			<result name="editJDAJB">/WEB-INF/zwtPage/gpdb/Supervice_Edit_JDAJB.jsp</result>
+			<result name="editAJJLD">/WEB-INF/zwtPage/gpdb/Supervice_Edit_AJJLD.jsp</result>
+		</action>
+
+		<action name="superviceSave" class="com.jshx.gpdb.web.SuperviceAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_supervice</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="superviceDel" class="com.jshx.gpdb.web.SuperviceAction" method="delete">
+		</action>
+		
+		<action name="superviceCheck" class="com.jshx.gpdb.web.SuperviceAction" method="check">
+			<result name="check1">/WEB-INF/zwtPage/gpdb/Supervice_Check1.jsp</result>
+			<result name="check2">/WEB-INF/zwtPage/gpdb/Supervice_Check2.jsp</result>
+		</action>
+		
+		<action name="superviceCheckSave" class="com.jshx.gpdb.web.SuperviceAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_supervice</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		<!-- 资质情况 -->
+		<action name="intSitQuery" class="com.jshx.zzqk.web.IntSitAction" method="zwtList">
+		</action>
+		<action name="intSitList" class="com.jshx.zzqk.web.IntSitAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/zzqk/zzqk_list.jsp</result>
+		</action>
+		
+		<action name="intSitView" class="com.jshx.zzqk.web.IntSitAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zzqk/IntSit_Detail.jsp</result>
+		</action>
+
+		<action name="intSitInitEdit" class="com.jshx.zzqk.web.IntSitAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/zzqk/IntSit_Edit.jsp</result>
+		</action>
+
+		<action name="intSitSave" class="com.jshx.zzqk.web.IntSitAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_intSit</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="intSitDel" class="com.jshx.zzqk.web.IntSitAction" method="delete">
+		</action>
+		<action name="intSitCheck" class="com.jshx.zzqk.web.IntSitAction" method="check">
+			<result name="check">/WEB-INF/zwtPage/zzqk/IntSit_Check.jsp</result>
+		</action>
+		
+		<action name="intSitCheckSave" class="com.jshx.zzqk.web.IntSitAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_intSit</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		<!-- 荣誉表彰信息 -->
+		<action name="honRecQuery" class="com.jshx.rybzxx.web.HonRecAction" method="zwtList">
+		</action>
+		<action name="honRecList" class="com.jshx.rybzxx.web.HonRecAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/rybzxx/rybzxx_list.jsp</result>
+		</action>
+		
+		<action name="honRecView" class="com.jshx.rybzxx.web.HonRecAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/rybzxx/HonRec_Detail.jsp</result>
+		</action>
+
+		<action name="honRecInitEdit" class="com.jshx.rybzxx.web.HonRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/rybzxx/HonRec_Edit.jsp</result>
+		</action>
+
+		<action name="honRecSave" class="com.jshx.rybzxx.web.HonRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_honRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="honRecDel" class="com.jshx.rybzxx.web.HonRecAction" method="delete">
+		</action>
+		<action name="honRecCheck" class="com.jshx.rybzxx.web.HonRecAction" method="check">
+			<result name="check">/WEB-INF/zwtPage/rybzxx/HonRec_Check.jsp</result>
+		</action>
+		
+		<action name="honRecCheckSave" class="com.jshx.rybzxx.web.HonRecAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_honRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<!-- 企业安全生产目标 -->
+		<action name="secProGoaQuery" class="com.jshx.qyaqscmb.web.SecProGoaAction" method="zwtList">
+		</action>
+		
+		<action name="secProGoaList" class="com.jshx.qyaqscmb.web.SecProGoaAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/qyaqscmb/qyaqscmb_list.jsp</result>
+		</action>
+		
+		<action name="secProGoaView" class="com.jshx.qyaqscmb.web.SecProGoaAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/qyaqscmb/SecProGoa_Detail.jsp</result>
+		</action>
+
+		<action name="secProGoaInitEdit" class="com.jshx.qyaqscmb.web.SecProGoaAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/qyaqscmb/SecProGoa_Edit.jsp</result>
+		</action>
+
+		<action name="secProGoaSave" class="com.jshx.qyaqscmb.web.SecProGoaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" /> 
+			<interceptor-ref name="coreStack" /> 
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_secProGoa</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProGoaDel" class="com.jshx.qyaqscmb.web.SecProGoaAction" method="delete">
+		</action>
+		
+		
+		<!-- 企业安全生产承诺 -->
+		<action name="proComQuery" class="com.jshx.qyaqsccn.web.ProComAction" method="zwtList">
+		</action>
+		
+		<action name="proComList" class="com.jshx.qyaqsccn.web.ProComAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/qyaqsccn/qyaqsccn_list.jsp</result>
+		</action>
+		
+		<action name="proComView" class="com.jshx.qyaqsccn.web.ProComAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/qyaqsccn/ProCom_Detail.jsp</result>
+		</action>
+
+		<action name="proComInitEdit" class="com.jshx.qyaqsccn.web.ProComAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/qyaqsccn/ProCom_Edit.jsp</result>
+		</action>
+
+		<action name="proComSave" class="com.jshx.qyaqsccn.web.ProComAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_proCom</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proComDel" class="com.jshx.qyaqsccn.web.ProComAction" method="delete">
+		</action>
+		
+		
+		<!-- 企业标准化评分 -->
+		<action name="companyScoreQuery" class="com.jshx.companyScore.web.CompanyScoreAction" method="zwtList">
+		</action>
+		
+		<action name="companyScoreList" class="com.jshx.companyScore.web.CompanyScoreAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/companyScore/qybzhpf_list.jsp</result>
+		</action>
+		
+		<action name="companyScoreView" class="com.jshx.companyScore.web.CompanyScoreAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/companyScore/CompanyScore_Detail.jsp</result>
+		</action>
+
+		<action name="companyScoreInitEdit" class="com.jshx.companyScore.web.CompanyScoreAction" method="initEdit">
+			<result name="qyEdit">/WEB-INF/zwtPage/companyScore/CompanyScore_qyEdit.jsp</result>
+			<result name="ajEdit">/WEB-INF/zwtPage/companyScore/CompanyScore_ajEdit.jsp</result>
+		</action>
+
+		<action name="companyScoreSave" class="com.jshx.companyScore.web.CompanyScoreAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_companyScore</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="companyScoreDel" class="com.jshx.companyScore.web.CompanyScoreAction" method="delete">
+		</action>
+		
+		<action name="companyScoreTime" class="com.jshx.companyScore.web.CompanyScoreAction" method="chooseCompanyAndYear">
+			<result name="success">/WEB-INF/zwtPage/companyScore/CompanyScore_Time.jsp</result>
+		</action>
+		
+		
+		<action name="getScoreBzhpf" class="com.jshx.companyScore.web.CompanyScoreAction" method="getScore">
+		</action>
+		
+		
+		<!-- 企业分级分类评分 -->
+		<action name="enterpriseGradeQuery" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="zwtList">
+		</action>
+		
+		<action name="enterpriseGradeList" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/qyfjfl/qyfjfl_list.jsp</result>
+		</action>
+		
+		<action name="enterpriseGradeView" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/qyfjfl/EnterpriseGrade_Detail.jsp</result>
+		</action>
+
+		<action name="enterpriseGradeInitEdit" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="initEdit">
+			<result name="qyEdit">/WEB-INF/zwtPage/qyfjfl/EnterpriseGrade_qyEdit.jsp</result>
+			<result name="ajEdit">/WEB-INF/zwtPage/qyfjfl/EnterpriseGrade_ajEdit.jsp</result>
+		</action>
+
+		<action name="enterpriseGradeSave" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_enterpriseGrade</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="enterpriseGradeDel" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="delete">
+		</action>
+		
+		<action name="enterpriseGradeTime" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="chooseCompanyAndYear">
+			<result name="success">/WEB-INF/zwtPage/qyfjfl/EnterpriseGrade_Time.jsp</result>
+		</action>
+		
+		<action name="getScoreFjflpf" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="getScore">
+		</action>
+		
+		
+		
+		<!-- 安全生产领导机构 -->
+		<action name="proLegOrgQuery" class="com.jshx.aqscldjg.web.ProLegOrgAction" method="zwtList">
+		</action>
+		
+		<action name="proLegOrgList" class="com.jshx.aqscldjg.web.ProLegOrgAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscldjg/aqscldjg_list.jsp</result>
+		</action>
+		
+		<action name="proLegOrgView" class="com.jshx.aqscldjg.web.ProLegOrgAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqscldjg/ProLegOrg_Detail.jsp</result>
+		</action>
+
+		<action name="proLegOrgInitEdit" class="com.jshx.aqscldjg.web.ProLegOrgAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqscldjg/ProLegOrg_Edit.jsp</result>
+		</action>
+
+		<action name="proLegOrgSave" class="com.jshx.aqscldjg.web.ProLegOrgAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_proLegOrg</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proLegOrgDel" class="com.jshx.aqscldjg.web.ProLegOrgAction" method="delete">
+		</action>
+		
+		
+		<!-- 安全生产管理机构 -->
+		<action name="proManOrgQuery" class="com.jshx.aqscgljg.web.ProManOrgAction" method="zwtList">
+		</action>
+		
+		<action name="proManOrgList" class="com.jshx.aqscgljg.web.ProManOrgAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscgljg/aqscgljg_list.jsp</result>
+		</action>
+		
+		<action name="proManOrgView" class="com.jshx.aqscgljg.web.ProManOrgAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqscgljg/ProManOrg_Detail.jsp</result>
+		</action>
+
+		<action name="proManOrgInitEdit" class="com.jshx.aqscgljg.web.ProManOrgAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqscgljg/ProManOrg_Edit.jsp</result>
+		</action>
+
+		<action name="proManOrgSave" class="com.jshx.aqscgljg.web.ProManOrgAction" method="save">
+			<interceptor-ref name="tokenInterceptor" /> 
+			<interceptor-ref name="coreStack" /> 
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_proManOrg</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proManOrgDel" class="com.jshx.aqscgljg.web.ProManOrgAction" method="delete">
+		</action>
+		
+		
+		<!-- 企业主要负责人 -->
+		<action name="entChaPerQuery" class="com.jshx.qyzyfzr.web.EntChaPerAction" method="zwtList">
+		</action>
+		
+		<action name="entChaPerList" class="com.jshx.qyzyfzr.web.EntChaPerAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/qyzyfzr/qyzyfzr_list.jsp</result>
+		</action>
+		
+		<action name="entChaPerLists" class="com.jshx.qyzyfzr.web.EntChaPerAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/qyzyfzr/EntChaPer_Lists.jsp</result>
+		</action>
+		
+		<action name="entChaPerView" class="com.jshx.qyzyfzr.web.EntChaPerAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/qyzyfzr/EntChaPer_Detail.jsp</result>
+		</action>
+
+		<action name="entChaPerInitEdit" class="com.jshx.qyzyfzr.web.EntChaPerAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/qyzyfzr/EntChaPer_Edit.jsp</result>
+		</action>
+
+		<action name="entChaPerSave" class="com.jshx.qyzyfzr.web.EntChaPerAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_entChaPer</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="entChaPerDel" class="com.jshx.qyzyfzr.web.EntChaPerAction" method="delete">
+		</action>
+		
+		
+		
+		<!-- 安全生产分管负责人 -->
+		<action name="secProChaQuery" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="zwtList">
+		</action>
+		
+		<action name="secProChaList" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscfgfzr/aqscfgfzr_list.jsp</result>
+		</action>
+		
+		<action name="secProChaLists" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscfgfzr/SecProCha_Lists.jsp</result>
+		</action>
+		
+		<action name="secProChaView" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqscfgfzr/SecProCha_Detail.jsp</result>
+		</action>
+
+		<action name="secProChaInitEdit" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqscfgfzr/SecProCha_Edit.jsp</result>
+		</action>
+
+		<action name="secProChaSave" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_secProCha</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProChaDel" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="delete">
+		</action>
+		
+		
+		<!-- 安全生产管理经理 -->
+		<action name="secProManQuery" class="com.jshx.aqscgljl.web.SecProManAction" method="zwtList">
+		</action>
+		
+		<action name="secProManList" class="com.jshx.aqscgljl.web.SecProManAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscgljl/aqscgljl_list.jsp</result>
+		</action>
+		
+		<action name="secProManLists" class="com.jshx.aqscgljl.web.SecProManAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscgljl/SecProMan_Lists.jsp</result>
+		</action>
+		
+		<action name="secProManView" class="com.jshx.aqscgljl.web.SecProManAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqscgljl/SecProMan_Detail.jsp</result>
+		</action>
+
+		<action name="secProManInitEdit" class="com.jshx.aqscgljl.web.SecProManAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqscgljl/SecProMan_Edit.jsp</result>
+		</action>
+
+		<action name="secProManSave" class="com.jshx.aqscgljl.web.SecProManAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_secProMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProManDel" class="com.jshx.aqscgljl.web.SecProManAction" method="delete">
+		</action>
+		
+		
+		
+		<!-- 安全生产总监 -->
+		<action name="secProMajQuery" class="com.jshx.aqsczj.web.SecProMajAction" method="zwtList">
+		</action>
+		
+		<action name="secProMajList" class="com.jshx.aqsczj.web.SecProMajAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqsczj/aqsczj_list.jsp</result>
+		</action>
+		
+		<action name="secProMajLists" class="com.jshx.aqsczj.web.SecProMajAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqsczj/SecProMaj_Lists.jsp</result>
+		</action>
+		
+		<action name="secProMajView" class="com.jshx.aqsczj.web.SecProMajAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqsczj/SecProMaj_Detail.jsp</result>
+		</action>
+
+		<action name="secProMajInitEdit" class="com.jshx.aqsczj.web.SecProMajAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqsczj/SecProMaj_Edit.jsp</result>
+		</action>
+
+		<action name="secProMajSave" class="com.jshx.aqsczj.web.SecProMajAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_secProMaj</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProMajDel" class="com.jshx.aqsczj.web.SecProMajAction" method="delete">
+		</action>
+		
+		
+		
+		<!-- 安全生产负责人员 -->
+		<action name="secProChaPerQuery" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="zwtList">
+		</action>
+		
+		<action name="secProChaPerList" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscfzry/aqscfzry_list.jsp</result>
+		</action>
+		
+		<action name="secProChaPerLists" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscfzry/SecProChaPer_Lists.jsp</result>
+		</action>
+		
+		<action name="secProChaPerView" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqscfzry/SecProChaPer_Detail.jsp</result>
+		</action>
+
+		<action name="secProChaPerInitEdit" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqscfzry/SecProChaPer_Edit.jsp</result>
+		</action>
+
+		<action name="secProChaPerSave" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />
+			<interceptor-ref name="coreStack" />  
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_secProChaPer</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProChaPerDel" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="delete">
+		</action>
+		<action name="initImportSecProChaPer" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="initImport">
+		    <result name="success">/WEB-INF/zwtPage/aqscfzry/importSecProChaPer.jsp</result>
+		</action>
+		
+		<action name="importSecProChaPer" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="importSecProChaPer">
+			<result name="success" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		
+		<!-- 特种作业人员 -->
+		<action name="speJobPerQuery" class="com.jshx.tzzyry.web.SpeJobPerAction" method="zwtList">
+		</action>
+		
+		<action name="speJobPerList" class="com.jshx.tzzyry.web.SpeJobPerAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/tzzyry/tzzyry_list.jsp</result>
+		</action>
+		
+		<action name="speJobPerLists" class="com.jshx.tzzyry.web.SpeJobPerAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/tzzyry/SpeJobPer_Lists.jsp</result>
+		</action>
+		
+		<action name="speJobPerView" class="com.jshx.tzzyry.web.SpeJobPerAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/tzzyry/SpeJobPer_Detail.jsp</result>
+		</action>
+
+		<action name="speJobPerInitEdit" class="com.jshx.tzzyry.web.SpeJobPerAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/tzzyry/SpeJobPer_Edit.jsp</result>
+		</action>
+
+		<action name="speJobPerSave" class="com.jshx.tzzyry.web.SpeJobPerAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_speJobPer</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="speJobPerDel" class="com.jshx.tzzyry.web.SpeJobPerAction" method="delete">
+		</action>
+		<action name="initImportSpeJobPer" class="com.jshx.tzzyry.web.SpeJobPerAction" method="initImport">
+		    <result name="success">/WEB-INF/zwtPage/tzzyry/importSpeJobPer.jsp</result>
+		</action>
+		
+		<action name="importSpeJobPer" class="com.jshx.tzzyry.web.SpeJobPerAction" method="importSpeJobPer">
+			<result name="success" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		
+		
+		<!-- 安全生产费用提取情况 -->
+		
+		<action name="aqscfytqqk"  class="com.jshx.aqscfytqqk.web.SecProFeeExtAction" method="aqscfytqqk">
+			<result name="success">/WEB-INF/zwtPageNew/aqscfytqqk.jsp</result>
+		</action>
+		
+		<action name="secProFeeExtQuery" class="com.jshx.aqscfytqqk.web.SecProFeeExtAction" method="zwtList">
+		</action>
+		
+		<action name="secProFeeExtList" class="com.jshx.aqscfytqqk.web.SecProFeeExtAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscfytqqk/aqscfytqqk_list.jsp</result>
+		</action>
+		
+		<action name="secProFeeExtView" class="com.jshx.aqscfytqqk.web.SecProFeeExtAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqscfytqqk/SecProFeeExt_Detail.jsp</result>
+		</action>
+
+		<action name="secProFeeExtInitEdit" class="com.jshx.aqscfytqqk.web.SecProFeeExtAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqscfytqqk/SecProFeeExt_Edit.jsp</result>
+		</action>
+
+		<action name="secProFeeExtSave" class="com.jshx.aqscfytqqk.web.SecProFeeExtAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_secProFeeExt</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProFeeExtDel" class="com.jshx.aqscfytqqk.web.SecProFeeExtAction" method="delete">
+		</action>
+		
+		<!-- 安全生产费用使用台账 -->
+		<action name="aqscfysytz"  class="com.jshx.aqscfysytz.web.SecProFeeAccAction" method="aqscfysytz">
+			<result name="success">/WEB-INF/zwtPageNew/aqscfysytz.jsp</result>
+		</action>
+		
+		
+		<action name="secProFeeAccQuery" class="com.jshx.aqscfysytz.web.SecProFeeAccAction" method="zwtList">
+		</action>
+		
+		<action name="secProFeeAccList" class="com.jshx.aqscfysytz.web.SecProFeeAccAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscfysytz/aqscfysytz_list.jsp</result>
+		</action>
+		
+		<action name="secProFeeAccView" class="com.jshx.aqscfysytz.web.SecProFeeAccAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqscfysytz/SecProFeeAcc_Detail.jsp</result>
+		</action>
+
+		<action name="secProFeeAccInitEdit" class="com.jshx.aqscfysytz.web.SecProFeeAccAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqscfysytz/SecProFeeAcc_Edit.jsp</result>
+		</action>
+
+		<action name="secProFeeAccSave" class="com.jshx.aqscfysytz.web.SecProFeeAccAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_secProFeeAcc</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProFeeAccDel" class="com.jshx.aqscfysytz.web.SecProFeeAccAction" method="delete">
+		</action>
+		
+		<!-- 导出 lt 2016-3-8-->
+		<action name="secProFeeAccExportXls" class="com.jshx.aqscfysytz.web.SecProFeeAccAction" method="exportXls">
+		</action>
+		
+		
+		<!-- 安全生产保险投保情况 -->
+		
+		<action name="aqscbxtbqk"  class="com.jshx.aqscbxtbqk.web.SecProInsAction" method="aqscbxtbqk">
+			<result name="success">/WEB-INF/zwtPageNew/aqscbxtbqk.jsp</result>
+		</action>
+		
+		<action name="secProInsQuery" class="com.jshx.aqscbxtbqk.web.SecProInsAction" method="zwtList">
+		</action>
+		
+		<action name="secProInsList" class="com.jshx.aqscbxtbqk.web.SecProInsAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscbxtbqk/aqscbxtbqk_list.jsp</result>
+		</action>
+		
+		<action name="secProInsView" class="com.jshx.aqscbxtbqk.web.SecProInsAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqscbxtbqk/SecProIns_Detail.jsp</result>
+		</action>
+
+		<action name="secProInsInitEdit" class="com.jshx.aqscbxtbqk.web.SecProInsAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqscbxtbqk/SecProIns_Edit.jsp</result>
+		</action>
+
+		<action name="secProInsSave" class="com.jshx.aqscbxtbqk.web.SecProInsAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_secProIns</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProInsDel" class="com.jshx.aqscbxtbqk.web.SecProInsAction" method="delete">
+		</action>
+		
+		
+		<!-- 法律法规标准规范 -->
+		<action name="legStaQuery" class="com.jshx.flfgbzgf.web.LegStaAction" method="zwtList">
+		</action>
+		
+		<action name="legStaList" class="com.jshx.flfgbzgf.web.LegStaAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/flfgbzgf/flfgbzgf_list.jsp</result>
+		</action>
+		
+		<action name="legStaView" class="com.jshx.flfgbzgf.web.LegStaAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/flfgbzgf/LegSta_Detail.jsp</result>
+		</action>
+
+		<action name="legStaInitEdit" class="com.jshx.flfgbzgf.web.LegStaAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/flfgbzgf/LegSta_Edit.jsp</result>
+		</action>
+
+		<action name="legStaSave" class="com.jshx.flfgbzgf.web.LegStaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_legSta</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="legStaDel" class="com.jshx.flfgbzgf.web.LegStaAction" method="delete">
+		</action>
+		
+		<!-- 安全生产规章制度 -->
+		<action name="secProSysQuery" class="com.jshx.aqscgzzd.web.SecProSysAction" method="zwtList">
+		</action>
+		
+		<action name="secProSysList" class="com.jshx.aqscgzzd.web.SecProSysAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscgzzd/aqscgzzd_list.jsp</result>
+		</action>
+		
+		<action name="secProSysView" class="com.jshx.aqscgzzd.web.SecProSysAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqscgzzd/SecProSys_Detail.jsp</result>
+		</action>
+
+		<action name="secProSysInitEdit" class="com.jshx.aqscgzzd.web.SecProSysAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqscgzzd/SecProSys_Edit.jsp</result>
+		</action>
+
+		<action name="secProSysSave" class="com.jshx.aqscgzzd.web.SecProSysAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_secProSys</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProSysDel" class="com.jshx.aqscgzzd.web.SecProSysAction" method="delete">
+		</action>
+		
+		
+		<!-- 操作规程 -->
+		<action name="opeProQuery" class="com.jshx.czgc.web.OpeProAction" method="zwtList">
+		</action>
+		
+		<action name="opeProList" class="com.jshx.czgc.web.OpeProAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/czgc/czgc_list.jsp</result>
+		</action>
+		
+		<action name="opeProLists" class="com.jshx.czgc.web.OpeProAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/czgc/OpePro_Lists.jsp</result>
+		</action>
+		
+		<action name="opeProView" class="com.jshx.czgc.web.OpeProAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/czgc/OpePro_Detail.jsp</result>
+		</action>
+
+		<action name="opeProInitEdit" class="com.jshx.czgc.web.OpeProAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/czgc/OpePro_Edit.jsp</result>
+		</action>
+
+		<action name="opeProSave" class="com.jshx.czgc.web.OpeProAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_opePro</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="opeProDel" class="com.jshx.czgc.web.OpeProAction" method="delete">
+		</action>
+		
+		<action name="initImportOpePro" class="com.jshx.czgc.web.OpeProAction" method="initImport">
+		    <result name="success">/WEB-INF/zwtPage/czgc/importOpePro.jsp</result>
+		</action>
+		
+		<action name="importOpePro" class="com.jshx.czgc.web.OpeProAction" method="importOpePro">
+			<result name="success" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		
+		
+		<!-- 企业主要负责人培训 -->
+		<action name="maiChaTraQuery" class="com.jshx.qyzyfzrpx.web.MaiChaTraAction" method="zwtList">
+		</action>
+		
+		<action name="maiChaTraList" class="com.jshx.qyzyfzrpx.web.MaiChaTraAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/qyzyfzrpx/qyzyfzrpx_list.jsp</result>
+		</action>
+		
+		<action name="maiChaTraView" class="com.jshx.qyzyfzrpx.web.MaiChaTraAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/qyzyfzrpx/MaiChaTra_Detail.jsp</result>
+		</action>
+
+		<action name="maiChaTraInitEdit" class="com.jshx.qyzyfzrpx.web.MaiChaTraAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/qyzyfzrpx/MaiChaTra_Edit.jsp</result>
+		</action>
+
+		<action name="maiChaTraSave" class="com.jshx.qyzyfzrpx.web.MaiChaTraAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_maiChaTra</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="maiChaTraDel" class="com.jshx.qyzyfzrpx.web.MaiChaTraAction" method="delete">
+		</action>
+		
+		
+		<!-- 安全生产分管负责人培训 -->
+		<action name="chargeTrainingQuery" class="com.jshx.aqscfgfzrpx.web.ChargeTrainingAction" method="zwtList">
+		</action>
+		
+		<action name="chargeTrainingList" class="com.jshx.aqscfgfzrpx.web.ChargeTrainingAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscfgfzrpx/aqscfgfzrpx_list.jsp</result>
+		</action>
+		
+		<action name="chargeTrainingView" class="com.jshx.aqscfgfzrpx.web.ChargeTrainingAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqscfgfzrpx/ChargeTraining_Detail.jsp</result>
+		</action>
+
+		<action name="chargeTrainingInitEdit" class="com.jshx.aqscfgfzrpx.web.ChargeTrainingAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqscfgfzrpx/ChargeTraining_Edit.jsp</result>
+		</action>
+
+		<action name="chargeTrainingSave" class="com.jshx.aqscfgfzrpx.web.ChargeTrainingAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_chargeTraining</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="chargeTrainingDel" class="com.jshx.aqscfgfzrpx.web.ChargeTrainingAction" method="delete">
+		</action>
+		
+		
+		<!-- 安全生产管理经理培训 -->
+		<action name="managerTrainingQuery" class="com.jshx.aqscgljlpx.web.ManagerTrainingAction" method="zwtList">
+		</action>
+		
+		<action name="managerTrainingList" class="com.jshx.aqscgljlpx.web.ManagerTrainingAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscgljlpx/aqscgljlpx_list.jsp</result>
+		</action>
+		
+		<action name="managerTrainingView" class="com.jshx.aqscgljlpx.web.ManagerTrainingAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqscgljlpx/ManagerTraining_Detail.jsp</result>
+		</action>
+
+		<action name="managerTrainingInitEdit" class="com.jshx.aqscgljlpx.web.ManagerTrainingAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqscgljlpx/ManagerTraining_Edit.jsp</result>
+		</action>
+
+		<action name="managerTrainingSave" class="com.jshx.aqscgljlpx.web.ManagerTrainingAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_managerTraining</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="managerTrainingDel" class="com.jshx.aqscgljlpx.web.ManagerTrainingAction" method="delete">
+		</action>
+		
+		
+		<!-- 安全生产总监培训 -->
+		<action name="majordomoTrainingQuery" class="com.jshx.aqsczjpx.web.MajordomoTrainingAction" method="zwtList">
+		</action>
+		
+		<action name="majordomoTrainingList" class="com.jshx.aqsczjpx.web.MajordomoTrainingAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqsczjpx/aqsczjpx_list.jsp</result>
+		</action>
+		
+		<action name="majordomoTrainingView" class="com.jshx.aqsczjpx.web.MajordomoTrainingAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqsczjpx/MajordomoTraining_Detail.jsp</result>
+		</action>
+
+		<action name="majordomoTrainingInitEdit" class="com.jshx.aqsczjpx.web.MajordomoTrainingAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqsczjpx/MajordomoTraining_Edit.jsp</result>
+		</action>
+
+		<action name="majordomoTrainingSave" class="com.jshx.aqsczjpx.web.MajordomoTrainingAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_majordomoTraining</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="majordomoTrainingDel" class="com.jshx.aqsczjpx.web.MajordomoTrainingAction" method="delete">
+		</action>
+		
+		
+		<!-- 安全生产负责人员培训 -->
+		<action name="secProChaTraQuery" class="com.jshx.aqscfzrypx.web.SecProChaTraAction" method="zwtList">
+		</action>
+		
+		<action name="secProChaTraList" class="com.jshx.aqscfzrypx.web.SecProChaTraAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/aqscfzrypx/aqscfzrypx_list.jsp</result>
+		</action>
+		
+		<action name="secProChaTraView" class="com.jshx.aqscfzrypx.web.SecProChaTraAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqscfzrypx/SecProChaTra_Detail.jsp</result>
+		</action>
+
+		<action name="secProChaTraInitEdit" class="com.jshx.aqscfzrypx.web.SecProChaTraAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqscfzrypx/SecProChaTra_Edit.jsp</result>
+		</action>
+
+		<action name="secProChaTraSave" class="com.jshx.aqscfzrypx.web.SecProChaTraAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_secProChaTra</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProChaTraDel" class="com.jshx.aqscfzrypx.web.SecProChaTraAction" method="delete">
+		</action>
+		
+		
+		<!-- 企业特种人员培训 -->
+		<action name="speJobTraQuery" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="zwtList">
+		</action>
+		
+		<action name="speJobTraList" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/qytzrypx/qytzrypx_list.jsp</result>
+		</action>
+		
+		<action name="speJobTraView" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/qytzrypx/SpeJobTra_Detail.jsp</result>
+		</action>
+
+		<action name="speJobTraInitEdit" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/qytzrypx/SpeJobTra_Edit.jsp</result>
+		</action>
+
+		<action name="speJobTraSave" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="save">
+			<interceptor-ref name="tokenInterceptor" /> 
+			<interceptor-ref name="coreStack" /> 
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_speJobTra</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="speJobTraDel" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="delete">
+		</action>
+		
+		<action name="initImportSpeJobTra" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="initImport">
+		    <result name="success">/WEB-INF/zwtPage/qytzrypx/importSpeJobTra.jsp</result>
+		</action>
+		
+		<action name="importSpeJobTra" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="importSpeJobTra">
+			<result name="success" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		
+		<!-- 班组长培训 -->
+		<action name="teaLeaTraQuery" class="com.jshx.bzzpx.web.TeaLeaTraAction" method="zwtList">
+		</action>
+		
+		<action name="teaLeaTraList" class="com.jshx.bzzpx.web.TeaLeaTraAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/bzzpx/bzzpx_list.jsp</result>
+		</action>
+		
+		<action name="teaLeaTraView" class="com.jshx.bzzpx.web.TeaLeaTraAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/bzzpx/TeaLeaTra_Detail.jsp</result>
+		</action>
+
+		<action name="teaLeaTraInitEdit" class="com.jshx.bzzpx.web.TeaLeaTraAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/bzzpx/TeaLeaTra_Edit.jsp</result>
+		</action>
+
+		<action name="teaLeaTraSave" class="com.jshx.bzzpx.web.TeaLeaTraAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_teaLeaTra</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="teaLeaTraDel" class="com.jshx.bzzpx.web.TeaLeaTraAction" method="delete">
+		</action>
+		
+		
+		<action name="initImportTeaLeaTra" class="com.jshx.bzzpx.web.TeaLeaTraAction" method="initImport">
+		    <result name="success">/WEB-INF/zwtPage/bzzpx/importTeaLeaTra.jsp</result>
+		</action>
+		
+		<action name="importTeaLeaTra" class="com.jshx.bzzpx.web.TeaLeaTraAction" method="importTeaLeaTra">
+			<result name="success" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		
+		<!-- 新员工上岗培训 -->
+		<action name="newWorTraQuery" class="com.jshx.xygsgpx.web.NewWorTraAction" method="zwtList">
+		</action>
+		
+		<action name="newWorTraList" class="com.jshx.xygsgpx.web.NewWorTraAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/xygsgpx/xygsgpx_list.jsp</result>
+		</action>
+		
+		<action name="newWorTraView" class="com.jshx.xygsgpx.web.NewWorTraAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/xygsgpx/NewWorTra_Detail.jsp</result>
+		</action>
+
+		<action name="newWorTraInitEdit" class="com.jshx.xygsgpx.web.NewWorTraAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/xygsgpx/NewWorTra_Edit.jsp</result>
+		</action>
+
+		<action name="newWorTraSave" class="com.jshx.xygsgpx.web.NewWorTraAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_newWorTra</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="newWorTraDel" class="com.jshx.xygsgpx.web.NewWorTraAction" method="delete">
+		</action>
+		
+		<!-- 企业内部全员培训 -->
+		<action name="allMenTraQuery" class="com.jshx.qynbqypx.web.AllMenTraAction" method="zwtList">
+		</action>
+		
+		<action name="allMenTraList" class="com.jshx.qynbqypx.web.AllMenTraAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/qynbqypx/qynbqypx_list.jsp</result>
+		</action>
+		
+		<action name="allMenTraView" class="com.jshx.qynbqypx.web.AllMenTraAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/qynbqypx/AllMenTra_Detail.jsp</result>
+		</action>
+
+		<action name="allMenTraInitEdit" class="com.jshx.qynbqypx.web.AllMenTraAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/qynbqypx/AllMenTra_Edit.jsp</result>
+		</action>
+
+		<action name="allMenTraSave" class="com.jshx.qynbqypx.web.AllMenTraAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_allMenTra</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="allMenTraDel" class="com.jshx.qynbqypx.web.AllMenTraAction" method="delete">
+		</action>
+		
+		
+		
+		<!-- 生产车间管理 -->
+		<action name="sccjgl"  class="com.jshx.sccjgl.web.WorkshopAction" method="sccjgl">
+			<result name="success">/WEB-INF/zwtPageNew/sccjgl.jsp</result>
+		</action>
+		
+		<action name="workshopQuery" class="com.jshx.sccjgl.web.WorkshopAction" method="zwtList">
+		</action>
+		
+		<action name="workshopList" class="com.jshx.sccjgl.web.WorkshopAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/sccjgl/sccjgl_list.jsp</result>
+		</action>
+		
+		<action name="workshopView" class="com.jshx.sccjgl.web.WorkshopAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/sccjgl/Workshop_Detail.jsp</result>
+		</action>
+
+		<action name="workshopInitEdit" class="com.jshx.sccjgl.web.WorkshopAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/sccjgl/Workshop_Edit.jsp</result>
+		</action>
+
+		<action name="workshopSave" class="com.jshx.sccjgl.web.WorkshopAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_workshop</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="workshopDel" class="com.jshx.sccjgl.web.WorkshopAction" method="delete">
+		</action>
+		
+		
+		<!-- 生产设备设施 -->
+		<action name="scsbss"  class="com.jshx.scsbss.web.ProDevAction" method="scsbss">
+			<result name="success">/WEB-INF/zwtPageNew/scsbss.jsp</result>
+		</action>
+		
+		<action name="proDevQuery" class="com.jshx.scsbss.web.ProDevAction" method="zwtList">
+		</action>
+		
+		<action name="proDevList" class="com.jshx.scsbss.web.ProDevAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/scsbss/scsbss_list.jsp</result>
+		</action>
+		
+		<action name="proDevView" class="com.jshx.scsbss.web.ProDevAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/scsbss/ProDev_Detail.jsp</result>
+		</action>
+
+		<action name="proDevInitEdit" class="com.jshx.scsbss.web.ProDevAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/scsbss/ProDev_Edit.jsp</result>
+		</action>
+
+		<action name="proDevSave" class="com.jshx.scsbss.web.ProDevAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_proDev</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proDevDel" class="com.jshx.scsbss.web.ProDevAction" method="delete">
+		</action>
+		
+		
+		<action name="initImportProDev" class="com.jshx.scsbss.web.ProDevAction" method="initImport">
+		    <result name="success">/WEB-INF/zwtPage/scsbss/importProDev.jsp</result>
+		</action>
+		
+		<action name="importProDev" class="com.jshx.scsbss.web.ProDevAction" method="importProDev">
+			<result name="success" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		
+		<!-- 生产现场管理和生产过程控制 -->
+		<action name="scxcgl"  class="com.jshx.scxcgl.web.ProductionManageAction" method="scxcgl">
+			<result name="success">/WEB-INF/zwtPageNew/scxcgl.jsp</result>
+		</action>
+		
+		<action name="productionManageQuery" class="com.jshx.scxcgl.web.ProductionManageAction" method="zwtList">
+		</action>
+		
+		<action name="productionManageList" class="com.jshx.scxcgl.web.ProductionManageAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/scxcgl/scxcgl_list.jsp</result>
+		</action>
+		
+		<action name="productionManageView" class="com.jshx.scxcgl.web.ProductionManageAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/scxcgl/ProductionManage_Detail.jsp</result>
+		</action>
+
+		<action name="productionManageInitEdit" class="com.jshx.scxcgl.web.ProductionManageAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/scxcgl/ProductionManage_Edit.jsp</result>
+		</action>
+
+		<action name="productionManageSave" class="com.jshx.scxcgl.web.ProductionManageAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_productionManage</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="productionManageDel" class="com.jshx.scxcgl.web.ProductionManageAction" method="delete">
+		</action>
+		<action name="initImportProductionManage" class="com.jshx.scxcgl.web.ProductionManageAction" method="initImport">
+		    <result name="success">/WEB-INF/zwtPage/scxcgl/importProductionManage.jsp</result>
+		</action>
+		
+		<action name="importProductionManage" class="com.jshx.scxcgl.web.ProductionManageAction" method="importProductionManage">
+			<result name="success" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		<!-- 公告栏 -->
+		<action name="ggl"  class="com.jshx.ggl.web.PublicBoardAction" method="ggl">
+			<result name="success">/WEB-INF/zwtPageNew/ggl.jsp</result>
+		</action>
+		
+		<action name="publicBoardQuery" class="com.jshx.ggl.web.PublicBoardAction" method="zwtList">
+		</action>
+		
+		<action name="publicBoardList" class="com.jshx.ggl.web.PublicBoardAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/ggl/ggl_list.jsp</result>
+		</action>
+		
+		<action name="publicBoardView" class="com.jshx.ggl.web.PublicBoardAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/ggl/PublicBoard_Detail.jsp</result>
+		</action>
+
+		<action name="publicBoardInitEdit" class="com.jshx.ggl.web.PublicBoardAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/ggl/PublicBoard_Edit.jsp</result>
+		</action>
+
+		<action name="publicBoardSave" class="com.jshx.ggl.web.PublicBoardAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_publicBoard</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="publicBoardDel" class="com.jshx.ggl.web.PublicBoardAction" method="delete">
+		</action>
+		
+		<!-- 告知卡 -->
+		<action name="gzk"  class="com.jshx.gzk.web.InformCardAction" method="gzk">
+			<result name="success">/WEB-INF/zwtPageNew/gzk.jsp</result>
+		</action>
+		
+		<action name="informCardQuery" class="com.jshx.gzk.web.InformCardAction" method="zwtList">
+		</action>
+		
+		<action name="informCardList" class="com.jshx.gzk.web.InformCardAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/gzk/gzk_list.jsp</result>
+		</action>
+		
+		<action name="informCardView" class="com.jshx.gzk.web.InformCardAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/gzk/InformCard_Detail.jsp</result>
+		</action>
+
+		<action name="informCardInitEdit" class="com.jshx.gzk.web.InformCardAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/gzk/InformCard_Edit.jsp</result>
+		</action>
+
+		<action name="informCardSave" class="com.jshx.gzk.web.InformCardAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_informCard</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="informCardDel" class="com.jshx.gzk.web.InformCardAction" method="delete">
+		</action>
+		
+		<action name="initImportInformCard" class="com.jshx.gzk.web.InformCardAction" method="initImport">
+		    <result name="success">/WEB-INF/zwtPage/gzk/importInformCard.jsp</result>
+		</action>
+		
+		<action name="importInformCard" class="com.jshx.gzk.web.InformCardAction" method="importInformCard">
+			<result name="success" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		<!-- 明显标志 -->
+		<action name="mxbz"  class="com.jshx.mxbz.web.SignsAction" method="mxbz">
+			<result name="success">/WEB-INF/zwtPageNew/mxbz.jsp</result>
+		</action>
+		
+		<action name="signsQuery" class="com.jshx.mxbz.web.SignsAction" method="zwtList">
+		</action>
+		
+		<action name="signsList" class="com.jshx.mxbz.web.SignsAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/mxbz/mxbz_list.jsp</result>
+		</action>
+		
+		<action name="signsView" class="com.jshx.mxbz.web.SignsAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/mxbz/Signs_Detail.jsp</result>
+		</action>
+
+		<action name="signsInitEdit" class="com.jshx.mxbz.web.SignsAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/mxbz/Signs_Edit.jsp</result>
+		</action>
+
+		<action name="signsSave" class="com.jshx.mxbz.web.SignsAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_signs</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="signsDel" class="com.jshx.mxbz.web.SignsAction" method="delete">
+		</action>
+		
+		
+		
+		<!-- 相关方管理 -->
+		<action name="xgfgl"  class="com.jshx.xgfgl.web.PartyManageAction" method="xgfgl">
+			<result name="success">/WEB-INF/zwtPageNew/xgfgl.jsp</result>
+		</action>
+		
+		<action name="partyManageQuery" class="com.jshx.xgfgl.web.PartyManageAction" method="zwtList">
+		</action>
+		
+		<action name="partyManageList" class="com.jshx.xgfgl.web.PartyManageAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/xgfgl/xgfgl_list.jsp</result>
+		</action>
+		
+		<action name="partyManageView" class="com.jshx.xgfgl.web.PartyManageAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/xgfgl/PartyManage_Detail.jsp</result>
+		</action>
+
+		<action name="partyManageInitEdit" class="com.jshx.xgfgl.web.PartyManageAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/xgfgl/PartyManage_Edit.jsp</result>
+		</action>
+
+		<action name="partyManageSave" class="com.jshx.xgfgl.web.PartyManageAction" method="save">
+			<interceptor-ref name="tokenInterceptor" /> 
+			<interceptor-ref name="coreStack" /> 
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_partyManage</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="partyManageDel" class="com.jshx.xgfgl.web.PartyManageAction" method="delete">
+		</action>
+		
+		<!-- 劳保用品管理 -->
+		<action name="lbypxx"  class="com.jshx.lbypgl.web.PpeManagAction" method="lbypxx">
+			<result name="success">/WEB-INF/zwtPageNew/lbypxx.jsp</result>
+		</action>
+		
+		<action name="ppeManagQuery" class="com.jshx.lbypgl.web.PpeManagAction" method="zwtList">
+		</action>
+		
+		<action name="ppeManagList" class="com.jshx.lbypgl.web.PpeManagAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/lbypgl/lbypgl_list.jsp</result>
+		</action>
+		
+		<action name="ppeManagView" class="com.jshx.lbypgl.web.PpeManagAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/lbypgl/PpeManag_Detail.jsp</result>
+		</action>
+
+		<action name="ppeManagInitEdit" class="com.jshx.lbypgl.web.PpeManagAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/lbypgl/PpeManag_Edit.jsp</result>
+		</action>
+
+		<action name="ppeManagSave" class="com.jshx.lbypgl.web.PpeManagAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_ppeManag</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="ppeManagDel" class="com.jshx.lbypgl.web.PpeManagAction" method="delete">
+		</action>
+		
+		<!-- 劳保用品库房管理 -->
+		<action name="lbypkf"  class="com.jshx.lbypkfgl.web.PpeWareManagAction" method="lbypkf">
+			<result name="success">/WEB-INF/zwtPageNew/lbypkf.jsp</result>
+		</action>
+		
+		<action name="ppeWareManagQuery" class="com.jshx.lbypkfgl.web.PpeWareManagAction" method="zwtList">
+		</action>
+		
+		<action name="ppeWareManagList" class="com.jshx.lbypkfgl.web.PpeWareManagAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/lbypkfgl/lbypkfgl_list.jsp</result>
+		</action>
+		
+		<action name="ppeWareManagView" class="com.jshx.lbypkfgl.web.PpeWareManagAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/lbypkfgl/PpeWareManag_Detail.jsp</result>
+		</action>
+
+		<action name="ppeWareManagInitEdit" class="com.jshx.lbypkfgl.web.PpeWareManagAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/lbypkfgl/PpeWareManag_Edit.jsp</result>
+		</action>
+
+		<action name="ppeWareManagSave" class="com.jshx.lbypkfgl.web.PpeWareManagAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_ppeWareManag</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="ppeWareManagDel" class="com.jshx.lbypkfgl.web.PpeWareManagAction" method="delete">
+		</action>
+		
+		
+		<!-- 劳保用品领用管理 -->
+		<action name="lbyply"  class="com.jshx.lbyplygl.web.PpeUseManageAction" method="lbyply">
+			<result name="success">/WEB-INF/zwtPageNew/lbyply.jsp</result>
+		</action>
+		
+		<action name="ppeUseManageQuery" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="zwtList">
+		</action>
+		
+		<action name="ppeUseManageList" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/lbyplygl/lbyplygl_list.jsp</result>
+		</action>
+		
+		<action name="ppeUseManageView" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/lbyplygl/PpeUseManage_Detail.jsp</result>
+		</action>
+
+		<action name="ppeUseManageInitEdit" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/lbyplygl/PpeUseManage_Edit.jsp</result>
+		</action>
+
+		<action name="ppeUseManageSave" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_ppeUseManage</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="ppeUseManageDel" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="delete">
+		</action>
+		
+		<action name="initImportPpeUseManage" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="initImport">
+		    <result name="success">/WEB-INF/zwtPage/lbyplygl/importPpeUseManage.jsp</result>
+		</action>
+		
+		<action name="importPpeUseManage" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="importPpeUseManage">
+			<result name="success" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		<!-- 危险源巡查计划 -->
+		<action name="wxyxcjhgl"  class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="wxyxcjhgl">
+			<result name="success">/WEB-INF/zwtPageNew/wxyxcjhgl.jsp</result>
+		</action>
+		
+		<action name="danPlaManQuery" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="zwtList">
+		</action>
+		
+		<action name="danPlaManList" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/wxyxcjhgl/wxyxcjhgl_list.jsp</result>
+		</action>
+		
+		<action name="danPlaManView" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/wxyxcjhgl/DanPlaMan_Detail.jsp</result>
+		</action>
+
+		<action name="danPlaManInitEdit" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/wxyxcjhgl/DanPlaMan_Edit.jsp</result>
+		</action>
+		
+		<!-- 跳转到审核界面 lj 2015-10-13 -->
+		<action name="danPlaManInitAudit" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="initAudit">
+			<result name="success">/WEB-INF/zwtPage/wxyxcjhgl/DanPlaMan_Audit.jsp</result>
+		</action>
+		<!-- 保存审核结果  lj 2015-10-13 -->
+		<action name="danPlaManSaveAudit" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="saveAudit">
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_danPlaMan</result>
+		</action>
+		
+		<action name="danPlaManSave" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_danPlaMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="danPlaManDel" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="delete">
+		</action>
+		
+		<!-- 危险源巡查任务 -->
+		<action name="wxyxcrwgl"  class="com.jshx.wxyxcrwgl.web.DanTasManAction" method="wxyxcrwgl">
+			<result name="success">/WEB-INF/zwtPageNew/wxyxcrwgl.jsp</result>
+		</action>
+		
+		<action name="danTasManQuery" class="com.jshx.wxyxcrwgl.web.DanTasManAction" method="zwtList">
+		</action>
+		
+		<action name="danTasManList"  class="com.jshx.wxyxcrwgl.web.DanTasManAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/wxyxcrwgl/wxyxcrwgl_list.jsp</result>
+		</action>
+		
+		<action name="danTasManView" class="com.jshx.wxyxcrwgl.web.DanTasManAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/wxyxcrwgl/DanTasMan_Detail.jsp</result>
+		</action>
+
+		<action name="danTasManInitEdit" class="com.jshx.wxyxcrwgl.web.DanTasManAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/wxyxcrwgl/DanTasMan_Edit.jsp</result>
+		</action>
+
+		<action name="danTasManSave" class="com.jshx.wxyxcrwgl.web.DanTasManAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_danTasMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="danTasManDel" class="com.jshx.wxyxcrwgl.web.DanTasManAction" method="delete">
+		</action>
+		
+		<!-- 企业重点危险源的识别评估分级 -->
+		<action name="zdwxysbpgfj"  class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="zdwxysbpgfj">
+			<result name="success">/WEB-INF/zwtPageNew/zdwxysbpgfj.jsp</result>
+		</action>
+		
+		<action name="comDanIdeQuery" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="zwtList">
+		</action>
+		
+		<action name="comDanIdeList" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/zdwxysbpgfj/zdwxysbpgfj_list.jsp</result>
+		</action>
+		
+		<action name="comDanIdeView" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zdwxysbpgfj/ComDanIde_Detail.jsp</result>
+		</action>
+
+		<action name="comDanIdeInitEdit" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/zdwxysbpgfj/ComDanIde_Edit.jsp</result>
+		</action>
+
+		<action name="comDanIdeSave" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_comDanIde</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="comDanIdeDel" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="delete">
+		</action>
+		<action name="comDanIdeCheck" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="check">
+			<result name="check">/WEB-INF/zwtPage/zdwxysbpgfj/ComDanIde_Check.jsp</result>
+		</action>
+		
+		<action name="comDanIdeCheckSave" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_comDanIde</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		<!-- 企业重点危险源的管理制度 -->
+		<action name="zdwxyglzd"  class="com.jshx.zdwxyglzd.web.ComManSysAction" method="zdwxyglzd">
+			<result name="success">/WEB-INF/zwtPageNew/zdwxyglzd.jsp</result>
+		</action>
+		
+		<action name="comManSysQuery" class="com.jshx.zdwxyglzd.web.ComManSysAction" method="zwtList">
+		</action>
+		
+		<action name="comManSysList" class="com.jshx.zdwxyglzd.web.ComManSysAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/zdwxyglzd/zdwxyglzd_list.jsp</result>
+		</action>
+		
+		<action name="comManSysView" class="com.jshx.zdwxyglzd.web.ComManSysAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zdwxyglzd/ComManSys_Detail.jsp</result>
+		</action>
+
+		<action name="comManSysInitEdit" class="com.jshx.zdwxyglzd.web.ComManSysAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/zdwxyglzd/ComManSys_Edit.jsp</result>
+		</action>
+
+		<action name="comManSysSave" class="com.jshx.zdwxyglzd.web.ComManSysAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_comManSys</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="comManSysDel" class="com.jshx.zdwxyglzd.web.ComManSysAction" method="delete">
+		</action>
+		
+		<!-- 企业重点危险源的操作规程 -->
+		
+		<action name="zdwxyczgc"  class="com.jshx.zdwxyczgc.web.ComOpeRulAction" method="zdwxyczgc">
+			<result name="success">/WEB-INF/zwtPageNew/zdwxyczgc.jsp</result>
+		</action>
+		
+		<action name="comOpeRulQuery" class="com.jshx.zdwxyczgc.web.ComOpeRulAction" method="zwtList">
+		</action>
+		
+		<action name="comOpeRulList" class="com.jshx.zdwxyczgc.web.ComOpeRulAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/zdwxyczgc/zdwxyczgc_list.jsp</result>
+		</action>
+		
+		<action name="comOpeRulView" class="com.jshx.zdwxyczgc.web.ComOpeRulAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zdwxyczgc/ComOpeRul_Detail.jsp</result>
+		</action>
+
+		<action name="comOpeRulInitEdit" class="com.jshx.zdwxyczgc.web.ComOpeRulAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/zdwxyczgc/ComOpeRul_Edit.jsp</result>
+		</action>
+
+		<action name="comOpeRulSave" class="com.jshx.zdwxyczgc.web.ComOpeRulAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_comOpeRul</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="comOpeRulDel" class="com.jshx.zdwxyczgc.web.ComOpeRulAction" method="delete">
+		</action>
+		
+		
+		<!-- 企业重点危险源的应急处置 -->
+		<action name="zdwxyyjcz"  class="com.jshx.zdwxyyjcz.web.ComDanEmeAction" method="zdwxyyjcz">
+			<result name="success">/WEB-INF/zwtPageNew/zdwxyyjcz.jsp</result>
+		</action>
+		
+		<action name="comDanEmeQuery" class="com.jshx.zdwxyyjcz.web.ComDanEmeAction" method="zwtList">
+		</action>
+		
+		<action name="comDanEmeList" class="com.jshx.zdwxyyjcz.web.ComDanEmeAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/zdwxyyjcz/zdwxyyjcz_list.jsp</result>
+		</action>
+		
+		<action name="comDanEmeView" class="com.jshx.zdwxyyjcz.web.ComDanEmeAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zdwxyyjcz/ComDanEme_Detail.jsp</result>
+		</action>
+
+		<action name="comDanEmeInitEdit" class="com.jshx.zdwxyyjcz.web.ComDanEmeAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/zdwxyyjcz/ComDanEme_Edit.jsp</result>
+		</action>
+
+		<action name="comDanEmeSave" class="com.jshx.zdwxyyjcz.web.ComDanEmeAction" method="save">
+			<interceptor-ref name="tokenInterceptor" /> 
+			<interceptor-ref name="coreStack" /> 
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_comDanEme</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="comDanEmeDel" class="com.jshx.zdwxyyjcz.web.ComDanEmeAction" method="delete">
+		</action>
+		
+		
+		<!-- 职业卫生安全管理制度 -->
+		<action name="occHeaManQuery" class="com.jshx.zywsaqglzd.web.OccHeaManAction" method="zwtList">
+		</action>
+		
+		<action name="occHeaManList"  class="com.jshx.zywsaqglzd.web.OccHeaManAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/zywsaqglzd/zywsaqglzd_list.jsp</result>
+		</action>
+		
+		<action name="occHeaManView" class="com.jshx.zywsaqglzd.web.OccHeaManAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zywsaqglzd/OccHeaMan_Detail.jsp</result>
+		</action>
+
+		<action name="occHeaManInitEdit" class="com.jshx.zywsaqglzd.web.OccHeaManAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/zywsaqglzd/OccHeaMan_Edit.jsp</result>
+		</action>
+
+		<action name="occHeaManSave" class="com.jshx.zywsaqglzd.web.OccHeaManAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_occHeaMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occHeaManDel" class="com.jshx.zywsaqglzd.web.OccHeaManAction" method="delete">
+		</action>
+		
+		
+		<!-- 年度职业病防治经费 -->
+		<action name="occDisPreQuery" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="zwtList">
+		</action>
+		
+		<action name="occDisPreList" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/ndzybfzjf/ndzybfzjf_list.jsp</result>
+		</action>
+		
+		<action name="occDisPreView" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/ndzybfzjf/OccDisPre_Detail.jsp</result>
+		</action>
+
+		<action name="occDisPreInitEdit" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/ndzybfzjf/OccDisPre_Edit.jsp</result>
+		</action>
+
+		<action name="occDisPreSave" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_occDisPre</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occDisPreDel" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="delete">
+		</action>
+		
+		<!-- 职业卫生管理基本信息 -->
+		<action name="occHeaInfoQuery" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="zwtList">
+		</action>
+		
+		<action name="occHeaInfoList" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/zywsgljbxx/zywsgljbxx_list.jsp</result>
+		</action>
+		
+		<action name="occHeaInfoView" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zywsgljbxx/OccHeaInfo_Detail.jsp</result>
+		</action>
+
+		<action name="occHeaInfoInitEdit" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/zywsgljbxx/OccHeaInfo_Edit.jsp</result>
+		</action>
+
+		<action name="occHeaInfoSave" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_occHeaInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occHeaInfoDel" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="delete">
+		</action>
+		<action name="occChaInfDel" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="occChaInfDel">
+		</action>
+		
+		
+		<!-- 设备设施空间职业卫生作业点布局 -->
+		<action name="equAndFacQuery" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="zwtList">
+		</action>
+		
+		<action name="equAndFacList" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/sbsskjzywszydbj/sbsskjzywszydbj_list.jsp</result>
+		</action>
+		
+		<action name="equAndFacView" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/sbsskjzywszydbj/EquAndFac_Detail.jsp</result>
+		</action>
+
+		<action name="equAndFacInitEdit" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/sbsskjzywszydbj/EquAndFac_Edit.jsp</result>
+		</action>
+
+		<action name="equAndFacSave" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_equAndFac</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="equAndFacDel" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="delete">
+		</action>
+		
+		
+		<!-- 职业危害基本因素情况 -->
+		<action name="occHazBasQuery" class="com.jshx.zywhjbysqk.web.OccHazBasAction" method="zwtList">
+		</action>
+		
+		<action name="occHazBasList" class="com.jshx.zywhjbysqk.web.OccHazBasAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/zywhjbysqk/zywhjbysqk_list.jsp</result>
+		</action>
+		
+		<action name="occHazBasView" class="com.jshx.zywhjbysqk.web.OccHazBasAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zywhjbysqk/OccHazBas_Detail.jsp</result>
+		</action>
+
+		<action name="occHazBasInitEdit" class="com.jshx.zywhjbysqk.web.OccHazBasAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/zywhjbysqk/OccHazBas_Edit.jsp</result>
+		</action>
+
+		<action name="occHazBasSave" class="com.jshx.zywhjbysqk.web.OccHazBasAction" method="save">
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_occHazBas</result>
+		</action>
+
+		<action name="occHazBasDel" class="com.jshx.zywhjbysqk.web.OccHazBasAction" method="delete">
+		</action>
+		
+		
+		<!-- 危害因素检测 -->
+		<action name="hazDetQuery" class="com.jshx.whysjc.web.HazDetAction" method="zwtList">
+		</action>
+		
+		<action name="hazDetList" class="com.jshx.whysjc.web.HazDetAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/whysjc/whysjc_list.jsp</result>
+		</action>
+		
+		<action name="hazDetView" class="com.jshx.whysjc.web.HazDetAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/whysjc/HazDet_Detail.jsp</result>
+		</action>
+
+		<action name="hazDetInitEdit" class="com.jshx.whysjc.web.HazDetAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/whysjc/HazDet_Edit.jsp</result>
+		</action>
+
+		<action name="hazDetSave" class="com.jshx.whysjc.web.HazDetAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_hazDet</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="hazDetDel" class="com.jshx.whysjc.web.HazDetAction" method="delete">
+		</action>
+		
+		
+		<!-- 检测超标管理 -->
+		<action name="detOverStaManQuery" class="com.jshx.jccbgl.web.DetOverStaManAction" method="zwtList">
+		</action>
+		
+		<action name="detOverStaManList" class="com.jshx.jccbgl.web.DetOverStaManAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/jccbgl/jccbgl_list.jsp</result>
+		</action>
+		
+		<action name="detOverStaManView" class="com.jshx.jccbgl.web.DetOverStaManAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/jccbgl/DetOverStaMan_Detail.jsp</result>
+		</action>
+
+		<action name="detOverStaManInitEdit" class="com.jshx.jccbgl.web.DetOverStaManAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/jccbgl/DetOverStaMan_Edit.jsp</result>
+		</action>
+
+		<action name="detOverStaManSave" class="com.jshx.jccbgl.web.DetOverStaManAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_detOverStaMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="detOverStaManDel" class="com.jshx.jccbgl.web.DetOverStaManAction" method="delete">
+		</action>
+		
+		
+		<!-- 职业健康体检 -->
+		<action name="occHeaExaQuery" class="com.jshx.zyjktj.web.OccHeaExaAction" method="zwtList">
+		</action>
+		
+		<action name="occHeaExaList" class="com.jshx.zyjktj.web.OccHeaExaAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/zyjktj/zyjktj_list.jsp</result>
+		</action>
+		
+		<action name="occHeaExaView" class="com.jshx.zyjktj.web.OccHeaExaAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zyjktj/OccHeaExa_Detail.jsp</result>
+		</action>
+
+		<action name="occHeaExaInitEdit" class="com.jshx.zyjktj.web.OccHeaExaAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/zyjktj/OccHeaExa_Edit.jsp</result>
+		</action>
+
+		<action name="occHeaExaSave" class="com.jshx.zyjktj.web.OccHeaExaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_occHeaExa</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occHeaExaDel" class="com.jshx.zyjktj.web.OccHeaExaAction" method="delete">
+		</action>
+		<action name="occHeaExaListDel" class="com.jshx.zyjktj.web.OccHeaExaAction" method="occHeaExaListDel">
+		</action>
+		
+		<action name="initImportOccHeaExa" class="com.jshx.zyjktj.web.OccHeaExaAction" method="initImport">
+		    <result name="success">/WEB-INF/zwtPage/zyjktj/importOccHeaExa.jsp</result>
+		</action>
+		
+		<action name="importOccHeaExa" class="com.jshx.zyjktj.web.OccHeaExaAction" method="importOccHeaExa">
+			<result name="success" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelfZwt.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		<!-- 体检不合格记录 -->
+		<action name="phyUnqRecQuery" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="zwtList">
+		</action>
+		
+		<action name="phyUnqRecList" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/tjbhgjl/tjbhgjl_list.jsp</result>
+		</action>
+		
+		<action name="phyUnqRecView" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/tjbhgjl/PhyUnqRec_Detail.jsp</result>
+		</action>
+
+		<action name="phyUnqRecInitEdit" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/tjbhgjl/PhyUnqRec_Edit.jsp</result>
+		</action>
+
+		<action name="phyUnqRecSave" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" /> 
+			<interceptor-ref name="coreStack" /> 
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_phyUnqRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="phyUnqRecDel" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="delete">
+		</action>
+		
+		<!-- 调岗记录 -->
+		<action name="proRecQuery" class="com.jshx.dgjl.web.ProRecAction" method="zwtList">
+		</action>
+		
+		<action name="proRecList" class="com.jshx.dgjl.web.ProRecAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPage/dgjl/dgjl_list.jsp</result>
+		</action>
+		
+		<action name="proRecView" class="com.jshx.dgjl.web.ProRecAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/dgjl/ProRec_Detail.jsp</result>
+		</action>
+
+		<action name="proRecInitEdit" class="com.jshx.dgjl.web.ProRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/dgjl/ProRec_Edit.jsp</result>
+		</action>
+
+		<action name="proRecSave" class="com.jshx.dgjl.web.ProRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_proRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proRecDel" class="com.jshx.dgjl.web.ProRecAction" method="delete">
+		</action>
+		
+		<action name="zwtDemo"  class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zwtDemo">
+			<result name="success">/WEB-INF/zwtPage/zwtDemo.jsp</result>
+		</action>
+		
+		
+		
+		<!-- 基础信息插件 -->
+		<action name="zwtJcxx"  class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zwtJcxx">
+			<result name="success">/WEB-INF/zwtPageNew/companys.jsp</result>
+			<result name="error">/common/zwtError.jsp</result>
+		</action>
+		
+		<action name="zwtJcxxs"  class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zwtJcxxs">
+			<result name="success">/WEB-INF/zwtPageNew/companys.jsp</result>
+			<result name="error">/common/zwtError.jsp</result>
+		</action>
+		
+		<action name="chajian1"  class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="chajian1">
+			<result name="success">/WEB-INF/zwtPageNew/jcxx.jsp</result>
+		</action>
+		
+		
+		<action name="baseInfo"  class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="baseInfo">
+			<result name="success">/WEB-INF/zwtPageNew/baseInfo.jsp</result>
+		</action>
+		
+		<action name="zzqk"  class="com.jshx.zzqk.web.IntSitAction" method="zzqk">
+			<result name="success">/WEB-INF/zwtPageNew/zzqk.jsp</result>
+		</action>
+		
+		<action name="rybz"  class="com.jshx.rybzxx.web.HonRecAction" method="rybz">
+			<result name="success">/WEB-INF/zwtPageNew/rybz.jsp</result>
+		</action>
+		
+		<action name="scmb"  class="com.jshx.qyaqscmb.web.SecProGoaAction" method="scmb">
+			<result name="success">/WEB-INF/zwtPageNew/scmb.jsp</result>
+		</action>
+		
+		<action name="sccn"  class="com.jshx.qyaqsccn.web.ProComAction" method="sccn">
+			<result name="success">/WEB-INF/zwtPageNew/sccn.jsp</result>
+		</action>
+		
+		<action name="bzhpf"  class="com.jshx.companyScore.web.CompanyScoreAction" method="bzhpf">
+			<result name="success">/WEB-INF/zwtPageNew/bzhpf.jsp</result>
+		</action>
+		
+		<action name="fjflpf"  class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="fjflpf">
+			<result name="success">/WEB-INF/zwtPageNew/fjflpf.jsp</result>
+		</action>
+		
+		
+		<action name="jgxx"  class="com.jshx.aqscldjg.web.ProLegOrgAction" method="jgxx">
+			<result name="success">/WEB-INF/zwtPageNew/jgxx.jsp</result>
+		</action>
+		
+		
+		<action name="zwtJgxxList" class="com.jshx.aqscldjg.web.ProLegOrgAction" method="zwtJgxxList">
+		</action>
+		
+		
+		<action name="ryxx"  class="com.jshx.aqscldjg.web.ProLegOrgAction" method="ryxx">
+			<result name="success">/WEB-INF/zwtPageNew/ryxx.jsp</result>
+		</action>
+		
+		
+		<action name="zwtRyxxList" class="com.jshx.aqscldjg.web.ProLegOrgAction" method="zwtRyxxList">
+		</action>
+		
+		<action name="flfghbzgf"  class="com.jshx.flfgbzgf.web.LegStaAction" method="flfghbzgf">
+			<result name="success">/WEB-INF/zwtPageNew/flfghbzgf.jsp</result>
+		</action>
+		
+		<action name="aqscgzzd"  class="com.jshx.aqscgzzd.web.SecProSysAction" method="aqscgzzd">
+			<result name="success">/WEB-INF/zwtPageNew/aqscgzzd.jsp</result>
+		</action>
+		
+		<action name="czgc"  class="com.jshx.czgc.web.OpeProAction" method="czgc">
+			<result name="success">/WEB-INF/zwtPageNew/czgc.jsp</result>
+		</action>
+		
+		<action name="yjjgydw"  class="com.jshx.yjjgydw.web.EmeAgeAction" method="yjjgydw">
+			<result name="success">/WEB-INF/zwtPageNew/yjjgydw.jsp</result>
+		</action>
+		
+		<action name="emeAgeQuery" class="com.jshx.yjjgydw.web.EmeAgeAction" method="zwtList">
+		</action>
+		
+		<action name="emeAgeView" class="com.jshx.yjjgydw.web.EmeAgeAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/yjjgydw/EmeAge_Detail.jsp</result>
+		</action>
+		
+		
+		
+		
+		<action name="yjya"  class="com.jshx.yjya.web.EmePlaAction" method="yjya">
+			<result name="success">/WEB-INF/zwtPageNew/yjya.jsp</result>
+		</action>
+		
+		<action name="emePlaQuery" class="com.jshx.yjya.web.EmePlaAction" method="zwtList">
+		</action>
+		
+		<action name="emePlaView" class="com.jshx.yjya.web.EmePlaAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/yjya/EmePla_Detail.jsp</result>
+		</action>
+		
+		<!-- 应急设施装备物资 -->
+		<action name="yjsszbwz"  class="com.jshx.yjsszbwz.web.EmeFacAction" method="yjsszbwz">
+			<result name="success">/WEB-INF/zwtPageNew/yjsszbwz.jsp</result>
+		</action>
+		
+		<action name="emeFacQuery" class="com.jshx.yjsszbwz.web.EmeFacAction" method="zwtList">
+		</action>
+		
+		<action name="emeFacView" class="com.jshx.yjsszbwz.web.EmeFacAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/yjsszbwz/EmeFac_Detail.jsp</result>
+		</action>
+		
+		<!-- 应急演练 -->
+		<action name="yjyl"  class="com.jshx.yjyl.web.EmeDriAction" method="yjyl">
+			<result name="success">/WEB-INF/zwtPageNew/yjyl.jsp</result>
+		</action>
+		
+		<action name="emeDriQuery" class="com.jshx.yjyl.web.EmeDriAction" method="zwtList">
+		</action>
+		
+		<action name="emeDriView" class="com.jshx.yjyl.web.EmeDriAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/yjyl/EmeDri_Detail.jsp</result>
+		</action>
+		
+		<!-- 监督业务插件 -->
+		<action name="zwtJdyw"  class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zwtJdyw">
+			<result name="success">/WEB-INF/zwtPageNew/jdyw.jsp</result>
+			<result name="error">/common/zwtError.jsp</result>
+		</action>
+		
+		<!-- 监督检查计划 fq -->
+		<action name="jdjcjh"  class="com.jshx.jdjcjh.web.SupPlaAction" method="jdjcjh">
+			<result name="success">/WEB-INF/zwtPageNew/jdjcjh.jsp</result>
+		</action>
+		
+		<action name="supPlaQuery" class="com.jshx.jdjcjh.web.SupPlaAction" method="zwtList">
+		</action>
+		
+		<action name="supPlaView" class="com.jshx.jdjcjh.web.SupPlaAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/jdjcjh/SupPla_Detail.jsp</result>
+		</action>
+		
+		<action name="supPlaInitEdit" class="com.jshx.jdjcjh.web.SupPlaAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/jdjcjh/SupPla_Edit.jsp</result>
+		</action>
+
+		<action name="supPlaSave" class="com.jshx.jdjcjh.web.SupPlaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_supPla</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="supPlaDel" class="com.jshx.jdjcjh.web.SupPlaAction" method="delete">
+		</action>
+		<action name="supPlaLink" class="com.jshx.jdjcjh.web.SupPlaAction" method="supPlaLink">
+		<result name="success">/WEB-INF/zwtPage/jdjcrw/SupTas_LinkList.jsp</result>
+		</action>
+		<action name="checks" class="com.jshx.jdjcjh.web.SupPlaAction" method="checks">
+		</action>
+		<!-- 年计划选择企业 -->
+		<action name="selectCompanys" class="com.jshx.jdjcjh.web.SupPlaAction" method="selectCompanys">
+			<result name="success">/WEB-INF/zwtPage/jdjcjh/SupPla_SelectCompanys.jsp</result>
+		</action>
+		<action name="getDepartUser" class="com.jshx.jdjcjh.web.SupPlaAction" method="getDepartUser">
+		</action>
+		<action name="SearchCompanys" class="com.jshx.jdjcjh.web.SupPlaAction" method="SearchCompanys">
+		</action>
+		<!-- 周计划选择企业 -->
+		<action name="selectCompanys2" class="com.jshx.jdjcjh.web.SupPlaAction" method="selectCompanys2">
+			<result name="success1">/WEB-INF/zwtPage/jdjcjh/SupPla_SelectCompanys2.jsp</result>
+			<result name="success2">/WEB-INF/zwtPage/jdjcjh/select_company_list.jsp</result>
+		</action>
+		<action name="getDepartUser2" class="com.jshx.jdjcjh.web.SupPlaAction" method="getDepartUser2">
+		</action>
+		
+		<action name="initImportPlan" class="com.jshx.jdjcjh.web.SupPlaAction" method="initImportPlan">
+			<result name="success">/WEB-INF/zwtPage/jdjcjh/importPlan.jsp</result>
+		</action>
+		
+		<action name="importPlan" class="com.jshx.jdjcjh.web.SupPlaAction" method="importPlan">
+			<result name="success" >
+				/common/successToSelfZwt.jsp?windowId=importPlan
+			</result>
+			<result name="error" >
+				/common/successToSelfZwt.jsp?windowId=importPlan
+			</result>
+		</action>
+		
+		
+		<action name="supPlaXccsInitEdit" class="com.jshx.jdjcjh.web.SupPlaAction" method="initXccsEdit">
+			<result name="edit">/WEB-INF/zwtPage/jdjcjh/SupPla_Xccs.jsp</result>
+		</action>
+
+		<action name="supPlaXccsSave" class="com.jshx.jdjcjh.web.SupPlaAction" method="saveXccs">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_supPla</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="selectCompanyForImportPlan" class="com.jshx.jdjcjh.web.SupPlaAction" method="selectCompanyForImportPlan">
+		</action>
+		
+		
+		
+		
+		<!-- 监督检查任务 fq 2016-6-7 -->
+		<action name="jdjcrw"  class="com.jshx.jdjcrw.web.SupTasAction" method="jdjcrw">
+			<result name="success">/WEB-INF/zwtPageNew/jdjcrw.jsp</result>
+		</action>
+		
+		
+		<action name="supTasQuery" class="com.jshx.jdjcrw.web.SupTasAction" method="zwtList">
+		</action>
+		
+		<action name="supTasList" class="com.jshx.jdjcrw.web.SupTasAction" method="init">
+			<result name="success">/WEB-INF/zwtPage/jdjcrw/SupTas_List.jsp</result>
+		</action>
+		
+		<action name="supTasLists" >
+			<result name="success">/WEB-INF/zwtPage/jdjcrw/SupTas_Lists.jsp</result>
+		</action>
+		
+		<action name="supTasQuerys" class="com.jshx.jdjcrw.web.SupTasAction" method="zwtLists">
+		</action>
+		<action name="supTasView" class="com.jshx.jdjcrw.web.SupTasAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/jdjcrw/SupTas_Detail.jsp</result>
+		</action>
+
+		<action name="supTasInitEdit" class="com.jshx.jdjcrw.web.SupTasAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/jdjcrw/SupTas_Edit.jsp</result>
+		</action>
+
+		<action name="supTasSave" class="com.jshx.jdjcrw.web.SupTasAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_supTas</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="supTasDel" class="com.jshx.jdjcrw.web.SupTasAction" method="delete">
+		</action>
+		<action name="supTasSbxx" class="com.jshx.jdjcrw.web.SupTasAction" method="supTasSbxx">
+			<result name="success">/WEB-INF/zwtPage/jdjcrw/SupTas_Sbxx.jsp</result>
+		</action>
+		<action name="supTasUpdate" class="com.jshx.jdjcrw.web.SupTasAction" method="supTasUpdate">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_supTas</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		<action name="check" class="com.jshx.jdjcrw.web.SupTasAction" method="check">
+		</action>
+		
+		
+		<action name="supTasXcjc" class="com.jshx.jdjcrw.web.SupTasAction" method="supTasXcjc">
+			<result name="edit">/WEB-INF/zwtPage/jdjcrw/SupTas_Xcjcjl.jsp</result>
+		</action>
+		
+		<action name="supTasXcjcSave" class="com.jshx.jdjcrw.web.SupTasAction" method="supTasXcjcSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_supTas</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		<action name="supTasXcjcExport" class="com.jshx.jdjcrw.web.SupTasAction" method="exportXcjc">
+		</action>
+		
+		
+		<!-- 监督检查结果 fq -->
+		<action name="jdjcjg"  class="com.jshx.jdjcrw.web.SupTasAction" method="jdjcrw">
+			<result name="success">/WEB-INF/zwtPageNew/jdjcjg.jsp</result>
+		</action>
+		
+		<!-- 安全生产隐患 fq（监管业务） -->
+		<action name="aqscyh" class="com.jshx.yhb.web.TroManAction" method="aqscyh">
+			<result name="success">/WEB-INF/zwtPageNew/aqscyh.jsp</result>
+			
+		</action>
+		
+		<action name="aqscyhList" class="com.jshx.yhb.web.TroManAction" method="aqscyhList">
+		</action>
+		
+		<!-- 挂牌督办 fq -->
+		<action name="gpdb" class="com.jshx.gpdb.web.SuperviceAction" method="gpdb">
+			<result name="success">/WEB-INF/zwtPageNew/gpdb.jsp</result>
+		</action>
+		
+		<!-- 案件管理 fq-->
+		<action name="ajgl" class="com.jshx.ajxx.web.CaseInfoAction" method="ajgl">
+			<result name="success">/WEB-INF/zwtPageNew/ajgl.jsp</result>
+		</action>
+		
+		<action name="caseInfoQuery" class="com.jshx.ajxx.web.CaseInfoAction" method="zwtList">
+		</action>
+		
+		<action name="caseInfoList" class="com.jshx.ajxx.web.CaseInfoAction" method="init">
+			<result name="success">/WEB-INF/zwtPage/case/CaseInfo_List.jsp</result>
+		</action>
+		
+		<action name="caseInfoLists">
+			<result name="success">/WEB-INF/zwtPage/case/CaseInfo_Lists.jsp</result>
+		</action>
+		
+		<action name="caseInfoView" class="com.jshx.ajxx.web.CaseInfoAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/case/CaseInfo_Detail.jsp</result>
+		</action>
+
+		<action name="caseInfoInitEdit" class="com.jshx.ajxx.web.CaseInfoAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/case/CaseInfo_Edit.jsp</result>
+		</action>
+
+		<action name="caseInfoSave" class="com.jshx.ajxx.web.CaseInfoAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_caseInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="caseInfoDel" class="com.jshx.ajxx.web.CaseInfoAction" method="delete">
+		</action>
+		
+		<action name="caseInfoShenhe" class="com.jshx.ajxx.web.CaseInfoAction" method="shenhe">
+			<result name="success">/WEB-INF/zwtPage/case/CaseInfo_Shenhe.jsp</result>
+		</action>
+		
+		
+		<action name="caseInfoShenheSave" class="com.jshx.ajxx.web.CaseInfoAction" method="shenheSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_caseInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		<action name="caseInfoGuidang" class="com.jshx.ajxx.web.CaseInfoAction" method="guidnag">
+			<result name="success">/WEB-INF/zwtPage/case/CaseInfo_Guidang.jsp</result>
+		</action>
+		
+		
+		<action name="caseInfoShenheAll" class="com.jshx.ajxx.web.CaseInfoAction" method="shenheAll">
+			<result name="success">/WEB-INF/zwtPage/case/CaseInfo_ShenheAll.jsp</result>
+		</action>
+		
+		
+		<action name="caseInfoShenheAllSave" class="com.jshx.ajxx.web.CaseInfoAction" method="shenheAllSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_caseInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		<action name="caseInfoGuidangSave" class="com.jshx.ajxx.web.CaseInfoAction" method="guidnagSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_caseInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="downloadAllFile" class="com.jshx.ajxx.web.CaseInfoAction" method="downloadAllFile">
+		</action>
+		
+		<action name="initUploadFile" class="com.jshx.ajxx.web.CaseInfoAction" method="initUploadFile">
+			<result name="success">/WEB-INF/zwtPage/case/CaseCl_List.jsp</result>
+		</action>
+		
+		<action name="uploadFileList" class="com.jshx.ajxx.web.CaseInfoAction" method="zwtfilelist">
+		</action>
+		
+		<action name="uploadFileView" class="com.jshx.ajxx.web.CaseInfoAction" method="uploadFileView">
+			<result name="view">/WEB-INF/zwtPage/case/CaseCl_Detail.jsp</result>
+		</action>
+
+		<action name="uploadFileInitEdit" class="com.jshx.ajxx.web.CaseInfoAction" method="uploadFileInitEdit">
+			<result name="edit">/WEB-INF/zwtPage/case/CaseCl_Edit.jsp</result>
+		</action>
+		
+		<action name="saveUploadFile" class="com.jshx.ajxx.web.CaseInfoAction" method="saveUploadFile">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_caseCl</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		<action name="uploadFileDel" class="com.jshx.ajxx.web.CaseInfoAction" method="deleteUploadFile">
+		</action>
+		
+		<action name="initUploadZjlb" class="com.jshx.ajxx.web.CaseInfoAction" method="initUploadZjlb">
+			<result name="success">/WEB-INF/zwtPage/case/CaseZj_List.jsp</result>
+		</action>
+		
+		<action name="uploadZjlbList" class="com.jshx.ajxx.web.CaseInfoAction" method="zwtzjlblist">
+		</action>
+		
+		<action name="uploadZjlbView" class="com.jshx.ajxx.web.CaseInfoAction" method="uploadZjlbView">
+			<result name="view">/WEB-INF/zwtPage/case/CaseZj_Detail.jsp</result>
+		</action>
+
+		<action name="uploadZjlbInitEdit" class="com.jshx.ajxx.web.CaseInfoAction" method="uploadZjlbInitEdit">
+			<result name="edit">/WEB-INF/zwtPage/case/CaseZj_Edit.jsp</result>
+		</action>
+		
+		<action name="saveUploadZjlb" class="com.jshx.ajxx.web.CaseInfoAction" method="saveUploadZjlb">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_caseZj</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="uploadZjlbDel" class="com.jshx.ajxx.web.CaseInfoAction" method="deleteUploadZjlb">
+		</action>
+		
+		
+		<!-- 文书管理 fq -->
+		
+		<action name="wsgl" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="wsgl">
+			<result name="success">/WEB-INF/zwtPageNew/wsgl.jsp</result>
+		</action>
+		
+		<action name="instrumentsInfoQuery" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="zwtList">
+		</action>
+		
+		<action name="instrumentsInfoList" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="init">
+			<result name="success">/WEB-INF/zwtPage/wsgl/InstrumentsInfo_List.jsp</result>
+		</action>
+		
+		<action name="instrumentsInfoView" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/wsgl/InstrumentsInfo_Detail.jsp</result>
+			<result name="views">/WEB-INF/zwtPage/wsgl/InstrumentsInfo_Details.jsp</result>
+		</action>
+
+		<action name="instrumentsInfoInitEdit" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/wsgl/InstrumentsInfo_Edit.jsp</result>
+			<result name="edits">/WEB-INF/zwtPage/wsgl/InstrumentsInfo_Edits.jsp</result>
+		</action>
+
+		<action name="instrumentsInfoSave" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_instrumentsInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="instrumentsInfoDel" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="delete">
+		</action>
+		
+		<action name="instrumentsInfoExport" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="export">
+		</action>
+		
+		<action name="instrumentsInfoPic" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="returnPic">
+			<result name="success">/WEB-INF/zwtPage/wsgl/InstrumentsInfo_Pic.jsp</result>
+		</action>
+		
+		<action name="instrumentsInfoPicSave" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="picSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_instrumentsInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="instrumentsInfoShenhe" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="shenhe">
+			<result name="success">/WEB-INF/zwtPage/wsgl/InstrumentsInfo_Shenhe.jsp</result>
+		</action>
+		
+		
+		<action name="instrumentsInfoShenheSave" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="shenheSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_instrumentsInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="queryWsxx" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="queryWsxx">
+		</action>
+		
+		<action name="queryWsType" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="queryWsType">
+			<result name="success">/WEB-INF/zwtPage/wsgl/InstrumentsInfo_WsList.jsp</result>
+		</action>
+		
+		<action name="instrumentsInfoShenheAll" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="shenheAll">
+			<result name="success">/WEB-INF/zwtPage/wsgl/InstrumentsInfo_ShenheAll.jsp</result>
+		</action>
+		
+		
+		<action name="instrumentsInfoShenheAllSave" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="shenheAllSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_instrumentsInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="selectUsers" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="selectUsers">
+			<result name="success">/WEB-INF/zwtPage/wsgl/InstrumentsInfo_SelectUser.jsp</result>
+		</action>
+		
+		<action name="getDepartUser" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="getDepartUser">
+		</action>
+		
+		<action name="lockUser" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="lockUser">
+		</action>
+		
+		<action name="lockAndShowUser" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="lockAndShowUser">
+		</action>
+		
+		<action name="unlockUser" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="unlockUser">
+		</action>
+		
+		<action name="instrumentsInfoSaves" class="com.jshx.wsgl.web.InstrumentsInfoAction" method="saves">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_instrumentsInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<!-- 主要原料 -->
+		<action name="zyyl"  class="com.jshx.zyyl.web.MaiMatAction" method="zyyl">
+			<result name="success">/WEB-INF/zwtPageNew/zyyl.jsp</result>
+		</action>
+		<action name="maiMatQuery" class="com.jshx.zyyl.web.MaiMatAction" method="zwtList">
+		</action>
+		<action name="maiMatView" class="com.jshx.zyyl.web.MaiMatAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zyyl/MaiMat_Detail.jsp</result>
+		</action>
+		
+		<!-- 消防设施分布 -->
+		<action name="xfssfbt"  class="com.jshx.xfssfbt.web.FirMapAction" method="xfssfbt">
+			<result name="success">/WEB-INF/zwtPageNew/xfssfbt.jsp</result>
+		</action>
+		<action name="firMapQuery" class="com.jshx.xfssfbt.web.FirMapAction" method="zwtList">
+		</action>
+		<action name="firMapView" class="com.jshx.xfssfbt.web.FirMapAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/xfssfbt/FirMap_Detail.jsp</result>
+		</action>
+
+		
+		<!-- 安全设施登记 -->
+		<action name="aqssdjtz"  class="com.jshx.aqssdjtz.web.SafLedAction" method="aqssdjtz">
+			<result name="success">/WEB-INF/zwtPageNew/aqssdjtz.jsp</result>
+		</action>
+		<action name="safLedQuery" class="com.jshx.aqssdjtz.web.SafLedAction" method="zwtList">
+		</action>
+		<action name="safLedView" class="com.jshx.aqssdjtz.web.SafLedAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqssdjtz/SafLed_Detail.jsp</result>
+		</action>
+		
+		<!-- 涉危物质 -->
+		<action name="swwzxx"  class="com.jshx.swwzxx.web.MatInfAction" method="swwzxx">
+			<result name="success">/WEB-INF/zwtPageNew/swwzxx.jsp</result>
+		</action>
+		<action name="matInfQuery" class="com.jshx.swwzxx.web.MatInfAction" method="zwtList">
+		</action>
+		<action name="matInfView" class="com.jshx.swwzxx.web.MatInfAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/swwzxx/MatInf_Detail.jsp</result>
+		</action>
+		
+		
+		<!-- 周边环境 fq -->
+		<action name="zbhj"  class="com.jshx.zbhjxx.web.EnvInfAction" method="zbhj">
+			<result name="success">/WEB-INF/zwtPageNew/zbhj.jsp</result>
+		</action>
+		
+		<action name="envInfQuery" class="com.jshx.zbhjxx.web.EnvInfAction" method="zwtList">
+		</action>
+		
+		<action name="envInfView" class="com.jshx.zbhjxx.web.EnvInfAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zbhjxx/EnvInf_Detail.jsp</result>
+		</action>
+		
+		
+		
+		<!-- 危险性知识库 fq -->
+		<action name="wxxzsk"  class="com.jshx.wpwxxzsk.web.RisKnoBasAction" method="wxxzsk">
+			<result name="success">/WEB-INF/zwtPageNew/wxxzsk.jsp</result>
+		</action>
+		
+		<action name="risKnoBasQuery" class="com.jshx.wpwxxzsk.web.RisKnoBasAction" method="zwtList">
+		</action>
+		
+		
+		<action name="risKnoBasView" class="com.jshx.wpwxxzsk.web.RisKnoBasAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/wpwxxzsk/RisKnoBas_Detail.jsp</result>
+		</action>
+		
+		
+		<!-- 危化安全管理制度 fq -->
+		<action name="whaqglzd"  class="com.jshx.whaqglzd.web.CheSafManAction" method="whaqglzd">
+			<result name="success">/WEB-INF/zwtPageNew/whaqglzd.jsp</result>
+		</action>
+		
+		<action name="cheSafManQuery" class="com.jshx.whaqglzd.web.CheSafManAction" method="zwtList">
+		</action>
+		
+		<action name="cheSafManView" class="com.jshx.whaqglzd.web.CheSafManAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/whaqglzd/CheSafMan_Detail.jsp</result>
+		</action>
+		
+		<action name="whxx1"  class="com.jshx.lddbqk.web.LeaClaAction" method="lldb">
+			<result name="success">/WEB-INF/zwtPageNew/whxx1.jsp</result>
+		</action>
+		
+		<action name="whxx2"  class="com.jshx.whaqglzd.web.CheSafManAction" method="whaqglzd">
+			<result name="success">/WEB-INF/zwtPageNew/whxx2.jsp</result>
+		</action>
+		
+		<action name="whxx3"  class="com.jshx.whaqglzd.web.CheSafManAction" method="whaqglzd">
+			<result name="success">/WEB-INF/zwtPageNew/whxx3.jsp</result>
+		</action>
+		
+		
+		<!-- 教育培训 fq -->
+		<action name="jypx"  class="com.jshx.aqscldjg.web.ProLegOrgAction" method="jypx">
+			<result name="success">/WEB-INF/zwtPageNew/jypx.jsp</result>
+		</action>
+		
+		
+		<action name="zwtJypxList" class="com.jshx.aqscldjg.web.ProLegOrgAction" method="zwtJypxList">
+		</action>
+		
+		
+		<!-- 事故报告  lj  2016-06-06 -->
+		<action name="sgbg"  class="com.jshx.sgbgdchcl.web.AccRepInvHanAction" method="sgbg">
+			<result name="success">/WEB-INF/zwtPageNew/sgbg.jsp</result>
+		</action>
+			<action name="accRepInvHanQuery" class="com.jshx.sgbgdchcl.web.AccRepInvHanAction" method="zwtList">
+		</action>
+		
+		<action name="accRepInvHanView" class="com.jshx.sgbgdchcl.web.AccRepInvHanAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/sgbgdchcl/AccRepInvHan_Detail.jsp</result>
+		</action>
+		<!-- 管理制度  lj  2016-06-06 -->
+		<action name="glzd"  class="com.jshx.zywsaqglzd.web.OccHeaManAction" method="glzd">
+			<result name="success">/WEB-INF/zwtPageNew/glzd.jsp</result>
+		</action>
+			<action name="occHeaManQuery" class="com.jshx.zywsaqglzd.web.OccHeaManAction" method="zwtList">
+		</action>
+		
+		<action name="occHeaManView" class="com.jshx.zywsaqglzd.web.OccHeaManAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zywsaqglzd/OccHeaMan_Detail.jsp</result>
+		</action>
+		<!-- 防治经费  lj  2016-06-06 -->
+		<action name="fzjf"  class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="fzjf">
+			<result name="success">/WEB-INF/zwtPageNew/fzjf.jsp</result>
+		</action>
+			<action name="occDisPreQuery" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="zwtList">
+		</action>
+		
+		<action name="occDisPreView" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/ndzybfzjf/OccDisPre_Detail.jsp</result>
+		</action>
+		<!-- 职业健康 基本信息   lj  2016-06-06 -->
+		<action name="zyjkjbxx"  class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="zyjkjbxx">
+			<result name="success">/WEB-INF/zwtPageNew/zyjkjbxx.jsp</result>
+		</action>
+			<action name="occHeaInfoQuery" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="zwtList">
+		</action>
+		
+		<action name="occHeaInfoView" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zywsgljbxx/OccHeaInfo_Detail.jsp</result>
+		</action>
+		<!-- 作业点布局   lj  2016-06-06 -->
+		<action name="zydbj"  class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="zydbj">
+			<result name="success">/WEB-INF/zwtPageNew/zydbj.jsp</result>
+		</action>
+			<action name="equAndFacQuery" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="zwtList">
+		</action>
+		
+		<action name="equAndFacView" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/sbsskjzywszydbj/EquAndFac_Detail.jsp</result>
+		</action>
+		<!-- 基本因素   lj  2016-06-06 -->
+		<action name="jbys"  class="com.jshx.zybwhysfbqk.web.OccDisAction" method="jbys">
+			<result name="success">/WEB-INF/zwtPageNew/jbys.jsp</result>
+		</action>
+			<action name="occDisQuery" class="com.jshx.zybwhysfbqk.web.OccDisAction" method="zwtList">
+		</action>
+		
+		<action name="occDisView" class="com.jshx.zybwhysfbqk.web.OccDisAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zybwhysfbqk/OccDis_Detail.jsp</result>
+		</action>
+		<!-- 危害因素检测    lj  2016-06-07 -->
+		<action name="whysjc"  class="com.jshx.whysjc.web.HazDetAction" method="whysjc">
+			<result name="success">/WEB-INF/zwtPageNew/whysjc.jsp</result>
+		</action>
+			<action name="hazDetQuery" class="com.jshx.whysjc.web.HazDetAction" method="zwtList">
+		</action>
+		
+		<action name="hazDetView" class="com.jshx.whysjc.web.HazDetAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/whysjc/HazDet_Detail.jsp</result>
+		</action>
+		<!-- 检测超标管理   lj  2016-06-07 -->
+		<action name="jccbgl"  class="com.jshx.jccbgl.web.DetOverStaManAction" method="jccbgl">
+			<result name="success">/WEB-INF/zwtPageNew/jccbgl.jsp</result>
+		</action>
+			<action name="detOverStaManQuery" class="com.jshx.jccbgl.web.DetOverStaManAction" method="zwtList">
+		</action>
+		
+		<action name="detOverStaManView" class="com.jshx.jccbgl.web.DetOverStaManAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/jccbgl/DetOverStaMan_Detail.jsp</result>
+		</action>
+		<!-- 职业健康体检   lj  2016-06-07 -->
+		<action name="zyjktj"  class="com.jshx.zyjktj.web.OccHeaExaAction" method="zyjktj">
+			<result name="success">/WEB-INF/zwtPageNew/zyjktj.jsp</result>
+		</action>
+			<action name="occHeaExaQuery" class="com.jshx.zyjktj.web.OccHeaExaAction" method="zwtList">
+		</action>
+		
+		<action name="occHeaExaView" class="com.jshx.zyjktj.web.OccHeaExaAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zyjktj/OccHeaExa_Detail.jsp</result>
+		</action>
+		<!-- 体检不合格记录   lj  2016-06-07 -->
+		<action name="tjbhgjl"  class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="tjbhgjl">
+			<result name="success">/WEB-INF/zwtPageNew/tjbhgjl.jsp</result>
+		</action>
+			<action name="phyUnqRecQuery" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="zwtList">
+		</action>
+		
+		<action name="phyUnqRecView" class="com.jshx.tjbhgjl.web.PhyUnqRecAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/tjbhgjl/PhyUnqRec_Detail.jsp</result>
+		</action>
+		<!-- 调岗记录   lj  2016-06-07 -->
+		<action name="dgjl"  class="com.jshx.dgjl.web.ProRecAction" method="dgjl">
+			<result name="success">/WEB-INF/zwtPageNew/dgjl.jsp</result>
+		</action>
+			<action name="proRecQuery" class="com.jshx.dgjl.web.ProRecAction" method="zwtList">
+		</action>
+		
+		<action name="proRecView" class="com.jshx.dgjl.web.ProRecAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/dgjl/ProRec_Detail.jsp</result>
+		</action>
+		<!-- 负责人履职情况    lj  2016-06-07 -->
+		<action name="fzrlzqk"  class="com.jshx.qyzyfzrlzqk.web.MaiPerRepAction" method="fzrlzqk">
+			<result name="success">/WEB-INF/zwtPageNew/fzrlzqk.jsp</result>
+		</action>
+			<action name="maiPerRepQuery" class="com.jshx.qyzyfzrlzqk.web.MaiPerRepAction" method="zwtList">
+		</action>
+		
+		<action name="maiPerRepView" class="com.jshx.qyzyfzrlzqk.web.MaiPerRepAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/qyzyfzrlzqk/MaiPerRep_Detail.jsp</result>
+		</action>
+		<!-- 危险源备案    lj  2016-06-07 -->
+		<action name="wxyba"  class="com.jshx.wxhxpzdwxyba.web.MajSouRecAction" method="wxyba">
+			<result name="success">/WEB-INF/zwtPageNew/wxyba.jsp</result>
+		</action>
+			<action name="majSouRecQuery" class="com.jshx.wxhxpzdwxyba.web.MajSouRecAction" method="zwtList">
+		</action>
+		
+		<action name="majSouRecView" class="com.jshx.wxhxpzdwxyba.web.MajSouRecAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/wxhxpzdwxyba/MajSouRec_Detail.jsp</result>
+		</action>
+		<!-- 危险源核销    lj  2016-06-07 -->
+		<action name="wxyhx"  class="com.jshx.wxhxpzdwxyhx.web.MajSouVerAction" method="wxyhx">
+			<result name="success">/WEB-INF/zwtPageNew/wxyhx.jsp</result>
+		</action>
+			<action name="majSouVerQuery" class="com.jshx.wxhxpzdwxyhx.web.MajSouVerAction" method="zwtList">
+		</action>
+		
+		<action name="majSouVerView" class="com.jshx.wxhxpzdwxyhx.web.MajSouVerAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/wxhxpzdwxyhx/MajSouVer_Detail.jsp</result>
+		</action>
+		<!-- 危化品储量    lj  2016-06-07 -->
+		<action name="whpcl"  class="com.jshx.zdwhpclqkb.web.CheResAction" method="whpcl">
+			<result name="success">/WEB-INF/zwtPageNew/whpcl.jsp</result>
+		</action>
+			<action name="cheResQuery" class="com.jshx.zdwhpclqkb.web.CheResAction" method="zwtList">
+		</action>
+		
+		<action name="cheResView" class="com.jshx.zdwhpclqkb.web.CheResAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/zdwhpclqkb/CheRes_Detail.jsp</result>
+		</action>
+		<!-- 领导带班    lj  2016-06-07 -->
+		<action name="lldb"  class="com.jshx.lddbqk.web.LeaClaAction" method="lldb">
+			<result name="success">/WEB-INF/zwtPageNew/lldb.jsp</result>
+		</action>
+			<action name="leaClaQuery" class="com.jshx.lddbqk.web.LeaClaAction" method="zwtList">
+		</action>
+		
+		<action name="leaClaView" class="com.jshx.lddbqk.web.LeaClaAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/lddbqk/LeaCla_Detail.jsp</result>
+		</action>
+		
+		<action name="leaClaCheck" class="com.jshx.lddbqk.web.LeaClaAction" method="check">
+			<result name="check">/WEB-INF/zwtPage/lddbqk/LeaCla_Check.jsp</result>
+		</action>
+		
+		<action name="leaClaCheckSave" class="com.jshx.lddbqk.web.LeaClaAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_leaCla</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		<!-- 节假日开停工    lj  2016-06-07 -->
+		<action name="jjrktg"  class="com.jshx.jjrktg.web.ShuHolAction" method="jjrktg">
+			<result name="success">/WEB-INF/zwtPageNew/jjrktg.jsp</result>
+		</action>
+			<action name="shuHolQuery" class="com.jshx.jjrktg.web.ShuHolAction" method="zwtList">
+		</action>
+		
+		<action name="shuHolView" class="com.jshx.jjrktg.web.ShuHolAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/jjrktg/ShuHol_Detail.jsp</result>
+		</action>
+		<action name="shuHolCheck" class="com.jshx.jjrktg.web.ShuHolAction" method="check">
+			<result name="check">/WEB-INF/zwtPage/jjrktg/ShuHol_Check.jsp</result>
+		</action>
+		
+		<action name="shuHolCheckSave" class="com.jshx.jjrktg.web.ShuHolAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+		    <result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_shuHol</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		<!-- 工艺流程    lj  2016-06-07 -->
+		<action name="gylc"  class="com.jshx.gylc.web.TecProAction" method="gylc">
+			<result name="success">/WEB-INF/zwtPageNew/gylc.jsp</result>
+		</action>
+			<action name="tecProQuery" class="com.jshx.gylc.web.TecProAction" method="zwtList">
+		</action>
+		
+		<action name="tecProView" class="com.jshx.gylc.web.TecProAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/gylc/TecPro_Detail.jsp</result>
+		</action>
+		<!-- 关键装置和重点部位    lj  2016-06-07 -->
+		<action name="gjzzhzdbw"  class="com.jshx.qygjzzhzdbw.web.KeyParAction" method="gjzzhzdbw">
+			<result name="success">/WEB-INF/zwtPageNew/gjzzhzdbw.jsp</result>
+		</action>
+			<action name="keyParQuery" class="com.jshx.qygjzzhzdbw.web.KeyParAction" method="zwtList">
+		</action>
+		
+		<action name="keyParView" class="com.jshx.qygjzzhzdbw.web.KeyParAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/qygjzzhzdbw/KeyPar_Detail.jsp</result>
+		</action>
+		
+		<action name="zyjk1"  class="com.jshx.zywsaqglzd.web.OccHeaManAction" method="glzd">
+			<result name="success">/WEB-INF/zwtPageNew/zyjk1.jsp</result>
+		</action>
+		
+		<action name="zyjk2"  class="com.jshx.zywsaqglzd.web.OccHeaManAction" method="glzd">
+			<result name="success">/WEB-INF/zwtPageNew/zyjk2.jsp</result>
+		</action>
+		
+		
+		<!-- 粉尘作业场所管理 fq -->
+		<action name="fczycs" class="com.jshx.fczycsgl.web.DusWorManAction" method="fczycs">
+			<result name="success">/WEB-INF/zwtPageNew/fczycs.jsp</result>
+		</action>
+		
+		<action name="dusWorManQuery" class="com.jshx.fczycsgl.web.DusWorManAction" method="zwtList">
+		</action>
+		
+		<action name="dusWorManView" class="com.jshx.fczycsgl.web.DusWorManAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/fczycsgl/DusWorMan_Detail.jsp</result>
+		</action>
+		
+		<!-- 监管信息插件 -->
+		<action name="zwtJgxx"  class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zwtJgxx">
+			<result name="success">/WEB-INF/zwtPageNew/jgxxChajian.jsp</result>
+			<result name="error">/common/zwtError.jsp</result>
+		</action>
+		
+		
+		<!--一般企业安评报告备案-->
+		<action name="assRepFilQuery" class="com.jshx.ybqyapbgba.web.AssRepFilAction" method="zwtList">
+		</action>
+		
+		<action name="assRepFilList" class="com.jshx.ybqyapbgba.web.AssRepFilAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/ybqyapbgba.jsp</result>
+		</action>
+		
+		<action name="assRepFilView" class="com.jshx.ybqyapbgba.web.AssRepFilAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/ybqyapbgba/AssRepFil_Detail.jsp</result>
+		</action>
+
+		<action name="assRepFilInitEdit" class="com.jshx.ybqyapbgba.web.AssRepFilAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/ybqyapbgba/AssRepFil_Edit.jsp</result>
+		</action>
+
+		<action name="assRepFilSave" class="com.jshx.ybqyapbgba.web.AssRepFilAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_assRepFil</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="assRepFilDel" class="com.jshx.ybqyapbgba.web.AssRepFilAction" method="delete">
+		</action>
+		
+		
+		<!--建设项目安全条件论证与安全预评价-->
+		<action name="proSafAssQuery" class="com.jshx.prosafeassess.web.ProSafAssAction" method="zwtList">
+		</action>
+		
+		<action name="proSafAssList" class="com.jshx.prosafeassess.web.ProSafAssAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/prosafeassess.jsp</result>
+		</action>
+		
+		<action name="proSafAssView" class="com.jshx.prosafeassess.web.ProSafAssAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/prosafeassess/ProSafAss_Detail.jsp</result>
+		</action>
+
+		<action name="proSafAssInitEdit" class="com.jshx.prosafeassess.web.ProSafAssAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/prosafeassess/ProSafAss_Edit.jsp</result>
+		</action>
+
+		<action name="proSafAssSave" class="com.jshx.prosafeassess.web.ProSafAssAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_proSafAss</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proSafAssDel" class="com.jshx.prosafeassess.web.ProSafAssAction" method="delete">
+		</action>
+		
+		
+		<!--建设项目安全设施设计审查-->
+		
+		<action name="proSafDesQuery" class="com.jshx.prosafedesign.web.ProSafDesAction" method="zwtList">
+		</action>
+		
+		<action name="proSafDesList" class="com.jshx.prosafedesign.web.ProSafDesAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/prosafedesign.jsp</result>
+		</action>
+		
+		<action name="proSafDesView" class="com.jshx.prosafedesign.web.ProSafDesAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/prosafedesign/ProSafDes_Detail.jsp</result>
+		</action>
+
+		<action name="proSafDesInitEdit" class="com.jshx.prosafedesign.web.ProSafDesAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/prosafedesign/ProSafDes_Edit.jsp</result>
+		</action>
+
+		<action name="proSafDesSave" class="com.jshx.prosafedesign.web.ProSafDesAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_proSafDes</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proSafDesDel" class="com.jshx.prosafedesign.web.ProSafDesAction" method="delete">
+		</action>
+		
+		
+		<!--建设项目安全设施施工和竣工验收-->
+		<action name="proSafComQuery" class="com.jshx.prosafecomplete.web.ProSafComAction" method="zwtList">
+		</action>
+		
+		<action name="proSafComList" class="com.jshx.prosafecomplete.web.ProSafComAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/prosafecomplete.jsp</result>
+		</action>
+		
+		<action name="proSafComView" class="com.jshx.prosafecomplete.web.ProSafComAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/prosafecomplete/ProSafCom_Detail.jsp</result>
+		</action>
+
+		<action name="proSafComInitEdit" class="com.jshx.prosafecomplete.web.ProSafComAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/prosafecomplete/ProSafCom_Edit.jsp</result>
+		</action>
+
+		<action name="proSafComSave" class="com.jshx.prosafecomplete.web.ProSafComAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_proSafCom</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proSafComDel" class="com.jshx.prosafecomplete.web.ProSafComAction" method="delete">
+		</action>
+		
+		<!--许可证注销信息-->
+		<action name="licCanInfQuery" class="com.jshx.xkzcxxx.web.LicCanInfAction" method="zwtList">
+		</action>
+		
+		<action name="licCanInfList" class="com.jshx.xkzcxxx.web.LicCanInfAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/xkzcxxx.jsp</result>
+		</action>
+		
+		<action name="licCanInfView" class="com.jshx.xkzcxxx.web.LicCanInfAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/xkzcxxx/LicCanInf_Detail.jsp</result>
+		</action>
+
+		<action name="licCanInfInitEdit" class="com.jshx.xkzcxxx.web.LicCanInfAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/xkzcxxx/LicCanInf_Edit.jsp</result>
+		</action>
+
+		<action name="licCanInfSave" class="com.jshx.xkzcxxx.web.LicCanInfAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_licCanInf</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="licCanInfDel" class="com.jshx.xkzcxxx.web.LicCanInfAction" method="delete">
+		</action>
+		<action name="licCanInfCheck" class="com.jshx.xkzcxxx.web.LicCanInfAction" method="check">
+			<result name="check">/WEB-INF/zwtPage/xkzcxxx/LicCanInf_Check.jsp</result>
+		</action>
+		
+		<action name="licCanInfCheckSave" class="com.jshx.xkzcxxx.web.LicCanInfAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_licCanInf</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<!--事故应急救援预案备案-->
+		<action name="accPlaRecQuery" class="com.jshx.sgyjjyya.web.AccPlaRecAction" method="zwtList">
+		</action>
+		
+		<action name="accPlaRecList"  class="com.jshx.sgyjjyya.web.AccPlaRecAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/sgyjjyya.jsp</result>
+		</action>
+		
+		<action name="accPlaRecView" class="com.jshx.sgyjjyya.web.AccPlaRecAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/sgyjjyya/AccPlaRec_Detail.jsp</result>
+		</action>
+
+		<action name="accPlaRecInitEdit" class="com.jshx.sgyjjyya.web.AccPlaRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/sgyjjyya/AccPlaRec_Edit.jsp</result>
+		</action>
+
+		<action name="accPlaRecSave" class="com.jshx.sgyjjyya.web.AccPlaRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_accPlaRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="accPlaRecDel" class="com.jshx.sgyjjyya.web.AccPlaRecAction" method="delete">
+		</action>
+		
+		
+		
+		<!--危险化学品经营企业的行政许可-->
+		
+		<action name="cheManLicQuery" class="com.jshx.whpxzxk.web.CheManLicAction" method="zwtList">
+		</action>
+		
+		<action name="cheManLicList" class="com.jshx.whpxzxk.web.CheManLicAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/whpxzxk.jsp</result>
+		</action>
+		
+		<action name="cheManLicView" class="com.jshx.whpxzxk.web.CheManLicAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/whpxzxk/CheManLic_Detail.jsp</result>
+		</action>
+
+		<action name="cheManLicInitEdit" class="com.jshx.whpxzxk.web.CheManLicAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/whpxzxk/CheManLic_Edit.jsp</result>
+		</action>
+
+		<action name="cheManLicSave" class="com.jshx.whpxzxk.web.CheManLicAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_cheManLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="cheManLicDel" class="com.jshx.whpxzxk.web.CheManLicAction" method="delete">
+		</action>
+			<action name="cheManLicCheck" class="com.jshx.whpxzxk.web.CheManLicAction" method="check">
+			<result name="check">/WEB-INF/zwtPage/whpxzxk/CheManLic_Check.jsp</result>
+		</action>
+		
+		<action name="cheManLicCheckSave" class="com.jshx.whpxzxk.web.CheManLicAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_cheManLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		<!--危险化学品企业安全生产许可证-->
+		<action name="cheProLicQuery" class="com.jshx.cheprolicense.web.CheProLicAction" method="zwtList">
+		</action>
+		
+		<action name="cheProLicList" class="com.jshx.cheprolicense.web.CheProLicAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/cheprolicense.jsp</result>
+		</action>
+		
+		<action name="cheProLicView" class="com.jshx.cheprolicense.web.CheProLicAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/cheprolicense/CheProLic_Detail.jsp</result>
+		</action>
+
+		<action name="cheProLicInitEdit" class="com.jshx.cheprolicense.web.CheProLicAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/cheprolicense/CheProLic_Edit.jsp</result>
+		</action>
+
+		<action name="cheProLicSave" class="com.jshx.cheprolicense.web.CheProLicAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_cheProLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="cheProLicDel" class="com.jshx.cheprolicense.web.CheProLicAction" method="delete">
+		</action>
+		<action name="cheProLicCheck" class="com.jshx.cheprolicense.web.CheProLicAction" method="check">
+			<result name="check">/WEB-INF/zwtPage/cheprolicense/CheProLic_Check.jsp</result>
+		</action>
+		
+		<action name="cheProLicCheckSave" class="com.jshx.cheprolicense.web.CheProLicAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_cheProLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		<!--非药品类易制毒化学品经营许可证-->
+		<action name="preBusLicQuery" class="com.jshx.prebuslicense.web.PreBusLicAction" method="zwtList">
+		</action>
+		
+		<action name="preBusLicList" class="com.jshx.prebuslicense.web.PreBusLicAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/prebuslicense.jsp</result>
+		</action>
+		
+		<action name="preBusLicView" class="com.jshx.prebuslicense.web.PreBusLicAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/prebuslicense/PreBusLic_Detail.jsp</result>
+		</action>
+
+		<action name="preBusLicInitEdit" class="com.jshx.prebuslicense.web.PreBusLicAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/prebuslicense/PreBusLic_Edit.jsp</result>
+		</action>
+
+		<action name="preBusLicSave" class="com.jshx.prebuslicense.web.PreBusLicAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_preBusLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="preBusLicDel" class="com.jshx.prebuslicense.web.PreBusLicAction" method="delete">
+		</action>
+		
+		
+		<!--非药品类易制毒化学品生产许可证-->
+		
+		<action name="preProLicQuery" class="com.jshx.preprolicense.web.PreProLicAction" method="zwtList">
+		</action>
+		
+		<action name="preProLicList" class="com.jshx.preprolicense.web.PreProLicAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/preprolicense.jsp</result>
+		</action>
+		
+		<action name="preProLicView" class="com.jshx.preprolicense.web.PreProLicAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/preprolicense/PreProLic_Detail.jsp</result>
+		</action>
+
+		<action name="preProLicInitEdit" class="com.jshx.preprolicense.web.PreProLicAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/preprolicense/PreProLic_Edit.jsp</result>
+		</action>
+
+		<action name="preProLicSave" class="com.jshx.preprolicense.web.PreProLicAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_preProLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="preProLicDel" class="com.jshx.preprolicense.web.PreProLicAction" method="delete">
+		</action>
+		<action name="preProLicCheck" class="com.jshx.preprolicense.web.PreProLicAction" method="check">
+			<result name="check">/WEB-INF/zwtPage/preprolicense/PreProLic_Check.jsp</result>
+		</action>
+		
+		<action name="preProLicCheckSave" class="com.jshx.preprolicense.web.PreProLicAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_preProLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		<!--危险化学品建设项目安全条件审查-->
+		<action name="cheSafConQuery" class="com.jshx.chesafecondition.web.CheSafConAction" method="zwtList">
+		</action>
+		
+		<action name="cheSafConList" class="com.jshx.chesafecondition.web.CheSafConAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/chesafecondition.jsp</result>
+		</action>
+		
+		<action name="cheSafConView" class="com.jshx.chesafecondition.web.CheSafConAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/chesafecondition/CheSafCon_Detail.jsp</result>
+		</action>
+
+		<action name="cheSafConInitEdit" class="com.jshx.chesafecondition.web.CheSafConAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/chesafecondition/CheSafCon_Edit.jsp</result>
+		</action>
+
+		<action name="cheSafConSave" class="com.jshx.chesafecondition.web.CheSafConAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_cheSafCon</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="cheSafConDel" class="com.jshx.chesafecondition.web.CheSafConAction" method="delete">
+		</action>
+		
+		
+		<!--危险化学品建设项目安全设施设计审查-->
+		<action name="cheSafDesQuery" class="com.jshx.chesafedesign.web.CheSafDesAction" method="zwtList">
+		</action>
+		
+		<action name="cheSafDesList" class="com.jshx.chesafedesign.web.CheSafDesAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/chesafedesign.jsp</result>
+		</action>
+		
+		<action name="cheSafDesView" class="com.jshx.chesafedesign.web.CheSafDesAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/chesafedesign/CheSafDes_Detail.jsp</result>
+		</action>
+
+		<action name="cheSafDesInitEdit" class="com.jshx.chesafedesign.web.CheSafDesAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/chesafedesign/CheSafDes_Edit.jsp</result>
+		</action>
+
+		<action name="cheSafDesSave" class="com.jshx.chesafedesign.web.CheSafDesAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_cheSafDes</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="cheSafDesDel" class="com.jshx.chesafedesign.web.CheSafDesAction" method="delete">
+		</action>
+		
+		<!--危险化学品建设项目安全设施竣工验收-->
+		<action name="cheSafComQuery" class="com.jshx.chesafecomplete.web.CheSafComAction" method="zwtList">
+		</action>
+		
+		<action name="cheSafComList" class="com.jshx.chesafecomplete.web.CheSafComAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/chesafecomplete.jsp</result>
+		</action>
+		
+		<action name="cheSafComView" class="com.jshx.chesafecomplete.web.CheSafComAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/chesafecomplete/CheSafCom_Detail.jsp</result>
+		</action>
+
+		<action name="cheSafComInitEdit" class="com.jshx.chesafecomplete.web.CheSafComAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/chesafecomplete/CheSafCom_Edit.jsp</result>
+		</action>
+
+		<action name="cheSafComSave" class="com.jshx.chesafecomplete.web.CheSafComAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_cheSafCom</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="cheSafComDel" class="com.jshx.chesafecomplete.web.CheSafComAction" method="delete">
+		</action>
+		
+		<!--危险化学品建设项目安全设施试生产备案-->
+		<action name="preProRecQuery" class="com.jshx.preprorecord.web.PreProRecAction" method="zwtList">
+		</action>
+		
+		<action name="preProRecList" class="com.jshx.preprorecord.web.PreProRecAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/preprorecord.jsp</result>
+		</action>
+		
+		<action name="preProRecView" class="com.jshx.preprorecord.web.PreProRecAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/preprorecord/PreProRec_Detail.jsp</result>
+		</action>
+
+		<action name="preProRecInitEdit" class="com.jshx.preprorecord.web.PreProRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/preprorecord/PreProRec_Edit.jsp</result>
+		</action>
+
+		<action name="preProRecSave" class="com.jshx.preprorecord.web.PreProRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_preProRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="preProRecDel" class="com.jshx.preprorecord.web.PreProRecAction" method="delete">
+		</action>
+		
+		
+		<!--第二三类非药品类易制毒化学品生产备案-->
+		<action name="cheSafProQuery" class="com.jshx.chesafepro.web.CheSafProAction" method="zwtList">
+		</action>
+		
+		<action name="cheSafProList" class="com.jshx.chesafepro.web.CheSafProAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/chesafepro.jsp</result>
+		</action>
+		
+		<action name="cheSafProView" class="com.jshx.chesafepro.web.CheSafProAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/chesafepro/CheSafPro_Detail.jsp</result>
+		</action>
+
+		<action name="cheSafProInitEdit" class="com.jshx.chesafepro.web.CheSafProAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/chesafepro/CheSafPro_Edit.jsp</result>
+		</action>
+
+		<action name="cheSafProSave" class="com.jshx.chesafepro.web.CheSafProAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_cheSafPro</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="cheSafProDel" class="com.jshx.chesafepro.web.CheSafProAction" method="delete">
+		</action>
+		
+		
+		<!--第二三类非药品类易制毒化学品经营备案-->
+		<action name="preManRecQuery" class="com.jshx.premanrecord.web.PreManRecAction" method="zwtList">
+		</action>
+		
+		<action name="preManRecList" class="com.jshx.premanrecord.web.PreManRecAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/premanrecord.jsp</result>
+		</action>
+		
+		<action name="preManRecView" class="com.jshx.premanrecord.web.PreManRecAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/premanrecord/PreManRec_Detail.jsp</result>
+		</action>
+
+		<action name="preManRecInitEdit" class="com.jshx.premanrecord.web.PreManRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/premanrecord/PreManRec_Edit.jsp</result>
+		</action>
+
+		<action name="preManRecSave" class="com.jshx.premanrecord.web.PreManRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_preManRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="preManRecDel" class="com.jshx.premanrecord.web.PreManRecAction" method="delete">
+		</action>
+		
+		
+		<!--危化品安全条件评价报告备案-->
+		<action name="cheRepFilQuery" class="com.jshx.whpaqtjpj.web.CheRepFilAction" method="zwtList">
+		</action>
+		
+		<action name="cheRepFilList"  class="com.jshx.whpaqtjpj.web.CheRepFilAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/whpaqtjpj.jsp</result>
+		</action>
+		
+		<action name="cheRepFilView" class="com.jshx.whpaqtjpj.web.CheRepFilAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/whpaqtjpj/CheRepFil_Detail.jsp</result>
+		</action>
+
+		<action name="cheRepFilInitEdit" class="com.jshx.whpaqtjpj.web.CheRepFilAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/whpaqtjpj/CheRepFil_Edit.jsp</result>
+		</action>
+
+		<action name="cheRepFilSave" class="com.jshx.whpaqtjpj.web.CheRepFilAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_cheRepFil</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="cheRepFilDel" class="com.jshx.whpaqtjpj.web.CheRepFilAction" method="delete">
+		</action>
+		
+		
+		
+		<!--烟花爆竹行政许可-->
+		<action name="firLicQuery" class="com.jshx.yhbzxzxk.web.FirLicAction" method="zwtList">
+		</action>
+		
+		<action name="firLicList" class="com.jshx.yhbzxzxk.web.FirLicAction" method="zwtInit">
+			<result name="success">/WEB-INF/zwtPageNew/yhbzxzxk.jsp</result>
+		</action>
+		
+		<action name="firLicView" class="com.jshx.yhbzxzxk.web.FirLicAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/yhbzxzxk/FirLic_Detail.jsp</result>
+		</action>
+
+		<action name="firLicInitEdit" class="com.jshx.yhbzxzxk.web.FirLicAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/yhbzxzxk/FirLic_Edit.jsp</result>
+		</action>
+
+		<action name="firLicSave" class="com.jshx.yhbzxzxk.web.FirLicAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_firLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="firLicDel" class="com.jshx.yhbzxzxk.web.FirLicAction" method="delete">
+		</action>
+		
+			<action name="firLicCheck" class="com.jshx.yhbzxzxk.web.FirLicAction" method="check">
+			<result name="check">/WEB-INF/zwtPage/yhbzxzxk/FirLic_Check.jsp</result>
+		</action>
+		
+		<action name="firLicCheckSave" class="com.jshx.yhbzxzxk.web.FirLicAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_firLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		
+		<!-- 公共信息插件 -->
+		<action name="zwtGgxx"  class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zwtGgxx">
+			<result name="success">/WEB-INF/zwtPageNew/ggxxChajian.jsp</result>
+			<result name="error">/common/zwtError.jsp</result>
+		</action>
+		
+		<!-- 查询统计插件 -->
+		<action name="zwtCxtj"  class="com.jshx.qyjbxx.web.EntBaseInfoAction" method="zwtCxtj">
+			<result name="success">/WEB-INF/zwtPageNew/cxtjChajian.jsp</result>
+			<result name="error">/common/zwtError.jsp</result>
+		</action> 
+		<!-- 查询统计插件 所属企业 -->
+		<action name="cxtjSsqy"  class="com.jshx.yhb.web.TroManAction" method="cxtjSsqy">
+			<result name="success">/WEB-INF/zwtPageNew/cxtj_ssqy.jsp</result>
+		</action> 
+		<!-- 按企业名称统计隐患信息 -->
+		<action name="companyTroManTongjiZwt"  class="com.jshx.yhb.web.TroManAction" method="companyTroManTongjiZwt">
+		</action>
+		<!-- 查询统计插件 所属企业 -->
+		<action name="cxtjSbry"  class="com.jshx.yhb.web.TroManAction" method="cxtjSbry">
+			<result name="success">/WEB-INF/zwtPageNew/cxtj_sbry.jsp</result>
+		</action> 
+		<!-- 按上报人统计隐患信息 -->
+		<action name="reportmanTroManTongjiZwt"  class="com.jshx.yhb.web.TroManAction" method="reportmanTroManTongjiZwt">
+		</action>
+		
+		
+		
+		<!-- 政府应急救援预案 -->
+		<action name="zfyjjyya"  class="com.jshx.yjya.web.EmePlaAction" method="inits">
+			<result name="success">/WEB-INF/zwtPageNew/zfyjjyya.jsp</result>
+		</action>
+		
+		<action name="emePlaQueryAJ"  class="com.jshx.yjya.web.EmePlaAction" method="zwtListZfyjjyya">
+		</action>
+		
+		<action name="emePlaInitEdit" class="com.jshx.yjya.web.EmePlaAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/yjya/EmePla_Edit.jsp</result>
+		</action>
+		
+		<action name="emePlaSave" class="com.jshx.yjya.web.EmePlaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_emePla</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="emePlaDel" class="com.jshx.yjya.web.EmePlaAction" method="delete">
+		</action>
+		
+		
+		<!-- 安全生产专家库 -->
+		<action name="safetyExpertsQuery" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="zwtList">
+		</action>
+		
+		<action name="aqsczjk" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="init">
+			<result name="success">/WEB-INF/zwtPageNew/aqsczjk.jsp</result>
+		</action>
+		
+		<action name="safetyExpertsView" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/aqsczjk/SafetyExperts_Detail.jsp</result>
+		</action>
+
+		<action name="safetyExpertsInitEdit" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/aqsczjk/SafetyExperts_Edit.jsp</result>
+		</action>
+
+		<action name="safetyExpertsSave" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_safetyExperts</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="safetyExpertsDel" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="delete">
+		</action>
+		
+		
+		
+		<!-- 医疗卫生机构 -->
+		<action name="medInsQuery" class="com.jshx.ylwsjggl.web.MedInsAction" method="zwtList">
+		</action>
+		
+		<action name="ylwsjg" class="com.jshx.ylwsjggl.web.MedInsAction" method="init">
+			<result name="success">/WEB-INF/zwtPageNew/ylwsjggl.jsp</result>
+		</action>
+		
+		<action name="medInsView" class="com.jshx.ylwsjggl.web.MedInsAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/ylwsjggl/MedIns_Detail.jsp</result>
+		</action>
+
+		<action name="medInsInitEdit" class="com.jshx.ylwsjggl.web.MedInsAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/ylwsjggl/MedIns_Edit.jsp</result>
+		</action>
+
+		<action name="medInsSave" class="com.jshx.ylwsjggl.web.MedInsAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_medIns</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="medInsDel" class="com.jshx.ylwsjggl.web.MedInsAction" method="delete">
+		</action>
+		
+		<!-- 消防组织机构 -->
+		<action name="firInsQuery" class="com.jshx.xfzzjggl.web.FirInsAction" method="zwtList">
+		</action>
+		
+		<action name="xfzzjg" class="com.jshx.xfzzjggl.web.FirInsAction" method="init">
+			<result name="success">/WEB-INF/zwtPageNew/xfzzjg.jsp</result>
+		</action>
+		
+		<action name="firInsView" class="com.jshx.xfzzjggl.web.FirInsAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/xfzzjggl/FirIns_Detail.jsp</result>
+		</action>
+
+		<action name="firInsInitEdit" class="com.jshx.xfzzjggl.web.FirInsAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/xfzzjggl/FirIns_Edit.jsp</result>
+		</action>
+
+		<action name="firInsSave" class="com.jshx.xfzzjggl.web.FirInsAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_firIns</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="firInsDel" class="com.jshx.xfzzjggl.web.FirInsAction" method="delete">
+		</action>
+		
+		<!-- 公安武警组织机构 -->
+		<action name="policeInstitutionsQuery" class="com.jshx.gawjzzjggl.web.PoliceInstitutionsAction" method="zwtList">
+		</action>
+		
+		<action name="gawjzzjg" class="com.jshx.gawjzzjggl.web.PoliceInstitutionsAction" method="init">
+			<result name="success">/WEB-INF/zwtPageNew/gawjzzjg.jsp</result>
+		</action>
+		
+		<action name="policeInstitutionsView" class="com.jshx.gawjzzjggl.web.PoliceInstitutionsAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/gawjzzjggl/PoliceInstitutions_Detail.jsp</result>
+		</action>
+
+		<action name="policeInstitutionsInitEdit" class="com.jshx.gawjzzjggl.web.PoliceInstitutionsAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/gawjzzjggl/PoliceInstitutions_Edit.jsp</result>
+		</action>
+
+		<action name="policeInstitutionsSave" class="com.jshx.gawjzzjggl.web.PoliceInstitutionsAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_policeInstitutions</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="policeInstitutionsDel" class="com.jshx.gawjzzjggl.web.PoliceInstitutionsAction" method="delete">
+		</action>
+		
+		
+		
+		<!-- 救援物资管理及提醒 -->
+		<action name="jywzgljtx"  class="com.jshx.yjsszbwz.web.EmeFacAction" method="yjsszbwz">
+			<result name="success">/WEB-INF/zwtPageNew/jywzgljtx.jsp</result>
+		</action>
+		
+		<action name="emeFacQueryAJ"  class="com.jshx.yjsszbwz.web.EmeFacAction" method="zwtListAJ">
+		</action>
+		
+		
+		<action name="emeFacInitEdit" class="com.jshx.yjsszbwz.web.EmeFacAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/yjsszbwz/EmeFac_Edit.jsp</result>
+		</action>
+
+		<action name="emeFacSave" class="com.jshx.yjsszbwz.web.EmeFacAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_emeFac</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="emeFacDel" class="com.jshx.yjsszbwz.web.EmeFacAction" method="delete">
+		</action>
+		
+		
+		<!-- 物品危险性知识库(安监) -->
+		<action name="risKnoBasQueryAJ" class="com.jshx.wpwxxzsk.web.RisKnoBasAction" method="zwtListAJ">
+		</action>
+		
+		<action name="wpwxxzskAJ" class="com.jshx.wpwxxzsk.web.RisKnoBasAction" method="wxxzsk">
+			<result name="success">/WEB-INF/zwtPageNew/wpwxxzskAj.jsp</result>
+		</action>
+		
+		<action name="risKnoBasViewAJ" class="com.jshx.wpwxxzsk.web.RisKnoBasAction" method="viewAJ">
+			<result name="view">/WEB-INF/zwtPage/wpwxxzsk/RisKnoBas_Detail_AJ.jsp</result>
+		</action>
+
+		<action name="risKnoBasInitEditAJ" class="com.jshx.wpwxxzsk.web.RisKnoBasAction" method="initEditAJ">
+			<result name="edit">/WEB-INF/zwtPage/wpwxxzsk/RisKnoBas_Edit_AJ.jsp</result>
+		</action>
+
+		<action name="risKnoBasSaveAJ" class="com.jshx.wpwxxzsk.web.RisKnoBasAction" method="saveAJ">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_risKnoBas</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="risKnoBasDelAJ" class="com.jshx.wpwxxzsk.web.RisKnoBasAction" method="deleteAJ">
+		</action>
+		
+		
+		
+		<!-- 职业病危害建设项目预评价审核 -->
+		<action name="occConEvaQuery" class="com.jshx.occconevalue.web.OccConEvaAction" method="zwtList">
+		</action>
+		
+		<action name="zwxmypjsh" class="com.jshx.occconevalue.web.OccConEvaAction" method="init">
+			<result name="success">/WEB-INF/zwtPageNew/zwxmypjsh.jsp</result>
+		</action>
+		
+		<action name="occConEvaView" class="com.jshx.occconevalue.web.OccConEvaAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/occconevalue/OccConEva_Detail.jsp</result>
+		</action>
+
+		<action name="occConEvaInitEdit" class="com.jshx.occconevalue.web.OccConEvaAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/occconevalue/OccConEva_Edit.jsp</result>
+		</action>
+
+		<action name="occConEvaSave" class="com.jshx.occconevalue.web.OccConEvaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_occConEva</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occConEvaDel" class="com.jshx.occconevalue.web.OccConEvaAction" method="delete">
+		</action>
+		
+		
+		<!-- 职业病危害建设项目防护设施竣工审查 -->
+		<action name="occConComQuery" class="com.jshx.occconcomplete.web.OccConComAction" method="zwtList">
+		</action>
+		
+		<action name="zwxmfhjgsc" class="com.jshx.occconcomplete.web.OccConComAction" method="init">
+			<result name="success">/WEB-INF/zwtPageNew/zwxmfhjgsc.jsp</result>
+		</action>
+		
+		<action name="occConComView" class="com.jshx.occconcomplete.web.OccConComAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/occconcomplete/OccConCom_Detail.jsp</result>
+		</action>
+
+		<action name="occConComInitEdit" class="com.jshx.occconcomplete.web.OccConComAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/occconcomplete/OccConCom_Edit.jsp</result>
+		</action>
+
+		<action name="occConComSave" class="com.jshx.occconcomplete.web.OccConComAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_occConCom</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occConComDel" class="com.jshx.occconcomplete.web.OccConComAction" method="delete">
+		</action>
+		
+		<!-- 职危项目防护设计审查 -->
+		<action name="occConDesQuery" class="com.jshx.occcondesign.web.OccConDesAction" method="zwtList">
+		</action>
+		
+		<action name="zwxmfhsjsc" class="com.jshx.occcondesign.web.OccConDesAction" method="init">
+			<result name="success">/WEB-INF/zwtPageNew/zwxmfhsjsc.jsp</result>
+		</action>
+		
+		<action name="occConDesView" class="com.jshx.occcondesign.web.OccConDesAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/occcondesign/OccConDes_Detail.jsp</result>
+		</action>
+
+		<action name="occConDesInitEdit" class="com.jshx.occcondesign.web.OccConDesAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/occcondesign/OccConDes_Edit.jsp</result>
+		</action>
+
+		<action name="occConDesSave" class="com.jshx.occcondesign.web.OccConDesAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_occConDes</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occConDesDel" class="com.jshx.occcondesign.web.OccConDesAction" method="delete">
+		</action>
+		
+			<!-- 建设项目职业病防护设施竣工备案通知书 -->
+		<action name="proComNotQuery" class="com.jshx.jsxmzybfhssba.web.ProComNotAction" method="zwtList">
+		</action>
+		
+		<action name="jsxmzybfhssba" class="com.jshx.jsxmzybfhssba.web.ProComNotAction" method="init">
+			<result name="success">/WEB-INF/zwtPageNew/jsxmzybfhssba.jsp</result>
+		</action>
+		
+		<action name="proComNotView" class="com.jshx.jsxmzybfhssba.web.ProComNotAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/jsxmzybfhssba/ProComNot_Detail.jsp</result>
+		</action>
+
+		<action name="proComNotInitEdit" class="com.jshx.jsxmzybfhssba.web.ProComNotAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/jsxmzybfhssba/ProComNot_Edit.jsp</result>
+		</action>
+
+		<action name="proComNotSave" class="com.jshx.jsxmzybfhssba.web.ProComNotAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_proComNot</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proComNotDel" class="com.jshx.jsxmzybfhssba.web.ProComNotAction" method="delete">
+		</action>
+		
+		<!-- 建设项目职业危害预评价报告备案通知书 -->
+		<action name="proEvaNotQuery" class="com.jshx.jsxmzzybwhyp.web.ProEvaNotAction" method="zwtList">
+		</action>
+		
+		<action name="jsxmzzybwhyp" class="com.jshx.jsxmzzybwhyp.web.ProEvaNotAction" method="init">
+			<result name="success">/WEB-INF/zwtPageNew/jsxmzzybwhyp.jsp</result>
+		</action>
+		
+		<action name="proEvaNotView" class="com.jshx.jsxmzzybwhyp.web.ProEvaNotAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/jsxmzzybwhyp/ProEvaNot_Detail.jsp</result>
+		</action>
+
+		<action name="proEvaNotInitEdit" class="com.jshx.jsxmzzybwhyp.web.ProEvaNotAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/jsxmzzybwhyp/ProEvaNot_Edit.jsp</result>
+		</action>
+
+		<action name="proEvaNotSave" class="com.jshx.jsxmzzybwhyp.web.ProEvaNotAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_proEvaNot</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proEvaNotDel" class="com.jshx.jsxmzzybwhyp.web.ProEvaNotAction" method="delete">
+		</action>
+		
+		
+		
+		
+		<!-- 企业失信行为 -->
+		<action name="dishonestyQuery" class="com.jshx.sxxw.web.DishonestyAction" method="zwtList">
+		</action>
+		
+		<action name="sxxw" class="com.jshx.sxxw.web.DishonestyAction" method="init">
+			<result name="success">/WEB-INF/zwtPageNew/sxxw.jsp</result>
+		</action>
+		
+		<action name="dishonestyView" class="com.jshx.sxxw.web.DishonestyAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/sxxw/Dishonesty_Detail.jsp</result>
+		</action>
+
+		<action name="dishonestyInitEdit" class="com.jshx.sxxw.web.DishonestyAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/sxxw/Dishonesty_Edit.jsp</result>
+		</action>
+
+		<action name="dishonestySave" class="com.jshx.sxxw.web.DishonestyAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_dishonesty</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="dishonestyDel" class="com.jshx.sxxw.web.DishonestyAction" method="delete">
+		</action>
+		
+		<action name="dishonestyCheck1" class="com.jshx.sxxw.web.DishonestyAction" method="check1">
+			<result name="check1">/WEB-INF/zwtPage/sxxw/Dishonesty_Check1.jsp</result>
+		</action>
+		
+		<action name="dishonestyCheckSave" class="com.jshx.sxxw.web.DishonestyAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_dishonesty</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="dishonestyCheck2" class="com.jshx.sxxw.web.DishonestyAction" method="check2">
+			<result name="check2">/WEB-INF/zwtPage/sxxw/Dishonesty_Check2.jsp</result>
+		</action>
+		
+		<!-- 安全生产诚信黑名单 -->
+		<action name="hmdQuery" class="com.jshx.hmd.web.HmdAction" method="zwtList">
+		</action>
+		
+		<action name="hmd" class="com.jshx.hmd.web.HmdAction" method="init">
+			<result name="success">/WEB-INF/zwtPageNew/hmd.jsp</result>
+		</action>
+		
+		<action name="hmdView" class="com.jshx.hmd.web.HmdAction" method="view">
+			<result name="view">/WEB-INF/zwtPage/hmd/Hmd_Detail.jsp</result>
+		</action>
+
+		<action name="hmdInitEdit" class="com.jshx.hmd.web.HmdAction" method="initEdit">
+			<result name="edit">/WEB-INF/zwtPage/hmd/Hmd_Edit.jsp</result>
+		</action>
+
+		<action name="hmdSave" class="com.jshx.hmd.web.HmdAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfZwt.jsp?windowId=win_hmd</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="hmdDel" class="com.jshx.hmd.web.HmdAction" method="delete">
+		</action>
+		
+		
+		
+		
+		<!-- 按部门统计隐患信息  -->
+		<action name="jshxZcyhsbDataDept"  class="com.jshx.yhb.web.TroManAction" method="deptTongJi">
+			<result name="dataDept">/WEB-INF/zwtPage/yhb/JshxZcyhsb_dataDept.jsp</result>
+		</action>
+		
+		<!-- 按部门统计安监隐患信息  -->
+		<action name="ajyhDataDept"  class="com.jshx.yhb.web.TroManAction" method="ajyhDataDept">
+			<result name="dataDept">/WEB-INF/zwtPage/yhb/Ajyhtj_dataDept.jsp</result>
+		</action>
+		
+		
+		
+		<!-- 安全生产隐患 fq（监管业务） -->
+		<action name="aqscyhView" class="com.jshx.yhb.web.TroManAction" method="aqscyhView">
+			<result name="success">/WEB-INF/zwtPageNew/aqscyhs.jsp</result>
+		</action>
+		
+		<action name="aqscyhLists" class="com.jshx.yhb.web.TroManAction" method="aqscyhLists">
+		</action>
+		
+		
+		<action name="yhcomView" class="com.jshx.yhb.web.TroManAction" method="yhcomView">
+			<result name="success">/WEB-INF/zwtPageNew/yhcompany.jsp</result>
+		</action>
+		
+		<action name="yhcomList" class="com.jshx.yhb.web.TroManAction" method="yhcomList">
+		</action>
+	</package>
+</struts>

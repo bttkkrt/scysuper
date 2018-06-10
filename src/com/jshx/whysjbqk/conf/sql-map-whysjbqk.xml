@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findWhysjbqkByMap">
+		from Whysjbqk t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyid">
+			<![CDATA[and t.qyid =:qyid]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		
+		order by t.createTime
+	</select>
+	<!--  2013-11-21 李军 查询危害因素关联信息表 -->
+	<select id="query_whysjbqkglb_list" parameterClass="java.util.Map" resultClass="com.jshx.whysjbqk.entity.Whysjbqkglb">
+		select fl,qtwhys,row_id as id from whysjbqkglb where whysjbqkid = #whysjbqkid#
+	</select>
+	<!-- 2013-11-21 李军 删除危害因素关联信息表 -->
+	<delete id="del_whysjbqkglb_byId" parameterClass="java.lang.String">
+		delete from  whysjbqkglb where whysjbqkid = #value#
+	</delete>
+	<!-- 2013-11-21 李军 根据qyid查询危害因素信息的ids -->
+	<select id="query_whysjbqkglb_byqyId" parameterClass="java.lang.String" resultClass="java.lang.String">
+		select row_id from whysjbqk where qyid = #value# and delflag = 0
+	</select>
+</sqlMap>

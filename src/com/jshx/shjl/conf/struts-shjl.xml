@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CHECK_RECORD" extends="default" namespace="/jsp/shjl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="checkRecordQuery" class="com.jshx.shjl.web.CheckRecordAction" method="list">
+		</action>
+		
+		<action name="checkRecordList" class="com.jshx.shjl.web.CheckRecordAction" method="init">
+			<result name="success">/WEB-INF/pages/shjl/CheckRecord_List.jsp</result>
+		</action>
+		
+		<action name="checkRecordView" class="com.jshx.shjl.web.CheckRecordAction" method="view">
+			<result name="view">/WEB-INF/pages/shjl/CheckRecord_Detail.jsp</result>
+		</action>
+
+		<action name="checkRecordInitEdit" class="com.jshx.shjl.web.CheckRecordAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/shjl/CheckRecord_Edit.jsp</result>
+		</action>
+
+		<action name="checkRecordSave" class="com.jshx.shjl.web.CheckRecordAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_checkRecord</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="checkRecordDel" class="com.jshx.shjl.web.CheckRecordAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="FIR_LIC" extends="default" namespace="/jsp/yhbzxzxk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="firLicQuery" class="com.jshx.yhbzxzxk.web.FirLicAction" method="list">
+		</action>
+		
+		<action name="firLicList" class="com.jshx.yhbzxzxk.web.FirLicAction" method="init">
+			<result name="success">/WEB-INF/pages/yhbzxzxk/FirLic_List.jsp</result>
+		</action>
+		
+		<action name="firLicView" class="com.jshx.yhbzxzxk.web.FirLicAction" method="view">
+			<result name="view">/WEB-INF/pages/yhbzxzxk/FirLic_Detail.jsp</result>
+		</action>
+
+		<action name="firLicInitEdit" class="com.jshx.yhbzxzxk.web.FirLicAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/yhbzxzxk/FirLic_Edit.jsp</result>
+		</action>
+
+		<action name="firLicSave" class="com.jshx.yhbzxzxk.web.FirLicAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_firLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="firLicDel" class="com.jshx.yhbzxzxk.web.FirLicAction" method="delete">
+		</action>
+		
+			<action name="firLicCheck" class="com.jshx.yhbzxzxk.web.FirLicAction" method="check">
+			<result name="check">/WEB-INF/pages/yhbzxzxk/FirLic_Check.jsp</result>
+		</action>
+		
+		<action name="firLicCheckSave" class="com.jshx.yhbzxzxk.web.FirLicAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_firLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+	</package>
+</struts>

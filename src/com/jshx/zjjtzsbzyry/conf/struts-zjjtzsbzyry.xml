@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZJJTZSBZYRY" extends="default" namespace="/jsp/zjjtzsbzyry">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zjjtzsbzyryQuery" class="com.jshx.zjjtzsbzyry.web.ZjjtzsbzyryAction" method="list">
+		</action>
+		
+		<action name="zjjtzsbzyryList" class="com.jshx.zjjtzsbzyry.web.ZjjtzsbzyryAction" method="init">
+			<result name="success">/WEB-INF/pages/zjjtzsbzyry/Zjjtzsbzyry_List.jsp</result>
+		</action>
+		
+		<action name="zjjtzsbzyryView" class="com.jshx.zjjtzsbzyry.web.ZjjtzsbzyryAction" method="view">
+			<result name="view">/WEB-INF/pages/zjjtzsbzyry/Zjjtzsbzyry_Detail.jsp</result>
+		</action>
+
+		<action name="zjjtzsbzyryInitEdit" class="com.jshx.zjjtzsbzyry.web.ZjjtzsbzyryAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zjjtzsbzyry/Zjjtzsbzyry_Edit.jsp</result>
+		</action>
+
+		<action name="zjjtzsbzyrySave" class="com.jshx.zjjtzsbzyry.web.ZjjtzsbzyryAction" method="save">
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+		</action>
+
+		<action name="zjjtzsbzyryDel" class="com.jshx.zjjtzsbzyry.web.ZjjtzsbzyryAction" method="delete">
+		</action>
+		
+		<action name="zjjtzsbzyryDels" class="com.jshx.zjjtzsbzyry.web.ZjjtzsbzyryAction" method="deletes">
+		</action>
+		
+		<action name="zjjtzsbzyryUpload" class="com.jshx.zjjtzsbzyry.web.ZjjtzsbzyryAction" method="upload">
+			<result name="success">/WEB-INF/pages/zjjtzsbzyry/Zjjtzsbzyry_upload.jsp</result>
+		</action>
+		<action name="zjjtzsbzyrySaveFile" class="com.jshx.zjjtzsbzyry.web.ZjjtzsbzyryAction" method="saveFile">
+		</action>
+		
+		
+		
+	</package>
+</struts>

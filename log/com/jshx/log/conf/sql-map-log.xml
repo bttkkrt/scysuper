@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findExceptionLogByMap">
+		from ExceptionLog t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="className">
+			<![CDATA[and t.className like :className]]>
+		</isNotEmpty>
+		<isNotEmpty property="mothodName">
+			<![CDATA[and t.mothodName like :mothodName]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<!-- 根据搜索条件查询  -->
+	<select id="findDataLogByMap">
+		from DataLog t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="entityName">
+			<![CDATA[and t.entityName like :entityName]]>
+		</isNotEmpty>
+		<isNotEmpty property="opType">
+			<![CDATA[and t.opType = :opType]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+</sqlMap>

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findCompanyScoreByMap">
+		select new com.jshx.companyScore.entity.CompanyScore(t.id, t.areaName,t.startTime,t.endTime,t.companyName,t.state,t.zpzf,t.ajzf) from CompanyScore t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startStartTime">
+			<![CDATA[and t.startTime >= :startStartTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endStartTime">
+			<![CDATA[and t.startTime <= :endStartTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="startEndTime">
+			<![CDATA[and t.endTime >= :startEndTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endEndTime">
+			<![CDATA[and t.endTime <= :endEndTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="state">
+			<![CDATA[and  t.state != :state]]>
+		</isNotEmpty>
+		order by t.endTime desc
+	</select>
+	
+	<select id="queryScore2ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(row_id) from SEC_PRO_GOA where delflag = 0
+		<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+		</isNotEmpty>
+		
+		<isNotEmpty property="startTime">
+			and CREATETIME >= #startTime#
+		</isNotEmpty>
+		<isNotEmpty property="endTime">
+			<![CDATA[and CREATETIME <= #endTime#]]>
+		</isNotEmpty>
+		
+	</select>
+	
+	
+	<select id="queryScore4ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  SEC_PRO_CHA_PER where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore7ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  PRO_MAN_ORG where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore8ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  PRO_LEG_ORG where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	
+	<select id="queryScore16ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  SEC_PRO_FEE_EXT where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	<isNotEmpty property="startTime">
+			and FEE_EXTRACT_TIME >= #startTime#
+		</isNotEmpty>
+		<isNotEmpty property="endTime">
+			<![CDATA[and FEE_EXTRACT_TIME <= #endTime#]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="queryScore17ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  OPE_PRO where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore23ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  LEG_STA where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore26ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  SAF_LED where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore27ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  SEC_PRO_SYS where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore32ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  PRODUCTION_MANAGE where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore39ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  CHE_RES where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore43ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  PRO_DEV where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore52ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  DAN_PLA_MAN where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore53ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  DAN_TAS_MAN where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore123ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  PARTY_MANAGE where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore131ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  TRO_MAN where delflag = 0 and TROUBLE_SOURCE = '企业'
+  		<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+		</isNotEmpty>
+		<isNotEmpty property="startTime">
+			and CREATETIME >= #startTime#
+		</isNotEmpty>
+		<isNotEmpty property="endTime">
+			<![CDATA[and CREATETIME <= #endTime#]]>
+		</isNotEmpty>
+	</select>
+	
+	
+	<select id="queryScore141ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  COM_MAN_SYS where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore142ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  COM_DAN_IDE where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore149ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  OCC_HEA_MAN where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore152ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  OCC_HEA_EXA where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore154ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from  HAZ_DET where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore165ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from OCC_HAZ_BAS where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore168ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from EME_AGE where delflag = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore171ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from EME_PLA where delflag = 0 and type = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore175ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from EME_FAC where delflag = 0 and type = 0
+  	<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryScore177ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(row_id) from EME_DRI where delflag = 0
+  		<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+		</isNotEmpty>
+		<isNotEmpty property="startTime">
+			and DRILL_START_TIME >= #startTime#
+		</isNotEmpty>
+		<isNotEmpty property="endTime">
+			<![CDATA[and DRILL_START_TIME <= #endTime#]]>
+		</isNotEmpty>
+	</select>
+	
+	
+	
+	<select id="queryScore184ByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(row_id) from ACC_REP_INV_HAN where delflag = 0
+		<isNotEmpty property="companyId">
+			and COMPANY_ID = #companyId#
+		</isNotEmpty>
+		<isNotEmpty property="startTime">
+			and CREATETIME >= #startTime#
+		</isNotEmpty>
+		<isNotEmpty property="endTime">
+			<![CDATA[and CREATETIME <= #endTime#]]>
+		</isNotEmpty>
+	</select>
+	
+</sqlMap>

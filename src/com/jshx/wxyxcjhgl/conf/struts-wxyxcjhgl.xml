@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="DAN_PLA_MAN" extends="default" namespace="/jsp/wxyxcjhgl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="danPlaManQuery" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="list">
+		</action>
+		
+		<action name="danPlaManList" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="init">
+			<result name="success">/WEB-INF/pages/wxyxcjhgl/DanPlaMan_List.jsp</result>
+		</action>
+		
+		<action name="danPlaManView" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="view">
+			<result name="view">/WEB-INF/pages/wxyxcjhgl/DanPlaMan_Detail.jsp</result>
+		</action>
+
+		<action name="danPlaManInitEdit" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/wxyxcjhgl/DanPlaMan_Edit.jsp</result>
+		</action>
+		
+		<!-- 跳转到审核界面 lj 2015-10-13 -->
+		<action name="danPlaManInitAudit" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="initAudit">
+			<result name="success">/WEB-INF/pages/wxyxcjhgl/DanPlaMan_Audit.jsp</result>
+		</action>
+		<!-- 保存审核结果  lj 2015-10-13 -->
+		<action name="danPlaManSaveAudit" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="saveAudit">
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_danPlaMan</result>
+		</action>
+		
+		<action name="danPlaManSave" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_danPlaMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="danPlaManDel" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="delete">
+		</action>
+		
+		<action name="danPlaManCreate" class="com.jshx.wxyxcjhgl.web.DanPlaManAction" method="danPlaManCreate">
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_danPlaMan</result>
+		</action>
+		
+	</package>
+</struts>

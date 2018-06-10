@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findWfwgcompanyByMap">
+		from Wfwgcompany t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyname">
+			<![CDATA[and t.companyname like :companyname]]>
+		</isNotEmpty>
+		<isNotEmpty property="fzr">
+			<![CDATA[and t.fzr like :fzr]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		<isNotEmpty property="hyfl">
+			<![CDATA[and t.hyfl = :hyfl]]>
+		</isNotEmpty>
+		<isNotEmpty property="wgwflb">
+			<![CDATA[and t.wgwflb = :wgwflb]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifwhpqylx">
+			<![CDATA[and t.ifwhpqylx = :ifwhpqylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifwxqy">
+			<![CDATA[and t.ifwxqy = :ifwxqy]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifyyzz">
+			<![CDATA[and t.ifyyzz = :ifyyzz]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifjb">
+			<![CDATA[and t.ifjb = :ifjb]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifssjjcf">
+			<![CDATA[and t.ifssjjcf = :ifssjjcf]]>
+		</isNotEmpty>
+		order by t.createTime
+	</select>
+</sqlMap>

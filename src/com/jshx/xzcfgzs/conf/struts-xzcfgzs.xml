@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PENALTY_NOTICE" extends="default" namespace="/jsp/xzcfgzs">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="penaltyNoticeQuery" class="com.jshx.xzcfgzs.web.PenaltyNoticeAction" method="list">
+		</action>
+		
+		<action name="penaltyNoticeList" class="com.jshx.xzcfgzs.web.PenaltyNoticeAction" method="init">
+			<result name="success">/WEB-INF/pages/xzcfgzs/PenaltyNotice_List.jsp</result>
+		</action>
+		
+		<action name="penaltyNoticeView" class="com.jshx.xzcfgzs.web.PenaltyNoticeAction" method="view">
+			<result name="view">/WEB-INF/pages/xzcfgzs/PenaltyNotice_Detail.jsp</result>
+		</action>
+
+		<action name="penaltyNoticeInitEdit" class="com.jshx.xzcfgzs.web.PenaltyNoticeAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/xzcfgzs/PenaltyNotice_Edit.jsp</result>
+		</action>
+
+		<action name="penaltyNoticeSave" class="com.jshx.xzcfgzs.web.PenaltyNoticeAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_penaltyNotice</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="penaltyNoticeDel" class="com.jshx.xzcfgzs.web.PenaltyNoticeAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

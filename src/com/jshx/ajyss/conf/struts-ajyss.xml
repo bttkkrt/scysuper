@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CASE_TRANSFER" extends="default" namespace="/jsp/ajyss">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="caseTransferQuery" class="com.jshx.ajyss.web.CaseTransferAction" method="list">
+		</action>
+		
+		<action name="caseTransferList" class="com.jshx.ajyss.web.CaseTransferAction" method="init">
+			<result name="success">/WEB-INF/pages/ajyss/CaseTransfer_List.jsp</result>
+		</action>
+		
+		<action name="caseTransferView" class="com.jshx.ajyss.web.CaseTransferAction" method="view">
+			<result name="view">/WEB-INF/pages/ajyss/CaseTransfer_Detail.jsp</result>
+		</action>
+
+		<action name="caseTransferInitEdit" class="com.jshx.ajyss.web.CaseTransferAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/ajyss/CaseTransfer_Edit.jsp</result>
+		</action>
+
+		<action name="caseTransferSave" class="com.jshx.ajyss.web.CaseTransferAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_caseTransfer</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="caseTransferDel" class="com.jshx.ajyss.web.CaseTransferAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

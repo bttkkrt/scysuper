@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SUP_TAS" extends="default" namespace="/jsp/jdjcrw">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="supTasQuery" class="com.jshx.jdjcrw.web.SupTasAction" method="list">
+		</action>
+		
+		<action name="supTasList" class="com.jshx.jdjcrw.web.SupTasAction" method="init">
+			<result name="success">/WEB-INF/pages/jdjcrw/SupTas_List.jsp</result>
+		</action>
+		
+		<action name="supTasLists" >
+			<result name="success">/WEB-INF/pages/jdjcrw/SupTas_Lists.jsp</result>
+		</action>
+		
+		<action name="supTasQuerys" class="com.jshx.jdjcrw.web.SupTasAction" method="lists">
+		</action>
+		<action name="supTasView" class="com.jshx.jdjcrw.web.SupTasAction" method="view">
+			<result name="view">/WEB-INF/pages/jdjcrw/SupTas_Detail.jsp</result>
+		</action>
+
+		<action name="supTasInitEdit" class="com.jshx.jdjcrw.web.SupTasAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/jdjcrw/SupTas_Edit.jsp</result>
+		</action>
+
+		<action name="supTasSave" class="com.jshx.jdjcrw.web.SupTasAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_supTas</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="supTasDel" class="com.jshx.jdjcrw.web.SupTasAction" method="delete">
+		</action>
+		<action name="supTasSbxx" class="com.jshx.jdjcrw.web.SupTasAction" method="supTasSbxx">
+			<result name="success">/WEB-INF/pages/jdjcrw/SupTas_Sbxx.jsp</result>
+		</action>
+		<action name="supTasUpdate" class="com.jshx.jdjcrw.web.SupTasAction" method="supTasUpdate">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_supTas</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		<action name="check" class="com.jshx.jdjcrw.web.SupTasAction" method="check">
+		</action>
+		
+		<!-- 生成现场检查记录 lt 2016-5-7 -->
+		<action name="supTasXcjc" class="com.jshx.jdjcrw.web.SupTasAction" method="supTasXcjc">
+			<result name="edit">/WEB-INF/pages/jdjcrw/SupTas_Xcjcjl.jsp</result>
+		</action>
+		
+		<action name="supTasXcjcSave" class="com.jshx.jdjcrw.web.SupTasAction" method="supTasXcjcSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_supTas</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		<action name="supTasXcjcExport" class="com.jshx.jdjcrw.web.SupTasAction" method="exportXcjc">
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="LOGINIMAGE" extends="default" namespace="/jsp/loginImage">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="loginImageQuery" class="com.jshx.module.admin.web.action.LoginImageAction" method="list">
+		</action>
+		
+		<action name="loginImageList">
+			<result name="success">/WEB-INF/pages/admin/loginImage/LoginImage_List.jsp</result>
+		</action>
+		
+		<action name="loginImageView" class="com.jshx.module.admin.web.action.LoginImageAction" method="view">
+			<result name="view">/WEB-INF/pages/admin/loginImage/LoginImage_Detail.jsp</result>
+		</action>
+
+		<action name="loginImageInitEdit" class="com.jshx.module.admin.web.action.LoginImageAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/admin/loginImage/LoginImage_Edit.jsp</result>
+		</action>
+
+		<action name="loginImageSave" class="com.jshx.module.admin.web.action.LoginImageAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelfWithoutResize.jsp?windowId=win_loginImage</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="loginImageDel" class="com.jshx.module.admin.web.action.LoginImageAction" method="delete">
+		</action>
+		
+		<action name="loginImageOn" class="com.jshx.module.admin.web.action.LoginImageAction" method="loginImageOn">
+		</action>
+		
+		<action name="loginImageOff" class="com.jshx.module.admin.web.action.LoginImageAction" method="loginImageOff">
+		</action>
+		
+		<action name="getloginImageURL" class="com.jshx.module.admin.web.action.LoginImageAction" method="getloginImageURL">
+		</action>
+	</package>
+</struts>

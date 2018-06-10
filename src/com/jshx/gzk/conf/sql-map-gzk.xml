@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findInformCardByMap">
+		select new com.jshx.gzk.entity.InformCard(t.id, t.areaName, t.companyName, t.informNo, t.informName, t.informType,t.informAddress) from InformCard t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="informType">
+			<![CDATA[and t.informType = :informType]]>
+		</isNotEmpty>
+		<isNotEmpty property="informName">
+			<![CDATA[and t.informName like :informName]]>
+		</isNotEmpty>
+		<isNotEmpty property="informNo">
+			<![CDATA[and t.informNo like :informNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		order by t.createTime desc ,t.informName asc
+	</select>
+</sqlMap>

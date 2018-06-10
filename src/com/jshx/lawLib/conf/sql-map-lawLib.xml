@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findLawLibByMap">
+		select new com.jshx.lawLib.entity.LawLib(t.id, t.lawName, t.state,t.companyId,t.type) from LawLib t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="lawName">
+			<![CDATA[and t.lawName like :lawName]]>
+		</isNotEmpty>
+		<isNotEmpty property="state">
+			<![CDATA[and t.state like :state]]>
+		</isNotEmpty>
+		<isNotEmpty property="type">
+			<![CDATA[and t.type = :type]]>
+		</isNotEmpty>
+		
+		<isNotEqual  property="companyId" compareValue="aj">
+			<![CDATA[and (t.state ='1' or (t.state='0' and t.companyId = :companyId))]]>
+		</isNotEqual >
+
+		order by t.createTime desc
+	</select>
+</sqlMap>

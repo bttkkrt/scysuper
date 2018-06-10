@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findDfzwByMap">
+		from Dfzw t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="tbr">
+			<![CDATA[and t.tbr like :tbr]]>
+		</isNotEmpty>
+		<isNotEmpty property="startTbrq">
+			<![CDATA[and t.tbsj >= :startTbrq]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTbrq">
+			<![CDATA[and t.tbsj <= :endTbrq]]>
+		</isNotEmpty>
+		order by t.createTime
+	</select>
+	
+	<delete id="deleteDfzwglbByMap" parameterClass="java.util.Map">
+	delete from DFZWGLB  where proid = #proid#
+	</delete>
+	
+	<select id="getDfzwIdsByMap" parameterClass="java.util.Map" resultClass="String">
+	select t.row_id from Dfzw t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			and t.deptId in 
+			<iterate conjunction="," open="(" close=")" property="deptCodes">
+				#deptCodes[]# 
+			</iterate>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="tbr">
+			<![CDATA[and t.tbr like #tbr#]]>
+		</isNotEmpty>
+		<isNotEmpty property="startTbrq">
+			<![CDATA[and t.tbsj >= #startTbrq#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTbrq">
+			<![CDATA[and t.tbsj <= #endTbrq#]]>
+		</isNotEmpty>
+	</select>
+</sqlMap>

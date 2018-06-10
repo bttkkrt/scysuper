@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHX_ZJJCB" extends="default" namespace="/jsp/zjjcb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxZjjcbQuery" class="com.jshx.zjjcb.web.JshxZjjcbAction" method="list">
+		</action>
+		
+		<action name="jshxZjjcbList" class="com.jshx.zjjcb.web.JshxZjjcbAction" method="init">
+			<result name="success">/WEB-INF/pages/zjjcb/JshxZjjcb_List.jsp</result>
+		</action>
+		
+		<action name="jshxZjjcbView" class="com.jshx.zjjcb.web.JshxZjjcbAction" method="view">
+			<result name="view">/WEB-INF/pages/zjjcb/JshxZjjcb_Detail.jsp</result>
+		</action>
+
+		<action name="jshxZjjcbInitEdit" class="com.jshx.zjjcb.web.JshxZjjcbAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zjjcb/JshxZjjcb_Edit.jsp</result>
+		</action>
+
+		<action name="jshxZjjcbSave" class="com.jshx.zjjcb.web.JshxZjjcbAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/zjjcb/JshxZjjcb_Edit.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="jshxZjjcbDel" class="com.jshx.zjjcb.web.JshxZjjcbAction" method="delete">
+		</action>
+		<!-- 李军 2013-09-2 附件上传处理 -->
+		<action name="jshxZjjcbUpload" class="com.jshx.zjjcb.web.JshxZjjcbAction" method="upload">
+			<result name="success">/WEB-INF/pages/zjjcb/JshxZjjcb_upload.jsp</result>
+		</action>
+		<action name="jshxZjjcbSavePhoto" class="com.jshx.zjjcb.web.JshxZjjcbAction" method="savePhoto">
+		</action>
+		<action name="jshxZjjcbImageDel" class="com.jshx.zjjcb.web.JshxZjjcbAction" method="deleteImage">
+		</action>
+		<action name="jshxZjjcbSaveFile" class="com.jshx.zjjcb.web.JshxZjjcbAction" method="saveFile">
+		</action>
+		
+		<action name="jshxZjjcbExport" class="com.jshx.zjjcb.web.JshxZjjcbAction" method="export">
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findGmysByMap">
+		select new com.jshx.gmys.entity.Gmys(t.id, t.monthTime, t.areaName) from Gmys t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startMonthTime">
+			<![CDATA[and t.monthTime >= :startMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endMonthTime">
+			<![CDATA[and t.monthTime <= :endMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getGmysListByMap" parameterClass="java.util.Map" resultClass="com.jshx.gmys.entity.GmysBean">
+	 SELECT DISTINCT t.area_name as data1,
+     sum(cast(t.dbslhj as int))as data2,
+     sum(cast(t.yjjhdbs as int))as data3,
+     sum(cast(t.yjsbqys as int))as data4, 
+     sum(cast(t.yjdbqys as int))as data5, 
+     sum(cast(t.yjljdbs as int))as data6,  
+     sum(cast(t.ejjhdbs as int))as data7, 
+     sum(cast(t.ejsbqys as int))as data8, 
+     sum(cast(t.ejdbqys as int))as data9, 
+     sum(cast(t.ejljdbs as int))as data10, 
+     sum(cast(t.sjjhfss as int))as data11,
+      sum(cast(t.sjfsdbs as int))as data12,
+       sum(cast(t.sjljdbs as int))as data13,
+       sum(cast(t.sjzpqys as int))as data14
+     from gmys t where t.delflag=0
+      <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+     group by t.area_name
+	</select>
+	
+	<select id="getTotalGmysListByMap" parameterClass="java.util.Map" resultClass="com.jshx.gmys.entity.GmysBean">
+	 SELECT  
+       sum(cast(t.dbslhj as int))as data2,
+     sum(cast(t.yjjhdbs as int))as data3,
+     sum(cast(t.yjsbqys as int))as data4, 
+     sum(cast(t.yjdbqys as int))as data5, 
+     sum(cast(t.yjljdbs as int))as data6,  
+     sum(cast(t.ejjhdbs as int))as data7, 
+     sum(cast(t.ejsbqys as int))as data8, 
+     sum(cast(t.ejdbqys as int))as data9, 
+     sum(cast(t.ejljdbs as int))as data10, 
+     sum(cast(t.sjjhfss as int))as data11,
+      sum(cast(t.sjfsdbs as int))as data12,
+       sum(cast(t.sjljdbs as int))as data13,
+        sum(cast(t.sjzpqys as int))as data14
+     from gmys t where t.delflag=0
+     <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+	</select>
+</sqlMap>

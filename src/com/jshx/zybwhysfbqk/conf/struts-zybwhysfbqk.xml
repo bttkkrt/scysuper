@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="OCC_DIS" extends="default" namespace="/jsp/zybwhysfbqk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="occDisQuery" class="com.jshx.zybwhysfbqk.web.OccDisAction" method="list">
+		</action>
+		
+		<action name="occDisList" class="com.jshx.zybwhysfbqk.web.OccDisAction" method="init">
+			<result name="success">/WEB-INF/pages/zybwhysfbqk/OccDis_List.jsp</result>
+		</action>
+		
+		<action name="occDisView" class="com.jshx.zybwhysfbqk.web.OccDisAction" method="view">
+			<result name="view">/WEB-INF/pages/zybwhysfbqk/OccDis_Detail.jsp</result>
+		</action>
+
+		<action name="occDisInitEdit" class="com.jshx.zybwhysfbqk.web.OccDisAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zybwhysfbqk/OccDis_Edit.jsp</result>
+		</action>
+
+		<action name="occDisSave" class="com.jshx.zybwhysfbqk.web.OccDisAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_occDis</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occDisDel" class="com.jshx.zybwhysfbqk.web.OccDisAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

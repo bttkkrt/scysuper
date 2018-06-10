@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="WZCOMPANY" extends="default" namespace="/jsp/wzcompany">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="wzcompanyQuery" class="com.jshx.wzcompany.web.WzcompanyAction" method="list">
+		</action>
+		
+		<action name="wzcompanyList" class="com.jshx.wzcompany.web.WzcompanyAction" method="init">
+			<result name="success">/WEB-INF/pages/wzcompany/Wzcompany_List.jsp</result>
+		</action>
+		
+		<action name="wzcompanyView" class="com.jshx.wzcompany.web.WzcompanyAction" method="view">
+			<result name="view">/WEB-INF/pages/wzcompany/Wzcompany_Detail.jsp</result>
+		</action>
+
+		<action name="wzcompanyInitEdit" class="com.jshx.wzcompany.web.WzcompanyAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/wzcompany/Wzcompany_Edit.jsp</result>
+		</action>
+
+		<action name="wzcompanySave" class="com.jshx.wzcompany.web.WzcompanyAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+    		<result name="reload">/WEB-INF/pages/wzcompany/Wzcompany_Edit.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="wzcompanyDel" class="com.jshx.wzcompany.web.WzcompanyAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

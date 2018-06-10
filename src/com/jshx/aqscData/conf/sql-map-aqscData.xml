@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findAqscDataByMap">
+		from AqscData t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="linkId">
+			<![CDATA[and t.linkid = :linkId  ]]>
+		</isNotEmpty>
+		
+		order by t.createTime desc
+	</select>
+	
+	<select id="getAqscDataByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqscData.entity.AqscData">
+	select sum(t.data_1) as data_1,sum(t.data_2) as data_2,sum(t.data_3) as data_3,sum(t.data_4) as data_4,
+	sum(t.data_5) as data_5,sum(t.data_6) as data_6,sum(t.data_7) as data_7,sum(t.data_8) as data_8,
+	sum(t.data_9) as data_9,sum(t.data_10) as data_10,sum(t.data_11) as data_11,sum(t.data_12) as data_12,
+	sum(t.data_13) as data_13,sum(t.data_14) as data_14,sum(t.data_15) as data_15,sum(t.data_16) as data_16,
+	sum(t.data_17) as data_17,sum(t.data_18) as data_18,sum(t.data_19) as data_19,sum(t.data_20) as data_20,
+	sum(t.data_21) as data_21,sum(t.data_22) as data_22
+	from AQSC_DATA t
+	where t.delflag = 0
+	<isNotEmpty property="proids">
+		and t.linkid in 
+		<iterate conjunction="," open="(" close=")" property="proids">
+			#proids[]# 
+		</iterate>
+	</isNotEmpty>
+	<isNotEmpty property="sort">
+		<![CDATA[and t.sort = #sort# ]]>
+	</isNotEmpty>
+	</select>
+</sqlMap>

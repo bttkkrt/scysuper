@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="GWHY" extends="default" namespace="/jsp/gwhy">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="gwhyQuery" class="com.jshx.gwhy.web.GwhyAction" method="list">
+		</action>
+		
+		<action name="gwhyList">
+			<result name="success">/WEB-INF/pages/gwhy/Gwhy_List.jsp</result>
+		</action>
+		
+		<action name="gwhyView" class="com.jshx.gwhy.web.GwhyAction" method="view">
+			<result name="view">/WEB-INF/pages/gwhy/Gwhy_Detail.jsp</result>
+		</action>
+
+		<action name="gwhyInitEdit" class="com.jshx.gwhy.web.GwhyAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/gwhy/Gwhy_Edit.jsp</result>
+		</action>
+
+		<action name="gwhySave" class="com.jshx.gwhy.web.GwhyAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_gwhy</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="gwhyDel" class="com.jshx.gwhy.web.GwhyAction" method="delete">
+		</action>
+		<action name="gwhyExport" class="com.jshx.gwhy.web.GwhyAction" method="export">
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="WHPJYXK" extends="default" namespace="/jsp/whpjyxk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="whpjyxkQuery" class="com.jshx.whpjyxk.web.WhpjyxkAction" method="list">
+		</action>
+		
+		<action name="whpjyxkList">
+			<result name="success">/WEB-INF/pages/whpjyxk/Whpjyxk_List.jsp</result>
+		</action>
+		
+		<action name="whpjyxkView" class="com.jshx.whpjyxk.web.WhpjyxkAction" method="view">
+			<result name="view">/WEB-INF/pages/whpjyxk/Whpjyxk_Detail.jsp</result>
+		</action>
+
+		<action name="whpjyxkInitEdit" class="com.jshx.whpjyxk.web.WhpjyxkAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/whpjyxk/Whpjyxk_Edit.jsp</result>
+		</action>
+
+		<action name="whpjyxkSave" class="com.jshx.whpjyxk.web.WhpjyxkAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_whpjyxk</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="whpjyxkDel" class="com.jshx.whpjyxk.web.WhpjyxkAction" method="delete">
+		</action>
+		<action name="whpjyxkExport" class="com.jshx.whpjyxk.web.WhpjyxkAction" method="export">
+		</action>
+	</package>
+</struts>

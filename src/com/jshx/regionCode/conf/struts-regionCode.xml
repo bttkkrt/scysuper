@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="REGION_CODE" extends="default" namespace="/jsp/regionCode">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="regionCodeQuery" class="com.jshx.regionCode.web.RegionCodeAction" method="list">
+		</action>
+		
+		<action name="regionCodeList">
+			<result name="success">/WEB-INF/pages/regionCode/RegionCode_List.jsp</result>
+		</action>
+		
+		<action name="regionCodeView" class="com.jshx.regionCode.web.RegionCodeAction" method="view">
+			<result name="view">/WEB-INF/pages/regionCode/RegionCode_Detail.jsp</result>
+		</action>
+
+		<action name="regionCodeInitEdit" class="com.jshx.regionCode.web.RegionCodeAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/regionCode/RegionCode_Edit.jsp</result>
+		</action>
+
+		<action name="regionCodeSave" class="com.jshx.regionCode.web.RegionCodeAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="regionCodeDel" class="com.jshx.regionCode.web.RegionCodeAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

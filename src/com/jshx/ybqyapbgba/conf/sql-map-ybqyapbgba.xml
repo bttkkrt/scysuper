@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findAssRepFilByMap">
+		select new com.jshx.ybqyapbgba.entity.AssRepFil(t.id, t.ratingAgenciesName, t.submitDate, t.completeDate, t.nextRecordDate, t.areaId, t.companyName, t.recordNum, t.recordDate,t.createUserID) from AssRepFil t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="recordNum">
+			<![CDATA[and t.recordNum like :recordNum]]>
+		</isNotEmpty>
+		<isNotEmpty property="startRecordDate">
+			<![CDATA[and t.recordDate >= :startRecordDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endRecordDate">
+			<![CDATA[and t.recordDate <= :endRecordDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="ratingAgenciesName">
+			<![CDATA[and t.ratingAgenciesName like :ratingAgenciesName]]>
+		</isNotEmpty>
+		<isNotEmpty property="startSubmitDate">
+			<![CDATA[and t.submitDate >= :startSubmitDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endSubmitDate">
+			<![CDATA[and t.submitDate <= :endSubmitDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="startCompleteDate">
+			<![CDATA[and t.completeDate >= :startCompleteDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCompleteDate">
+			<![CDATA[and t.completeDate <= :endCompleteDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="startNextRecordDate">
+			<![CDATA[and t.nextRecordDate >= :startNextRecordDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endNextRecordDate">
+			<![CDATA[and t.nextRecordDate <= :endNextRecordDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  charindex(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and ( t.companyName like :searchLike or t.recordNum like :searchLike or t.ratingAgenciesName like :searchLike)]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+</sqlMap>

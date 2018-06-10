@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MAIN_PERSON_RECEIPT" extends="default" namespace="/jsp/mainPersonReceipt">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="mainPersonReceiptQuery" class="com.jshx.mainPersonReceipt.web.MainPersonReceiptAction" method="list">
+		</action>
+		
+		<action name="mainPersonReceiptList"  class="com.jshx.mainPersonReceipt.web.MainPersonReceiptAction" method="init">
+			<result name="success">/WEB-INF/pages/mainPersonReceipt/MainPersonReceipt_List.jsp</result>
+		</action>
+		
+		<action name="mainPersonReceiptView" class="com.jshx.mainPersonReceipt.web.MainPersonReceiptAction" method="view">
+			<result name="view">/WEB-INF/pages/mainPersonReceipt/MainPersonReceipt_Detail.jsp</result>
+		</action>
+
+		<action name="mainPersonReceiptInitEdit" class="com.jshx.mainPersonReceipt.web.MainPersonReceiptAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/mainPersonReceipt/MainPersonReceipt_Edit.jsp</result>
+		</action>
+
+		<action name="mainPersonReceiptSave" class="com.jshx.mainPersonReceipt.web.MainPersonReceiptAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="mainPersonReceiptDel" class="com.jshx.mainPersonReceipt.web.MainPersonReceiptAction" method="delete">
+		</action>
+		
+		<action name="mainPersonReceiptPrint" class="com.jshx.mainPersonReceipt.web.MainPersonReceiptAction" method="print">
+			<result name="success">/WEB-INF/pages/mainPersonReceipt/MainPersonReceipt_Print.jsp</result>
+		</action>
+		
+		
+		<action name="mainPersonReceiptUpload" class="com.jshx.mainPersonReceipt.web.MainPersonReceiptAction" method="upload">
+			<result name="success">/WEB-INF/pages/mainPersonReceipt/MainPersonReceipt_upload.jsp</result>
+		</action>
+		<action name="mainPersonReceiptSavePhoto" class="com.jshx.mainPersonReceipt.web.MainPersonReceiptAction" method="savePhoto">
+		</action>
+		<action name="mainPersonReceiptImageDel" class="com.jshx.mainPersonReceipt.web.MainPersonReceiptAction" method="deleteImage">
+		</action>
+		<action name="mainPersonReceiptSaveFile" class="com.jshx.mainPersonReceipt.web.MainPersonReceiptAction" method="saveFile">
+		</action>
+	</package>
+</struts>

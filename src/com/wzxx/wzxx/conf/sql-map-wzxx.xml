@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <select id="findSousuoList" parameterClass="java.util.Map" resultClass="com.wzxx.wzxx.entity.ViewWzxx">
+		select t.id ,title,t.createTime,t.type
+		from VIEW_WZXX t where 1=1
+		<isNotEmpty property="title">
+			<![CDATA[and t.title like #title#]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="findSousuoListSize" parameterClass="java.util.Map" resultClass="int">
+		select count(*)
+		
+		from VIEW_WZXX t where 1=1
+		<isNotEmpty property="title">
+			<![CDATA[and t.title like #title#]]>
+		</isNotEmpty>
+	</select>
+</sqlMap>

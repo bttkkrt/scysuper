@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findCheckRecordByMap">
+		select new com.jshx.shjl.entity.CheckRecord(t.id,t.checkUserid,t.infoId,t.checkResult,t.checkUsername,t.checkRemark,t.createTime,t.checkTime) from CheckRecord t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="infoId">
+			<![CDATA[and t.infoId = :infoId]]>
+		</isNotEmpty>
+		
+		order by t.createTime
+		
+	</select>
+</sqlMap>

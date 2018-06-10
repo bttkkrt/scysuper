@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="YHBZLSD" extends="default" namespace="/jsp/yhbzlsd">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="yhbzlsdQuery" class="com.jshx.yhbzlsd.web.YhbzlsdAction" method="list">
+		</action>
+		
+		<action name="yhbzlsdList">
+			<result name="success">/WEB-INF/pages/yhbzlsd/Yhbzlsd_List.jsp</result>
+		</action>
+		
+		<action name="yhbzlsdView" class="com.jshx.yhbzlsd.web.YhbzlsdAction" method="view">
+			<result name="view">/WEB-INF/pages/yhbzlsd/Yhbzlsd_Detail.jsp</result>
+		</action>
+
+		<action name="yhbzlsdInitEdit" class="com.jshx.yhbzlsd.web.YhbzlsdAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/yhbzlsd/Yhbzlsd_Edit.jsp</result>
+		</action>
+
+		<action name="yhbzlsdSave" class="com.jshx.yhbzlsd.web.YhbzlsdAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_yhbzlsd</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="yhbzlsdDel" class="com.jshx.yhbzlsd.web.YhbzlsdAction" method="delete">
+		</action>
+		<action name="yhbzlsdExport" class="com.jshx.yhbzlsd.web.YhbzlsdAction" method="export">
+		</action>
+	</package>
+</struts>

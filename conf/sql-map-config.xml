@@ -1,0 +1,552 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<sqlMap resource="com/jshx/module/admin/conf/sql-map-empty.xml"/>
+    <!-- 引入系统框架所用的iBatis配置文件    发布版本 打开-->
+    <sqlMap resource="com/jshx/module/admin/conf/sql-map-code.xml"/>
+	<sqlMap resource="com/jshx/module/admin/conf/sql-map-dept.xml"/>
+	<sqlMap resource="com/jshx/module/admin/conf/sql-map-empty.xml"/>
+	<sqlMap resource="com/jshx/module/admin/conf/sql-map-log.xml"/>
+	<sqlMap resource="com/jshx/module/admin/conf/sql-map-loginImage.xml"/>
+	<sqlMap resource="com/jshx/module/admin/conf/sql-map-LogoffLog.xml"/>
+	<sqlMap resource="com/jshx/module/admin/conf/sql-map-module.xml"/>	
+	<sqlMap resource="com/jshx/module/admin/conf/sql-map-permission.xml"/>	
+	<sqlMap resource="com/jshx/module/admin/conf/sql-map-portal.xml"/>
+	<sqlMap resource="com/jshx/module/admin/conf/sql-map-quick.xml"/>
+	<sqlMap resource="com/jshx/module/admin/conf/sql-map-security.xml"/>	
+	<sqlMap resource="com/jshx/module/admin/conf/sql-map-user.xml"/>	
+	<sqlMap resource="com/jshx/module/admin/conf/sql-map-userrole.xml"/>
+	
+	<sqlMap resource="com/jshx/module/form/conf/sql-map-form.xml"/>
+	<sqlMap resource="com/jshx/module/form/conf/sql-map-datebase.xml"/>
+	<sqlMap resource="com/jshx/module/form/conf/sql-map-formcategory.xml"/>	
+	
+	<sqlMap resource="com/jshx/module/mobile/version/conf/sql-map-version.xml"/>
+	
+	<sqlMap resource="com/jshx/module/infomation/conf/sql-map-information.xml"/>	
+	
+	<sqlMap resource="com/jshx/http/conf/sql-map-http.xml"/>
+	
+	<sqlMap resource="com/jshx/qyzyfzr/conf/sql-map-qyzyfzr.xml"/>
+	<sqlMap resource="com/jshx/aqscfysytz/conf/sql-map-aqscfysytz.xml"/>
+	<sqlMap resource="com/jshx/zzqk/conf/sql-map-zzqk.xml"/>
+	<sqlMap resource="com/jshx/aqscldjg/conf/sql-map-aqscldjg.xml"/>
+	<sqlMap resource="com/jshx/aqscgljg/conf/sql-map-aqscgljg.xml"/>
+	
+	<sqlMap resource="com/jshx/aqscfgfzr/conf/sql-map-aqscfgfzr.xml"/>
+	<sqlMap resource="com/jshx/aqscfytqqk/conf/sql-map-aqscfytqqk.xml"/>
+	<sqlMap resource="com/jshx/aqscgljl/conf/sql-map-aqscgljl.xml"/>
+	
+	<sqlMap resource="com/jshx/zywsaqglzd/conf/sql-map-zywsaqglzd.xml"/>
+	<sqlMap resource="com/jshx/flfgbzgf/conf/sql-map-flfgbzgf.xml"/>
+	<sqlMap resource="com/jshx/aqsczj/conf/sql-map-aqsczj.xml"/>
+	<sqlMap resource="com/jshx/ndzybfzjf/conf/sql-map-ndzybfzjf.xml"/>
+	<sqlMap resource="com/jshx/czgc/conf/sql-map-czgc.xml"/>
+	<sqlMap resource="com/jshx/aqscgzzd/conf/sql-map-aqscgzzd.xml"/>
+	<sqlMap resource="com/jshx/tzzyry/conf/sql-map-tzzyry.xml"/>
+	
+	<sqlMap resource="com/jshx/aqscfzry/conf/sql-map-aqscfzry.xml"/>
+	<sqlMap resource="com/jshx/qyzyfzrpx/conf/sql-map-qyzyfzrpx.xml"/>
+	
+	<sqlMap resource="com/jshx/qyzyfzrlzqk/conf/sql-map-qyzyfzrlzqk.xml"/>
+	<sqlMap resource="com/jshx/aqscfzrypx/conf/sql-map-aqscfzrypx.xml"/>
+	
+	<sqlMap resource="com/jshx/wxhxpzdwxyhx/conf/sql-map-wxhxpzdwxyhx.xml"/>
+	<sqlMap resource="com/jshx/lddbqk/conf/sql-map-lddbqk.xml"/>
+	<sqlMap resource="com/jshx/zdwhpclqkb/conf/sql-map-zdwhpclqkb.xml"/>
+	
+	<sqlMap resource="com/jshx/aqsczjpx/conf/sql-map-aqsczjpx.xml"/>
+	
+	<sqlMap resource="com/jshx/zywsgljbxx/conf/sql-map-zywsgljbxx.xml"/>
+	<sqlMap resource="com/jshx/wxhxpzdwxyba/conf/sql-map-wxhxpzdwxyba.xml"/>
+	<sqlMap resource="com/jshx/aqscfgfzrpx/conf/sql-map-aqscfgfzrpx.xml"/>
+	<sqlMap resource="com/jshx/aqscgljlpx/conf/sql-map-aqscgljlpx.xml"/>
+	
+	<sqlMap resource="com/jshx/jjrktg/conf/sql-map-jjrktg.xml"/>
+	
+	<sqlMap resource="com/jshx/qynbqypx/conf/sql-map-qynbqypx.xml"/>
+	<sqlMap resource="com/jshx/gylc/conf/sql-map-gylc.xml"/>
+	<sqlMap resource="com/jshx/zyyl/conf/sql-map-zyyl.xml"/>
+	
+	<sqlMap resource="com/jshx/qytzrypx/conf/sql-map-qytzrypx.xml"/>
+	<sqlMap resource="com/jshx/xfssfbt/conf/sql-map-xfssfbt.xml"/>
+	<sqlMap resource="com/jshx/bzzpx/conf/sql-map-bzzpx.xml"/>
+	
+	<sqlMap resource="com/jshx/xygsgpx/conf/sql-map-xygsgpx.xml"/>
+	<sqlMap resource="com/jshx/qygjzzhzdbw/conf/sql-map-qygjzzhzdbw.xml"/>
+	
+	<sqlMap resource="com/jshx/zywsfgfzr/conf/sql-map-zywsfgfzr.xml"/>
+	
+	<sqlMap resource="com/jshx/whaqglzd/conf/sql-map-whaqglzd.xml"/>
+	
+	<sqlMap resource="com/jshx/ggl/conf/sql-map-ggl.xml"/>
+	
+	<sqlMap resource="com/jshx/sccjgl/conf/sql-map-sccjgl.xml"/>
+	
+	<sqlMap resource="com/jshx/gzk/conf/sql-map-gzk.xml"/>
+	
+	<sqlMap resource="com/jshx/aqssdjtz/conf/sql-map-aqssdjtz.xml"/>
+	<sqlMap resource="com/jshx/swwzxx/conf/sql-map-swwzxx.xml"/>
+	<sqlMap resource="com/jshx/wpwxxzsk/conf/sql-map-wpwxxzsk.xml"/>
+	<sqlMap resource="com/jshx/scxcgl/conf/sql-map-scxcgl.xml"/>
+	
+	<sqlMap resource="com/jshx/scsbss/conf/sql-map-scsbss.xml"/>
+	<sqlMap resource="com/jshx/zbhjxx/conf/sql-map-zbhjxx.xml"/>
+	<sqlMap resource="com/jshx/lbypkfgl/conf/sql-map-lbypkfgl.xml"/>
+	<sqlMap resource="com/jshx/lbypgl/conf/sql-map-lbypgl.xml"/>
+	<sqlMap resource="com/jshx/lbyplygl/conf/sql-map-lbyplygl.xml"/>
+	<sqlMap resource="com/jshx/yjya/conf/sql-map-yjya.xml"/>
+	<sqlMap resource="com/jshx/zdwxysbpgfj/conf/sql-map-zdwxysbpgfj.xml"/>
+	
+	<sqlMap resource="com/jshx/yjjgydw/conf/sql-map-yjjgydw.xml"/>
+	<sqlMap resource="com/jshx/mxbz/conf/sql-map-mxbz.xml"/>
+	<sqlMap resource="com/jshx/fczycsgl/conf/sql-map-fczycsgl.xml"/>
+	<sqlMap resource="com/jshx/sbsskjzywszydbj/conf/sql-map-sbsskjzywszydbj.xml"/>
+	
+	<sqlMap resource="com/jshx/xgfgl/conf/sql-map-xgfgl.xml"/>
+	<sqlMap resource="com/jshx/aqsczjk/conf/sql-map-aqsczjk.xml"/>
+	<sqlMap resource="com/jshx/yjsszbwz/conf/sql-map-yjsszbwz.xml"/>
+	<sqlMap resource="com/jshx/zybwhysfbqk/conf/sql-map-zybwhysfbqk.xml"/>
+	<sqlMap resource="com/jshx/zdwxyczgc/conf/sql-map-zdwxyczgc.xml"/>
+	<sqlMap resource="com/jshx/zdwxyyjcz/conf/sql-map-zdwxyyjcz.xml"/>
+	<sqlMap resource="com/jshx/zywhjbysqk/conf/sql-map-zywhjbysqk.xml"/>
+	
+	<sqlMap resource="com/jshx/yjyl/conf/sql-map-yjyl.xml"/>
+	<sqlMap resource="com/jshx/zdwxyglzd/conf/sql-map-zdwxyglzd.xml"/>
+	<sqlMap resource="com/jshx/zybwhys/conf/sql-map-zybwhys.xml"/>
+	<sqlMap resource="com/jshx/whysjc/conf/sql-map-whysjc.xml"/>
+	<sqlMap resource="com/jshx/qyaqsccn/conf/sql-map-qyaqsccn.xml"/>
+	<sqlMap resource="com/jshx/xfzzjggl/conf/sql-map-xfzzjggl.xml"/>
+	
+	<sqlMap resource="com/jshx/jccbgl/conf/sql-map-jccbgl.xml"/>
+	<sqlMap resource="com/jshx/czrypxzs/conf/sql-map-czrypxzs.xml"/>
+	<sqlMap resource="com/jshx/sgbgdchcl/conf/sql-map-sgbgdchcl.xml"/>
+	<sqlMap resource="com/jshx/aid/conf/sql-map-aid.xml"/>
+	<sqlMap resource="com/jshx/pxjcxx/conf/sql-map-pxjcxx.xml"/>
+	
+	<sqlMap resource="com/jshx/gawjzzjggl/conf/sql-map-gawjzzjggl.xml"/>
+	
+	<sqlMap resource="com/jshx/ylwsjggl/conf/sql-map-ylwsjggl.xml"/>
+	
+	<sqlMap resource="com/jshx/zyjktj/conf/sql-map-zyjktj.xml"/>
+	<sqlMap resource="com/jshx/hmd/conf/sql-map-hmd.xml"/>
+	
+	<sqlMap resource="com/jshx/wsgl/conf/sql-map-wsgl.xml"/>
+	
+	<sqlMap resource="com/jshx/gwczrypx/conf/sql-map-gwczrypx.xml"/>
+	
+	<sqlMap resource="com/jshx/zcaqgcs/conf/sql-map-zcaqgcs.xml"/>
+	<sqlMap resource="com/jshx/sxxw/conf/sql-map-sxxw.xml"/>
+	
+	<sqlMap resource="com/jshx/xwtzs/conf/sql-map-xwtzs.xml"/>
+	<sqlMap resource="com/jshx/ajxx/conf/sql-map-case.xml"/>
+	
+	<sqlMap resource="com/jshx/dgjl/conf/sql-map-dgjl.xml"/>
+	
+	<sqlMap resource="com/jshx/kcbl/conf/sql-map-kcbl.xml"/>
+	<sqlMap resource="com/jshx/xxdjbczjtzs/conf/sql-map-xxdjbczjtzs.xml"/>
+	
+	<sqlMap resource="com/jshx/xwbl/conf/sql-map-xwbl.xml"/>
+	
+	<sqlMap resource="com/jshx/cyzjglb/conf/sql-map-cyzjglb.xml"/>
+	
+	<sqlMap resource="com/jshx/xxdjbczjqdglb/conf/sql-map-xxdjbczjqdglb.xml"/>
+	<sqlMap resource="com/jshx/cyqzpz/conf/sql-map-cyqzpz.xml"/>
+	<sqlMap resource="com/jshx/xxdjzjspb/conf/sql-map-xxdjzjspb.xml"/>
+	<sqlMap resource="com/jshx/tjbhgjl/conf/sql-map-tjbhgjl.xml"/>
+	
+	<sqlMap resource="com/jshx/inwentorydecision/conf/sql-map-inwentorydecision.xml"/>
+	<sqlMap resource="com/jshx/xcxgl/conf/sql-map-xcxgl.xml"/>
+	
+	<sqlMap resource="com/jshx/jcx/conf/sql-map-jcx.xml"/>
+	<sqlMap resource="com/jshx/zgfcyjs/conf/sql-map-zgfcyjs.xml"/>
+	<sqlMap resource="com/jshx/inventorycheck/conf/sql-map-inventorycheck.xml"/>
+	
+	<sqlMap resource="com/jshx/xcclcsjds/conf/sql-map-xcclcsjds.xml"/>
+	<sqlMap resource="com/jshx/zlqxzgzls/conf/sql-map-zlqxzgzls.xml"/>
+	
+	<sqlMap resource="com/jshx/xcjcjl/conf/sql-map-xcjcjl.xml"/>
+	<sqlMap resource="com/jshx/xcxlxgl/conf/sql-map-xcxlxgl.xml"/>
+	
+	<sqlMap resource="com/jshx/jdjcjh/conf/sql-map-jdjcjh.xml"/>
+	<sqlMap resource="com/jshx/jdwts/conf/sql-map-jdwts.xml"/>
+	
+	<sqlMap resource="com/jshx/tztzs/conf/sql-map-tztzs.xml"/>
+	<sqlMap resource="com/jshx/jdwpglb/conf/sql-map-jdwpglb.xml"/>
+	
+	<sqlMap resource="com/jshx/jdjcjg/conf/sql-map-jdjcjg.xml"/>
+	
+	<sqlMap resource="com/jshx/tzbl/conf/sql-map-tzbl.xml"/>
+	<sqlMap resource="com/jshx/dsrcssbbl/conf/sql-map-dsrcssbbl.xml"/>
+	<sqlMap resource="com/jshx/jdjcrw/conf/sql-map-jdjcrw.xml"/>
+	<sqlMap resource="com/jshx/qzcsjds/conf/sql-map-qzcsjds.xml"/>
+	<sqlMap resource="com/jshx/xzcfgzs/conf/sql-map-xzcfgzs.xml"/>
+	<sqlMap resource="com/jshx/wxyxcjhgl/conf/sql-map-wxyxcjhgl.xml"/>
+	<sqlMap resource="com/jshx/yhb/conf/sql-map-yhb.xml"/>
+	<sqlMap resource="com/jshx/zxzzjcjl/conf/sql-map-zxzzjcjl.xml"/>
+	
+	<sqlMap resource="com/jshx/xzcfjttljl/conf/sql-map-xzcfjttljl.xml"/>
+	<sqlMap resource="com/jshx/tzhbgs/conf/sql-map-tzhbgs.xml"/>
+	
+	<sqlMap resource="com/jshx/xzdccfjdgrs/conf/sql-map-xzdccfjdgrs.xml"/>
+	<sqlMap resource="com/jshx/zxzzjh/conf/sql-map-zxzzjh.xml"/>
+	
+	<sqlMap resource="com/jshx/ajclcpb/conf/sql-map-ajclcpb.xml"/>
+	
+	<sqlMap resource="com/jshx/xzdccfjdsdw/conf/sql-map-xzdccfjdsdw.xml"/>
+	<sqlMap resource="com/jshx/wxyxcrwgl/conf/sql-map-wxyxcrwgl.xml"/>
+	<sqlMap resource="com/jshx/xzcfjdsdw/conf/sql-map-xzcfjdsdw.xml"/>
+	<sqlMap resource="com/jshx/chesafecondition/conf/sql-map-chesafecondition.xml"/>
+	<sqlMap resource="com/jshx/ajyss/conf/sql-map-ajyss.xml"/>
+	<sqlMap resource="com/jshx/jcjl/conf/sql-map-jcjl.xml"/>
+	<sqlMap resource="com/jshx/ajyssp/conf/sql-map-ajyssp.xml"/>
+	<sqlMap resource="com/jshx/xzcfjdsgr/conf/sql-map-xzcfjdsgr.xml"/>
+	<sqlMap resource="com/jshx/ajsp/conf/sql-map-ajsp.xml"/>
+	<sqlMap resource="com/jshx/yqjnfkspb/conf/sql-map-yqjnfkspb.xml"/>
+	<sqlMap resource="com/jshx/yqjnfkpzs/conf/sql-map-yqjnfkpzs.xml"/>
+	<sqlMap resource="com/jshx/qzzxsqs/conf/sql-map-qzzxsqs.xml"/>
+	<sqlMap resource="com/jshx/occconevalue/conf/sql-map-occconevalue.xml"/>
+	<sqlMap resource="com/jshx/jsxmzzybwhyp/conf/sql-map-jsxmzzybwhyp.xml"/>
+	<sqlMap resource="com/jshx/chesafedesign/conf/sql-map-chesafedesign.xml"/>
+	<sqlMap resource="com/jshx/occcondesign/conf/sql-map-occcondesign.xml"/>
+	<sqlMap resource="com/jshx/yhbzxzxk/conf/sql-map-yhbzxzxk.xml"/>
+	<sqlMap resource="com/jshx/prosafeassess/conf/sql-map-prosafeassess.xml"/>
+	<sqlMap resource="com/jshx/chesafepro/conf/sql-map-chesafepro.xml"/>
+	<sqlMap resource="com/jshx/jsxmzybfhssba/conf/sql-map-jsxmzybfhssba.xml"/>
+	<sqlMap resource="com/jshx/chesafecomplete/conf/sql-map-chesafecomplete.xml"/>
+	<sqlMap resource="com/jshx/occconcomplete/conf/sql-map-occconcomplete.xml"/>
+	<sqlMap resource="com/jshx/prosafedesign/conf/sql-map-prosafedesign.xml"/>
+	<sqlMap resource="com/jshx/prosafecomplete/conf/sql-map-prosafecomplete.xml"/>
+	<sqlMap resource="com/jshx/cheprolicense/conf/sql-map-cheprolicense.xml"/>
+	<sqlMap resource="com/jshx/pfglb/conf/sql-map-pfglb.xml"/>
+	<sqlMap resource="com/jshx/sgyjjyya/conf/sql-map-sgyjjyya.xml"/>
+	<sqlMap resource="com/jshx/whpaqtjpj/conf/sql-map-whpaqtjpj.xml"/>
+	<sqlMap resource="com/jshx/ybqyapbgba/conf/sql-map-ybqyapbgba.xml"/>
+	<sqlMap resource="com/jshx/preprolicense/conf/sql-map-preprolicense.xml"/>
+	<sqlMap resource="com/jshx/aqscbzhpfb/conf/sql-map-aqscbzhpfb.xml"/>
+	<sqlMap resource="com/jshx/premanrecord/conf/sql-map-premanrecord.xml"/>
+	<sqlMap resource="com/jshx/preprorecord/conf/sql-map-preprorecord.xml"/>
+	<sqlMap resource="com/jshx/aqscbxtbqk/conf/sql-map-aqscbxtbqk.xml"/>
+	<sqlMap resource="com/jshx/qyjbxx/conf/sql-map-qyjbxx.xml"/>
+	<sqlMap resource="com/jshx/whpxzxk/conf/sql-map-whpxzxk.xml"/>
+	<sqlMap resource="com/jshx/zfyj/conf/sql-map-zfyj.xml"/>
+	
+	<sqlMap resource="com/jshx/photoPic/conf/sql-map-photoPic.xml"/>
+	<sqlMap resource="com/jshx/shjl/conf/sql-map-shjl.xml"/>
+	<sqlMap resource="com/jshx/prebuslicense/conf/sql-map-prebuslicense.xml"/>
+	<sqlMap resource="com/jshx/qyaqscmb/conf/sql-map-qyaqscmb.xml"/>
+	<sqlMap resource="com/jshx/jgbzzpx/conf/sql-map-jgbzzpx.xml"/>
+	<sqlMap resource="com/jshx/rybzxx/conf/sql-map-rybzxx.xml"/>
+	<sqlMap resource="com/jshx/swgl/conf/sql-map-swgl.xml"/>
+	<sqlMap resource="com/jshx/fwgl/conf/sql-map-fwgl.xml"/>
+	<sqlMap resource="com/jshx/qywghjdgl/conf/sql-map-qywghjdgl.xml"/>
+     <sqlMap resource="com/jshx/xkzcxxx/conf/sql-map-xkzcxxx.xml"/>
+	<sqlMap resource="com/jshx/map/conf/sql-map-map.xml"/>
+	
+	
+	<sqlMap resource="com/wzxx/wzxx/conf/sql-map-wzxx.xml"/>
+	<sqlMap resource="com/wzxx/tzgg/conf/sql-map-tzgg.xml"/>
+	<sqlMap resource="com/wzxx/bgt/conf/sql-map-bgt.xml"/>
+	<sqlMap resource="com/wzxx/bgtxx/conf/sql-map-bgtxx.xml"/>
+	<sqlMap resource="com/wzxx/aqwh/conf/sql-map-aqwh.xml"/>
+	<sqlMap resource="com/wzxx/gzdt/conf/sql-map-gzdt.xml"/>
+	<sqlMap resource="com/wzxx/sytp/conf/sql-map-sytp.xml"/>
+	<sqlMap resource="com/wzxx/wzInfoManage/conf/sql-map-wzInfoManage.xml"/>
+	<sqlMap resource="com/wzxx/flfg/conf/sql-map-flfg.xml"/>
+	<sqlMap resource="com/wzxx/lxwm/conf/sql-map-lxwm.xml"/>
+	<sqlMap resource="com/wzxx/bgxz/conf/sql-map-bgxz.xml"/>
+	<sqlMap resource="com/wzxx/csgl/conf/sql-map-csgl.xml"/>
+	<sqlMap resource="com/wzxx/jgdl/conf/sql-map-jgdl.xml"/>
+	<sqlMap resource="com/wzxx/zhzf/conf/sql-map-zhzf.xml"/>
+	<sqlMap resource="com/wzxx/xyjc/conf/sql-map-xyjc.xml"/>
+	
+	<sqlMap resource="com/jshx/dcbg/conf/sql-map-dcbg.xml"/>
+	
+	<sqlMap resource="com/jshx/tzgzs/conf/sql-map-tzgzs.xml"/>
+	
+	<sqlMap resource="com/jshx/patrolUser/conf/sql-map-patrolUser.xml"/>
+	
+	<sqlMap resource="com/jshx/companyScore/conf/sql-map-companyScore.xml"/>
+	<sqlMap resource="com/jshx/dot/conf/sql-map-dot.xml"/>
+	<sqlMap resource="com/jshx/tssxspb/conf/sql-map-tssxspb.xml"/>
+	<sqlMap resource="com/jshx/lawLib/conf/sql-map-lawLib.xml"/>
+	
+	<sqlMap resource="com/jshx/qyfjfl/conf/sql-map-enterpriseGrade.xml"/>
+	
+	<sqlMap resource="com/jshx/zfyjlb/conf/sql-map-zfyjlb.xml"/>
+	
+	<sqlMap resource="com/jshx/companyInfoPlan/conf/sql-map-companyInfoPlan.xml"/>
+	
+	<sqlMap resource="com/jshx/gwhy/conf/sql-map-gwhy.xml"/>
+	<sqlMap resource="com/jshx/sjzfgpdb/conf/sql-map-sjzfgpdb.xml"/>
+	<sqlMap resource="com/jshx/aqscsgyhpc/conf/sql-map-aqscsgyhpc.xml"/>
+	<sqlMap resource="com/jshx/aqscjchzxzz/conf/sql-map-aqscjchzxzz.xml"/>
+	<sqlMap resource="com/jshx/gmys/conf/sql-map-gmys.xml"/>
+	<sqlMap resource="com/jshx/fcsbzzqk/conf/sql-map-fcsbzzqk.xml"/>
+	<sqlMap resource="com/jshx/yhbzlsd/conf/sql-map-yhbzlsd.xml"/>
+	<sqlMap resource="com/jshx/whpqybzh/conf/sql-map-whpqybzh.xml"/>
+	<sqlMap resource="com/jshx/zywsndzb/conf/sql-map-zywsndzb.xml"/>
+	<sqlMap resource="com/jshx/xwqyaqsc/conf/sql-map-xwqyaqsc.xml"/>
+	<sqlMap resource="com/jshx/aqsczjzd/conf/sql-map-aqsczjzd.xml"/>
+	<sqlMap resource="com/jshx/zhajxxh/conf/sql-map-zhajxxh.xml"/>
+	<sqlMap resource="com/jshx/aqscsgqk/conf/sql-map-aqscsgqk.xml"/>
+	<sqlMap resource="com/jshx/qygsrdqk/conf/sql-map-qygsrdqk.xml"/>
+	<sqlMap resource="com/jshx/aqscpxqk/conf/sql-map-aqscpxqk.xml"/>
+	<sqlMap resource="com/jshx/ldmjx/conf/sql-map-ldmjx.xml"/>
+    <sqlMap resource="com/jshx/aqscwyhtj/conf/sql-map-aqscwyhtj.xml"/>
+    <sqlMap resource="com/jshx/aqscwyhywc/conf/sql-map-aqscwyhywc.xml"/>
+    <sqlMap resource="com/jshx/whpjyxk/conf/sql-map-whpjyxk.xml"/>
+    <sqlMap resource="com/jshx/qyaqscyt/conf/sql-map-qyaqscyt.xml"/>
+	
+	<sqlMap resource="com/jshx/checkTable/conf/sql-map-checkTable.xml"/>
+	<sqlMap resource="com/jshx/spgl/conf/sql-map-spgl.xml"/>
+	<sqlMap resource="com/jshx/splx/conf/sql-map-splx.xml"/>
+	<sqlMap resource="com/jshx/showGuid/conf/sql-map-showGuid.xml"/>
+	
+	<sqlMap resource="com/jshx/ssjjc/conf/sql-map-ssjjc.xml"/>
+	
+    <!-- 主要负责人、安全管理员 职业卫生 培训表 李军 2013-08-14-->    
+    <sqlMap resource="com/jshx/zazPxb/conf/sql-map-zazPxb.xml"/>
+     <!-- 特种作业人员培训表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/tzzyPxb/conf/sql-map-tzzyPxb.xml"/>
+    <!-- 新人厂员工培训表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/xrcPxb/conf/sql-map-xrcPxb.xml"/>
+     <!-- 员工再培训 转岗 下岗 脱岗 培训表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/zzxtPxb/conf/sql-map-zzxtPxb.xml"/>
+    <!-- 岗位安全操作规程 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/gwaq/conf/sql-map-gwaq.xml"/>
+     <!-- 特种设备表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/tzsb/conf/sql-map-tzsb.xml"/>
+     <!-- 安全附件表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/aqfj/conf/sql-map-aqfj.xml"/>
+     <!-- 企业设备表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/qysb/conf/sql-map-qysb.xml"/>
+     <!-- 安全生产关键装置 重点部位表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/zzbw/conf/sql-map-zzbw.xml"/>
+     <!-- 资格证书管理表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/zsgl/conf/sql-map-zsgl.xml"/>
+    <!-- 安全管理机构表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/aqglb/conf/sql-map-aqglb.xml"/>
+     <!-- 行政许可证书管理表 李军 2013-08-14-->  
+    <sqlMap resource="com/jshx/xkzsb/conf/sql-map-xkzsb.xml"/>
+     <!-- 安全生产经费表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/aqscb/conf/sql-map-aqscb.xml"/>
+     <!-- 安全生产经费 关联表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/aqscData/conf/sql-map-aqscData.xml"/>
+     <!-- 安全标准化达标级别 表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/bzh/conf/sql-map-bzh.xml"/>
+    <!-- 事故统计表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/sgtj/conf/sql-map-sgtj.xml"/>
+     <!-- 事故统计数据关联表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/sgtjData/conf/sql-map-sgtjData.xml"/>
+     <!-- 安全生产责任表 李军 2013-08-14-->
+    <sqlMap resource="com/jshx/aqsczrb/conf/sql-map-aqsczrb.xml"/>
+    <!-- 岗位职能表 李军 2013-08-16 -->
+    <sqlMap resource="com/jshx/gwznb/conf/sql-map-gwznb.xml"/>
+     <!-- gaoqiang 安全生产规章制度的sql引用   8月14 -->
+        <sqlMap resource="com/jshx/safetysheet/conf/sql-map-safetysheet.xml"/>
+         <!-- gaoqiang 工厂图片的sql引用   8月14 -->
+        <sqlMap resource="com/jshx/factorypicture/conf/sql-map-factorypicture.xml"/>
+        <!-- gaoqiang 劳动防护用品配备情况表的sql引用   8月14 -->
+        <sqlMap resource="com/jshx/laborproduct/conf/sql-map-laborproduct.xml"/>
+          <!-- gaoqiang 工厂消防设施分部图的sql引用   8月14 -->
+        <sqlMap resource="com/jshx/segmentplant/conf/sql-map-segmentplant.xml"/>
+    
+         <!-- gaoqiang     安全设施登记台帐的sql引用   8月14 -->
+        <sqlMap resource="com/jshx/safeleader/conf/sql-map-safeleader.xml"/>
+          <!-- gaoqiang     企业生产流程图的sql引用   8月14 -->
+        <sqlMap resource="com/jshx/productChart/conf/sql-map-productChart.xml"/>
+        <!-- gaoqiang    检修作业规程的sql引用   8月14 -->
+        <sqlMap resource="com/jshx/maintenp/conf/sql-map-maintenp.xml"/>
+         <!-- gaoqiang    安全警示标志设置情况表的sql引用   8月14 -->
+        <sqlMap resource="com/jshx/safetywarining/conf/sql-map-safetywarining.xml"/>
+        
+        <!-- 职业病危害因素分布情况 李军 2013-08-23 -->
+        <sqlMap resource="com/jshx/zybfb/conf/sql-map-zybfb.xml"/>
+        <!-- 专家检查表 李军 2013-08-23 -->
+        <sqlMap resource="com/jshx/zjjcb/conf/sql-map-zjjcb.xml"/>
+        <!-- 企业自查表 李军 2013-08-23 -->
+        <sqlMap resource="com/jshx/qyjcb/conf/sql-map-qyjcb.xml"/>
+        <!-- 企业自查关联表 李军 2013-08-23 -->
+        <sqlMap resource="com/jshx/qyjcbData/conf/sql-map-qyjcbData.xml"/>
+        
+        <!-- 职业病危害种类 李军 2013-08-26 -->
+         <sqlMap resource="com/jshx/zybwhzl/conf/sql-map-zybwhzl.xml"/>
+	
+	 	<!-- gaoqiang    主要负责人履职报告的sql引用   8月23 -->
+        <sqlMap resource="com/jshx/zyfzrlzbg/conf/sql-map-zyfzrlzbg.xml"/>
+         <!-- gaoqiang    员工体检报告汇总表的sql引用   8月23 -->
+        <sqlMap resource="com/jshx/ygtjbghzb/conf/sql-map-ygtjbghzb.xml"/>
+         <!-- gaoqiang   危险化学品贮存情况的sql引用   8月23 -->
+        <sqlMap resource="com/jshx/dangerStorge/conf/sql-map-dangerStorge.xml"/>
+         <!-- gaoqiang   危险化学品建设项目行政许可的sql引用   8月23 -->
+        <sqlMap resource="com/jshx/dangerlicene/conf/sql-map-dangerlicene.xml"/>
+        
+       
+         <!-- gaoqiang    作业场所检测报告的sql引用   8月23 -->
+       <sqlMap resource="com/jshx/zycsjcbg/conf/sql-map-zycsjcbg.xml"/> 
+        
+        <!-- gaoqiang    危险化学品事故应急救援预案及备案告知书的sql引用   8月23 -->
+       <sqlMap resource="com/jshx/whpyjyagzs/conf/sql-map-whpyjyagzs.xml"/>
+         <!-- gaoqiang   安全评价报告的sql引用   8月24 -->
+       <sqlMap resource="com/jshx/anpjbg/conf/sql-map-anpjbg.xml"/>
+           <!-- gaoqiang   危险化学品使用情况的sql引用   8月24 -->
+      <sqlMap resource="com/jshx/dangerUsed/conf/sql-map-dangerUsed.xml"/>
+	
+	
+    <sqlMap resource="com/jshx/zdwxphxdj/conf/sql-map-zdwxphxdj.xml"/>
+    <sqlMap resource="com/jshx/whpglb/conf/sql-map-whpglb.xml"/>
+    <sqlMap resource="com/jshx/zdwxybadj/conf/sql-map-zdwxybadj.xml"/>
+    <sqlMap resource="com/jshx/zdwxyhxsq/conf/sql-map-zdwxyhxsq.xml"/>
+    <sqlMap resource="com/jshx/zdwxyjbtz/conf/sql-map-zdwxyjbtz.xml"/>
+    <sqlMap resource="com/jshx/zywsqk/conf/sql-map-zywsqk.xml"/>
+    <sqlMap resource="com/jshx/zdwxybasq/conf/sql-map-zdwxybasq.xml"/>
+    <sqlMap resource="com/jshx/zywhglb/conf/sql-map-zywhglb.xml"/>
+    
+    <!-- 企业自查隐患上报 李军 2013-08-27 -->
+    <sqlMap resource="com/jshx/zcyhsb/conf/sql-map-zcyhsb.xml"/>
+    
+     <!-- gaoqiang   应急求援装备，物资和药品的sql引用   8月26 -->
+     <sqlMap resource="com/jshx/yjzbwzyp/conf/sql-map-yjzbwzyp.xml"/>
+     <!-- gaoqiang   危险化学品企业安全生产管理制度的sql引用   8月30 -->
+    <sqlMap resource="com/jshx/whpaqglzd/conf/sql-map-whpaqglzd.xml"/> 
+       <!-- gaoqiang   职业卫生管理制度制度的sql引用   8月30 -->
+     <sqlMap resource="com/jshx/zywsglzd/conf/sql-map-zywsglzd.xml"/>
+     
+    <sqlMap resource="com/jshx/qyzcyhglb/conf/sql-map-qyzcyhglb.xml"/> 
+    <sqlMap resource="com/jshx/dailyInspection/conf/sql-map-dailyInspection.xml"/>
+    <!-- lj 危化品材料审查 -->
+    <sqlMap resource="com/jshx/whpclsc/conf/sql-map-whpclsc.xml"/>
+    
+     <sqlMap resource="com/jshx/reviewLog/conf/sql-map-reviewLog.xml"/>
+     
+     <sqlMap resource="com/jshx/gpdb/conf/sql-map-gpdb.xml"/>
+     <sqlMap resource="com/jshx/zhkxzxk/conf/sql-map-zhkxzxk.xml"/>
+     <sqlMap resource="com/jshx/zywsxzxk/conf/sql-map-zywsxzxk.xml"/>
+	<sqlMap resource="com/jshx/terminlLoginInfo/conf/sql-map-terminalLoginInfo.xml"/>
+	<!-- 打非治违 -->
+	<sqlMap resource="com/jshx/dfzw/conf/sql-map-dfzw.xml"/>
+	<!-- 打非治违关联表 -->
+	<sqlMap resource="com/jshx/dfzwglb/conf/sql-map-dfzwglb.xml"/>
+	<!-- 安全生产罚款相关材料 -->
+	<sqlMap resource="com/jshx/aqscfk/conf/sql-map-aqscfk.xml"/>
+	<!-- 安全生产行政处罚 -->
+	<sqlMap resource="com/jshx/aqscxzcf/conf/sql-map-aqscxzcf.xml"/>
+	<!-- 监察工作周报 -->
+	<sqlMap resource="com/jshx/jcgzzb/conf/sql-map-jcgzzb.xml"/>
+	<!-- 安全生产行政处罚关联表 -->
+	<sqlMap resource="com/jshx/aqscxzcfglb/conf/sql-map-aqscxzcfglb.xml"/>
+	<!-- 重大危险源统计信息表 -->
+	<sqlMap resource="com/jshx/zdwxytjxx/conf/sql-map-zdwxytjxx.xml"/>
+	
+	<!-- 应急救援预案备案事项告知书 李海棠 2013-08-26 -->
+	<sqlMap resource="com/jshx/emergencyRescuePlan/conf/sql-map-EmergencyRescuePlan.xml"/>
+	<!-- 安全现状评价报告备案事项通知书 李海棠 2013-08-26 -->
+	<sqlMap resource="com/jshx/safetyEvaluationReport/conf/sql-map-SafetyEvaluationReport.xml"/>
+	<!-- 危险化学品重大危险源备案告知书 李海棠 2013-08-26 -->
+	<sqlMap resource="com/jshx/dangerousChemicalsPlan/conf/sql-map-dangerousChemicalsPlan.xml"/>
+	<!-- 危险化学品重大危险源核销告知书 李海棠 2013-08-26 -->
+	<sqlMap resource="com/jshx/destroyDangerousChemicalsPlan/conf/sql-map-destroyDangerousChemicalsPlan.xml"/>
+	<!-- 主要负责人安全生产履职情况报告回执 李海棠 2013-11-05 -->
+	<sqlMap resource="com/jshx/mainPersonReceipt/conf/sql-map-mainPersonReceipt.xml"/>
+	<!-- 职业病危害控制效果评价报告表备案通知书  李海棠 2013-11-05 -->
+	<sqlMap resource="com/jshx/occupationalControlPlan/conf/sql-map-occupationalControlPlan.xml"/>
+	<sqlMap resource="com/jshx/occupationalEvaluatePlan/conf/sql-map-occupationalEvaluatePlan.xml"/>
+	<sqlMap resource="com/jshx/occupationalEvaluateReceipt/conf/sql-map-occupationalEvaluateReceipt.xml"/>
+	<!-- 挂牌督办隐患整改 -->
+	<sqlMap resource="com/jshx/gpqyyhzg/conf/sql-map-gpqyyhzg.xml"/>
+	<sqlMap resource="com/jshx/aqsczfwsglb/conf/sql-map-aqsczfwsglb.xml"/>
+	<sqlMap resource="com/jshx/aqscsgcc/conf/sql-map-aqscsgcc.xml"/>
+	<sqlMap resource="com/jshx/aqscsgccglb/conf/sql-map-aqscsgccglb.xml"/>
+	<sqlMap resource="com/jshx/aqsczfws/conf/sql-map-aqsczfws.xml"/>
+	
+	<sqlMap resource="com/jshx/zycsqk/conf/sql-map-zycsqk.xml"/>
+	<!-- 职业卫生基本信息  高强 2013-11-20 -->
+	<sqlMap resource="com/jshx/zywsjbxx/conf/sql-map-zywsjbxx.xml"/>
+	
+		<!-- 职业病年度防治经费 2013-11-18 李军 -->
+	<sqlMap resource="com/jshx/zybfzjf/conf/sql-map-zybfzjf.xml"/>
+	<!-- 规章制度 2013-11-19 李军 -->
+	<sqlMap resource="com/jshx/gzzd/conf/sql-map-gzzd.xml"/>
+	<!-- 危害因素基本情况 2013-11-20 李军 -->
+	<sqlMap resource="com/jshx/whysjbqk/conf/sql-map-whysjbqk.xml"/>
+	<!-- 职业病危害因素监测  -->
+	<sqlMap resource="com/jshx/zybwhysjc/conf/sql-map-zybwhysjc.xml"/>
+	
+	<sqlMap resource="com/jshx/zyjkjhyc/conf/sql-map-zyjkjhyc.xml"/>
+	<sqlMap resource="com/jshx/zycsjcry/conf/sql-map-zycsjcry.xml"/>
+	<sqlMap resource="com/jshx/carDoneInfo/conf/sql-map-carDoneInfo.xml"/>
+	
+	<!--质监局特种设备作业人员 2013-12-26 陆婷  -->
+	<sqlMap resource="com/jshx/zjjtzsbzyry/conf/sql-map-zjjtzsbzyry.xml"/>
+	<!--质监局特种设备 2013-12-26 陆婷  -->
+	<sqlMap resource="com/jshx/zjjtzsb/conf/sql-map-zjjtzsb.xml"/>
+	
+	<sqlMap resource="com/jshx/wzcompany/conf/sql-map-wzcompany.xml"/>
+	<sqlMap resource="com/jshx/wfwgcompany/conf/sql-map-wfwgcompany.xml"/>
+		<!-- 网格管理 lj 2014-06-19 -->
+	<sqlMap resource="com/jshx/gridManager/conf/sql-map-gridManager.xml"/>
+	
+	<sqlMap resource="com/jshx/zjjtzsbs/conf/sql-map-zjjtzsbs.xml"/>
+	
+	<sqlMap resource="com/jshx/wxhxp/conf/sql-map-wxhxp.xml"/>
+	<sqlMap resource="com/jshx/jdhxp/conf/sql-map-jdhxp.xml"/>
+	
+	<sqlMap resource="com/jshx/sgyhjb/conf/sql-map-sgyhjb.xml"/>
+	
+	<!-- hanxc  start -->
+		<!-- 矿山信息表  2014-10-30-->
+		<sqlMap resource="com/jshx/diggingsinfo/conf/sql-map-diggingsinfo.xml"/>
+		<sqlMap resource="com/jshx/tailinglibinfo/conf/sql-map-tailinglibinfo.xml"/>
+		<!-- 法律法规  2015-01-30-->		
+		<sqlMap resource="com/jshx/lawsRegulations/conf/sql-map-LawsRegulations.xml"/>
+		<sqlMap resource="com/jshx/regulationsLevel/conf/sql-map-RegulationsLevel.xml"/>
+		
+		<sqlMap resource="com/jshx/sbshcl/conf/sql-map-sbshcl.xml"/>
+		<!-- 工作上报  2015-04-01-->
+		<sqlMap resource="com/jshx/reportWorkReceiver/conf/sql-map-reportWorkReceiver.xml"/>
+		<sqlMap resource="com/jshx/reportWork/conf/sql-map-reportWork.xml"/>
+		<!-- 安全检查  2015-04-08 -->
+		<sqlMap resource="com/jshx/inspectItem/conf/sql-map-inspectItem.xml"/>
+		<sqlMap resource="com/jshx/distributeItem/conf/sql-map-distributeItem.xml"/>
+		<sqlMap resource="com/jshx/safeInspectDistribute/conf/sql-map-safeInspectDistribute.xml"/>
+		<sqlMap resource="com/jshx/zfjh/conf/sql-map-zfjh.xml"/>
+	<!-- hanxc  end -->
+	
+	<!-- zhangzh start -->
+	<!-- 公文审核 -->
+	<sqlMap resource="com/jshx/docReview/conf/sql-map-docReview.xml"/>
+	<sqlMap resource="com/jshx/docReviewReceiver/conf/sql-map-docReviewReceiver.xml"/> 
+	<!-- 隐患清单 -->
+	<sqlMap resource="com/jshx/yhqd/conf/sql-map-yhqd.xml"/>
+	<!-- zhangzh end -->
+	
+	<!-- 安全生产执法检查类别表 GY-UPDATE 2015-01-16 -->
+	<sqlMap resource="com/jshx/checkCategory/conf/sql-map-checkCategory.xml"/>
+	<!-- 安全生产执法检查内容表 GY-UPDATE 2015-01-16 -->
+	<sqlMap resource="com/jshx/checkContent/conf/sql-map-checkContent.xml"/>
+	<!-- 安全生产执法检查结果表 GY-UPDATE 2015-01-19 -->
+	<sqlMap resource="com/jshx/checkResult/conf/sql-map-checkResult.xml"/>
+	<!-- 安全生产执法检查基本表 GY-UPDATE 2015-01-19 -->
+	<sqlMap resource="com/jshx/checkBasic/conf/sql-map-checkBasic.xml"/>
+	<sqlMap resource="com/jshx/checkLawEnforce/conf/sql-map-checkLawEnforce.xml"/>
+	<sqlMap resource="com/jshx/checkSituation/conf/sql-map-checkSituation.xml"/>
+	<sqlMap resource="com/jshx/rectifyOpinion/conf/sql-map-rectifyOpinion.xml"/>
+	<sqlMap resource="com/jshx/regionCode/conf/sql-map-regionCode.xml"/>
+	<!-- 本地视频列表 -->
+	<sqlMap resource="com/jshx/vedioname/conf/sql-map-vedioname.xml"/>
+	<sqlMap resource="com/jshx/carequipment/conf/sql-map-carequipment.xml"/>
+	<!-- 视频列表 -->
+	<!-- <sqlMap resource="com/jshx/carequipment/conf/sql-map-carequipment.xml"/> -->
+	<!-- 数据上报列表 -->
+	<sqlMap resource="com/jshx/httpData/conf/sql-map-httpData.xml"/>
+	<sqlMap resource="com/jshx/areacodeRelation/conf/sql-map-areacodeRelation.xml"/>
+	<sqlMap resource="com/jshx/heflRelation/conf/sql-map-HYFL.xml"/>
+	<sqlMap resource="com/jshx/commonTrouble/conf/sql-map-commonTrouble.xml"/>
+	<sqlMap resource="com/jshx/majorTrouble/conf/sql-map-majorTrouble.xml"/>
+	<sqlMap resource="com/jshx/company/conf/sql-map-company.xml"/>
+	<sqlMap resource="com/jshx/hyfl/conf/sql-map-hyfl.xml"/>
+	<sqlMap resource="com/jshx/photo/conf/sql-map-photo.xml"/>
+	
+</sqlMapConfig>

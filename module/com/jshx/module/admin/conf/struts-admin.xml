@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 部门管理 -->
+	<package name="dept" extends="default"
+		namespace="/jsp/admin/dept">
+		<action name="viewDept"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="viewDept">
+			<result name="view">
+				/WEB-INF/pages/admin/dept/viewDept.jsp
+			</result>
+		</action>
+
+		<action name="editDept"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="editDept">
+			<result name="edit">
+				/WEB-INF/pages/admin/dept/editDept.jsp
+			</result>
+		</action>
+
+		<action name="deptTree"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="deptTree">
+			<result name="success">
+				/WEB-INF/pages/admin/dept/deptTree.jsp
+			</result>
+			<result name="setParent">
+				/WEB-INF/pages/admin/dept/parentDeptTree.jsp
+			</result>
+		</action>
+        <action name="deptTreeForWorkflow"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="deptTree">
+			<result name="success">
+				/WEB-INF/pages/workflow/processDefinition/deptTree.jsp
+			</result>
+		</action>
+		
+		<action name="index"
+			class="com.jshx.module.admin.web.action.DeptAction" method="index">
+			<result name="success">
+				/WEB-INF/pages/admin/dept/index.jsp
+			</result>
+		</action>
+		
+		<action name="getProvinces"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="getProvinces">
+		</action>
+		<action name="findChildrenByParentId"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="findChildrenByParentId">
+		</action>
+
+		<action name="saveDept"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="saveDept">
+		</action>
+		
+		<action name="checkDept" class="com.jshx.module.admin.web.action.DeptAction"
+			method="checkDept">
+		</action>
+		
+		<action name="setLinkedDept"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="setLinkedDept">
+			<result name="success">
+				/WEB-INF/pages/admin/dept/setLinkedDept.jsp
+			</result>
+		</action>
+		
+		<action name="saveLinkedDept"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="saveLinkedDept">
+			<result name="success" type="redirect">
+				/common/successToSelf.jsp?windowId=set_dept
+			</result>
+		</action>
+
+		<action name="changePublic"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="changePublic">
+			<result name="reload" type="redirect">
+				/common/successToSelf.jsp
+			</result>
+		</action>
+
+		<action name="changeExpirationDate"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="changeExpirationDate">
+			<result name="reload" type="redirect">
+				/common/successToSelf.jsp
+			</result>
+		</action>
+
+		<action name="listDept"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="listDept">
+		</action>
+
+		<action name="list"
+			class="com.jshx.module.admin.web.action.DeptAction" method="list">
+			<result name="list">
+				/WEB-INF/pages/admin/dept/listDept.jsp
+			</result>
+		</action>
+
+		<action name="activeDept"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="activeDept">
+		</action>
+
+		<action name="inactiveDept"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="inactiveDept">
+		</action>
+
+		<action name="findChildDept"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="findChildDept">
+		</action>
+		
+		<action name="findChildDeptByCurrUser"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="findChildDeptByCurrUser">
+		</action>
+		
+		<action name="delDept"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="delDept">
+		</action>
+		
+		<action name="logicDelDept"
+			class="com.jshx.module.admin.web.action.DeptAction"
+			method="logicDelDept">
+		</action>
+	</package>
+
+	<!-- 用户管理 -->
+	<package name="user" extends="default"
+		namespace="/jsp/admin/user">
+		<action name="viewUser"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="viewUser">
+			<result name="view">
+				/WEB-INF/pages/admin/user/viewUser.jsp
+			</result>
+		</action>
+
+		<action name="editUser"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="editUser">
+			<result name="edit">
+				/WEB-INF/pages/admin/user/editUser.jsp
+			</result>
+		</action>
+
+		<action name="delUser"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="delUser">
+			<result name="reload">
+			/WEB-INF/pages/admin/user/listUser.jsp
+			</result>
+		</action>
+		
+		<action name="logicDelUser"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="logicDelUser">
+			<result name="reload">
+			/WEB-INF/pages/admin/user/listUser.jsp
+			</result>
+		</action>
+
+		<action name="saveUser"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="saveUser">
+		</action>
+		
+		<action name="deptTree" class="com.jshx.module.admin.web.action.UserAction" method="deptTree">
+			<result name="success">
+				/WEB-INF/pages/admin/user/deptTree.jsp
+			</result>
+		</action>
+		
+		<action name="saveLinkedDept"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="saveLinkedDept">
+		</action>
+		
+		<action name="findLinkedDept"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="findLinkedDept">
+		</action>
+
+		<action name="listUser"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="listUser">
+		</action>
+
+		<action name="list" class="com.jshx.module.admin.web.action.UserAction" method="list">
+			<result name="list">
+				/WEB-INF/pages/admin/user/listUser.jsp
+			</result>
+		</action>
+
+		<action name="activeUser"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="activeUser">
+		</action>
+
+		<action name="inactiveUser"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="inactiveUser">
+		</action>
+
+		<action name="initUserPassword"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="initUserPassword">
+		</action>
+		
+		<action name="editUserRight"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="editUserRight">
+			<result name="success">
+				/WEB-INF/pages/admin/user/listUserRight.jsp
+			</result>
+		</action>
+		
+		<action name="initImportUser" class="com.jshx.module.admin.web.action.UserAction" method="initImport">
+		    <result name="success">/WEB-INF/pages/admin/user/importUser.jsp</result>
+		</action>
+		
+		<action name="importUser" class="com.jshx.module.admin.web.action.UserAction" method="importUser">
+			<result name="success" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		 <!-- 用户管理中角色设置，角色树 -->
+        <action name="userRoleTree">
+			<result>/WEB-INF/pages/admin/user/roleTree.jsp</result>
+		</action>
+		
+		<action name="saveUserRight"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="saveUserRight">
+			<result name="success" type="redirect">
+				editUserRight.action?userId=${userId}
+			</result>
+		</action>
+		
+		<action name="listAllUsersByDept" class="com.jshx.module.admin.web.action.UserAction" method="listAllUsersByDept"></action>
+	</package>
+
+	<!-- 角色权限 -->
+	<package name="role" extends="default" namespace="/jsp/admin/role">
+		<action name="findRoleTreeForFunc" method="findRoleTreeForFunc"
+			class="com.jshx.module.admin.web.action.UserRoleAction">
+			
+		</action>
+		<action name="list">
+			<result>
+				/WEB-INF/pages/admin/role/listRole.jsp
+			</result>
+		</action>
+		<action name="checkRole" class="com.jshx.module.admin.web.action.UserRoleAction" method="checkRole"/>
+		
+		<action name="listRole" class="com.jshx.module.admin.web.action.UserRoleAction" method="listRole">
+		</action>
+		<action name="editRole"
+			class="com.jshx.module.admin.web.action.UserRoleAction"
+			method="editRole">
+			<result name="edit">
+				/WEB-INF/pages/admin/role/editRole.jsp
+			</result>
+		</action>
+		<action name="deleteRole"
+			class="com.jshx.module.admin.web.action.UserRoleAction"
+			method="deleteRole">
+		</action>
+		<action name="saveRole"
+			class="com.jshx.module.admin.web.action.UserRoleAction"
+			method="saveRole">
+			
+		</action>
+		<action name="findChildNode"
+			class="com.jshx.module.admin.web.action.UserRoleAction"
+			method="findChildNode">
+		</action>
+		<action name="findRoleTreeForUser"
+			class="com.jshx.module.admin.web.action.UserRoleAction"
+			method="findRoleTreeForUser">
+		</action>
+		<action name="findRoleTreeForModule"
+			class="com.jshx.module.admin.web.action.UserRoleAction"
+			method="findRoleTreeForModule">
+		</action>
+		<action name="findRoleTreeForMobileModule"
+			class="com.jshx.module.admin.web.action.UserRoleAction"
+			method="findRoleTreeForMobileModule">
+		</action>
+		<action name="roleIsReg"
+			class="com.jshx.module.admin.web.action.UserRoleAction"
+			method="roleIsReg">
+		</action>
+
+		<action name="listUserRight"
+			class="com.jshx.module.admin.web.action.RoleAction"
+			method="listUserRight">
+			<result name="success">
+				/WEB-INF/pages/admin/role/listUserRight.jsp
+			</result>
+		</action>
+		<action name="saveUserRole"
+			class="com.jshx.module.admin.web.action.RoleAction"
+			method="saveUserRole">
+		</action>
+		<action name="delUserRole"
+			class="com.jshx.module.admin.web.action.RoleAction"
+			method="delUserRole">
+		</action>
+		
+		<action name="saveUserRight"
+			class="com.jshx.module.admin.web.action.RoleAction"
+			method="saveUserRight">
+			<result name="success" type="redirect">
+				/common/successToSelf.jsp?windowId=edit_role_user
+			</result>
+		</action>
+		<action name="listModuleRight"
+			class="com.jshx.module.admin.web.action.RoleAction"
+			method="listModuleRight">
+			<result name="success">
+				/WEB-INF/pages/admin/role/listModuleRight.jsp
+			</result>
+		</action>
+		<action name="saveModuleRight"
+			class="com.jshx.module.admin.web.action.RoleAction"
+			method="saveModuleRight">
+			<result name="success" type="redirect">
+				listModuleRight.action?roleId=${roleId}
+			</result>
+		</action>
+
+	</package>
+
+	<!-- 模块管理 -->
+	<package name="module" extends="default"
+		namespace="/jsp/admin/module">
+		<action name="viewModule"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="viewModule">
+			<result name="view">
+				/WEB-INF/pages/admin/module/viewModule.jsp
+			</result>
+		</action>
+
+		<action name="editModule"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="editModule">
+			<result name="edit">
+				/WEB-INF/pages/admin/module/editModule.jsp
+			</result>
+		</action>
+		
+		<action name="editModuleRole"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="editModuleRole">
+			<result name="success">
+				/WEB-INF/pages/admin/module/listModuleRight.jsp
+			</result>
+		</action>
+		
+		<action name="saveModuleRight"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="saveModuleRight">
+			<result name="success" type="redirect">
+				editModuleRole.action?moduleId=${moduleId}
+			</result>
+		</action>
+        
+        <!-- 模块管理中角色设置，角色树 -->
+        <action name="moduleRoleTree">
+			<result>/WEB-INF/pages/admin/module/roleTree.jsp</result>
+		</action>
+		
+		<action name="moduleTree"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="moduleTree">
+			<result name="success">
+				/WEB-INF/pages/admin/module/moduleTree.jsp
+			</result>
+			<result name="setModule">
+				/WEB-INF/pages/admin/module/parentModuleTree.jsp
+			</result>
+		</action>
+
+		<action name="findChildModule"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="findChildModule">
+		</action>
+		
+		<action name="findModuleTreeForRight"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="findModuleTreeForRight">
+		</action>
+		
+		<action name="index"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="index">
+			<result name="success">
+				/WEB-INF/pages/admin/module/index.jsp
+			</result>
+		</action>
+
+		<action name="saveModule"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="saveModule">
+			<interceptor-ref name="tokenInterceptor" />  
+    		<interceptor-ref name="defaultStack" />  
+			<result name="reload" type="redirect">
+				/common/successToSelf.jsp?windowId=moduleWindow
+			</result>
+				<result name="invalid.token">/invalid.jsp</result>   
+		</action>
+
+		<action name="listModule"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="listModule">
+		</action>
+
+		<action name="list"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="list">
+			<result name="list">
+				/WEB-INF/pages/admin/module/listModule.jsp
+			</result>
+		</action>
+
+		<action name="activeModule"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="activeModule">
+		</action>
+
+		<action name="inactiveModule"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="inactiveModule">
+		</action>
+
+		<action name="chooseImg" method="chooseImg"
+			class="com.jshx.module.admin.web.action.ModuleAction">
+			<result name="success">
+				/WEB-INF/pages/admin/module/chooseImg.jsp
+			</result>
+		</action>
+<!--  del by fc
+		<action name="listButton"
+			class="com.jshx.module.admin.web.action.ButtonAction"
+			method="listButton">
+			<result name="list">
+				/WEB-INF/pages/admin/module/listButton.jsp
+			</result>
+		</action>
+
+		<action name="listButtonDataGrid"
+			class="com.jshx.module.admin.web.action.ButtonAction"
+			method="listButtonDataGrid">
+		</action>
+
+		<action name="viewButton"
+			class="com.jshx.module.admin.web.action.ButtonAction"
+			method="viewButton">
+			<result name="view">
+				/WEB-INF/pages/admin/module/viewButton.jsp
+			</result>
+		</action>
+
+		<action name="editButton"
+			class="com.jshx.module.admin.web.action.ButtonAction"
+			method="editButton">
+			<result name="edit">
+				/WEB-INF/pages/admin/module/editButton.jsp
+			</result>
+		</action>
+
+		<action name="saveButton"
+			class="com.jshx.module.admin.web.action.ButtonAction"
+			method="saveButton">
+			<result name="reload" type="redirect">
+				/common/successToSelf.jsp
+			</result>
+		</action>
+
+		<action name="delButton"
+			class="com.jshx.module.admin.web.action.ButtonAction"
+			method="delButton">
+			<result name="reload" type="redirect">
+				/common/successToSelf.jsp
+			</result>
+		</action>
+
+		<action name="listParam"
+			class="com.jshx.module.admin.web.action.ButtonAction"
+			method="listParam">
+			<result name="list">
+				/WEB-INF/pages/admin/module/listParam.jsp
+			</result>
+		</action>
+
+		<action name="listParamDataGrid"
+			class="com.jshx.module.admin.web.action.ButtonAction"
+			method="listParamDataGrid">
+		</action>
+
+		<action name="viewParam"
+			class="com.jshx.module.admin.web.action.ButtonAction"
+			method="viewParam">
+			<result name="view">
+				/WEB-INF/pages/admin/module/viewParam.jsp
+			</result>
+		</action>
+
+		<action name="editParam"
+			class="com.jshx.module.admin.web.action.ButtonAction"
+			method="editParam">
+			<result name="edit">
+				/WEB-INF/pages/admin/module/editParam.jsp
+			</result>
+		</action>
+
+		<action name="saveParam"
+			class="com.jshx.module.admin.web.action.ButtonAction"
+			method="saveParam">
+			<result name="reload" type="redirect">
+				/common/successToSelf.jsp
+			</result>
+		</action>
+
+		<action name="delParam"
+			class="com.jshx.module.admin.web.action.ButtonAction"
+			method="delParam">
+			<result name="reload" type="redirect">
+				/common/successToSelf.jsp
+			</result>
+		</action>
+
+		<action name="delModuleParam"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="delModuleParam">
+			<result name="reload" type="redirect">
+				/common/successToSelf.jsp
+			</result>
+		</action>
+
+		<action name="saveModuleParam"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="saveModuleParam">
+			<result name="reload" type="redirect">
+				/common/successToSelf.jsp
+			</result>
+		</action>
+
+		<action name="listModuleParam"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="listModuleParam">
+			<result name="list">
+				/WEB-INF/pages/admin/module/listModuleParam.jsp
+			</result>
+		</action>
+
+		<action name="listModuleParamDataGrid"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="listModuleParamDataGrid">
+		</action>
+
+		<action name="editModuleParam"
+			class="com.jshx.module.admin.web.action.ModuleAction"
+			method="editModuleParam">
+			<result name="edit">
+				/WEB-INF/pages/admin/module/editModuleParam.jsp
+			</result>
+		</action>
+		-->
+		
+		<!-- add by max -->
+		<action name="findMobileModule" class="com.jshx.module.admin.web.action.ModuleAction" method="findMobileModule"></action>
+	</package>
+
+	<!-- 一维代码 -->
+	<package name="code" extends="default"
+		namespace="/jsp/admin/code">
+		
+		<action name="findCodeValue"
+			class="com.jshx.module.admin.web.action.CodeAction"
+			method="findCodeValue">
+		</action>
+		
+		<action name="initListChild" class="com.jshx.module.admin.web.action.CodeAction"
+			method="initListChild">
+			<result name="success">
+				/WEB-INF/pages/admin/code/listChild.jsp
+			</result>
+		</action>
+		
+		<action name="listChild" class="com.jshx.module.admin.web.action.CodeAction"
+			method="listChild">
+		</action>
+
+		<action name="codeMenu" class="com.jshx.module.admin.web.action.CodeAction"
+			method="codeMenu">
+			<result name="success">
+				/WEB-INF/pages/admin/code/codeMenu.jsp
+			</result>
+		</action>
+
+		<action name="findChildNode"
+			class="com.jshx.module.admin.web.action.CodeAction"
+			method="findChildNode">
+		</action>
+
+		<action name="deleteCodeValue"
+			class="com.jshx.module.admin.web.action.CodeAction"
+			method="deleteCodeValue">
+		</action>
+
+		<action name="saveCodeValue"
+			class="com.jshx.module.admin.web.action.CodeAction"
+			method="saveCodeValue">
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=codeValueWindow</result>
+		</action>
+
+		<action name="initListCode">
+			<result name="success">
+				/WEB-INF/pages/admin/code/listCode.jsp
+			</result>
+		</action>
+
+		<action name="listCode"
+			class="com.jshx.module.admin.web.action.CodeAction"
+			method="listCode">
+		</action>
+
+		<action name="deleteCode"
+			class="com.jshx.module.admin.web.action.CodeAction"
+			method="deleteCode">
+		</action>
+
+		<action name="saveCode"
+			class="com.jshx.module.admin.web.action.CodeAction"
+			method="saveCode">
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=codeWindow</result>
+		</action>
+
+		<action name="editCode"
+			class="com.jshx.module.admin.web.action.CodeAction"
+			method="editCode">
+			<result name="edit">
+				/WEB-INF/pages/admin/code/editCode.jsp
+			</result>
+		</action>
+		
+		<action name="editCodeValue" 
+			class="com.jshx.module.admin.web.action.CodeAction"
+			method="editCodeValue">
+			<result name="edit">
+				/WEB-INF/pages/admin/code/editCodeValue.jsp
+			</result>
+		</action>
+		<action name="findCodeValueForMobile" class="com.jshx.module.admin.web.action.CodeAction" method="findCodeValueForMobile">
+		</action>
+	</package>
+
+	<!-- 日志管理 -->
+	<package name="log" extends="default" namespace="/jsp/admin/log">
+		<action name="logonLog" class="com.jshx.module.admin.web.action.LogAction" method="logonLog">
+		</action>
+		
+		<action name="listLogonLog">
+			<result name="success">/WEB-INF/pages/admin/log/listLogonLog.jsp</result>
+		</action>
+		
+		<action name="opLog" class="com.jshx.module.admin.web.action.LogAction" method="opLog">
+		</action>
+
+		<action name="listOpLog">
+			<result name="success">/WEB-INF/pages/admin/log/listOpLog.jsp</result>
+		</action>
+
+		<action name="openOrCloseLog" class="com.jshx.module.admin.web.action.LogAction" 
+			method="openOrCloseLog">
+			<result name="success" type="redirect">/jsp/admin/log/listOpLog.action</result>
+		</action>
+		
+		<action name="logoffLogQuery" class="com.jshx.module.admin.web.action.LogoffLogAction" method="list">
+		</action>
+		
+		<action name="logoffLogList">
+			<result name="success">/WEB-INF/pages/admin/log/LogoffLog_List.jsp</result>
+		</action>
+	</package>
+
+</struts>

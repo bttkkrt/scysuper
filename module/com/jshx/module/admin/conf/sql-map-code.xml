@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!--
+	2011-1-24   Caron.Chen   修改findCodeValue，itemValue参数匹配由“like” 改为“=”
+-->
+<sqlMap>
+	<!-- 根据上层一维代码编码查找下层一维代码的最大编码值 -->
+	<select id="getMaxItemCodeByParent">
+		select max(cast(SUBSTRING(c.itemCode,(length(c.itemCode)-3+1),3)
+		as integer)) from CodeValue c where 1=1
+		<dynamic>
+			<isNotEqual property="parentItemCode" compareValue="0">
+				<isNotEmpty property="length">
+					and length(c.itemCode)= (:length + 3 ) and
+					substring(c.itemCode,1,:length)=:parentItemCode
+				</isNotEmpty>
+			</isNotEqual>
+			<isEqual property="parentItemCode" compareValue="0">
+				and length(c.itemCode)=3
+			</isEqual>
+		</dynamic>
+	</select>
+
+	<select id="findCodeValueByItem">
+		from CodeValue cv where cv.delFlag=0
+		<isNotEmpty property="codeId">
+			and cv.codeId = :codeId
+		</isNotEmpty>
+		<isNotEmpty property="itemCode">
+			and cv.itemCode = :itemCode
+		</isNotEmpty>
+	</select>
+
+	<select id="findCodeValueByItemValue">
+		from CodeValue cv where cv.delFlag=0
+		<isNotEmpty property="codeId">
+			and cv.codeId = :codeId
+		</isNotEmpty>
+		<isNotEmpty property="itemValue">
+			and cv.itemValue = :itemValue
+		</isNotEmpty>
+	</select>
+
+	<!-- 根据条件查找一维代码项  -->
+	<select id="findCodeValue">
+		from CodeValue cv where cv.delFlag=0
+		<isNotEmpty property="codeId">
+			and cv.codeId = :codeId
+		</isNotEmpty>
+		<isNotEmpty property="itemCode">
+			and cv.itemCode like :itemCode and length(cv.itemCode) =
+			length(:itemCode)+2
+		</isNotEmpty>
+		<isNotEmpty property="itemValue">
+			and cv.itemValue = :itemValue
+		</isNotEmpty>
+		<isNotEmpty property="itemText">
+			and cv.itemText like :itemText
+		</isNotEmpty>
+		<isEmpty property="itemCode">
+			<isNotEmpty property="parentItem">
+				and cv.parentItem = :parentItem
+			</isNotEmpty>
+		</isEmpty>
+		order by cv.sortSQ , cv.createTime desc
+	</select>
+
+	<!-- 根据条件查找一维代码  -->
+	<select id="findCode">
+		from Code c where c.delFlag=0
+		<isNotEmpty property="id">and c.id = :id</isNotEmpty>
+		<isNotEmpty property="codeName">
+			and c.codeName like :codeName
+		</isNotEmpty>
+		order by c.sortSQ desc, c.createTime desc
+	</select>
+	
+	<select id="checkCodeValue">
+		select count(cv) from CodeValue cv where cv.delFlag=0 and cv.codeId = :codeId
+		and (cv.itemValue = :itemValue or cv.itemText = :itemText)
+	</select>
+	
+	<select id="findCodeValueByMap" parameterClass="java.util.Map" resultClass="com.jshx.module.admin.entity.CodeValue">
+	select cv.row_id as id,cv.item_value as itemValue,cv.item_text as itemText from code c,codevalue cv where c.row_id = cv.code_id and c.del_flag = 0 and cv.del_flag = 0
+		<isNotEmpty property="codeName">
+			and c.code_Name = #codeName#
+		</isNotEmpty>
+		<isNotEmpty property="codeId">
+			and c.row_id = #codeId#
+		</isNotEmpty>
+		<isNotEmpty property="itemValue">
+			and cv.item_value = #itemValue#
+		</isNotEmpty>
+		<isNotEmpty property="itemText">
+			and cv.item_text = #itemText#
+		</isNotEmpty>
+	</select>
+</sqlMap>

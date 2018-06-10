@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CLOSE_APPROVAL" extends="default" namespace="/jsp/ajsp">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="closeApprovalQuery" class="com.jshx.ajsp.web.CloseApprovalAction" method="list">
+		</action>
+		
+		<action name="closeApprovalList" class="com.jshx.ajsp.web.CloseApprovalAction" method="init">
+			<result name="success">/WEB-INF/pages/ajsp/CloseApproval_List.jsp</result>
+		</action>
+		
+		<action name="closeApprovalView" class="com.jshx.ajsp.web.CloseApprovalAction" method="view">
+			<result name="view">/WEB-INF/pages/ajsp/CloseApproval_Detail.jsp</result>
+		</action>
+
+		<action name="closeApprovalInitEdit" class="com.jshx.ajsp.web.CloseApprovalAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/ajsp/CloseApproval_Edit.jsp</result>
+		</action>
+
+		<action name="closeApprovalSave" class="com.jshx.ajsp.web.CloseApprovalAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_closeApproval</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="closeApprovalDel" class="com.jshx.ajsp.web.CloseApprovalAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

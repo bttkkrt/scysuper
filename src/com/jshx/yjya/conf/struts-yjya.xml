@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="EME_PLA" extends="default" namespace="/jsp/yjya">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="emePlaQuery" class="com.jshx.yjya.web.EmePlaAction" method="list">
+		</action>
+		
+		<action name="emePlaList" class="com.jshx.yjya.web.EmePlaAction" method="init">
+			<result name="success">/WEB-INF/pages/yjya/EmePla_List.jsp</result>
+		</action>
+		<action name="emePlaLists" class="com.jshx.yjya.web.EmePlaAction" method="inits">
+			<result name="success">/WEB-INF/pages/yjya/EmePla_Lists.jsp</result>
+		</action>
+		
+		<action name="emePlaListss" class="com.jshx.yjya.web.EmePlaAction" method="init">
+			<result name="success">/WEB-INF/pages/yjya/EmePla_Listss.jsp</result>
+		</action>
+		
+		<action name="emePlaView" class="com.jshx.yjya.web.EmePlaAction" method="view">
+			<result name="view">/WEB-INF/pages/yjya/EmePla_Detail.jsp</result>
+		</action>
+
+		<action name="emePlaInitEdit" class="com.jshx.yjya.web.EmePlaAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/yjya/EmePla_Edit.jsp</result>
+		</action>
+
+		<action name="emePlaSave" class="com.jshx.yjya.web.EmePlaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_emePla</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="emePlaDel" class="com.jshx.yjya.web.EmePlaAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

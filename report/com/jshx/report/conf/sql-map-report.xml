@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+        
+<sqlMap>
+	<!-- 根据搜索条件查找report对象 -->
+	<select id="findReportPagByMap">
+		from Report where delFlag=0
+		<dynamic>
+			<isNotEmpty property="reportName">
+				and reportName like :reportName
+			</isNotEmpty>
+			<isNotEmpty property="deployFileName">
+				and deployFileName like :deployFileName
+			</isNotEmpty>
+			<isNotEmpty property="deployer">
+				and deployer like :deployer
+			</isNotEmpty>
+			<isNotEmpty property="childDeptIds">
+				and deptId in (:childDeptIds)
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="getLatestVersionByReportId">
+		from ReportAttachment where 1=1
+		<dynamic>
+			<isNotEmpty property="reportId">
+				and reportId=:reportId
+			</isNotEmpty>
+		</dynamic>
+		order by version desc
+	</select>
+	
+</sqlMap>

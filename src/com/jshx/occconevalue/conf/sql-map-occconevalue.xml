@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findOccConEvaByMap">
+		select new com.jshx.occconevalue.entity.OccConEva(t.id, t.expertReview, t.reviewDate, t.companyName, t.ratingAgenciesName, t.occupationalClassification, t.receptName, t.reviewName, t.fileNo, t.receptDate, t.areaName,t.createUserID) from OccConEva t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+		<isNotEmpty property="ratingAgenciesName">
+			<![CDATA[and t.ratingAgenciesName like :ratingAgenciesName]]>
+		</isNotEmpty>
+		<isNotEmpty property="occupationalClassification">
+			<![CDATA[and t.occupationalClassification = :occupationalClassification]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="receptName">
+			<![CDATA[and t.receptName like :receptName]]>
+		</isNotEmpty>
+		<isNotEmpty property="reviewName">
+			<![CDATA[and t.reviewName like :reviewName]]>
+		</isNotEmpty>
+		<isNotEmpty property="fileNo">
+			<![CDATA[and t.fileNo like :fileNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="startReceptDate">
+			<![CDATA[and t.receptDate >= :startReceptDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endReceptDate">
+			<![CDATA[and t.receptDate <= :endReceptDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="startReviewDate">
+			<![CDATA[and t.reviewDate >= :startReviewDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endReviewDate">
+			<![CDATA[and t.reviewDate <= :endReviewDate]]>
+		</isNotEmpty>
+			<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and (t.companyName like :searchLike or t.fileNo like  :searchLike )]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+</sqlMap>

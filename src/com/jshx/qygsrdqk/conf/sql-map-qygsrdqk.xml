@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findQygsrdqkByMap">
+		select new com.jshx.qygsrdqk.entity.Qygsrdqk(t.id, t.monthTime) from Qygsrdqk t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startMonthTime">
+			<![CDATA[and t.monthTime >= :startMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endMonthTime">
+			<![CDATA[and t.monthTime <= :endMonthTime]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getQygsrdqkListByMap" parameterClass="java.util.Map" resultClass="com.jshx.qygsrdqk.entity.QygsrdqkBean">
+	 SELECT  SUBSTRING(CONVERT(varchar(100), t.month_time, 23), 1,7 ) as data1,
+     t.gssbzs as data2,
+     t.qzgrsb as data3,
+     t.btrd1 as data4,
+      t.btrd2 as data5,
+      t.btrd3 as data6,
+      t.btrd4 as data7,
+      t.btrd5 as data8,
+      t.btrd6 as data9,
+      t.btrd7 as data10,
+      t.btrd8 as data11,
+      t.btrd9 as data12,
+      t.qdss as data13,
+      t.zdss as data14,
+      t.gzsw as data15,
+      t.sclb as data16,
+      t.jtlb as data17,
+      t.qtlb as data18
+     from QYGSRDQK t where t.delflag=0
+      <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+	</select>
+	
+	<select id="getTotalQygsrdqkListByMap" parameterClass="java.util.Map" resultClass="com.jshx.qygsrdqk.entity.QygsrdqkBean">
+     SELECT  
+     sum(cast(t.gssbzs as int))as  data2,
+     sum(cast( t.qzgrsb as int))as data3,
+      sum(cast(t.btrd1 as int)) as data4,
+      sum(cast( t.btrd2 as int))as data5,
+       sum(cast(t.btrd3 as int))as data6,
+       sum(cast(t.btrd4 as int))as data7,
+       sum(cast(t.btrd5 as int))as data8,
+      sum(cast( t.btrd6 as int))as data9,
+      sum(cast( t.btrd7 as int))as data10,
+      sum(cast( t.btrd8 as int))as data11,
+       sum(cast(t.btrd9 as int))as data12,
+       sum(cast(t.qdss as int))as data13,
+       sum(cast(t.zdss as int))as data14,
+       sum(cast(t.gzsw as int))as data15,
+       sum(cast(t.sclb as int))as data16,
+       sum(cast(t.jtlb as int))as data17,
+       sum(cast(t.qtlb as int))as data18
+     from QYGSRDQK t where t.delflag=0
+     <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+	</select>
+</sqlMap>

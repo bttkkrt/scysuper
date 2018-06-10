@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CHECK_CATEGORY" extends="default" namespace="/jsp/checkCategory">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="checkCategoryQuery" class="com.jshx.checkCategory.web.CheckCategoryAction" method="list">
+		</action>
+		
+		<action name="checkCategoryList">
+			<result name="success">/WEB-INF/pages/checkCategory/CheckCategory_List.jsp</result>
+		</action>
+		
+		<action name="checkCategoryView" class="com.jshx.checkCategory.web.CheckCategoryAction" method="view">
+			<result name="view">/WEB-INF/pages/checkCategory/CheckCategory_Detail.jsp</result>
+		</action>
+
+		<action name="checkCategoryInitEdit" class="com.jshx.checkCategory.web.CheckCategoryAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/checkCategory/CheckCategory_Edit.jsp</result>
+		</action>
+
+		<action name="checkCategorySave" class="com.jshx.checkCategory.web.CheckCategoryAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="checkCategoryDel" class="com.jshx.checkCategory.web.CheckCategoryAction" method="delete">
+		</action>
+		
+		<!-- 检查类别树 -->
+		<action name="categoryTree" class="com.jshx.checkCategory.web.CheckCategoryAction" method="categoryTree">
+			<result name="success">/WEB-INF/pages/checkCategory/CheckCategory_Tree.jsp</result>
+		</action>
+		
+		<!-- 查询检查类别列表 -->
+		<action name="queryCategory" class="com.jshx.checkCategory.web.CheckCategoryAction" method="queryCategory">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,95 @@
+@charset "utf-8";
+/* 你自己的样式 */
+
+ .icon{
+	font-size: 40px;
+	line-height: 8px;
+	margin-left:5px;
+	color: #333;
+	transition: font-size 0.25s ease-out 0s;
+ }
+ .icon:HOVER{
+ font-size: 70px;
+ }
+ 
+ .icon_lists li {
+    float: left;
+    width: 90px;
+    height: 100px;
+    text-align: center;
+}
+
+.pageNumber{
+	-webkit-appearance: none;
+	-moz-appearance: textfield;
+	width: 35px;
+}
+.dataTables_wrapper .dataTables_length .select {
+    width: 65px;
+}
+
+.combo-text{
+	font-size:14px;
+	height: 26px;
+	width: 130px;
+}
+.combo-arrow {
+	height: 30px;
+	}
+.combo {
+   font-size: 14px;
+	height: 31px;
+	line-height: 30px;
+	box-sizing: border-box;
+	border: solid 1px #ddd;
+	padding: 2px;
+	margin-top: 5px;
+}
+
+.myInput {
+	font-size: 14px;
+	height: 31px;
+	line-height: 1.42857;
+	box-sizing: border-box;
+	/* border: solid 1px #ddd; */
+	border: 1px solid #aaa;
+	width: 130px;
+	padding: 2px;
+	margin-top: 5px;
+	border-radius: 4px;
+}
+.combo:HOVER {
+	cursor: pointer;
+	border: solid 1px #3bb4f2;
+}
+.mySelect{
+	font-size: 14px;
+	height: 31px;
+	line-height: 1.42857;
+	box-sizing: border-box;
+	width: 130px;
+	padding: 2px;
+	margin-top: 5px;
+}
+.select2-selection--single{
+	font-size: 14px;
+}
+.myInput:HOVER,.select2-selection--single:HOVER{
+	border: solid 1px #3bb4f2;
+}
+.select2{
+	margin-top: 5px;
+}
+img:HOVER{
+	cursor: pointer;
+}
+ 
+.myInput.focus{border:solid 1px #0f9ae0 \9;border-color:rgba(82,168,236,0.8);box-shadow:0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6)}
+/*top*/
+.topbox{ width:20%; height:74px;float:right;}
+.topbox a{width:33%; float:left;height:74px;}
+.topbox a:hover{background:#2761b7;}
+.topbox .icon{text-align:center;margin-top:10px;}
+.topbox p{color:white; font-size:14px; text-align:center; margin-top:8px;}
+
+

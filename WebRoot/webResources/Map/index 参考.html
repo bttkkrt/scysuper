@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+
+<head>
+    <title>QS应用系统开发框架模板</title>
+    <style type="text/css">
+    html, body {
+	    height: 100%;
+	    overflow: auto;
+    }
+    body {
+	    padding: 0;
+	    margin: 0;
+    }
+    #silverlightControlHost {
+	    height: 100%;
+	    text-align:center;
+    }
+    </style>
+    <script type="text/javascript" src="Silverlight.js"></script>
+    <script type="text/javascript" src="json.js"></script>
+    <script type="text/javascript">
+        function onSilverlightError(sender, args) {
+            var appSource = "";
+            if (sender != null && sender != 0) {
+                appSource = sender.getHost().Source;
+            }
+
+            var errorType = args.ErrorType;
+            var iErrorCode = args.ErrorCode;
+
+            if (errorType == "ImageError" || errorType == "MediaError") {
+                return;
+            }
+
+            var errMsg = "Silverlight 应用程序中未处理的错误 " + appSource + "\n";
+
+            errMsg += "代码: " + iErrorCode + "    \n";
+            errMsg += "类别: " + errorType + "       \n";
+            errMsg += "消息: " + args.ErrorMessage + "     \n";
+
+            if (errorType == "ParserError") {
+                errMsg += "文件: " + args.xamlFile + "     \n";
+                errMsg += "行: " + args.lineNumber + "     \n";
+                errMsg += "位置: " + args.charPosition + "     \n";
+            }
+            else if
+                (errorType == "RuntimeError") {
+                if (args.lineNumber != 0) {
+                    errMsg += "行: " + args.lineNumber + "     \n";
+                    errMsg += "位置: " + args.charPosition + "     \n";
+                }
+                errMsg += "方法名称: " + args.methodName + "     \n";
+            }
+
+            throw new Error(errMsg);
+        }
+
+        function onSymLoad(sender, args) {
+            var logon, sl;
+
+            //获取用户名密码
+            var username = getQueryString("username");
+            var psd = getQueryString("psd");
+
+            //获取SL对象
+            sl = document.getElementById("qsSym");
+
+            //获取与JS交互的SL注册对象
+            logon = sl.Content.Bootstrapper;
+
+            //设置是否需要通过登录界面来进行加载
+            if (username == null && psd == null) {
+                logon.IsNeedLogon = false;//当URL中不包含username和psd时默认设置为需要登录界面
+            }
+            else {
+                logon.IsNeedLogon = false;//不需要登录界面，直接根据url中携带的ID+PSD进行登录加载
+                document.cookie = "setUserName=" + escape(username);
+                document.cookie = "setPassWord=" + escape(psd);
+            }
+
+            //设定参数-----------此处设置是否需要加载默认的系统配置文件
+            //此处设置为true后，无论有否登录界面或外部授权，都只加载本地的默认配置信息
+            logon.IsLocalConfig = true;
+
+            //运行QS框架系统
+            logon.Run("");
+        }
+
+        //提取参数
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+
+    </script>
+    <script type="text/javascript">
+        function showNewTipWin(msg) {
+            window.open(msg, "newwindow", "toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no")
+        }
+    </script>
+</head>
+<body>
+
+    <script type="text/javascript">
+        function detectOS() {
+            var str;
+            var agent = navigator.userAgent.toLowerCase();
+            if (agent.indexOf("mac") > -1)
+                str = 'ClientBin/downloadSL/Silverlight5_MacOS.dmg';
+            else if (agent.indexOf("win64") > -1 || agent.indexOf("wow64") > -1)
+                str = 'ClientBin/downloadSL/Silverlight_x64.exe';
+            else
+                str = 'ClientBin/downloadSL/Silverlight_x32.exe';
+            window.open(str);
+        }
+    </script>
+
+    <script type="text/javascript">
+
+        //空间定位
+        function LocateComPany(ids,queryType)
+        {
+            
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            var ids = "737064826,688324993";
+            //var ids = "B204FDB6-F037-4C0A-B706-1306BA3FB9E2";
+
+            logon.LocateComPany(JSON.stringify(ids),"企业");
+        }
+
+        // 接收用户在地图上点击某个点的id，一般为组织机构代码，和该点的类型企业点或危险源点
+        function ReceiveID(ID, Type)
+        {
+
+            var Info
+            if (Type == "企业") {
+                Info = [
+     {
+         "id": "",
+         "name": "化工企业",
+         "attribute": {
+             "NAMETIP": "雅士利涂料（苏州）有限公司",
+             "moreInfo": "更多信息",
+             "危险大类": "化工类危险源",
+             "使用单位": "苏州力能汽车零部件有限公司",
+             "设备档案号": "C23208",
+             "注册代码": "52003205942012110001",
+             "组织机构代码": "PDY001507",
+             "使用地点": "厂内",
+             "单位内部编号": "无",
+             "设备名称": "",
+             "所属区县": "工业园区",
+             "街道乡镇": "唯亭镇",
+             "联系部门": "办公室",
+             "联系地址": "工业园区苏虹东路288号（海格客车）",
+             "安全管理员": "温文静",
+             "电话": "18662218655 86669106",
+             "手机": "18662218655",
+             "制造单位": "苏州朗格电动车有限公司",
+             "规格型号": "G6T02AR",
+             "产品编号": "1111090245",
+             "额定载重": "2000",
+             "燃料种类": "/",
+             "牌照号码": "厂内苏E·23208",
+             "颜色": "黄色",
+             "核查人员联系电话": "",
+             "检验结论": "合格",
+             "检验类型": "定期检验",
+             "检验日期": "2014-11-11",
+             "检验员": "蒋盛",
+             "下次检验日期": "2015-11-11",
+             "现场核查人员": "",
+             "限制整改日期": "",
+             "隐患联系电话": "",
+             "隐患联系人": "",
+             "隐患内容": ""
+         },
+         "showlist": {
+             "使用单位": "雅士利涂料（苏州）有限公司"
+         }
+     }
+                ];
+            }
+
+            else if (Type == "危险源") {
+                Info = [
+     {
+         "id": "",
+         "name": "雅士利涂料（苏州）有限公司",
+         "attribute": {
+             "NAMETIP": "危险源",
+             "moreInfo": "更多信息",
+             "企业名称": "雅士利涂料（苏州）有限公司",
+             "地址": "江苏省苏州市苏州工业园区钟南街451号"
+         },
+         "showlist": {
+             "使用单位": "雅士利涂料（苏州）有限公司"
+         }
+     }
+                ];
+            }
+
+            var WXP = [
+   {
+       "id": "",
+       "name": "添加剂",
+       "attribute": {
+           "NAMETIP": "添加剂",
+           "moreInfo": "更多信息",
+           "所属企业": "雅士利涂料（苏州）有限公司",
+           "类别": "原料",
+           "存量（单位）": "129672",
+           "单位": "T",
+           "存放地点": "地下储罐",
+           "存放方式": "铁桶、纸桶"
+       },
+       "showlist": {
+           "使用单位": "雅士利涂料（苏州）有限公司"
+       }
+   },
+    {
+        "id": "",
+        "name": "醋酸丁脂",
+        "attribute": {
+            "NAMETIP": "醋酸丁脂",
+            "moreInfo": "更多信息",
+            "所属企业": "雅士利涂料（苏州）有限公司",
+            "类别": "原料",
+            "存量（单位）": "10",
+            "单位": "T",
+            "存放地点": "地下储罐",
+            "存放方式": "储罐"
+        },
+        "showlist": {
+            "使用单位": "雅士利涂料（苏州）有限公司"
+        }
+    },
+    {
+        "id": "",
+        "name": "水性涂料",
+        "attribute": {
+            "NAMETIP": "醋酸丁脂",
+            "moreInfo": "更多信息",
+            "所属企业": "雅士利涂料（苏州）有限公司",
+            "类别": "产品",
+            "存量（单位）": "1044",
+            "单位": "T",
+            "存放地点": "水性成品仓",
+            "存放方式": "桶装"
+        },
+        "showlist": {
+            "使用单位": "雅士利涂料（苏州）有限公司"
+        }
+    }
+            ];
+            ShowDataInfo(Info, WXP);
+        }
+
+        // 展示企业或危险源的详细信息，若果是危险源，则需带上相关的危险品WXPinfo
+        function ShowDataInfo(info, WXPinfo) {
+
+            sl = document.getElementById("qsSym");
+            //获取与JS交互的SL注册对象
+            logon = sl.Content.Builder;
+            logon.ShowDataInfo(JSON.stringify(info), JSON.stringify(WXPinfo));
+        }
+
+
+
+        function addDanger() {
+            //获取SL对象
+            sl = document.getElementById("qsSym");
+            //获取与JS交互的SL注册对象
+            logon = sl.Content.Builder;
+            logon.AddDanger();
+        }
+
+        // 获取坐标
+        function getCoor() {
+
+            //获取SL对象
+            sl = document.getElementById("qsSym");
+            //获取与JS交互的SL注册对象
+            logon = sl.Content.Builder;
+            logon.getCoor();
+        }
+
+        // 接收打点的经纬度
+        function receiveCoor(JD, WD) {
+            //JD 经度
+            //WD 纬度
+           // SaveShape(JD, WD, "0987", "危险源", "591123490")
+        }
+
+
+        // 存储空间信息
+        function SaveShape(jd, wd, id, type, ComDM) {
+            //获取SL对象
+            sl = document.getElementById("qsSym");
+            //获取与JS交互的SL注册对象
+            logon = sl.Content.Builder;
+            logon.SaveShape(jd, wd, id, type, ComDM);
+        }
+
+        // 根据用户角色初始化地图，id为某个网格的Code时，初始定位到该网格，若id为null，则默认显示所有网格。
+        function InitGrid(id) {
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            logon.InitGrid(id);
+        }
+
+        // 查看企业子模块的地图定位
+        function ComChildLocate(childID)
+        {
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            logon.ComChildLocate(childID);
+        }
+
+        // 地图加载完成后调用此方法
+        function MapLoaded()
+        {
+            //var Code = "0101";
+            //InitGrid(Code);
+
+            var ids = "737064826";
+            var queryType = "企业";
+
+            LocateComPany(ids, queryType)
+        }
+
+        //  点击查询的结果的点时调用此方法，参数为该点所在的区域名称
+        function ReceiveGrid(data)
+        {
+            alert(data);
+        }
+
+        // 网格查询完成后，调用此方法，参数为网格内所有的企业或者危险源代码
+        function ReceiveData(data)
+        {
+            alert(data);
+        }
+
+        // 通过企业查找它所在的网格，直接返回结果，不定位
+        function FindGridByCom(ComID)
+        {
+            var ComID = "737064826";
+
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            logon.FindGridByCom(ComID);
+        }
+
+        //通过网格查找网格中所有的企业，直接返回结果，不定位
+        function FindComByGrid(GridID)
+        {
+            var GridID = "0101";
+
+            sl = document.getElementById("qsSym");
+            logon = sl.Content.Builder;
+            logon.FindComByGrid(GridID);
+        }
+       
+    </script>
+
+    <form id="form1" runat="server" style="height:100%">
+
+        <div style="width:100%; height:50px; background-color:lightskyblue">
+            <input type="button" style="height:20px; width:50px;" value="查询" onclick="LocateComPany()"/>
+            <input type="button" style="height:20px; width:80px;" value="获取坐标" onclick="getCoor()"/>
+            <input type="button" style="height:20px; width:110px;" value="(用户角色)初始化网格" onclick="InitGrid()"/>
+            <input type="button" style="height:20px; width:110px;" value="企业查网格" onclick="FindGridByCom()"/>
+             <input type="button" style="height:20px; width:110px;" value="网格中的企业" onclick="FindComByGrid()"/>
+
+        </div>
+
+    <div id="silverlightControlHost">
+        <object id="qsSym" data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="100%" height="100%">
+		  <param name="source" value="ClientBin/Geone_QS.xap"/>
+		  <param name="onError" value="onSilverlightError" />
+		  <param name="background" value="white" />
+		  <param name="minRuntimeVersion" value="5.0.61118.0" />
+          <param name="onload" value="onSymLoad" />
+		  <param name="autoUpgrade" value="true" />
+            <param name="windowless" value="true" />
+          <a href="javascript: detectOS()" style="text-decoration:none">
+ 		      <img src="ClientBin/downloadSL/SLMedallion_CHS.png" alt="获取 Microsoft Silverlight" style="border-style:none"/>
+	     </a>
+	    </object><iframe id="_sl_historyFrame" style="visibility:hidden;height:0px;width:0px;border:0px"></iframe></div>
+    </form>
+</body>
+</html>

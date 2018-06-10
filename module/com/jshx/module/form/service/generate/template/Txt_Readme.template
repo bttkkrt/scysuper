@@ -1,0 +1,7 @@
+生成代码说明：
+生成的代码包括struts配置文件、SqlMap配置文件、Jsp代码、Java代码。
+分别在文件夹根目录下、jsp和src目录下。
+代码生成后，可以按照如下方法导入项目，并修改相应配置。
+1、拷贝src目录下的文件夹到项目工程文件夹下的src目录下。
+2、拷贝jsp目录下的文件夹到项目工程文件夹下的WebRoot/WEB-INF/pages目录下。
+3、修改项目工程文件夹下的conf目录下的sql-map-config.xml文件，导入生成的SqlMap配置文件，即在“sqlMapConfig”节点内增加：<sqlMap resource="${package}/conf/sql-map-${project}.xml"/>

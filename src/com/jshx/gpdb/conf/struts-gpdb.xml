@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="GPDB" extends="default" namespace="/jsp/gpdb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="gpdbQuery" class="com.jshx.gpdb.web.GpdbAction" method="list">
+		</action>
+		
+		<action name="gpdbList" class="com.jshx.gpdb.web.GpdbAction" method="init" >
+			<result name="success">/WEB-INF/pages/gpdb/Gpdb_List.jsp</result>
+		</action>
+		
+		<action name="gpdbView" class="com.jshx.gpdb.web.GpdbAction" method="view">
+			<result name="view">/WEB-INF/pages/gpdb/Gpdb_Detail.jsp</result>
+		</action>
+
+		<action name="gpdbInitEdit" class="com.jshx.gpdb.web.GpdbAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/gpdb/Gpdb_Edit.jsp</result>
+		</action>
+		
+		<action name="gpdbSave" class="com.jshx.gpdb.web.GpdbAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="gpdbDel" class="com.jshx.gpdb.web.GpdbAction" method="delete">
+		</action>
+		
+		<action name="gpdbUpload" class="com.jshx.gpdb.web.GpdbAction" method="upload">
+			<result name="success">/WEB-INF/pages/gpdb/Gpdb_upload.jsp</result>
+		</action>
+		<action name="gpdbSavePhoto" class="com.jshx.gpdb.web.GpdbAction" method="savePhoto">
+		</action>
+		<action name="gpdbImageDel" class="com.jshx.gpdb.web.GpdbAction" method="deleteImage">
+		</action>
+		<action name="gpdbSaveFile" class="com.jshx.gpdb.web.GpdbAction" method="saveFile">
+		</action>
+		
+		
+		<action name="gpdbShenhe" class="com.jshx.gpdb.web.GpdbAction" method="shenhe">
+			<result name="success">/WEB-INF/pages/gpdb/Gpdb_Shenhe.jsp</result>
+		</action>
+		
+		
+		<action name="gpdbShenheSave" class="com.jshx.gpdb.web.GpdbAction" method="shenhesave">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+	</package>
+</struts>

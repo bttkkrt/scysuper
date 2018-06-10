@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="GPQYYHZG" extends="default" namespace="/jsp/gpqyyhzg">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="gpqyyhzgQuery" class="com.jshx.gpqyyhzg.web.GpqyyhzgAction" method="list">
+		</action>
+		
+		<action name="gpqyyhzgList" class="com.jshx.gpqyyhzg.web.GpqyyhzgAction" method="init">
+			<result name="success">/WEB-INF/pages/gpqyyhzg/Gpqyyhzg_List.jsp</result>
+		</action>
+		
+		<action name="gpqyyhzgView" class="com.jshx.gpqyyhzg.web.GpqyyhzgAction" method="view">
+			<result name="view">/WEB-INF/pages/gpqyyhzg/Gpqyyhzg_Detail.jsp</result>
+		</action>
+
+		<action name="gpqyyhzgInitEdit" class="com.jshx.gpqyyhzg.web.GpqyyhzgAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/gpqyyhzg/Gpqyyhzg_Edit.jsp</result>
+		</action>
+
+		<action name="gpqyyhzgSave" class="com.jshx.gpqyyhzg.web.GpqyyhzgAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="gpqyyhzgDel" class="com.jshx.gpqyyhzg.web.GpqyyhzgAction" method="delete">
+		</action>
+		
+		<action name="gpqyyhzgExport" class="com.jshx.gpqyyhzg.web.GpqyyhzgAction" method="export">
+		</action>
+		
+		<action name="queryData" class="com.jshx.gpqyyhzg.web.GpqyyhzgAction" method="queryData">
+		</action>
+	</package>
+</struts>

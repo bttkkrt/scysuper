@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findDistributeItemByMap">
+		from DistributeItem t where 1=1
+		<isNotEmpty property="delFlag">
+			<![CDATA[and t.delFlag = :delFlag]]>
+		</isNotEmpty>
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="item">
+			<![CDATA[and t.item like :item]]>
+		</isNotEmpty>
+		<isNotEmpty property="requirement">
+			<![CDATA[and t.requirement like :requirement]]>
+		</isNotEmpty>
+		<isNotEmpty property="isinspect">
+			<![CDATA[and t.isinspect like :isinspect]]>
+		</isNotEmpty>
+		<isNotEmpty property="image">
+			<![CDATA[and t.image like :image]]>
+		</isNotEmpty>
+		<isNotEmpty property="count">
+			<![CDATA[and t.count like :count]]>
+		</isNotEmpty>
+		<isNotEmpty property="remark">
+			<![CDATA[and t.remark like :remark]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="distributeId">
+			<![CDATA[and t.distributeId like :distributeId]]>
+		</isNotEmpty>
+		<isNotEmpty property="userId">
+			<![CDATA[and t.userId like :userId]]>
+		</isNotEmpty>
+		<isNotEmpty property="taskTime">
+			<![CDATA[and t.taskTime like :taskTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="reportTime">
+			<![CDATA[and t.reportTime like :reportTime]]>
+		</isNotEmpty>
+		order by t.indexNum
+	</select>
+</sqlMap>

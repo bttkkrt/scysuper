@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PEN_DEC_COM" extends="default" namespace="/jsp/xzcfjdsdw">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="penDecComQuery" class="com.jshx.xzcfjdsdw.web.PenDecComAction" method="list">
+		</action>
+		
+		<action name="penDecComList" class="com.jshx.xzcfjdsdw.web.PenDecComAction" method="init">
+			<result name="success">/WEB-INF/pages/xzcfjdsdw/PenDecCom_List.jsp</result>
+		</action>
+		
+		<action name="penDecComView" class="com.jshx.xzcfjdsdw.web.PenDecComAction" method="view">
+			<result name="view">/WEB-INF/pages/xzcfjdsdw/PenDecCom_Detail.jsp</result>
+		</action>
+
+		<action name="penDecComInitEdit" class="com.jshx.xzcfjdsdw.web.PenDecComAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/xzcfjdsdw/PenDecCom_Edit.jsp</result>
+		</action>
+
+		<action name="penDecComSave" class="com.jshx.xzcfjdsdw.web.PenDecComAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_penDecCom</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="penDecComDel" class="com.jshx.xzcfjdsdw.web.PenDecComAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

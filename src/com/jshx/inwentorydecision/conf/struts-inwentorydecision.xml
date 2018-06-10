@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="INVENTORY_DECISION" extends="default" namespace="/jsp/inwentorydecision">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="inventoryDecisionQuery" class="com.jshx.inwentorydecision.web.InventoryDecisionAction" method="list">
+		</action>
+		
+		<action name="inventoryDecisionList" class="com.jshx.inwentorydecision.web.InventoryDecisionAction" method="init">
+			<result name="success">/WEB-INF/pages/inwentorydecision/InventoryDecision_List.jsp</result>
+		</action>
+		
+		<action name="inventoryDecisionView" class="com.jshx.inwentorydecision.web.InventoryDecisionAction" method="view">
+			<result name="view">/WEB-INF/pages/inwentorydecision/InventoryDecision_Detail.jsp</result>
+		</action>
+
+		<action name="inventoryDecisionInitEdit" class="com.jshx.inwentorydecision.web.InventoryDecisionAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/inwentorydecision/InventoryDecision_Edit.jsp</result>
+		</action>
+
+		<action name="inventoryDecisionSave" class="com.jshx.inwentorydecision.web.InventoryDecisionAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_inventoryDecision</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="inventoryDecisionDel" class="com.jshx.inwentorydecision.web.InventoryDecisionAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="LAWS_REGULATIONS" extends="default" namespace="/jsp/LawsRegulations">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="lawsRegulationsQuery" class="com.jshx.lawsRegulations.web.LawsRegulationsAction" method="list">
+		</action>
+		
+		<action name="lawsRegulationsList"  class="com.jshx.lawsRegulations.web.LawsRegulationsAction" method="init">
+			<result name="success">/WEB-INF/pages/LawsRegulations/LawsRegulations_List.jsp</result>
+		</action>
+		
+		<action name="lawsRegulationsView" class="com.jshx.lawsRegulations.web.LawsRegulationsAction" method="view">
+			<result name="view">/WEB-INF/pages/LawsRegulations/LawsRegulations_Detail.jsp</result>
+		</action>
+
+		<action name="lawsRegulationsInitEdit" class="com.jshx.lawsRegulations.web.LawsRegulationsAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/LawsRegulations/LawsRegulations_Edit.jsp</result>
+		</action>
+
+		<action name="lawsRegulationsSave" class="com.jshx.lawsRegulations.web.LawsRegulationsAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="lawsRegulationsDel" class="com.jshx.lawsRegulations.web.LawsRegulationsAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="user-portal" extends="default" namespace="/jsp/portal">
+		<action name="getMyPortal" class="com.jshx.module.admin.web.action.PortalAction"
+			method="getMyPortal">
+			<result name="success">/WEB-INF/pages/portal/portal.jsp
+			</result>
+		</action>
+		<action name="getPortalSettingList" method="getPortalSettingList" class="com.jshx.module.admin.web.action.PortalAction">
+		    <result name="success" >/WEB-INF/pages/portal/personnelPortal.jsp
+			</result>
+		</action>
+		<action name="savePersonnelPortal" method="savePersonnelPortal" class="com.jshx.module.admin.web.action.PortalAction">
+		    <result name="success" type="redirect">/jsp/portal/getPortalSettingList.action
+			</result>
+		</action>
+		<action name="bizProcPortal">
+			<result name="success">/WEB-INF/pages/portal/bizProcPortal.jsp</result>
+		</action>
+		<action name="staWorkPortal">
+			<result name="success">/WEB-INF/pages/portal/staWorkChart.jsp</result>
+		</action>
+	</package>
+
+	<package name="portal" extends="default" namespace="/jsp/admin/portal">
+		<action name="listPortal" class="com.jshx.module.admin.web.action.PortalAction" method="listPortal">
+		    <result name="success">/WEB-INF/pages/admin/portal/listPortal.jsp</result>
+		</action>
+		
+		<action name="listPortalAjax" class="com.jshx.module.admin.web.action.PortalAction" method="listPortalAjax">
+		</action>
+		
+		<action name="editPortal" class="com.jshx.module.admin.web.action.PortalAction" method="editPortal">
+		    <result name="success">/WEB-INF/pages/admin/portal/editPortal.jsp</result>
+		</action>
+		
+		<action name="savePortal" class="com.jshx.module.admin.web.action.PortalAction" method="savePortal">
+		    <result name="success" type="redirect">/common/successToParent.jsp?successUrl=/jsp/admin/portal/listPortal.action</result>
+		</action>
+		
+		<action name="delPortal" class="com.jshx.module.admin.web.action.PortalAction" method="delPortal">
+		</action>
+	</package>
+</struts>

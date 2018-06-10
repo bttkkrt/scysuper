@@ -1,0 +1,68 @@
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN"
+    "http://www.getahead.ltd.uk/dwr/dwr20.dtd">
+
+<dwr>
+	<allow>
+		<create creator="spring" javascript="deptService">
+			<param name="beanName">deptService</param>
+		</create>
+
+		<create creator="spring" javascript="moduleService">
+			<param name="beanName">moduleService</param>
+		</create>
+
+		<create creator="spring" javascript="userService">
+			<param name="beanName">userService</param>
+		</create>
+
+		<create creator="spring" javascript="userRoleService">
+			<param name="beanName">userRoleService</param>
+		</create>
+		
+		<create creator="spring" javascript="attachfileManager">
+			<param name="beanName">attachfileManager</param>
+		</create>
+		
+		<convert converter="bean" javascript="Attachfiles"
+			match="com.jshx.module.form.entity.Attachfiles" >
+			<param name="include" value="rowguid,attachName,id"/> 
+		</convert>
+
+		<convert converter="bean" javascript="User"
+			match="com.jshx.module.admin.entity.User" >
+			<param name="exclude" value="userRoles,logonLogs,operationLog,onlineUser,deptIds,linkedDepts,permissions,roleIds,userExtendInfo" />
+		</convert>
+		<convert converter="bean" javascript="Module"
+			match="com.jshx.module.admin.entity.Module" />
+		<convert converter="bean" javascript="Department"
+			match="com.jshx.module.admin.entity.Department" >
+			<param name="exclude" value="users,childDepts,subLinkedDepts,mainLinkedDepts" />
+		</convert>
+		<convert converter="bean" javascript="UserRole"
+			match="com.jshx.module.admin.entity.UserRole" />
+
+		<create creator="spring" javascript="FormFieldManager">
+			<param name="beanName">formFieldService</param>
+		</create>
+		<create creator="spring" javascript="CodeService">
+			<param name="beanName">codeService</param>
+		</create>
+
+		<convert converter="bean" javascript="FormField"
+			match="com.jshx.module.form.entity.FormField">
+			<param name="exclude" value="table"></param>
+		</convert>
+		<convert converter="hibernate3" javascript="FormTable"
+			match="com.jshx.module.form.entity.FormTable">
+		</convert>
+		<convert converter="bean" javascript="CodeValue"
+			match="com.jshx.module.admin.entity.CodeValue">
+			<param name="include" value="id,itemText" />
+		</convert>
+	</allow>
+	<signatures>
+
+	</signatures>
+</dwr>
+

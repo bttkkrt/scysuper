@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Node id="w_bar" label="工具条" icon="/.../x.png" widget="w_toolBar" visible="1" selected="0" openFun="m_showOneWidget">
+  <!--id:模块编号
+  label：显示名称
+  icon：图标相对地址
+  widget：需要打开的模块编号（在主配置文件中注册的模块id号）
+  visible：此模块显示状态：1：显示，2，隐藏
+  selected：此模块选中状态：1：选中，0，未选中
+  openFun：发出事件的消息id（AppEvent的消息编号）-->
+  
+  <Node id="w_g1" label="配时方案" icon="Images/leftBar/icon_02_search.png" widget="menuList" visible="1" selected="0" openFun="showWidget"/>
+  <Node id="w_g2" label="功能菜单" icon="Images/leftBar/icon_03_stats.png" widget="no" visible="1" selected="0" openFun="showWidget"/>
+   <Node id="w_g3" label="功能菜单" icon="Images/leftBar/icon_ZBFX.png" widget="" visible="1" selected="0" openFun="showWidget"/>
+ <!-- <Node id="w_g4" label="功能菜单" icon="Images/leftBar/icon_03_analysis.png" widget="SpecialChartWidget" visible="1" selected="0" openFun="showWidget"/>
+  <Node id="w_g7" label="路径分析" icon="Images/leftBar/icon_GKSP.png" widget="RoutingBarriersWidget" visible="1" selected="0" openFun="showWidget"/> -->
+</Node>

@@ -1,0 +1,63 @@
+/*
+keleyidivpagver ∑÷“≥≤Âº˛
+http://keleyi.com
+ø¬¿÷“Â
+*/
+#div_pager{
+	text-align:right;
+	font-size:14px; 
+	margin:15px 20px 30px 0px;
+	clear:both;
+	height:30px;
+	line-height:30px;
+	margin-top:20px;
+	color:#999999;
+}
+
+#div_pager a{
+	padding:4px 8px;
+	margin:10px 3px;
+	font-size:13px;
+	border:1px solid #DFDFDF;
+	background-color:#FFF;
+	color:#3282d1;
+	text-decoration:none;
+	border-radius:4px;
+	-webkit-border-radius:4px;
+}
+
+#div_pager span{
+	padding:4px 8px;
+	margin:10px 3px;
+	font-size:14px;
+}
+
+#div_pager span.disabled{
+	padding:4px 8px;
+	margin:10px 3px;
+	font-size:12px;
+	border:1px solid #DFDFDF;
+	background-color:#FFF;
+	color:#DFDFDF;
+	border-radius:4px;
+	-webkit-border-radius:4px;
+}
+
+#div_pager span.curr{
+	padding:4px 8px;
+	margin:10px 3px;
+	font-size:12px;
+	border:1px solid #3b89c8;
+	background-color:#3b89c8;
+	color:#FFF;
+	border-radius:4px;
+	-webkit-border-radius:4px;
+}
+
+#div_pager a:hover{
+	color:#fff; background:#3b89c8;
+}
+
+#div_pager span.normalsize{
+	font-size:12px;
+}

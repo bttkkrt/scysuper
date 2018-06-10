@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SEC_PRO_FEE_EXT" extends="default" namespace="/jsp/aqscfytqqk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="secProFeeExtQuery" class="com.jshx.aqscfytqqk.web.SecProFeeExtAction" method="list">
+		</action>
+		
+		<action name="secProFeeExtList" class="com.jshx.aqscfytqqk.web.SecProFeeExtAction" method="init">
+			<result name="success">/WEB-INF/pages/aqscfytqqk/SecProFeeExt_List.jsp</result>
+		</action>
+		
+		<action name="secProFeeExtView" class="com.jshx.aqscfytqqk.web.SecProFeeExtAction" method="view">
+			<result name="view">/WEB-INF/pages/aqscfytqqk/SecProFeeExt_Detail.jsp</result>
+		</action>
+
+		<action name="secProFeeExtInitEdit" class="com.jshx.aqscfytqqk.web.SecProFeeExtAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqscfytqqk/SecProFeeExt_Edit.jsp</result>
+		</action>
+
+		<action name="secProFeeExtSave" class="com.jshx.aqscfytqqk.web.SecProFeeExtAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_secProFeeExt</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProFeeExtDel" class="com.jshx.aqscfytqqk.web.SecProFeeExtAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findZywsxzxkByMap">
+		from Zywsxzxk t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = :createUserID]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="state">
+			<![CDATA[and t.state = :state]]>
+		</isNotEmpty>
+		<isNotEmpty property="type">
+			<![CDATA[and t.type = :type]]>
+		</isNotEmpty>
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[and to_char(t.createTime,'yyyy-MM-dd') >= :startCreateTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[and to_char(t.createTime,'yyyy-MM-dd') <= :endCreateTime]]>
+		</isNotEmpty>
+		<isNotEmpty	property="qyid">
+			<![CDATA[and t.qyid = :qyid]]>
+		</isNotEmpty>
+		<isNotEmpty	property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		<isNotEmpty	property="hyfl">
+			<![CDATA[and t.hyfl = :hyfl]]>
+		</isNotEmpty>
+		<isNotEmpty	property="spbh">
+			<![CDATA[and t.spbh = :spbh]]>
+		</isNotEmpty>
+		<isNotEmpty	property="pjjg">
+			<![CDATA[and t.pjjg like :pjjg]]>
+		</isNotEmpty>
+		<isNotEmpty	property="xmxz">
+			<![CDATA[and t.xmxz = :xmxz]]>
+		</isNotEmpty>
+		<isNotEmpty	property="yszj">
+			<![CDATA[and t.yszj = :yszj]]>
+		</isNotEmpty>
+		<isNotEmpty	property="ysrqStart">
+			<![CDATA[and t.ysrq >= :ysrqStart]]>
+		</isNotEmpty>
+		<isNotEmpty	property="ysrqEnd">
+			<![CDATA[and t.ysrq <= :ysrqEnd]]>
+		</isNotEmpty>
+		<isNotEmpty	property="sprqStart">
+			<![CDATA[and t.sprq >= :sprqStart]]>
+		</isNotEmpty>
+		<isNotEmpty	property="sprqEnd">
+			<![CDATA[and t.sprq <= :sprqEnd]]>
+		</isNotEmpty>
+		
+		<isNotEmpty	property="jsrqStart">
+			<![CDATA[and t.jsrq >= :jsrqStart]]>
+		</isNotEmpty>
+		<isNotEmpty	property="jsrqEnd">
+			<![CDATA[and t.jsrq <= :jsrqEnd]]>
+		</isNotEmpty>
+		
+		<isNotEmpty	property="sjrqStart">
+			<![CDATA[and t.sjrq >= :sjrqStart]]>
+		</isNotEmpty>
+		<isNotEmpty	property="sjrqEnd">
+			<![CDATA[and t.sjrq <= :sjrqEnd]]>
+		</isNotEmpty>
+		<isNotEmpty	property="projectContent">
+			<![CDATA[and t.projectContent like :projectContent]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="getWhpZywsXkzByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqscfk.entity.Aqscxzcfglb">
+	select 
+	(
+		select count(*) from WHP_CLSC A 
+		WHERE A.DELFLAG = 0 and A.sclx in ('3','4','5','6')
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[AND A.CREATETIME>=#startCreateTime#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[AND A.CREATETIME< #endCreateTime#]]>
+		</isNotEmpty>
+	) as data1,
+	(
+		select count(*) from WHP_CLSC A 
+		WHERE A.DELFLAG = 0 and A.sclx = 4 and A.state = 1
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[AND A.CREATETIME>=#startCreateTime#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[AND A.CREATETIME< #endCreateTime#]]>
+		</isNotEmpty>
+	) as data2,
+	(
+		select count(*) from WHP_CLSC A 
+		WHERE A.DELFLAG = 0 and A.sclx = 3 and A.state = 1
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[AND A.CREATETIME>=#startCreateTime#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[AND A.CREATETIME< #endCreateTime#]]>
+		</isNotEmpty>
+	) as data3,
+	(
+		select count(*) from WHP_CLSC A 
+		WHERE A.DELFLAG = 0 and A.sclx = 6 and A.state = 1
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[AND A.CREATETIME>=#startCreateTime#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[AND A.CREATETIME< #endCreateTime#]]>
+		</isNotEmpty>
+	) as data4,
+	(
+		select count(distinct A.qymc) from WHP_CLSC A 
+		WHERE A.DELFLAG = 0 and A.sclx = 1 and A.sczhsyz = '危险化学品生产' and A.state = 1
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[AND A.CREATETIME>=#startCreateTime#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[AND A.CREATETIME< #endCreateTime#]]>
+		</isNotEmpty>
+	) as data5,
+	(
+		select count(distinct A.qymc) from WHP_CLSC A 
+		WHERE A.DELFLAG = 0 and A.sclx = 1 and A.sczhsyz = '危险化学品生产' and A.state = 1 and A.bclzqk = '新发证'
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[AND A.CREATETIME>=#startCreateTime#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[AND A.CREATETIME< #endCreateTime#]]>
+		</isNotEmpty>
+	) as data6,
+	(
+		select count(distinct A.qymc) from WHP_CLSC A 
+		WHERE A.DELFLAG = 0 and A.sclx = 1 and A.sczhsyz = '危险化学品生产' and A.state = 1 and A.bclzqk = '延期换证'
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[AND A.CREATETIME>=#startCreateTime#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[AND A.CREATETIME< #endCreateTime#]]>
+		</isNotEmpty>
+	) as data7,
+	(
+		select count(*) from ZYWSXZXK A 
+		WHERE A.DELFLAG = 0 and A.type in('1','2','3')
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[AND A.CREATETIME>=#startCreateTime#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[AND A.CREATETIME< #endCreateTime#]]>
+		</isNotEmpty>
+	) as data8,
+	(
+		select count(*) from ZYWSXZXK A 
+		WHERE A.DELFLAG = 0 and A.type = 1 and A.state = 3
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[AND A.CREATETIME>=#startCreateTime#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[AND A.CREATETIME< #endCreateTime#]]>
+		</isNotEmpty>
+	) as data9,
+	(
+		select count(*) from ZYWSXZXK A 
+		WHERE A.DELFLAG = 0 and A.type = 2 and A.state = 3
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[AND A.CREATETIME>=#startCreateTime#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[AND A.CREATETIME< #endCreateTime#]]>
+		</isNotEmpty>
+	) as data10,
+	(
+		select count(*) from ZYWSXZXK A 
+		WHERE A.DELFLAG = 0 and A.type = 3 and A.state = 3
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[AND A.CREATETIME>=#startCreateTime#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[AND A.CREATETIME< #endCreateTime#]]>
+		</isNotEmpty>
+	) as data11
+	from dual
+	</select>
+</sqlMap>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="Enterprise_Grade" extends="default" namespace="/jsp/enterpriseGrade">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="enterpriseGradeQuery" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="list">
+		</action>
+		
+		<action name="enterpriseGradeList" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="init">
+			<result name="success">/WEB-INF/pages/qyfjfl/EnterpriseGrade_List.jsp</result>
+		</action>
+		
+		<action name="enterpriseGradeView" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="view">
+			<result name="view">/WEB-INF/pages/qyfjfl/EnterpriseGrade_Detail.jsp</result>
+		</action>
+
+		<action name="enterpriseGradeInitEdit" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="initEdit">
+			<result name="qyEdit">/WEB-INF/pages/qyfjfl/EnterpriseGrade_qyEdit.jsp</result>
+			<result name="ajEdit">/WEB-INF/pages/qyfjfl/EnterpriseGrade_ajEdit.jsp</result>
+		</action>
+
+		<action name="enterpriseGradeSave" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_enterpriseGrade</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="enterpriseGradeDel" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="delete">
+		</action>
+		
+		<action name="enterpriseGradeTime" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="chooseCompanyAndYear">
+			<result name="success">/WEB-INF/pages/qyfjfl/EnterpriseGrade_Time.jsp</result>
+		</action>
+		
+		<action name="getScore" class="com.jshx.qyfjfl.web.EnterpriseGradeAction" method="getScore">
+		</action>
+		
+	</package>
+</struts>

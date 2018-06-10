@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+
+<configuration>
+  <!--<map id="cems_map2D" name="主地图" extent="57235.644737956158,42551.117602235208,65744.661755990179,47308.335450004241" level="0" sp="102100" />-->
+  <map id="cems_map2D" name="主地图" extent="67845.7981929795,-15480.7628579892,93174.0830016324,-2648.618564534" level="0" sp="102100" />2.5D 地图
+  <!--<map id="cems_map2D" name="主地图" extent="66059.6113526409,-19174.3839111328,94125.9364013672,1897.50294472302" level="0" sp="102100" />2.5D 地图-->
+  
+  
+  <basemaps>
+    <!--可以添加“~sipsd”标识符来代替绝对路径，系统会根据请求的地址补全访问位置-->
+    
+    <layer id="baseLayer" label="基础底图" tokenname="Token_scm" type="tile" visible="true" alpha="1"
+         url="http://58.210.9.131/scms/sipsd/service/TileService/SIPSD_SIP25D/MapServer"/>
+
+    <!--<layer id="baseLayer" label="基础底图" tokenname="Token_local" type="tile" visible="true" alpha="1"
+          url="http://10.43.248.22/sipsd/rest/services/SIPSD/SIP25D/MapServer"/>-->
+
+    <!--<layer id="baseLayer" label="基础底图" tokenname="Token_local" type="tile" visible="true" alpha="1"
+ url="http://10.43.248.22/sipsd/rest/services/SIPSD/sipmap/MapServer"/>-->
+
+  </basemaps>
+
+ <operationallayers>
+   <layer id="l_DT" label="园区网格" tokenname="Token_local" type="dynamic" visible="true" alpha="1"
+url="http://61.177.47.229/sipsd/rest/services/ZHAJ/ZHAJTHEME/MapServer"/>
+
+   <layer id="l_Road" label="道路名称" tokenname="Token_local" type="tile" visible="true" alpha="1"
+url="http://58.210.9.131/sipsd/rest/services/SIPSD/25DROADLABEL/MapServer"/>
+
+   <!--<layer id="l_Road" label="道路名称" tokenname="Token_local" type="dynamic" visible="true" alpha="1"
+url="http://58.210.9.131/sipsd/rest/services/SIP_FC/25D_RoadName_Address/MapServer"/>-->
+
+   <layer id="l_DS" label="质监专题图层" tokenname="Token_local" type="dynamic" visible="true" alpha="1"
+      url="http://58.210.9.131/sipsd/rest/services/SIPQTS/TZSB/MapServer/"/>
+
+   <layer id="l_RL" label="红线" tokenname="Token_local" type="dynamic" visible="true" alpha="1"
+      url="http://58.210.9.131/sipsd/rest/services/ZHAJ/ZHAJTHEME/MapServer"/>
+
+   <layer id="l_XF" label="消防设施图层" tokenname="Token_local" type="dynamic" visible="true" alpha="1"
+      url="http://58.210.9.131/sipsd/rest/services/ZHAJ/ZHAJTHEME/MapServer"/>
+
+
+   <layer id="l_BOC" label="氮气图层" tokenname="" type="dynamic" visible="true" alpha="1"
+     url="http://58.210.9.131/sipsd/rest/services/ZHAJ/ZHGX/MapServer"/>
+ </operationallayers>
+
+<layeralias>
+  <alayer layer="l_DT" type="d" id="l_a_wg" vls="0"/> <!--园区网格-->
+  <alayer layer="l_Road" type="t" id="l_a_roadname" vls="0"/> <!--道路注记-->
+  
+  <alayer id="l_a_dt" layer="l_DS" type="d" vls="0"/><!--电梯-->
+  <alayer id="l_a_gl" layer="l_DS" type="d" vls="1,5"/> <!--锅炉-->
+  <alayer id="l_a_qzjx" layer="l_DS" type="d" vls="2,6"/> <!--起重机械-->
+  <alayer id="l_a_ylrq" layer="l_DS" type="d" vls="3,7"/> <!--压力容器-->
+  <alayer id="l_a_cc" layer="l_DS" type="d" vls="8,9"/> <!--厂车-->
+
+  <alayer id="l_a_yq" layer="l_RL" type="d" vls="4"/> <!--宗地 红线-->
+
+  <alayer id="l_a_xfs" layer="l_XF" type="d" vls="3"/> <!--消防设施-->
+
+  <alayer id="l_a_dq" layer="l_BOC" type="d" vls="18,19,20"/> <!--氮气-->
+</layeralias>
+
+ <operationalservices>
+   <service id="Token_scm" label="TOKEN_SCM" url="M9YXgn9o7FOvu9uiGzJufUm6rIGlnRfF/Fn03xGFbd7f5cQXbATfbFfk5xXAe//5e2gZ6iFJGP3aQ8y15Ev4xBdL7FIT3zmZnHo0o3lQtUHNK4a+OIaB3Q=="/>
+
+   <service id="Token_local" label="TOKEN" url="http://58.210.9.131/SIPSD/tokens/?request=getToken&amp;username=sipsd&amp;password=sipsd123"/>
+
+   <!--<service id="getGrid" label="获取网格" url="http://58.210.9.131/wgs2df/handler.ashx?type=gps2df_ddin&amp;latitude=#纬度#&amp;longitude=#经度#&amp;ticket=e4d83ff0-42b9-40ef-bd31"/>-->
+
+   <!--<service id="getComShape" label="获取点位的shape" url="http://58.210.9.131/ZHAJ/sphandler.ashx?paras=[{'field':'_type','value':'ComidJson'},{'field':'ComJson','value':'#IDS#'}]"/>-->
+   
+   <!--<service id="getChildModulShape" label="获取子模块点位的shape" url="http://58.210.9.131/ZHAJ/sphandler.ashx?paras=[{'field':'_type','value':'getsubinfo'},{'field':'SubInfoJson','value':#IDS#}]"/>-->
+
+   <!--<service id="CoorTransfor" label="坐标转换" url="http://58.210.9.131/WGS2SZ/Handler.ashx?Fun=ConvertSZ2DTo25D&amp;ShapeWKT= #point#&amp;Tel=11111111111&amp;Usage=-1&amp;ticket=e4d83ff0-42b9-40ef-bd31"/>-->
+
+   <service id="addGrid" label="添加网格" url="http://58.210.9.131/sipsd/rest/services/ZHAJ/ZHAJTHEME/MapServer/0"/>
+
+   <!--<service id="gridSearch" label="网格查询" url="http://58.210.9.131/ZHAJ/sphandler.ashx?paras=[{'field':'_type','value':'#queryType#'},{'field':'Code','value':'#gridid#'}]"/>-->
+
+
+   <!--以下服务已迁至平台，且在使用-->
+   <!--<service id="Token_platform" label="TOKEN_PLATFORM" url="M9YXgn9o7FOvu9uiGzJufUm6rIGlnRfF/Fn03xGFbd7f5cQXbATfbFfk5xXAe//5e2gZ6iFJGP3aQ8y15Ev4xEDfbSQ4GBA0Fu+eC0aXaPlPVDkgfiLXRQ=="/>-->
+   <service id="getWXY_WXP_info" label="获取危险源(品)信息" url="http://58.210.9.131/scms/sipsd/service/DBService/a28b4a8c-6257-4ad5-8b74-00e78bd4fcf2?token=#token#&amp;Type=#type#&amp;Id=#id#&amp;f=list"/>
+   <service id="getXQD_info" label="获取兴趣点" url="http://58.210.9.131/scms/sipsd/service/DBService/2c226a68-69fd-47fc-a78e-aab39a4a8016?token=#token#&amp;FXtype=#type#&amp;buffer=#buffer#&amp;point=#point#&amp;f=list"/>
+   <!--<service id="statis_byPoylgon" label="信息统计" url=" http://58.210.9.131/scms/sipsd/service/DBService/dfec8dda-4b59-4b44-a3d8-527ed25fddbf?token=#token#&amp;wkt=#PolygonWKT#&amp;f=list"/>-->
+   <service id="statis_byPoylgon" label="信息统计" url=" http://58.210.9.131/scms/sipsd/service/DBService/dfec8dda-4b59-4b44-a3d8-527ed25fddbf?token=#token#&amp;f=list"/>
+   <service id="gridinfo_byPoint" label="根据点获取网格信息" url="http://58.210.9.131/scms/sipsd/service/DBService/19443293-9633-4171-ab3a-b016e4af1991?token=#token#&amp;&amp;point=#point#&amp;f=list"/>
+   <!--<service id="gaussianModel" label="高斯模型服务" url="http://192.168.84.85/geoservice/sipsd/Service/Atmosphere/GaussianModel"/>-->
+   <service id="gaussianModel" label="高斯模型服务" url=" http://58.210.9.131/scms/sipsd/service/ThirdService/GaussianModel"/>
+   <service id="doWithSubModula" label="企业子模块增删改查" url="http://58.210.9.131/scms/sipsd/service/DBService/208f36d6-d19f-4b82-a5ac-2acdba315e44"/>
+   <service id="doQryDataInfo" label="网格或多边形查询企业、危险源、重大危险源" url="http://58.210.9.131/scms/sipsd/service/DBService/f1160814-32d4-4d02-b233-be2940bd7238"/>
+   <service id="doQryComInfoByCode" label="通过组织机构代码获取企业信息" url="http://58.210.9.131/scms/sipsd/service/DBService/70cd2a4b-a299-4a74-b359-9da9fc8211fe"/>
+
+
+
+
+
+ </operationalservices>
+
+  <widgetcontainer >
+   <widget name="获取地图Token" id="getToken" type="Sym.Widgets.TokenWidget" load="first" region="LEFTPANEL" state="opened" source="Sym.Widgets.Silverlight.xap" config="" widgetgroup=""/>
+    <widget name="地图" id="myMap" type="Sym.MapViewer.MainMapControl" load="first" region="MAPPANEL" state="opened" source="Sym.MapViewer.xap" config="~local/Resources/WidgetConfig/MapEvents.xml" widgetgroup=""/>
+    <!--<widget name="标签容器" id="TagBoxWidget" type="Sym.Widgets.ToolsPControl" load="first" region="TOOLBAR" state="opened" source="Sym.Widgets.Silverlight.xap" config="" widgetgroup=""/>-->
+    <!--<widget name="系统主菜单" id="toolBar" type="Sym.Widgets.LeftToolBar" load="first" region="LEFTBAR" state="opened" source="Sym.Widgets.Silverlight.xap" config="~local/Resources/WidgetConfig/ToolbarConfig.xml" widgetgroup=""/>-->
+    <widget name="小工具包容器" id="ToolBoxWidget" type="Sym.Widgets.ToolBoxWidget" load="first" region="WContent" state="opened" source="Sym.Widgets.Silverlight.xap" config="~local/Resources/WidgetConfig/MapToolsConfig.xml" widgetgroup=""/>
+    <!--<widget name="Logo" id="wLogo" type="Sym.Widgets.wLogo" load="first" region="BottomContent" state="opened" source="Sym.Widgets.Silverlight.xap" config="" widgetgroup=""/>-->
+    <!--<widget name="搜索工具" id="sipdangan_SearchTool" type="Sym.Widgets.SearchTool" load="first" region="TOOLBAR" state="opened" source="Sym.Widgets.Silverlight.xap" config="" widgetgroup=""/>-->
+    <!--<widget name="header" id="header" type="Sym.Widgets.HeaderControl" load="first" region="HEAD" state="opened" source="Sym.Widgets.Silverlight.xap" config="~local/Resources/WidgetConfig/HeadConfig.xml" widgetgroup=""/>-->
+    <!--<widget name="headerTag" id="headerTag" type="Sym.Widgets.HeaderTagW" load="first" region="HeaderTag" state="opened" source="Sym.Widgets.Silverlight.xap" config="" widgetgroup=""/>-->
+     <widget name="图层控制" id="layerControlW" type="Sym.Widgets.LayersControlW" load="first" region="LayerManager" state="opened" source="Sym.Widgets.LayersManager.dll" config="~local/Resources/WidgetConfig/MyLayerListWidget.xml" widgetgroup=""/> 
+    <widget name="地图控制" id="MapModes" type="Sym.Widgets.MapModes" load="first" region="WContent" state="opened" source="Sym.Widgets.Silverlight.xap" config="" widgetgroup=""/>
+    <widget name="展开收起" id="MapToolControl" type="Sym.Widgets.MapToolControl" load="first" region="WContent" state="opened" source="Sym.Widgets.Silverlight.xap" config="" widgetgroup=""/>
+    <widget name="地图比对" id="mySwipeMap_new" type="Sym.MapViewer.NewMapSwipeControl" load="second" region="MAINFORM" state="opened" source="Sym.MapViewer.xap" config="~local/Resources/WidgetConfig/mySwipeMap_new.xml" widgetgroup=""/>
+    <widget name="双窗口对比" id="myCmpMap" type="Sym.MapViewer.MapCmpControl" load="second" region="MAINFORM" state="opened" source="Sym.MapViewer.xap" config="~local/Resources/WidgetConfig/MapCompConfig.xml" widgetgroup=""/>
+      <!--<widget name="主页按钮" id="LeftBarHome" type="Sym.Widgets.LeftBarHome" load="first" region="LeftBarHome" state="opened" source="Sym.Widgets.Silverlight.xap" config="" widgetgroup=""/>-->
+    <widget name="消息提示框" id="MessageTip" type="Sym.Widgets.MessageTip" load="first" region="WContent" state="opened" source="Sym.Widgets.Silverlight.xap" config="" widgetgroup=""/>
+    <widget id="floatwin"  name="浮动窗体"  widgetgroup="" config=""    source="Sym.Widgets.Silverlight.xap"  type="Sym.Widgets.FloatWin"         state="closed" region="WContent"  load="first" />
+    
+    <widget id="Geone_AJ"  name="安监模块"  widgetgroup="" config=""    source="Geone_AJ.xap"  type="Geone_AJ.AJ"         state="opened" region="WContent"  load="first" />
+    <widget name="MemuList" id="menuList" type="Sym.Widgets.MenuPanel" load="second" region="LEFTBAR" state="opened" source="Sym.Widgets.Silverlight.xap" config="~local/Resources/WidgetConfig/ZRTJ.xml" widgetgroup=""/>
+    <widget id="fixedfloatwin"  name="可控制大小浮动窗体"  widgetgroup="" config=""    source="Geone_AJ.xap"  type="Geone_AJ.FixedFloatWin"         state="closed" region="WContent"  load="first" />
+    
+  </widgetcontainer>
+
+  <Groups>
+    <group id="g1" label="图层浏览"/>
+    <group id="g2" label="查询定位"/>
+    <group id="g3" label="统计分析"/>
+    <group id="g4" label="历史对比"/>
+  </Groups>
+
+</configuration>

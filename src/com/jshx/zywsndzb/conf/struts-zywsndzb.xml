@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZYWSNDZB" extends="default" namespace="/jsp/zywsndzb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zywsndzbQuery" class="com.jshx.zywsndzb.web.ZywsndzbAction" method="list">
+		</action>
+		
+		<action name="zywsndzbList">
+			<result name="success">/WEB-INF/pages/zywsndzb/Zywsndzb_List.jsp</result>
+		</action>
+		
+		<action name="zywsndzbView" class="com.jshx.zywsndzb.web.ZywsndzbAction" method="view">
+			<result name="view">/WEB-INF/pages/zywsndzb/Zywsndzb_Detail.jsp</result>
+		</action>
+
+		<action name="zywsndzbInitEdit" class="com.jshx.zywsndzb.web.ZywsndzbAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zywsndzb/Zywsndzb_Edit.jsp</result>
+		</action>
+
+		<action name="zywsndzbSave" class="com.jshx.zywsndzb.web.ZywsndzbAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_zywsndzb</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zywsndzbDel" class="com.jshx.zywsndzb.web.ZywsndzbAction" method="delete">
+		</action>
+		<action name="zywsndzbExport" class="com.jshx.zywsndzb.web.ZywsndzbAction" method="export">
+		</action>
+	</package>
+</struts>

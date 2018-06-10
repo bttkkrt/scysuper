@@ -1,0 +1,146 @@
+package %PackageName%.web;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import net.sf.json.processors.JsonValueProcessor;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.jshx.core.base.action.BaseAction;
+import com.jshx.core.base.vo.Pagination;
+import com.jshx.core.json.DateJsonValueProcessor;
+import com.jshx.core.json.JsonPagination;
+import %PackageName%.entity.%ClassName%;
+import %PackageName%.service.%ClassName%Service;
+
+public class %ClassName%MobileAction extends BaseAction
+{
+	private static final long serialVersionUID = 1L;
+
+	private Map<String,%ClassName%> objMap;
+	
+	private Pagination pagination;
+	
+	private String jsonString;
+	
+	private String ids[];
+	
+	private String callback;
+	
+	private %ClassName% %ObjectName%;
+		
+	@Autowired
+	private %ClassName%Service %ObjectName%Service;
+
+    public String initList(){
+		return SUCCESS;
+	}
+	
+	public String save%ClassName%s(){
+		%ClassName%[] objs=new %ClassName%[objMap.size()];
+		objMap.values().toArray(objs);
+		for(int i=0;i<objs.length;i++){
+			if(objs[i].getId()!=null && !"".equals(objs[i].getId())){
+				%ObjectName%Service.update(objs[i]);
+			}else{
+				objs[i].setDelFlag(0);
+				objs[i].setDeptId(this.getLoginUserDepartmentId());
+				%ObjectName%Service.save(objs[i]);
+			}
+		}
+		
+		return SUCCESS;
+	}
+	
+	public String save(){
+		if(%ObjectName%.getId()!=null && !"".equals(%ObjectName%.getId())){
+			%ObjectName%Service.update(%ObjectName%);
+		}else{
+			%ObjectName%.setDelFlag(0);
+			%ObjectName%.setDeptId(this.getLoginUserDepartmentId());
+			%ObjectName%Service.save(%ObjectName%);
+		}
+		return SUCCESS;
+	}
+	
+	public String list(){
+		pagination = new Pagination(this.getRequest(),"");
+		Map<String, Object> paraMap = new HashMap<String, Object>();
+		pagination=%ObjectName%Service.findByPage(pagination, paraMap);
+
+		JsonPagination jsonPage=new JsonPagination(pagination.getTotalCount(),pagination.getListOfObject());
+		
+        JsonValueProcessor jsonProcessor = new DateJsonValueProcessor();
+        JsonConfig jsonConfig = new JsonConfig();
+        jsonConfig.registerJsonValueProcessor(Date.class, jsonProcessor);
+        
+		jsonString=JSONObject.fromObject(jsonPage,jsonConfig).toString();
+		
+		return SUCCESS;
+	}
+	
+	public String delete(){
+		%ObjectName%Service.delete(ids);
+		return SUCCESS;
+	}
+
+	public Map<String, %ClassName%> getObjMap() {
+		return objMap;
+	}
+
+	public void setObjMap(Map<String, %ClassName%> objMap) {
+		this.objMap = objMap;
+	}
+
+	public %ClassName%Service get%ClassName%Service() {
+		return %ObjectName%Service;
+	}
+
+	public void set%ClassName%Service(%ClassName%Service %ObjectName%Service) {
+		this.%ObjectName%Service = %ObjectName%Service;
+	}
+
+	public Pagination getPagination() {
+		return pagination;
+	}
+
+	public void setPagination(Pagination pagination) {
+		this.pagination = pagination;
+	}
+
+	public String getJsonString() {
+		return jsonString;
+	}
+
+	public void setJsonString(String jsonString) {
+		this.jsonString = jsonString;
+	}
+
+	public String[] getIds() {
+		return ids;
+	}
+
+	public void setIds(String[] ids) {
+		this.ids = ids;
+	}
+	
+	public String getCallback() {
+		return callback;
+	}
+
+	public void setCallback(String callback) {
+		this.callback = callback;
+	}
+	
+	public %ClassName% get%ClassName%(){
+		return %ObjectName%;
+	}
+	
+	public void set%ClassName%(%ClassName% %ObjectName%){
+		this.%ObjectName%=%ObjectName%;
+	}
+}

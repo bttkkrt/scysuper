@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="DFZW" extends="default" namespace="/jsp/dfzw">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="dfzwQuery" class="com.jshx.dfzw.web.DfzwAction" method="list">
+		</action>
+		
+		<action name="dfzwList" class="com.jshx.dfzw.web.DfzwAction" method="init">
+			<result name="success">/WEB-INF/pages/dfzw/Dfzw_List.jsp</result>
+		</action>
+		
+		<action name="dfzwView" class="com.jshx.dfzw.web.DfzwAction" method="view">
+			<result name="view">/WEB-INF/pages/dfzw/Dfzw_Detail.jsp</result>
+		</action>
+
+		<action name="dfzwInitEdit" class="com.jshx.dfzw.web.DfzwAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/dfzw/Dfzw_Edit.jsp</result>
+		</action>
+
+		<action name="dfzwSave" class="com.jshx.dfzw.web.DfzwAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="dfzwDel" class="com.jshx.dfzw.web.DfzwAction" method="delete">
+		</action>
+		
+		
+		<action name="dfzwExport" class="com.jshx.dfzw.web.DfzwAction" method="export">
+		</action>
+	</package>
+</struts>

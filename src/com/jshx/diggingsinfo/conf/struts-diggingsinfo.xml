@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="DIGGINGSINFO" extends="default" namespace="/jsp/diggingsinfo">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="diggingsinfoQuery" class="com.jshx.diggingsinfo.web.DiggingsinfoAction" method="list">
+		</action>
+		
+		<action name="findState" class="com.jshx.diggingsinfo.web.DiggingsinfoAction" method="findState">
+		</action>
+		
+		<action name="diggingsinfoList" class="com.jshx.diggingsinfo.web.DiggingsinfoAction" method="initList">
+			<result name="success">/WEB-INF/pages/diggingsinfo/Diggingsinfo_List.jsp</result>
+		</action>
+		
+		<action name="diggingsinfoView" class="com.jshx.diggingsinfo.web.DiggingsinfoAction" method="view">
+			<result name="view">/WEB-INF/pages/diggingsinfo/Diggingsinfo_Detail.jsp</result>
+		</action>
+
+		<action name="diggingsinfoInitEdit" class="com.jshx.diggingsinfo.web.DiggingsinfoAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/diggingsinfo/Diggingsinfo_Edit.jsp</result>
+		</action>
+
+		<action name="diggingsinfoSave" class="com.jshx.diggingsinfo.web.DiggingsinfoAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="diggingsinfoDel" class="com.jshx.diggingsinfo.web.DiggingsinfoAction" method="delete">
+		</action>
+		
+		<action name="diggingsinfoShenhe" class="com.jshx.diggingsinfo.web.DiggingsinfoAction" method="shenhe">
+			<result name="success">/WEB-INF/pages/diggingsinfo/Diggingsinfo_Shenhe.jsp</result>
+		</action>
+		
+		<action name="diggingsinfoShenheSave" class="com.jshx.diggingsinfo.web.DiggingsinfoAction" method="shenhesave">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+	</package>
+</struts>

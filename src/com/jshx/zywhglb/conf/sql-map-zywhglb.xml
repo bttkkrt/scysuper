@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findZywhglbByMap">
+		from Zywhglb t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="zywsid">
+			<![CDATA[and t.zywsid = :zywsid]]>
+		</isNotEmpty>
+		<isNotEmpty property="type">
+			<![CDATA[and t.type = :type]]>
+		</isNotEmpty>
+		order by t.createTime
+	</select>
+	
+	<select id="getFcListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zywhglb.entity.Zywhglb">
+		select t.item_value as zywhid,t.item_text as zywhmc from codevalue t
+  		where t.code_id = #id# and t.del_flag = 0
+ 	 	order by t.item_code
+	</select>
+</sqlMap>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findHonRecByMap">
+		select new com.jshx.rybzxx.entity.HonRec(t.id, t.areaName, t.companyName, t.honor, t.recognitionDept, t.bzyear,t.auditResult,t.auditState,t.createUserID) from HonRec t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="recognitionDept">
+			<![CDATA[and t.recognitionDept like :recognitionDept]]>
+		</isNotEmpty>
+		<isNotEmpty property="honor">
+			<![CDATA[and t.honor like :honor]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="auditResult">
+			<![CDATA[and t.auditResult like :auditResult]]>
+		</isNotEmpty>
+		<isNotEmpty property="auditState">
+			<![CDATA[and t.auditState like :auditState]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="startBzyearStart">
+			<![CDATA[and t.bzyear >= :startBzyearStart]]>
+		</isNotEmpty>
+		<isNotEmpty property="endBzyearStart">
+			<![CDATA[and t.bzyear <= :endBzyearStart]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="searchLike">
+			<![CDATA[and (t.companyName like :searchLike or t.honor like :searchLike or t.recognitionDept like :searchLike or t.bzyear like :searchLike)]]>
+		</isNotEmpty>
+		<isNotEmpty property="state">
+			<![CDATA[and t.auditState != :state]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+		
+	</select>
+</sqlMap>

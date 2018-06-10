@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="LDMJX" extends="default" namespace="/jsp/ldmjx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="ldmjxQuery" class="com.jshx.ldmjx.web.LdmjxAction" method="list">
+		</action>
+		
+		<action name="ldmjxList">
+			<result name="success">/WEB-INF/pages/ldmjx/Ldmjx_List.jsp</result>
+		</action>
+		
+		<action name="ldmjxView" class="com.jshx.ldmjx.web.LdmjxAction" method="view">
+			<result name="view">/WEB-INF/pages/ldmjx/Ldmjx_Detail.jsp</result>
+		</action>
+
+		<action name="ldmjxInitEdit" class="com.jshx.ldmjx.web.LdmjxAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/ldmjx/Ldmjx_Edit.jsp</result>
+		</action>
+
+		<action name="ldmjxSave" class="com.jshx.ldmjx.web.LdmjxAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_ldmjx</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="ldmjxDel" class="com.jshx.ldmjx.web.LdmjxAction" method="delete">
+		</action>
+		
+		<action name="ldmjxExport" class="com.jshx.ldmjx.web.LdmjxAction" method="export">
+		</action>
+	</package>
+</struts>

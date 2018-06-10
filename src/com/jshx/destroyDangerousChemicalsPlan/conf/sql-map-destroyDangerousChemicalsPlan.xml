@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findDestroyDangerousPlanByMap">
+		from DestroyDangerousPlan t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="dangerName">
+			<![CDATA[and t.dangerName like :dangerName]]>
+		</isNotEmpty>
+		<isNotEmpty property="planId">
+			<![CDATA[and t.planId like :planId]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyid">
+			<![CDATA[and t.qyid = :qyid]]>
+		</isNotEmpty>
+		<isNotEmpty property="startTbrq">
+			<![CDATA[and t.sendTime >= :startTbrq]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTbrq">
+			<![CDATA[and t.sendTime <= :endTbrq]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		<isNotEmpty property="hxJg">
+			<![CDATA[and t.hxJg like :hxJg]]>
+		</isNotEmpty>
+		<isNotEmpty property="startHx">
+			<![CDATA[and t.hxDate >= :startHx]]>
+		</isNotEmpty>
+		<isNotEmpty property="endHx">
+			<![CDATA[and t.hxDate <= :endHx]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+</sqlMap>

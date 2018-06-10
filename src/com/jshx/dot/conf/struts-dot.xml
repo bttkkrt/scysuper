@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="DOT" extends="default" namespace="/jsp/dot">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="dotQuery" class="com.jshx.dot.web.DotAction" method="list">
+		</action>
+		
+		<action name="dotList">
+			<result name="success">/WEB-INF/pages/dot/Dot_List.jsp</result>
+		</action>
+		
+		<action name="dotView" class="com.jshx.dot.web.DotAction" method="view">
+			<result name="view">/WEB-INF/pages/dot/Dot_Detail.jsp</result>
+		</action>
+
+		<action name="dotInitEdit" class="com.jshx.dot.web.DotAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/dot/Dot_Edit.jsp</result>
+		</action>
+
+		<action name="dotSave" class="com.jshx.dot.web.DotAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_dot</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="dotDel" class="com.jshx.dot.web.DotAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="LAWS_REGULATIONS" location="10,10" size="525,770">
+    <action name="lawsRegulationsQuery" location="310,58" size="150,40" />
+    <action name="lawsRegulationsList" location="310,162" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="LawsRegulations_List.jsp" />
+      </result>
+    </action>
+    <action name="lawsRegulationsView" location="310,337" size="150,41">
+      <result name="view">
+        <resourceEdge source="view" routing="0" target="LawsRegulations_Detail.jsp" />
+      </result>
+    </action>
+    <action name="lawsRegulationsInitEdit" location="310,512" size="150,41">
+      <result name="edit">
+        <resourceEdge source="edit" routing="0" target="LawsRegulations_Edit.jsp" />
+      </result>
+    </action>
+    <action name="lawsRegulationsSave" location="310,677" size="150,62">
+      <result name="reload">
+        <resourceEdge source="reload" routing="0" target="successToSelf.jsp" />
+      </result>
+      <result name="invalid.token">
+        <resourceEdge source="invalid.token" routing="0" target="invalid.jsp" />
+      </result>
+    </action>
+    <action name="lawsRegulationsDel" location="65,688" size="150,40" />
+  </package>
+  <webResource name="LawsRegulations_List.jsp" path="/WEB-INF/pages/LawsRegulations/LawsRegulations_List.jsp" location="596,135" size="150,55" />
+  <webResource name="LawsRegulations_Detail.jsp" path="/WEB-INF/pages/LawsRegulations/LawsRegulations_Detail.jsp" location="589,310" size="150,55" />
+  <webResource name="LawsRegulations_Edit.jsp" path="/WEB-INF/pages/LawsRegulations/LawsRegulations_Edit.jsp" location="594,485" size="150,55" />
+  <webResource name="successToSelf.jsp" path="/common/successToSelf.jsp" location="302,835" size="150,55" />
+  <webResource name="invalid.jsp" path="/invalid.jsp" location="590,660" size="150,55" />
+</Struts2Diagram>
+

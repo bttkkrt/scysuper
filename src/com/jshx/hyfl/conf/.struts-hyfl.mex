@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="HYFL" location="0,0" size="0,0">
+    <action name="hyflQuery" location="0,0" size="0,0" />
+    <action name="hyflList" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="Hyfl_List.jsp" />
+      </result>
+    </action>
+    <action name="hyflView" location="0,0" size="0,0">
+      <result name="view">
+        <resourceEdge source="view" routing="0" target="Hyfl_Detail.jsp" />
+      </result>
+    </action>
+    <action name="hyflInitEdit" location="0,0" size="0,0">
+      <result name="edit">
+        <resourceEdge source="edit" routing="0" target="Hyfl_Edit.jsp" />
+      </result>
+    </action>
+    <action name="hyflSave" location="0,0" size="0,0">
+      <result name="reload">
+        <resourceEdge source="reload" routing="0" target="successToSelf.jsp" />
+      </result>
+      <result name="invalid.token">
+        <resourceEdge source="invalid.token" routing="0" target="invalid.jsp" />
+      </result>
+    </action>
+    <action name="hyflDel" location="0,0" size="0,0" />
+    <action name="initImportHyfl" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="importHyfl.jsp" />
+      </result>
+    </action>
+    <action name="importHyfl" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="importResult.jsp" />
+      </result>
+    </action>
+  </package>
+  <webResource name="Hyfl_List.jsp" path="/WEB-INF/pages/hyfl/Hyfl_List.jsp" location="0,0" size="0,0" />
+  <webResource name="Hyfl_Detail.jsp" path="/WEB-INF/pages/hyfl/Hyfl_Detail.jsp" location="0,0" size="0,0" />
+  <webResource name="Hyfl_Edit.jsp" path="/WEB-INF/pages/hyfl/Hyfl_Edit.jsp" location="0,0" size="0,0" />
+  <webResource name="successToSelf.jsp" path="/common/successToSelf.jsp" location="0,0" size="0,0" />
+  <webResource name="invalid.jsp" path="/invalid.jsp" location="0,0" size="0,0" />
+  <webResource name="importHyfl.jsp" path="/WEB-INF/pages/hyfl/importHyfl.jsp" location="0,0" size="0,0" />
+  <webResource name="importResult.jsp" path="/common/importResult.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

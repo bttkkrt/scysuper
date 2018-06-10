@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PRO_SAF_COM" extends="default" namespace="/jsp/prosafecomplete">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="proSafComQuery" class="com.jshx.prosafecomplete.web.ProSafComAction" method="list">
+		</action>
+		
+		<action name="proSafComList" class="com.jshx.prosafecomplete.web.ProSafComAction" method="init">
+			<result name="success">/WEB-INF/pages/prosafecomplete/ProSafCom_List.jsp</result>
+		</action>
+		
+		<action name="proSafComView" class="com.jshx.prosafecomplete.web.ProSafComAction" method="view">
+			<result name="view">/WEB-INF/pages/prosafecomplete/ProSafCom_Detail.jsp</result>
+		</action>
+
+		<action name="proSafComInitEdit" class="com.jshx.prosafecomplete.web.ProSafComAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/prosafecomplete/ProSafCom_Edit.jsp</result>
+		</action>
+
+		<action name="proSafComSave" class="com.jshx.prosafecomplete.web.ProSafComAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_proSafCom</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proSafComDel" class="com.jshx.prosafecomplete.web.ProSafComAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

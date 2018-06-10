@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title></title>
+	<link rel="stylesheet" type="text/css" href="../../resources/jquery_mobile_1.0b1/jquery.mobile-1.0b1.min.css" />
+	<script type="text/javascript" src="../../resources/jquery-1.6.1.min.js"></script>
+	<script type="text/javascript" src="../../resources/jquery_mobile_1.0b1/jquery.mobile-1.0b1.min.js"></script>
+	<script type="text/javascript" src="../../resources/mobile-common.js"></script>
+</head>
+<body>
+	<div data-role="page" id="%ObjectName%AddPage">
+		<script>
+			function save%ClassName%(){
+				var %ObjectName%=formToObject($("#%ObjectName%AddPage form"));
+				var dataString=objectToURLString(%ObjectName%,"%ObjectName%");
+				$.ajax({
+                	url:window.serverUrl+"/mobile/%ObjectName%/save%ClassName%.action?callback=?",
+                	async: false,
+                	type:"GET",
+                	data:dataString,
+                	dataType:"jsonp",
+               		success:save%ClassName%sSuccess
+             	});
+			}
+			function save%ClassName%sSuccess(){
+				$("#%ObjectName%AddPage form")[0].reset();
+			}
+
+		</script>
+		<div data-role="header" data-theme="b" data-position="fixed">
+			<h1>%ClassDisplayName%上报</h1>
+		</div>
+		<div data-role="content">
+			<div data-role="fieldcontain">
+				<form>
+%Form%
+				</form>
+			</div>
+			<div>
+				<button onclick="save%ClassName%();">上报</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

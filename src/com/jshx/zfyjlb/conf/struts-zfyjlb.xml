@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="LAW_BASE" extends="default" namespace="/jsp/zfyjlb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="lawBaseQuery" class="com.jshx.zfyjlb.web.LawBaseAction" method="list">
+		</action>
+		
+		<action name="lawBaseList">
+			<result name="success">/WEB-INF/pages/zfyjlb/LawBase_List.jsp</result>
+		</action>
+		
+		<action name="lawBaseView" class="com.jshx.zfyjlb.web.LawBaseAction" method="view">
+			<result name="view">/WEB-INF/pages/zfyjlb/LawBase_Detail.jsp</result>
+		</action>
+
+		<action name="lawBaseInitEdit" class="com.jshx.zfyjlb.web.LawBaseAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zfyjlb/LawBase_Edit.jsp</result>
+		</action>
+
+		<action name="lawBaseSave" class="com.jshx.zfyjlb.web.LawBaseAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_lawBase</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="lawBaseDel" class="com.jshx.zfyjlb.web.LawBaseAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

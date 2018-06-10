@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 个人设置 -->
+	<package name="personal" extends="default"
+		namespace="/jsp/personal">
+		<action name="listQuicklyStart"
+			class="com.jshx.module.admin.web.action.QuicklyStartAction"
+			method="listQuicklyStart">
+			<result name="list">/personal/listQuicklyStart.jsp</result>
+		</action>
+		<action name="removeQuicklyStartModule"
+			class="com.jshx.module.admin.web.action.QuicklyStartAction"
+			method="removeQuicklyStartModule">
+		</action>
+		<action name="exportExcel"
+			class="com.jshx.module.export.ExportExcelAction"
+			method="exportExcel">
+		</action>
+
+		<action name="changePassword"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="changePassword">
+			<result name="reload">
+				/personal/changePassword.jsp?modify=1
+			</result>
+		</action>
+		
+		<action name="changePasswords"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="changePasswords">
+			<result name="reload">
+				/personal/changePasswords.jsp?modify=1
+			</result>
+		</action>
+
+		<!-- 在线用户列表 -->
+		<action name="onLineUser"
+			class="com.jshx.module.admin.web.action.OnlineUserAction"
+			method="list">
+			<result name="list">
+				/WEB-INF/pages/admin/user/onlineUserList.jsp
+			</result>
+		</action>
+		<action name="onLineUserList"
+			class="com.jshx.module.admin.web.action.OnlineUserAction"
+			method="onlineUserList">
+
+		</action>
+
+		<action name="saveQuicklyStart"
+			class="com.jshx.module.admin.web.action.QuicklyStartAction"
+			method="saveQuicklyStart">
+			<result name="success" type="redirect">
+				/jsp/personal/listQuicklyStart.action
+			</result>
+		</action>
+
+		<action name="moduleQuicklyStartTree">
+			<result>/personal/moduleTree.jsp</result>
+		</action>
+
+		<action name="findModuleTreeForQuicklyStart"
+			class="com.jshx.module.admin.web.action.QuicklyStartAction"
+			method="findModuleTreeForQuicklyStart">
+		</action>
+		
+		<action name="myQuicklyStart"
+			class="com.jshx.module.admin.web.action.QuicklyStartAction"
+			method="myQuicklyStart">
+		</action>
+
+		<action name="saveUser"
+			class="com.jshx.module.admin.web.action.UserAction"
+			method="saveMyInfo">
+			<result name="reload" type="redirect">
+				/common/successToParent.jsp?successUrl=/personal/modSelfInfo.jsp?modify=1
+			</result>
+		</action>
+
+	</package>
+
+	<!-- 公共action -->
+	<package name="common" extends="default" namespace="/">
+		<action name="searchCompany"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="searchCompany">
+		</action>
+		<action name="quicklyStart">
+			<result>/WEB-INF/pages/common/quicklyStart.jsp</result>
+		</action>
+		<action name="findQuicklyStartTree"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="findQuicklyStartTree">
+		</action>
+		<action name="index"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="index">
+			<result name="success">
+				/WEB-INF/pages/common/index.jsp
+			</result>
+			<result name="edit">
+				/WEB-INF/pages/common/indexEntPage.jsp
+			</result>
+		</action>
+		<action name="indexEnt"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="indexEnt">
+			<result name="success">
+				/WEB-INF/pages/common/indexEnt.jsp
+			</result>
+		</action>
+		<action name="indexQyt"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="indexQyt">
+			<result name="success">
+				/WEB-INF/pages/common/indexQyt.jsp
+			</result>
+		</action>
+
+		<action name="codeTree"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="codeTree">
+			<result name="success">
+				/WEB-INF/pages/common/codeTree.jsp
+			</result>
+		</action>
+
+		<action name="queryOnlineUsers"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="queryOnlineUsers">
+			<result name="success">
+				/WEB-INF/pages/common/ListOnlineUsers.jsp
+			</result>
+		</action>
+
+		<action name="logout"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="logout">
+			<result name="success"  type="redirect">/login.jsp</result>
+		</action>
+		<action name="ajaxLogout"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="ajaxLogout">
+		</action>
+
+		<!-- Ajax 登录 -->
+		<action name="ajaxLogin"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="ajaxLogin">
+		</action>
+		
+		<!-- Ajax 登录 直接用md5密码 fq 2016-6-13 -->
+		<action name="ajaxLoginMd5"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="ajaxLoginMd5">
+		</action>
+		
+		
+		<action name="checkSession"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="checkSession">
+		</action>
+
+		<action name="captcha"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="exec">
+		</action>
+
+		<action name="checkValidateNumber"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="checkValidateNumber">
+		</action>
+		<action name="welcome" class="com.jshx.module.admin.web.action.CommonAction"
+			method="indexContent">
+			<result>/WEB-INF/pages/common/indexContent.jsp</result>
+		</action>
+		<action name="mapConsole" class="com.jshx.module.admin.web.action.CommonAction"
+			method="mapConsole">
+			<result name="success">/WEB-INF/pages/common/mapConsole.jsp</result>
+		</action>
+		<action name="welcomeEnt" class="com.jshx.module.admin.web.action.CommonAction"
+			method="welcomeEnt">
+			<result>/WEB-INF/pages/common/welcomeEnt.jsp</result>
+		</action>
+		<!-- add by wuhuaqing begin -->
+		<action name="findModuleChildTree" class="com.jshx.module.admin.web.action.CommonAction"
+			method="findModuleTree">
+		</action>
+		<!-- add by wuhuaqing end -->
+		
+		<action name="userLogin"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="userLogin">
+			<result name="success" type="redirect">
+				/index.action
+			</result>
+			<result name="input" type="redirect">/</result>
+		</action>
+		<action name="qytLogin"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="qytLogin">
+			<result name="success" type="redirect">
+				/indexQyt.action
+			</result>
+			<result name="input" type="redirect">/</result>
+		</action>
+		
+		<!-- Save CSSID Action end -->
+		<action name="mobileLogin"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="mobileLogin">
+		</action>
+		<action name="uploadFiles" method="uploadFiles"
+			class="com.jshx.module.admin.web.action.CommonAction">
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">4096000</param><!-- maxinumSize: 4G -->
+				<param name="allowedTypes">
+					application/zip,application/rar,application/octet-stream
+				</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/common/FlashUpload2.jsp</result>
+			<result name="input">/common/FlashUpload2.jsp</result>
+
+		</action>
+		<!--  <action name="readFile"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="readFile">
+			</action> -->
+
+	</package>
+	<package name="index" extends="default" namespace="/index">
+		<action name="top"
+			class="com.jshx.module.admin.web.action.CommonAction"
+			method="findMyModule">
+			<result name="success">
+				/WEB-INF/pages/common/top.jsp
+			</result>
+		</action>
+		<action name="left">
+			<result name="success">
+				/WEB-INF/pages/common/defaultTree.jsp
+			</result>
+		</action>
+		<action name="getIndex">
+			<result name="success">
+				/WEB-INF/pages/common/index1.jsp
+			</result>
+		</action>
+		<action name="user">
+			<result name="success">
+				/WEB-INF/pages/common/user.jsp
+			</result>
+		</action>
+		<action name="form">
+			<result name="success">
+				/WEB-INF/pages/common/form.jsp
+			</result>
+		</action>
+		<action name="bottom">
+			<result name="success">
+				/WEB-INF/pages/common/bottom.jsp
+			</result>
+		</action>
+	</package>
+</struts>

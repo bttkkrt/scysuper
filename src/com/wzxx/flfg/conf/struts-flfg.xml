@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="LAW" extends="default" namespace="/jsp/flfg">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="lawQuery" class="com.wzxx.flfg.web.LawAction" method="list">
+		</action>
+		
+		<action name="lawList">
+			<result name="success">/WEB-INF/wzPage/flfg/Law_List.jsp</result>
+		</action>
+		
+		<action name="lawView" class="com.wzxx.flfg.web.LawAction" method="view">
+			<result name="view">/WEB-INF/wzPage/flfg/Law_Detail.jsp</result>
+		</action>
+
+		<action name="lawInitEdit" class="com.wzxx.flfg.web.LawAction" method="initEdit">
+			<result name="edit">/WEB-INF/wzPage/flfg/Law_Edit.jsp</result>
+		</action>
+
+		<action name="lawSave" class="com.wzxx.flfg.web.LawAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_law</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="lawDel" class="com.wzxx.flfg.web.LawAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

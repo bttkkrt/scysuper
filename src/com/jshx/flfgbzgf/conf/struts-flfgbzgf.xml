@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="LEG_STA" extends="default" namespace="/jsp/flfgbzgf">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="legStaQuery" class="com.jshx.flfgbzgf.web.LegStaAction" method="list">
+		</action>
+		
+		<action name="legStaList" class="com.jshx.flfgbzgf.web.LegStaAction" method="init">
+			<result name="success">/WEB-INF/pages/flfgbzgf/LegSta_List.jsp</result>
+		</action>
+		
+		<action name="legStaView" class="com.jshx.flfgbzgf.web.LegStaAction" method="view">
+			<result name="view">/WEB-INF/pages/flfgbzgf/LegSta_Detail.jsp</result>
+		</action>
+
+		<action name="legStaInitEdit" class="com.jshx.flfgbzgf.web.LegStaAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/flfgbzgf/LegSta_Edit.jsp</result>
+		</action>
+
+		<action name="legStaSave" class="com.jshx.flfgbzgf.web.LegStaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_legSta</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="legStaDel" class="com.jshx.flfgbzgf.web.LegStaAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

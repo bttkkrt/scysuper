@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="REC_RES" extends="default" namespace="/jsp/zxzzjcjl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="recResQuery" class="com.jshx.zxzzjcjl.web.RecResAction" method="list">
+		</action>
+		
+		<action name="recResList" class="com.jshx.zxzzjcjl.web.RecResAction" method="init">
+			<result name="success">/WEB-INF/pages/zxzzjcjl/RecRes_List.jsp</result>
+		</action>
+		
+		<action name="recResView" class="com.jshx.zxzzjcjl.web.RecResAction" method="view">
+			<result name="view">/WEB-INF/pages/zxzzjcjl/RecRes_Detail.jsp</result>
+		</action>
+
+		<action name="recResInitEdit" class="com.jshx.zxzzjcjl.web.RecResAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zxzzjcjl/RecRes_Edit.jsp</result>
+		</action>
+
+		<action name="recResSave" class="com.jshx.zxzzjcjl.web.RecResAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_recRes</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="recResDel" class="com.jshx.zxzzjcjl.web.RecResAction" method="delete">
+		</action>
+		
+		<action name="recResViewByPlan" class="com.jshx.zxzzjcjl.web.RecResAction" method="viewByPlan">
+			<result name="view">/WEB-INF/pages/zxzzjcjl/RecRes_Detail.jsp</result>
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CHARGE_TRAINING" extends="default" namespace="/jsp/aqscfgfzrpx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="chargeTrainingQuery" class="com.jshx.aqscfgfzrpx.web.ChargeTrainingAction" method="list">
+		</action>
+		
+		<action name="chargeTrainingList" class="com.jshx.aqscfgfzrpx.web.ChargeTrainingAction" method="init">
+			<result name="success">/WEB-INF/pages/aqscfgfzrpx/ChargeTraining_List.jsp</result>
+		</action>
+		
+		<action name="chargeTrainingView" class="com.jshx.aqscfgfzrpx.web.ChargeTrainingAction" method="view">
+			<result name="view">/WEB-INF/pages/aqscfgfzrpx/ChargeTraining_Detail.jsp</result>
+		</action>
+
+		<action name="chargeTrainingInitEdit" class="com.jshx.aqscfgfzrpx.web.ChargeTrainingAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqscfgfzrpx/ChargeTraining_Edit.jsp</result>
+		</action>
+
+		<action name="chargeTrainingSave" class="com.jshx.aqscfgfzrpx.web.ChargeTrainingAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_chargeTraining</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="chargeTrainingDel" class="com.jshx.aqscfgfzrpx.web.ChargeTrainingAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

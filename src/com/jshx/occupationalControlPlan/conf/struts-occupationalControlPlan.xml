@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="OCCUPATIONAL_CONTROL_PLAN" extends="default" namespace="/jsp/occupationalControlPlan">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="occupationalControlPlanQuery" class="com.jshx.occupationalControlPlan.web.OccupationalControlPlanAction" method="list">
+		</action>
+		
+		<action name="occupationalControlPlanList" class="com.jshx.occupationalControlPlan.web.OccupationalControlPlanAction" method="init">
+			<result name="success">/WEB-INF/pages/occupationalControlPlan/OccupationalControlPlan_List.jsp</result>
+		</action>
+		
+		<action name="occupationalControlPlanView" class="com.jshx.occupationalControlPlan.web.OccupationalControlPlanAction" method="view">
+			<result name="view">/WEB-INF/pages/occupationalControlPlan/OccupationalControlPlan_Detail.jsp</result>
+		</action>
+
+		<action name="occupationalControlPlanInitEdit" class="com.jshx.occupationalControlPlan.web.OccupationalControlPlanAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/occupationalControlPlan/OccupationalControlPlan_Edit.jsp</result>
+		</action>
+
+		<action name="occupationalControlPlanSave" class="com.jshx.occupationalControlPlan.web.OccupationalControlPlanAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occupationalControlPlanDel" class="com.jshx.occupationalControlPlan.web.OccupationalControlPlanAction" method="delete">
+		</action>
+		
+		<action name="occupationalControlPlanPrint" class="com.jshx.occupationalControlPlan.web.OccupationalControlPlanAction" method="print">
+			<result name="success">/WEB-INF/pages/occupationalControlPlan/OccupationalControlPlan_Print.jsp</result>
+		</action>
+		
+		<action name="occupationalControlPlanUpload" class="com.jshx.occupationalControlPlan.web.OccupationalControlPlanAction" method="upload">
+			<result name="success">/WEB-INF/pages/occupationalControlPlan/OccupationalControlPlan_upload.jsp</result>
+		</action>
+		<action name="occupationalControlPlanSavePhoto" class="com.jshx.occupationalControlPlan.web.OccupationalControlPlanAction" method="savePhoto">
+		</action>
+		<action name="occupationalControlPlanImageDel" class="com.jshx.occupationalControlPlan.web.OccupationalControlPlanAction" method="deleteImage">
+		</action>
+		<action name="occupationalControlPlanSaveFile" class="com.jshx.occupationalControlPlan.web.OccupationalControlPlanAction" method="saveFile">
+		</action>
+	</package>
+</struts>

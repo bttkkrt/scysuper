@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findLawByMap">
+		select new com.wzxx.flfg.entity.Law(t.id, t.infoTitle, t.publicAgency, t.numbers, t.publicTime) from Law t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="infoTitle">
+			<![CDATA[and t.infoTitle like :infoTitle]]>
+		</isNotEmpty>
+		<isNotEmpty property="numbers">
+			<![CDATA[and t.numbers like :numbers]]>
+		</isNotEmpty>
+		<isNotEmpty property="startPublicTime">
+			<![CDATA[and CONVERT(varchar(100), t.publicTime, 23) >= :startPublicTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPublicTime">
+			<![CDATA[and CONVERT(varchar(100), t.publicTime, 23) <= :endPublicTime]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	<select id="findFlfgList" parameterClass="java.util.Map" resultClass="com.wzxx.flfg.entity.Law">
+		select t.ROW_ID as id,t.INFO_TITLE as infoTitle,t.NUMBERS as numbers,t.PUBLIC_AGENCY as publicAgency,
+        t.GENERATE_DATE as generateDate,t.PUBLIC_DATE as publicDate,t.PUBLIC_TIME as
+        publicTime,t.REMARK as remark,t.INFO_CONTENT as infoContent
+        from LAW t where t.delFlag=0 
+        <isNotEmpty property="type">
+			<![CDATA[and t.type =#type#]]>
+		</isNotEmpty>
+        order by t.CREATETIME desc
+	</select>
+	
+	<select id="findFlfgListSize" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from LAW t where t.delFlag=0  
+		<isNotEmpty property="type">
+			<![CDATA[and t.type =#type#]]>
+		</isNotEmpty>
+	</select>
+</sqlMap>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="DUS_WOR_MAN" extends="default" namespace="/jsp/fczycsgl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="dusWorManQuery" class="com.jshx.fczycsgl.web.DusWorManAction" method="list">
+		</action>
+		
+		<action name="dusWorManList" class="com.jshx.fczycsgl.web.DusWorManAction" method="init">
+			<result name="success">/WEB-INF/pages/fczycsgl/DusWorMan_List.jsp</result>
+		</action>
+		
+		<action name="dusWorManView" class="com.jshx.fczycsgl.web.DusWorManAction" method="view">
+			<result name="view">/WEB-INF/pages/fczycsgl/DusWorMan_Detail.jsp</result>
+		</action>
+
+		<action name="dusWorManInitEdit" class="com.jshx.fczycsgl.web.DusWorManAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/fczycsgl/DusWorMan_Edit.jsp</result>
+		</action>
+
+		<action name="dusWorManSave" class="com.jshx.fczycsgl.web.DusWorManAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_dusWorMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="dusWorManDel" class="com.jshx.fczycsgl.web.DusWorManAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

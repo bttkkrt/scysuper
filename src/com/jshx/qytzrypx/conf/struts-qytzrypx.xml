@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SPE_JOB_TRA" extends="default" namespace="/jsp/qytzrypx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="speJobTraQuery" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="list">
+		</action>
+		
+		<action name="speJobTraList" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="init">
+			<result name="success">/WEB-INF/pages/qytzrypx/SpeJobTra_List.jsp</result>
+		</action>
+		
+		<action name="speJobTraView" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="view">
+			<result name="view">/WEB-INF/pages/qytzrypx/SpeJobTra_Detail.jsp</result>
+		</action>
+
+		<action name="speJobTraInitEdit" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/qytzrypx/SpeJobTra_Edit.jsp</result>
+		</action>
+
+		<action name="speJobTraSave" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="save">
+			<interceptor-ref name="tokenInterceptor" /> 
+			<interceptor-ref name="coreStack" /> 
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_speJobTra</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="speJobTraDel" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="delete">
+		</action>
+		
+		<action name="initImportSpeJobTra" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="initImport">
+		    <result name="success">/WEB-INF/pages/qytzrypx/importSpeJobTra.jsp</result>
+		</action>
+		
+		<action name="importSpeJobTra" class="com.jshx.qytzrypx.web.SpeJobTraAction" method="importSpeJobTra">
+			<result name="success" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+		</action>
+	</package>
+</struts>

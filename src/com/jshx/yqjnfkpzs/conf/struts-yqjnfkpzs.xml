@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="POS_FIN_RAT" extends="default" namespace="/jsp/yqjnfkpzs">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="posFinRatQuery" class="com.jshx.yqjnfkpzs.web.PosFinRatAction" method="list">
+		</action>
+		
+		<action name="posFinRatList" class="com.jshx.yqjnfkpzs.web.PosFinRatAction" method="init">
+			<result name="success">/WEB-INF/pages/yqjnfkpzs/PosFinRat_List.jsp</result>
+		</action>
+		
+		<action name="posFinRatView" class="com.jshx.yqjnfkpzs.web.PosFinRatAction" method="view">
+			<result name="view">/WEB-INF/pages/yqjnfkpzs/PosFinRat_Detail.jsp</result>
+		</action>
+
+		<action name="posFinRatInitEdit" class="com.jshx.yqjnfkpzs.web.PosFinRatAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/yqjnfkpzs/PosFinRat_Edit.jsp</result>
+		</action>
+
+		<action name="posFinRatSave" class="com.jshx.yqjnfkpzs.web.PosFinRatAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_posFinRat</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="posFinRatDel" class="com.jshx.yqjnfkpzs.web.PosFinRatAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

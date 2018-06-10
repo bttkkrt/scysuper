@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MAINTENP" extends="default" namespace="/jsp/maintenp">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="maintenpQuery" class="com.jshx.maintenp.web.MaintenpAction" method="list">
+		</action>
+		
+		<action name="maintenpList" class="com.jshx.maintenp.web.MaintenpAction" method="initlist">
+			<result name="success">/WEB-INF/pages/maintenp/Maintenp_List.jsp</result>
+				<result name="qiye">/WEB-INF/pages/maintenp/MaintenpQiye_List.jsp</result>
+		</action>
+		
+		<action name="maintenpView" class="com.jshx.maintenp.web.MaintenpAction" method="view">
+			<result name="view">/WEB-INF/pages/maintenp/Maintenp_Detail.jsp</result>
+		</action>
+
+		<action name="maintenpInitEdit" class="com.jshx.maintenp.web.MaintenpAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/maintenp/Maintenp_Edit.jsp</result>
+		</action>
+
+		<action name="maintenpSave" class="com.jshx.maintenp.web.MaintenpAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="maintenpDel" class="com.jshx.maintenp.web.MaintenpAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

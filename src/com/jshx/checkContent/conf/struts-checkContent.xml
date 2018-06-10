@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CHECK_CONTENT" extends="default" namespace="/jsp/checkContent">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="checkContentQuery" class="com.jshx.checkContent.web.CheckContentAction" method="list">
+		</action>
+		
+		<action name="checkContentList">
+			<result name="success">/WEB-INF/pages/checkContent/CheckContent_List.jsp</result>
+		</action>
+		
+		<action name="checkContentView" class="com.jshx.checkContent.web.CheckContentAction" method="view">
+			<result name="view">/WEB-INF/pages/checkContent/CheckContent_Detail.jsp</result>
+		</action>
+
+		<action name="checkContentInitEdit" class="com.jshx.checkContent.web.CheckContentAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/checkContent/CheckContent_Edit.jsp</result>
+		</action>
+
+		<action name="checkContentSave" class="com.jshx.checkContent.web.CheckContentAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="checkContentDel" class="com.jshx.checkContent.web.CheckContentAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SEC_PRO_CHA" extends="default" namespace="/jsp/aqscfgfzr">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="secProChaQuery" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="list">
+		</action>
+		
+		<action name="secProChaList" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="init">
+			<result name="success">/WEB-INF/pages/aqscfgfzr/SecProCha_List.jsp</result>
+		</action>
+		
+		<action name="secProChaLists" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="init">
+			<result name="success">/WEB-INF/pages/aqscfgfzr/SecProCha_Lists.jsp</result>
+		</action>
+		
+		<action name="secProChaView" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="view">
+			<result name="view">/WEB-INF/pages/aqscfgfzr/SecProCha_Detail.jsp</result>
+		</action>
+
+		<action name="secProChaInitEdit" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqscfgfzr/SecProCha_Edit.jsp</result>
+		</action>
+
+		<action name="secProChaSave" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_secProCha</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProChaDel" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="delete">
+		</action>
+		
+		
+		<action name="sendInfo" class="com.jshx.aqscfgfzr.web.SecProChaAction" method="sendInfo">
+		</action>
+		
+	</package>
+</struts>

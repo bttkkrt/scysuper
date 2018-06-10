@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+    <!-- 报表管理 -->
+	<package name="report" extends="default" namespace="/report">
+		<action name="initList" class="com.jshx.report.web.action.ReportDeployAction" 
+			method="initList">
+			<result name="success" >/WEB-INF/pages/report/reportList.jsp</result>
+		</action>
+		
+	    <action name="findReportList" class="com.jshx.report.web.action.ReportDeployAction" 
+	    	method="findReportList">
+		</action>
+		
+		<action name="initDeploy" class="com.jshx.report.web.action.ReportDeployAction"
+			method="initDeploy">
+			<result name="success">/WEB-INF/pages/report/initDeploy.jsp</result>
+		</action>
+		
+		<action name="checkReportName" class="com.jshx.report.web.action.ReportDeployAction"
+			method="checkReportName">
+		</action>
+		
+		<action name="deploy" class="com.jshx.report.web.action.ReportDeployAction"
+			method="deploy">
+			<result name="success">/WEB-INF/pages/report/initDeploy.jsp</result>
+		</action>
+		
+		<action name="removeReport" class="com.jshx.report.web.action.ReportDeployAction"
+			method="removeReport">
+		</action>
+		
+		<action name="findHistoryVersions" class="com.jshx.report.web.action.ReportDeployAction"
+			method="findHistoryVersions">
+			<result name="success">/WEB-INF/pages/report/historyVersionList.jsp</result>
+		</action>
+		
+		<action name="initEditReport" class="com.jshx.report.web.action.ReportDeployAction"
+			method="initEditReport">
+			<result name="success">/WEB-INF/pages/report/editReport.jsp</result>
+		</action>
+		
+		<action name="saveReport" class="com.jshx.report.web.action.ReportDeployAction"
+			method="saveReport">
+			<result name="success" type="redirect">
+				/common/successToParent.jsp?successUrl=/report/findReportList.action
+			</result>
+		</action>
+		
+		<action name="downloadAttatchment" class="com.jshx.report.web.action.ReportDeployAction"
+			method="downloadAttatchment">
+		</action>
+		
+		<action name="tagTest" class="com.jshx.report.web.action.ReportDeployAction"
+			method="tagTest">
+			<result name="success">/WEB-INF/pages/report/tagTest.jsp</result>
+		</action>
+		
+		<action name="fusionChartDemo" class="com.jshx.report.web.action.ReportDeployAction"
+			method="fusionChartDemo">
+			<result name="success">/WEB-INF/pages/report/FusionChartDemo.jsp</result>
+		</action>
+		
+		<action name="initUpdateVersion" class="com.jshx.report.web.action.ReportDeployAction"
+			method="initUpdateVersion">
+			<result name="success">/WEB-INF/pages/report/initUpdateVersion.jsp</result>
+		</action>
+		
+		<action name="updateVersion" class="com.jshx.report.web.action.ReportDeployAction"
+			method="updateVersion">
+			<result name="success">/WEB-INF/pages/report/initUpdateVersion.jsp</result>
+		</action>
+	</package>
+	
+</struts>

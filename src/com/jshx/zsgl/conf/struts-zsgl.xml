@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHX_ZSGL" extends="default" namespace="/jsp/zsgl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxZsglQuery" class="com.jshx.zsgl.web.JshxZsglAction" method="list">
+		</action>
+		
+		<action name="jshxZsglList"  class="com.jshx.zsgl.web.JshxZsglAction" method="init">
+			<result name="success">/WEB-INF/pages/zsgl/JshxZsgl_List.jsp</result>
+		</action>
+		
+		<action name="jshxZsglView" class="com.jshx.zsgl.web.JshxZsglAction" method="view">
+			<result name="view">/WEB-INF/pages/zsgl/JshxZsgl_Detail.jsp</result>
+		</action>
+
+		<action name="jshxZsglInitEdit" class="com.jshx.zsgl.web.JshxZsglAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zsgl/JshxZsgl_Edit.jsp</result>
+		</action>
+
+		<action name="jshxZsglSave" class="com.jshx.zsgl.web.JshxZsglAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="jshxZsglDel" class="com.jshx.zsgl.web.JshxZsglAction" method="delete">
+		</action>
+		
+		<!-- 李军 2013-08-15 附件上传处理 -->
+		<action name="jshxZsglUpload" class="com.jshx.zsgl.web.JshxZsglAction" method="upload">
+			<result name="success">/WEB-INF/pages/zsgl/JshxZsgl_upload.jsp</result>
+		</action>
+		<action name="jshxZsglSavePhoto" class="com.jshx.zsgl.web.JshxZsglAction" method="savePhoto">
+		</action>
+		<action name="jshxZsglImageDel" class="com.jshx.zsgl.web.JshxZsglAction" method="deleteImage">
+		</action>
+		<action name="jshxZsglSaveFile" class="com.jshx.zsgl.web.JshxZsglAction" method="saveFile">
+		</action>
+	</package>
+</struts>

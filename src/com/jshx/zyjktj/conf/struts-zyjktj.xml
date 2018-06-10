@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="OCC_HEA_EXA" extends="default" namespace="/jsp/zyjktj">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="occHeaExaQuery" class="com.jshx.zyjktj.web.OccHeaExaAction" method="list">
+		</action>
+		
+		<action name="occHeaExaList" class="com.jshx.zyjktj.web.OccHeaExaAction" method="init">
+			<result name="success">/WEB-INF/pages/zyjktj/OccHeaExa_List.jsp</result>
+		</action>
+		
+		<action name="occHeaExaView" class="com.jshx.zyjktj.web.OccHeaExaAction" method="view">
+			<result name="view">/WEB-INF/pages/zyjktj/OccHeaExa_Detail.jsp</result>
+		</action>
+
+		<action name="occHeaExaInitEdit" class="com.jshx.zyjktj.web.OccHeaExaAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zyjktj/OccHeaExa_Edit.jsp</result>
+		</action>
+
+		<action name="occHeaExaSave" class="com.jshx.zyjktj.web.OccHeaExaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_occHeaExa</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occHeaExaDel" class="com.jshx.zyjktj.web.OccHeaExaAction" method="delete">
+		</action>
+		<action name="occHeaExaListDel" class="com.jshx.zyjktj.web.OccHeaExaAction" method="occHeaExaListDel">
+		</action>
+		
+		<action name="initImportOccHeaExa" class="com.jshx.zyjktj.web.OccHeaExaAction" method="initImport">
+		    <result name="success">/WEB-INF/pages/zyjktj/importOccHeaExa.jsp</result>
+		</action>
+		
+		<action name="importOccHeaExa" class="com.jshx.zyjktj.web.OccHeaExaAction" method="importOccHeaExa">
+			<result name="success" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		
+	</package>
+</struts>

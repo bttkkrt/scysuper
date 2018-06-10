@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title></title>
+	<link rel="stylesheet" type="text/css" href="../../resources/jquery_mobile_1.0b1/jquery.mobile-1.0b1.min.css" />
+	<script type="text/javascript" src="../../resources/jquery-1.6.1.min.js"></script>
+	<script type="text/javascript" src="../../resources/jquery_mobile_1.0b1/jquery.mobile-1.0b1.min.js"></script>
+	<script type="text/javascript" src="../../resources/mobile-common.js"></script>
+</head>
+<body>
+	<div data-role="page" id="%ObjectName%AddPage">
+		<script>
+			function add%ClassName%ToList(){			
+				var %ObjectName%Detail=%AddListElementDetail%;
+				var %ObjectName%=formToObject($("#%ObjectName%AddPage form"));
+				
+				if($("#%ObjectName%AddPage form").data("li")){
+					var $li=$("#%ObjectName%AddPage form").data("li");
+					update$li($li,%ObjectName%Detail,"delete");
+					$li.data("data",%ObjectName%);
+					$("#%ObjectName%AddList").listview("refresh");
+					$("#%ObjectName%AddPage form").removeData("li");
+				}
+				else{
+					var $li=create$li(%ObjectName%Detail,"delete");
+					$li.data("data",%ObjectName%);
+					$li.click(function(){
+						objectToForm($li.data("data"),$("#%ObjectName%AddPage form"));
+						$("#%ObjectName%AddPage form").data("li",$li);
+					});
+					var $list=$("#%ObjectName%AddList");
+					$li.appendTo($list);
+				}
+				$("#%ObjectName%AddPage form")[0].reset();
+			}
+			function save%ClassName%s(){
+				var %ObjectName%s=new Array();
+				$("#%ObjectName%AddPage li").each(function(){
+					%ObjectName%s.push($(this).data("data"));
+				});
+				if(%ObjectName%s.length==0){
+					return false;
+				}
+				var postString=objArrayToURLString(%ObjectName%s);
+				$.ajax({
+                	url:window.serverUrl+"/mobile/%ObjectName%/save%ClassName%s.action?callback=?",
+                	async: false,
+                	type:"GET",
+                	data:postString,
+                	dataType:"jsonp",
+               		success:save%ClassName%sSuccess,
+               		error:save%ClassName%sError
+             	});
+			}
+			function save%ClassName%sSuccess(){
+				$("#%ObjectName%AddPage form")[0].reset();
+				$("#%ObjectName%AddList").empty();
+			}
+			function save%ClassName%sError(){//
+				if(confirm("保存数据失败，是否需要暂存数据？")==true){
+					save%ClassName%sToLocal();
+				}
+			}
+			function list%ClassName%sPage(){
+				$.mobile.changePage("../%ObjectName%/%ObjectName%_list.html");
+			}			
+			function save%ClassName%sToLocal(){
+				var db=openDataBase();
+				if(!db){
+					alert("打开数据库失败！");
+					return;
+				}
+				openTable(db,"%ObjectName%",$("#%ObjectName%AddPage li").data("data"),function(){
+					$("#%ObjectName%AddPage li").each(function(){
+						var $li=$(this);
+						insertObject(db,"%ObjectName%",$li.data("data"),function(){
+							$li.remove();
+						});
+					});
+				});
+
+			}
+		</script>
+		<div data-role="header" data-theme="b" data-position="fixed">
+			<h1>%ClassDisplayName%上报</h1>
+		</div>
+		<div data-role="content">
+			<div data-role="fieldcontain">
+				<form>
+%Form%
+				</form>
+			</div>
+			<div>
+				<ul data-role="listview" id="%ObjectName%AddList">
+				</ul>
+			</div>
+		</div>
+		<div data-role="footer" data-theme="b" data-position="fixed">
+			<div align="center" data-type="horizontal">
+				<button data-icon="plus" data-iconpos="top" data-theme="b" onclick="add%ClassName%ToList();">添加</button>
+				<button data-icon="check" data-iconpos="top" data-theme="b" onclick="save%ClassName%s();">上报</button>
+				<button data-icon="alert" data-iconpos="top" data-theme="b" onclick="save%ClassName%sToLocal();">暂存</button>
+				<button data-icon="search" data-iconpos="top" data-theme="b" onclick="list%ClassName%sPage();">查询</button>
+				<button data-icon="search" data-iconpos="top" data-theme="b" onclick="$.mobile.changePage('module.html');">菜单</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

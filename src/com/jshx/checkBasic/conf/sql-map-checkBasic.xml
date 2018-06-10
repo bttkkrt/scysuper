@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findCheckBasicByMap">
+		from CheckBasic t where t.delFlag = 0 and t.company.delFlag=0
+		 <isNotEmpty property="companyid">
+			<![CDATA[and t.company.id = :companyid]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyname">
+			<![CDATA[and t.company.companyname like :companyname]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkerName">
+			<![CDATA[and t.checker.displayName like :checkerName]]>
+		</isNotEmpty>		
+	   <isNotEmpty property="deptCode">
+			<![CDATA[and t.company.dwdz1 = :deptCode]]>
+		</isNotEmpty>
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		 <isNotEmpty property="rectifyFlag">
+			<![CDATA[and t.rectifyFlag = :rectifyFlag]]>
+		</isNotEmpty>
+		
+		order by t.checkTime desc
+	</select>
+	
+	<select id="findCheckBasicBySQL">
+		SELECT * FROM 
+	(
+	   select b.row_id id,c.companyname name,to_char(b.check_time,'yyyy-MM-dd HH24:mi:ss') checktime,
+	   c.dwdz,c.fddbr,c.fddbrlxhm,c.gddh ,b.checker, u.display_name
+	   from CHECK_BASIC b,COMPANY c,users u
+	   where b.delflag = 0 and c.delflag = 0
+	   and b.company_id = c.row_id and u.row_id = b.checker
+	   <isNotEmpty property="companyid">
+			<![CDATA[and b.company_id = :companyid]]>
+		</isNotEmpty>
+	   <isNotEmpty property="deptCode">
+			<![CDATA[and c.dwdz1 = :deptCode]]>
+		</isNotEmpty>
+	   order by b.check_time desc
+	)
+	</select>
+	
+	<select id="findRectifyCheckBySQL">
+		SELECT * FROM 
+	(
+	   select 
+	   		b.row_id id,
+	   		c.companyname name,
+	   		to_char(b.check_time,'yyyy-MM-dd HH24:mi:ss') checktime,
+	   		to_char(b.RECTIFY_DATE,'yyyy-MM-dd ') rectifydate,
+	   		c.dwdz dwdz,
+	   		c.fddbr fddbr,
+	   		c.fddbrlxhm,
+	   		c.gddh
+	   from CHECK_BASIC b,COMPANY c
+	   where b.delflag = 0 and c.delflag = 0
+	   and b.company_id = c.row_id
+		 <isNotEmpty property="rectifyFlag">
+			<![CDATA[and b.RECTIFY_FLAG = :rectifyFlag]]>
+		</isNotEmpty>
+	   <isNotEmpty property="companyid">
+			<![CDATA[and b.company_id = :companyid]]>
+		</isNotEmpty>
+	   order by b.RECTIFY_DATE desc,b.check_time desc
+	)
+	</select>
+	
+	<select id="getMaxRectifyNum">
+	select IFNULL(max(RECTIFY_NUM),'0000') from CHECK_BASIC t
+	where t.delflag = 0
+	 <isNotEmpty property="rectifyYear">
+			<![CDATA[and t.RECTIFY_YEAR = :rectifyYear]]>
+		</isNotEmpty>
+	</select>
+	
+</sqlMap>

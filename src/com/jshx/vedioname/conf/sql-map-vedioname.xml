@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findVedioNameByMap">
+		from VedioName t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="vedioname">
+			<![CDATA[and t.vedioname like :vedioname]]>
+		</isNotEmpty>
+		<isNotEmpty property="showname">
+			<![CDATA[and t.showname like :showname]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyname">
+			<![CDATA[and t.companyname like :companyname]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<![CDATA[and t.qylx = :qylx]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="getCompanyCount" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*) from(
+			select c.row_id,c.companyname from vedio_name v 
+	       		join company c on c.row_id = v.companyid
+	       	where v.delFlag = 0
+       		group by c.row_id,c.companyname having 1=1 
+			<isNotEmpty property="companyName">
+				<![CDATA[and c.companyname like #companyName# ]]>
+			</isNotEmpty>
+			<isNotEmpty property="loginId">
+				<![CDATA[and c.loginname = #loginId# ]]>
+			</isNotEmpty>
+	    )
+	</select>
+	
+	<resultMap id="companyName" class="com.jshx.company.entity.Company">
+		<result column="row_id" 		property="id" />
+		<result column="companyname" 	property="companyname" />
+	</resultMap>
+	
+	<select id="getCompanyByPage" parameterClass="java.util.Map" resultMap="companyName">
+		select c.row_id,c.companyname from vedio_name v 
+       		join company c on c.row_id = v.companyid
+       	where v.delFlag = 0
+       	group by c.row_id,c.companyname
+		having 1=1 
+		<isNotEmpty property="companyName">
+			<![CDATA[and c.companyname like #companyName# ]]>
+		</isNotEmpty>
+		<isNotEmpty property="loginId">
+			<![CDATA[and c.loginname = #loginId# ]]>
+		</isNotEmpty>
+	</select>
+	
+</sqlMap>

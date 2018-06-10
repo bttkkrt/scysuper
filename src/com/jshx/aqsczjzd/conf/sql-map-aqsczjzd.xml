@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findAqsczjzdByMap">
+		select new com.jshx.aqsczjzd.entity.Aqsczjzd(t.id, t.areaName, t.yearTime) from Aqsczjzd t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startYearTime">
+			<![CDATA[and t.yearTime = :startYearTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endYearTime">
+			<![CDATA[and t.yearTime <= :endYearTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getAqsczjzdListByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqsczjzd.entity.AqsczjzdBean">
+	 SELECT DISTINCT t.area_name as data1,
+     sum(cast(t.mbs as int))as data2,
+     sum(cast(t.sbs as int))as data3, 
+     sum(cast(t.yss as int))as data4
+     from AQSCZJZD t where t.delflag=0
+     <isNotEmpty property="startYearTime">
+			<![CDATA[and t.year_time = #startYearTime#]]>
+		</isNotEmpty>
+	 
+     group by t.area_name
+	</select>
+	
+	<select id="getTotalAqsczjzdListByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqsczjzd.entity.AqsczjzdBean">
+     SELECT 
+     sum(cast(t.mbs as int))as data2,
+     sum(cast(t.sbs as int))as data3, 
+     sum(cast(t.yss as int))as data4
+     from AQSCZJZD t where t.delflag=0
+     <isNotEmpty property="startYearTime">
+			<![CDATA[and t.year_time = #startYearTime#]]>
+		</isNotEmpty>
+	 
+	</select>
+</sqlMap>

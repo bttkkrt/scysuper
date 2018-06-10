@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SSJJC" extends="default" namespace="/jsp/ssjjc">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="ssjjcQuery" class="com.jshx.ssjjc.web.SsjjcAction" method="list">
+		</action>
+		
+		<action name="ssjjcList">
+			<result name="success">/WEB-INF/pages/ssjjc/Ssjjc_List.jsp</result>
+		</action>
+		
+		<action name="ssjjcView" class="com.jshx.ssjjc.web.SsjjcAction" method="view">
+			<result name="view">/WEB-INF/pages/ssjjc/Ssjjc_Detail.jsp</result>
+		</action>
+
+		<action name="ssjjcInitEdit" class="com.jshx.ssjjc.web.SsjjcAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/ssjjc/Ssjjc_Edit.jsp</result>
+		</action>
+
+		<action name="ssjjcSave" class="com.jshx.ssjjc.web.SsjjcAction" method="save">
+			<result name="edit">/WEB-INF/pages/ssjjc/Ssjjc_Create.jsp</result>
+		</action>
+
+		<action name="ssjjcDel" class="com.jshx.ssjjc.web.SsjjcAction" method="delete">
+		</action>
+		
+		<action name="ssjjcCreate" class="com.jshx.ssjjc.web.SsjjcAction" method="ssjjcCreate">
+		</action>
+		
+		
+		<action name="ssjjcGzInitEdit" class="com.jshx.ssjjc.web.SsjjcAction" method="initGzEdit">
+			<result name="edit">/WEB-INF/pages/ssjjc/SsjjcGz_Edit.jsp</result>
+		</action>
+
+		<action name="ssjjcGzSave" class="com.jshx.ssjjc.web.SsjjcAction" method="saveGz">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_ssjjc</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="ssjjcTaskInitEdit" class="com.jshx.ssjjc.web.SsjjcAction" method="initTaskEdit">
+			<result name="edit">/WEB-INF/pages/ssjjc/SsjjcTask_Edit.jsp</result>
+		</action>
+
+		<action name="ssjjcTaskSave" class="com.jshx.ssjjc.web.SsjjcAction" method="saveTask">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_ssjjc</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+	</package>
+</struts>

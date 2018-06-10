@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <Node id="nullEffect" label="无效果" img="Images/mapStyle/mapStyle_color.png" MapEvent="MapNullEffectEvent"  des="取消底图的所有特效" />
+  <Node id="gloomEffect" label="蒙灰特效" img="Images/mapStyle/mapStyle_gray.png"  MapEvent="MapGloomEffectEvent" des="底图为灰色色调风格" params="BaseIntensity,0.1;GloomIntensity,0.8;GloomSaturation,0.2;BaseSaturation,0.4"/>
+  <Node id="oldMovieEffect" label="旧照片特效" img="Images/mapStyle/mapStyle_color.png"  MapEvent="MapOldMovieEffectEvent" des="底图为旧时光的回忆风格" params="scratchamount,0.01;noiseamount,0.01;frame,0.1"/>
+</configuration>

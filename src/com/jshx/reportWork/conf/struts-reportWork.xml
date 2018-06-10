@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="REPORT_WORK" extends="default" namespace="/jsp/reportWork">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="reportWorkQuery" class="com.jshx.reportWork.web.ReportWorkAction" method="list">
+		</action>
+		
+		<action name="reportWorkList">
+			<result name="success">/WEB-INF/pages/reportWork/ReportWork_List.jsp</result>
+		</action>
+		
+		<action name="myReportWorkQuery" class="com.jshx.reportWork.web.ReportWorkAction" method="myList">
+		</action>
+		
+		<action name="myReportWorkList">
+			<result name="success">/WEB-INF/pages/reportWork/ReportWork_MyList.jsp</result>
+		</action>
+		
+		<action name="reportWorkView" class="com.jshx.reportWork.web.ReportWorkAction" method="view">
+			<result name="view">/WEB-INF/pages/reportWork/ReportWork_Detail.jsp</result>
+		</action>
+
+		<action name="reportWorkInitEdit" class="com.jshx.reportWork.web.ReportWorkAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/reportWork/ReportWork_Edit.jsp</result>
+		</action>
+
+		<action name="reportWorkSave" class="com.jshx.reportWork.web.ReportWorkAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="reportWorkDel" class="com.jshx.reportWork.web.ReportWorkAction" method="delete">
+		</action>
+		
+		<action name="fileUpload" class="com.jshx.reportWork.web.ReportWorkAction" method="fileUpload">
+		</action>
+		
+		<action name="deleteFile" class="com.jshx.reportWork.web.ReportWorkAction" method="deleteFile">
+		</action>
+		
+		<action name="download" class="com.jshx.reportWork.web.ReportWorkAction" method="download">
+		</action>
+		
+		<action name="selectUsers" class="com.jshx.reportWork.web.ReportWorkAction" method="selectUsers">
+			<result name="success">/WEB-INF/pages/reportWork/ReportWork_SelectUser.jsp</result>
+		</action>
+		
+		<action name="getDepartUser" class="com.jshx.reportWork.web.ReportWorkAction" method="getDepartUser">
+		</action>
+		
+	</package>
+</struts>

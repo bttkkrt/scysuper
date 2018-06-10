@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="INVENTORY_CHECK" extends="default" namespace="/jsp/inventorycheck">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="inventoryCheckQuery" class="com.jshx.inventorycheck.web.InventoryCheckAction" method="list">
+		</action>
+		
+		<action name="inventoryCheckList" class="com.jshx.inventorycheck.web.InventoryCheckAction" method="init">
+			<result name="success">/WEB-INF/pages/inventorycheck/InventoryCheck_List.jsp</result>
+		</action>
+		
+		<action name="inventoryCheckView" class="com.jshx.inventorycheck.web.InventoryCheckAction" method="view">
+			<result name="view">/WEB-INF/pages/inventorycheck/InventoryCheck_Detail.jsp</result>
+		</action>
+
+		<action name="inventoryCheckInitEdit" class="com.jshx.inventorycheck.web.InventoryCheckAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/inventorycheck/InventoryCheck_Edit.jsp</result>
+		</action>
+
+		<action name="inventoryCheckSave" class="com.jshx.inventorycheck.web.InventoryCheckAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_inventoryCheck</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="inventoryCheckDel" class="com.jshx.inventorycheck.web.InventoryCheckAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

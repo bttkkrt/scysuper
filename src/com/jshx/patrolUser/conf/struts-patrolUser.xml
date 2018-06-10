@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PATROL_USER" extends="default" namespace="/jsp/patrolUser">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="patrolUserQuery" class="com.jshx.patrolUser.web.PatrolUserAction" method="list">
+		</action>
+		
+		<action name="patrolUserList" class="com.jshx.patrolUser.web.PatrolUserAction" method="init">
+			<result name="success">/WEB-INF/pages/patrolUser/PatrolUser_List.jsp</result>
+		</action>
+		
+		<action name="patrolUserView" class="com.jshx.patrolUser.web.PatrolUserAction" method="view">
+			<result name="view">/WEB-INF/pages/patrolUser/PatrolUser_Detail.jsp</result>
+		</action>
+
+		<action name="patrolUserInitEdit" class="com.jshx.patrolUser.web.PatrolUserAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/patrolUser/PatrolUser_Edit.jsp</result>
+		</action>
+
+		<action name="patrolUserSave" class="com.jshx.patrolUser.web.PatrolUserAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_patrolUser</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="patrolUserDel" class="com.jshx.patrolUser.web.PatrolUserAction" method="delete">
+		</action>
+		<action name="checkLoginId" class="com.jshx.patrolUser.web.PatrolUserAction" method="checkLoginId">
+		</action>
+	</package>
+</struts>

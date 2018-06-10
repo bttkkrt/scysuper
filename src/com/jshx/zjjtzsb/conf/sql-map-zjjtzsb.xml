@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findZjjtzsbByMap">
+		from Zjjtzsb t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="sblb">
+			<![CDATA[and t.sblb like :sblb]]>
+		</isNotEmpty>
+		<isNotEmpty property="sbdah">
+			<![CDATA[and t.sbdah like :sbdah]]>
+		</isNotEmpty>
+		<isNotEmpty property="zcdm">
+			<![CDATA[and t.zcdm like :zcdm]]>
+		</isNotEmpty>
+		<isNotEmpty property="jcry">
+			<![CDATA[and t.jcry like :jcry]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyid">
+			<![CDATA[and t.qyid = :qyid]]>
+		</isNotEmpty>
+		<isNotEmpty property="state">
+			<![CDATA[and t.state = :state]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<update id="updateAllZjjtzsb">
+	update Zjjtzsb t set t.delflag = 1
+	</update>
+	
+</sqlMap>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="IDENTIFY_ATTORNEY" extends="default" namespace="/jsp/jdwts">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="identifyAttorneyQuery" class="com.jshx.jdwts.web.IdentifyAttorneyAction" method="list">
+		</action>
+		
+		<action name="identifyAttorneyList" class="com.jshx.jdwts.web.IdentifyAttorneyAction" method="init">
+			<result name="success">/WEB-INF/pages/jdwts/IdentifyAttorney_List.jsp</result>
+		</action>
+		
+		<action name="identifyAttorneyView" class="com.jshx.jdwts.web.IdentifyAttorneyAction" method="view">
+			<result name="view">/WEB-INF/pages/jdwts/IdentifyAttorney_Detail.jsp</result>
+		</action>
+
+		<action name="identifyAttorneyInitEdit" class="com.jshx.jdwts.web.IdentifyAttorneyAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/jdwts/IdentifyAttorney_Edit.jsp</result>
+		</action>
+
+		<action name="identifyAttorneySave" class="com.jshx.jdwts.web.IdentifyAttorneyAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_identifyAttorney</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="identifyAttorneyDel" class="com.jshx.jdwts.web.IdentifyAttorneyAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

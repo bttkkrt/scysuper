@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SEC_PRO_SYS" extends="default" namespace="/jsp/aqscgzzd">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="secProSysQuery" class="com.jshx.aqscgzzd.web.SecProSysAction" method="list">
+		</action>
+		
+		<action name="secProSysList" class="com.jshx.aqscgzzd.web.SecProSysAction" method="init">
+			<result name="success">/WEB-INF/pages/aqscgzzd/SecProSys_List.jsp</result>
+		</action>
+		
+		<action name="secProSysView" class="com.jshx.aqscgzzd.web.SecProSysAction" method="view">
+			<result name="view">/WEB-INF/pages/aqscgzzd/SecProSys_Detail.jsp</result>
+		</action>
+
+		<action name="secProSysInitEdit" class="com.jshx.aqscgzzd.web.SecProSysAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqscgzzd/SecProSys_Edit.jsp</result>
+		</action>
+
+		<action name="secProSysSave" class="com.jshx.aqscgzzd.web.SecProSysAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_secProSys</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProSysDel" class="com.jshx.aqscgzzd.web.SecProSysAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findLawBasisByMap">
+		select new com.jshx.zfyj.entity.LawBasis(t.id, t.lawName, t.lawProvision,t.lawContent) from LawBasis t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="lawName">
+			<![CDATA[and t.lawName like :lawName]]>
+		</isNotEmpty>
+		<isNotEmpty property="lawProvision">
+			<![CDATA[and t.lawProvision like :lawProvision]]>
+		</isNotEmpty>
+		<isNotEmpty property="lawId">
+			<![CDATA[and t.lawId = :lawId]]>
+		</isNotEmpty>
+		order by t.createTime,t.sort
+	</select>
+	
+	<select id="getLawBasisListByUserAndType" parameterClass="java.util.Map" resultClass="com.jshx.zfyj.entity.LawBasis">
+	select t.row_id as id,t.LAW_NAME as lawName,t.LAW_PROVISION as lawProvision from LAW_BASIS t where t.delflag = 0
+		<isNotEmpty property="lawName">
+			<![CDATA[and t.LAW_NAME = #lawName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="lawProvision">
+			<![CDATA[and t.LAW_PROVISION = #lawProvision#]]>
+		</isNotEmpty>
+		order by t.createTime,t.sort
+	</select>
+	
+	<select id="getLawBasisListSizeByUserAndType" parameterClass="java.util.Map" resultClass="int">
+	select count(*) from LAW_BASIS t where t.delflag = 0
+		<isNotEmpty property="lawName">
+			<![CDATA[and t.LAW_NAME = #lawName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="lawProvision">
+			<![CDATA[and t.LAW_PROVISION = #lawProvision#]]>
+		</isNotEmpty>
+	</select>
+</sqlMap>

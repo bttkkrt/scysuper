@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="REPORT_WORK" location="10,10" size="525,770">
+    <action name="reportWorkQuery" location="310,58" size="150,40" />
+    <action name="reportWorkList" location="310,162" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="ReportWork_List.jsp" />
+      </result>
+    </action>
+    <action name="reportWorkView" location="310,337" size="150,41">
+      <result name="view">
+        <resourceEdge source="view" routing="0" target="ReportWork_Detail.jsp" />
+      </result>
+    </action>
+    <action name="reportWorkInitEdit" location="310,512" size="150,41">
+      <result name="edit">
+        <resourceEdge source="edit" routing="0" target="ReportWork_Edit.jsp" />
+      </result>
+    </action>
+    <action name="reportWorkSave" location="310,677" size="150,62">
+      <result name="reload">
+        <resourceEdge source="reload" routing="0" target="successToSelf.jsp" />
+      </result>
+      <result name="invalid.token">
+        <resourceEdge source="invalid.token" routing="0" target="invalid.jsp" />
+      </result>
+    </action>
+    <action name="reportWorkDel" location="65,688" size="150,40" />
+    <action name="fileUpload" location="0,0" size="0,0" />
+    <action name="deleteFile" location="0,0" size="0,0" />
+    <action name="download" location="0,0" size="0,0" />
+    <action name="selectUsers" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="ReportWork_SelectUser.jsp" />
+      </result>
+    </action>
+    <action name="getDepartUser" location="0,0" size="0,0" />
+  </package>
+  <webResource name="ReportWork_List.jsp" path="/WEB-INF/pages/reportWork/ReportWork_List.jsp" location="586,135" size="150,55" />
+  <webResource name="ReportWork_Detail.jsp" path="/WEB-INF/pages/reportWork/ReportWork_Detail.jsp" location="579,310" size="150,55" />
+  <webResource name="ReportWork_Edit.jsp" path="/WEB-INF/pages/reportWork/ReportWork_Edit.jsp" location="585,485" size="150,55" />
+  <webResource name="successToSelf.jsp" path="/common/successToSelf.jsp" location="302,835" size="150,55" />
+  <webResource name="invalid.jsp" path="/invalid.jsp" location="590,660" size="150,55" />
+  <webResource name="ReportWork_SelectUser.jsp" path="/WEB-INF/pages/reportWork/ReportWork_SelectUser.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

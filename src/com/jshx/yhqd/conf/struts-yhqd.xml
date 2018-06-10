@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="YHQD" extends="default" namespace="/jsp/yhqd">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="yhqdQuery" class="com.jshx.yhqd.web.YhqdAction" method="list">
+		</action>
+		
+		<action name="yhqdList">
+			<result name="success">/WEB-INF/pages/yhqd/Yhqd_List.jsp</result>
+		</action>
+		
+		<action name="yhqdView" class="com.jshx.yhqd.web.YhqdAction" method="view">
+			<result name="view">/WEB-INF/pages/yhqd/Yhqd_Detail.jsp</result>
+		</action>
+
+		<action name="yhqdInitEdit" class="com.jshx.yhqd.web.YhqdAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/yhqd/Yhqd_Edit.jsp</result>
+			<result name="zhenggai">/WEB-INF/pages/checkBasic/CheckBasic_Zhenggai.jsp</result>
+			<result name="yanshou">/WEB-INF/pages/checkBasic/CheckBasic_Yanshou.jsp</result>
+		</action>
+
+		<action name="yhqdSave" class="com.jshx.yhqd.web.YhqdAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="yhqdDel" class="com.jshx.yhqd.web.YhqdAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

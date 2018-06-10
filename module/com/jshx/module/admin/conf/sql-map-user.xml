@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 查找用户 -->
+	<select id="queryUsers">
+		from User u where delFlag=0
+		<dynamic>
+			<!-- 详细匹配部门编码 -->
+			<isNotEmpty property="deptCode" prepend="and">
+				u.deptCode = :deptCode 
+			</isNotEmpty>
+			<!-- 根据部门编码模糊搜索 -->
+			<isNotEmpty property="parentDeptCode" prepend="and">
+				(u.deptCode like :parentDeptCode or (select count(l) from UserLinkedDept l where l.userId = u.id and l.linkedDept.deptCode like :parentDeptCode) > 0)
+			</isNotEmpty>
+			<isNotEmpty property="name" prepend="and">
+				 (u.loginId like :name or u.displayName like :name) 
+			</isNotEmpty>
+			<isNotEmpty property="loginId" prepend="and">
+				u.loginId like :loginId
+			</isNotEmpty>
+			<isNotEmpty property="loginIds" prepend="and">
+				(u.loginId = :loginIds or u.displayName = :loginIds) 
+			</isNotEmpty>
+			<isNotEmpty property="displayName" prepend="and">
+				u.displayName like :displayName
+			</isNotEmpty>
+			<isNotEmpty property="delFlag" prepend="and">
+				u.delFlag = :delFlag
+			</isNotEmpty>
+			
+		</dynamic>
+		order by u.sortSq ,u.loginId
+	</select>
+
+	<!-- 根据用户ID判断用户是否注册过 -->
+	<select id="isReg">
+		select count(u) from User u where u.delFlag!=2
+		<dynamic>
+			<isNotEmpty property="loginId">
+				and u.loginId = :loginId
+	        </isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 禁用用户 -->
+	<update id="inactiveUser">
+		update User u set u.delFlag=1 where 1=1
+		<dynamic>
+			<isNotEmpty property="id">
+				and u.id = :id
+	        </isNotEmpty>
+			<isNotEmpty property="deptCode">
+				and u.deptCode like :deptCode
+	        </isNotEmpty>
+		</dynamic>
+	</update>
+
+	<!-- 激活用户 -->
+	<update id="activeUser">
+		update User u set u.delFlag=0 where 1=1
+		<dynamic>
+			<isNotEmpty property="id">
+				and u.id = :id
+	        </isNotEmpty>
+			<isNotEmpty property="deptCode">
+				and u.deptCode like :deptCode
+	        </isNotEmpty>
+		</dynamic>
+	</update>
+
+	<!-- 统计该部门人员数（包括下属部门的人员数） -->
+	<select id="cntUsers">
+		select count(u) from User u where u.delFlag!=2
+		<isNotEmpty property="deptCode">
+			and u.deptCode like :deptCode
+		</isNotEmpty>
+	</select>
+	
+	<!-- 删除用户角色 -->
+	<select id="delUserRight">
+	    delete from UserRight r where 1=2
+	    <isNotEmpty property="user">
+	        or r.user = :user
+	    </isNotEmpty>
+	</select>
+	
+	<!-- 删除用户角色 -->
+	<select id="delUserRightByRole">
+	    delete from UserRight r where 1=2
+	    <isNotEmpty property="role">
+	        or r.role = :role
+	    </isNotEmpty>
+	</select>
+	
+	<!-- 删除用户角色 -->
+	<select id="delUserRightByUser">
+	    delete from UserRight r where 1=2
+	    <isNotEmpty property="user">
+	        or r.user = :user
+	    </isNotEmpty>
+	</select>
+	
+	<!-- portal使用 added by john.zhang -->
+	<select id="findPasonnelPortal">
+	   	from PasonnelPortal p where 1=1
+	    <isNotEmpty property="userCode">
+	     	 and p.userCode=:userCode
+	    </isNotEmpty>
+	</select>
+	<select id="findPortal">
+	   from Portal p order by p.id
+	</select>
+    <!-- portal使用 ended by john.zhang -->
+    
+    <select id="checkRightByUserAndRole">
+        select count(*) from UserRight r where r.role = :role and r.user = :user
+    </select>
+    
+    <select id="findOnlineUser">
+    	from OnlineUser order by loginTime desc
+    </select>
+    
+    <select id="delLinkedDeptByUser">
+    	delete from UserLinkedDept where 1=2
+    	<dynamic>
+    		<isNotEmpty property="userId">
+    			or userId = :userId
+    		</isNotEmpty>
+    	</dynamic>
+    </select>
+    
+    <select id="findLinkedDeptByUser">
+    	from UserLinkedDept where 1=1
+    	<dynamic>
+    		<isNotEmpty property="userId">
+    			and userId = :userId
+    		</isNotEmpty>
+    		<isNotEmpty property="deptCode">
+    			and linkedDept.deptCode like :deptCode and length(linkedDept.deptCode)= :length
+    		</isNotEmpty>
+    	</dynamic>
+    </select>
+</sqlMap>

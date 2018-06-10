@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findReceiveInformationByMap">
+		select new com.jshx.swgl.entity.ReceiveInformation(t.id, t.recinfoTitle, t.recinfoNum, t.recinfoDept,t.auditState,t.createUserID) from ReceiveInformation t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="recinfoNum">
+			<![CDATA[and t.recinfoNum like :recinfoNum]]>
+		</isNotEmpty>
+		<isNotEmpty property="recinfoTitle">
+			<![CDATA[and t.recinfoTitle like :recinfoTitle]]>
+		</isNotEmpty>
+		<isNotEmpty property="recinfoDept">
+			<![CDATA[and t.recinfoDept like :recinfoDept]]>
+		</isNotEmpty>
+		<isNotEmpty property="auditState">
+			<![CDATA[and t.auditState = :auditState]]>
+		</isNotEmpty>
+	<isNotEmpty property="createUserID">
+				<![CDATA[and ((t.createUserID = :createUserID)  or INSTR(:createUserID,t.userIds)>0)]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+	
+	<!-- 查询 所有人员 -->
+	<select id="getAllUsers" parameterClass="java.util.Map" resultClass="com.jshx.module.admin.entity.User">
+	select t.row_id as id,t.dept_code as deptCode,t.display_name as displayName from Users t where t.del_Flag = 0   and  t.dept_code  like '002%'
+	</select>
+	<!-- 查询 所有部门 -->
+	<select id="getAllDepart" parameterClass="java.util.Map" resultClass="com.jshx.module.infomation.entity.Dept">
+	select
+        t.dept_code as id,
+        t.DEPT_NAME as deptName,
+        SUBSTRING(t.dept_code,0,DATALENGTH(t.dept_code)-2) as parentId
+    from
+        DEPARTMENT t 
+    where
+        t.DEL_FLAG=0 
+        and  t.dept_code  like '002%'
+    order by
+        t.DEPT_CODE
+	</select>
+	
+	<!-- 删除已有阅读记录 -->
+	<delete id="deleteNoticeBackByMap2" parameterClass="java.util.Map">
+	delete from NOTICECALLBACK  where noticeId = #noticeId# 
+	</delete>
+	<!-- 获取公告阅读记录 -->
+	<select id="queryreadedusersids2" >
+		 from NoticeCallback t where t.noticeId =:id and t.userID =:userid
+	</select>
+	<!-- 获取公告阅读记录 -->
+	<select id="querynoticeback2" >
+		from NoticeCallback t 
+		<isNotEmpty property="id">
+			<![CDATA[where t.noticeId =:id]]>
+		</isNotEmpty>
+		order by t.isRead desc,t.lastReadTime DESC
+	</select>
+</sqlMap>

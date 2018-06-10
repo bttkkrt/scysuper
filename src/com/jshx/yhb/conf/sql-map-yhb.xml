@@ -1,0 +1,1131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findTroManByMap">
+		select new com.jshx.yhb.entity.TroMan(t.id, t.troubleName, t.troubleSource, t.areaId, t.companyName, t.userName, t.troubleLevel, t.troubleSort, t.rectificationState,t.createUserID,t.auditResult,t.ifCorrected,t.userId,t.ifReportAwh,t.dealState,t.dealDeptId,t.ifReply,t.areaName,t.ifla) from TroMan t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="troubleName">
+			<![CDATA[and t.troubleName like :troubleName]]>
+		</isNotEmpty>
+		<isNotEmpty property="troubleSource">
+			<![CDATA[and t.troubleSource like :troubleSource]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="noareaId">
+			<![CDATA[and t.areaId != '' and t.areaId is not null]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="userName">
+			<![CDATA[and t.userName like :userName]]>
+		</isNotEmpty>
+		<isNotEmpty property="troubleLevel">
+			<![CDATA[and t.troubleLevel = :troubleLevel]]>
+		</isNotEmpty>
+		<isNotEmpty property="troubleSort">
+			<![CDATA[and t.troubleSort = :troubleSort]]>
+		</isNotEmpty>
+		<isEqual  property="rectificationState" compareValue="0">
+			<![CDATA[and  t.rectificationState ='0' and (t.dealState='整改完成' or t.dealState is null)]]>
+		</isEqual>
+		<isEqual  property="rectificationState" compareValue="12">
+			<![CDATA[and t.rectificationState ='0' and t.dealState='整改未完成']]>
+		</isEqual>
+		<isEqual  property="rectificationState" compareValue="3">
+			<![CDATA[and  t.rectificationState != 11 and t.rectificationState != 0 and t.rectificationState != 1]]>
+		</isEqual>
+		<isEqual  property="rectificationState" compareValue="11">
+			<![CDATA[and t.rectificationState = 11]]>
+		</isEqual>
+		<isEqual  property="rectificationState" compareValue="1">
+			<![CDATA[and t.rectificationState = 1]]>
+		</isEqual>
+		<isNotEmpty property="ifReportAwh">
+			<![CDATA[and t.ifReportAwh = :ifReportAwh]]>
+		</isNotEmpty>
+		<isNotEmpty property="aj">
+			<![CDATA[and t.troubleSource != '企业']]>
+		</isNotEmpty>
+		<isNotEmpty property="deptCode">
+			<![CDATA[and t.dealDeptId = :deptCode]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID = :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="dsh">
+			<![CDATA[and t.rectificationState in (:dsh)]]>
+		</isNotEmpty>
+		<isNotEmpty property="dzg">
+			<![CDATA[and  t.rectificationState in (:dzg)  ]]>		
+		</isNotEmpty>
+		<isNotEmpty property="zgwc">
+			<![CDATA[and  t.rectificationState ='0' and (t.dealState='整改完成' or t.dealState is null)   ]]>
+		</isNotEmpty>
+		<isNotEmpty property="zgwwc">
+			<![CDATA[and t.rectificationState ='0' and t.dealState='整改未完成']]>
+		</isNotEmpty>
+		<isNotEmpty property="taskId">
+			<![CDATA[and t.taskId = :taskId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  charindex(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="nameString">
+			<![CDATA[and  (t.companyName like :nameString or t.troubleName like :nameString)]]>
+		</isNotEmpty>
+		<isNotEmpty property="troubleSourceNot">
+			<![CDATA[and  t.troubleSource !='企业']]>
+		</isNotEmpty>
+		<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.createTime > :queryJcsjStart]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.createTime < :queryJcsjEnd]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and t.troubleName like :searchLike]]>
+		</isNotEmpty>
+		
+		order by t.createTime desc
+		
+	</select>
+	<!-- 保存隐患整改信息 lj 2015-11-07 -->
+	<insert id="insert_yhb_rect_byMap" parameterClass="java.util.Map">
+		insert into yhb_rect (money,rect_time,userId,insert_time,yhb_id,link_id,state,remark)
+					values
+					(#money#,#rectTime#,#userId#,#insertTime#,#yhbId#,#linkId#,#state#,#remark#)
+	</insert>
+	<!-- 查询隐患列表信息 lj 2015-11-07 -->
+	<select id="query_yhb_rectInfos_byMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select 
+			money,
+			rect_time as rectTime,
+			userId,
+			insert_time as insertTime,
+			link_id as linkId,
+			state,
+			remark 
+		 from yhb_rect where yhb_id = #yhbId# order by id asc 
+	</select>
+	
+	<!-- 查询中队队员管理的企业id fq 2015-12-16 -->
+	<select id="findCompanyIdsByZddyId" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+    select e.row_id from ENT_BASE_INFO e where e.GRID in 
+    (select g.row_id from COM_GRI_MAN  g where g.GRID_MANAGE_DEPT = (select u.dept_code from users u where u.row_id = #userId# and u.del_flag = 0))
+	</select>
+	
+	<!-- 查询中队队员管理的企业name lt 2016-1-29 -->
+	<select id="findCompanyNamesByZddyId" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+    select e.ENTERPRISE_NAME from ENT_BASE_INFO e where e.GRID in 
+    (select g.row_id from COM_GRI_MAN g where g.GRID_MANAGE_DEPT = (select u.dept_code from users u where u.row_id = #userId# and u.del_flag = 0))
+	</select>
+	
+	<!-- 查询中队长管理的企业id fq 2015-12-16 -->
+	<select id="findCompanyIdsByZdzDeptCode" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+    select e.row_id from ENT_BASE_INFO e where e.GRID in 
+    (select g.row_id from COM_GRI_MAN g where g.grid_manage_dept=#deptCode#)
+	</select>
+	
+	<!-- 查询中队长管理的企业name lt 2016-1-29 -->
+	<select id="findCompanyNamesByZdzDeptCode" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+    select e.ENTERPRISE_NAME from ENT_BASE_INFO e where e.GRID in 
+    (select g.row_id from COM_GRI_MAN g where g.grid_manage_dept=#deptCode#)
+	</select>
+	
+	
+	<!-- 查询中队队员管理的企业id fq 2015-12-16 -->
+	<select id="findCompanyIdsByWgId" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+    select e.row_id from ENT_BASE_INFO e where e.delflag = 0 and e.GRID != '' and e.GRID is not null
+    	<isNotEmpty property="grid">
+			<![CDATA[and   e.GRID = #grid#]]>
+		</isNotEmpty>
+	</select>
+    
+    <!-- 查询导出数据 fq 2015-12-24 -->
+	<select id="findExportData" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+    select isnull(t.ROW_ID,'') ROW_ID,isnull(t.CREATETIME,'') CREATETIME,isnull(t.CREATEUSERID,'') CREATEUSERID,isnull(t.UPDATETIME,'') UPDATETIME,
+    isnull(t.UPDATEUSERID,'') UPDATEUSERID,isnull(t.AREA_ID,'') AREA_ID,isnull(t.AREA_NAME,'') AREA_NAME,isnull(t.CHECK_ITEM,'') CHECK_ITEM,
+    isnull(t.COMPANY_ID,'') COMPANY_ID,isnull(t.COMPANY_NAME,'') COMPANY_NAME,isnull(t.DEAL_DEPT_ID,'') DEAL_DEPT_ID,isnull(t.DEAL_DEPT_NAME,'') DEAL_DEPT_NAME,
+    isnull(t.deptId,'') deptId,isnull(t.LINK_ID,'') LINK_ID,isnull(t.RECFINISH_TIME,'') RECFINISH_TIME,isnull(t.RECTIFICATION_MONEY,'') RECTIFICATION_MONEY,
+    isnull(t.RECTIFICATION_STATE,'') RECTIFICATION_STATE,isnull(t.RECTIFICATION_TERM,'') RECTIFICATION_TERM,isnull(t.REPORT_TIME,'') REPORT_TIME,isnull(t.TROUBLE_ADD,'') TROUBLE_ADD,
+    isnull(t.TROUBLE_LEVEL,'') TROUBLE_LEVEL,isnull(t.TROUBLE_NAME,'') TROUBLE_NAME,isnull(t.TROUBLE_SORT,'') TROUBLE_SORT,isnull(t.TROUBLE_SOURCE,'') TROUBLE_SOURCE,
+    isnull(t.USER_ID,'') USER_ID,isnull(t.USER_NAME,'') USER_NAME,isnull(t.auditResult,'') auditResult,isnull(t.remark,'') remark,
+    isnull(t.IF_REPORT_AWH,'') IF_REPORT_AWH,isnull(t.IF_CORRECTED,'') IF_CORRECTED,isnull(t.IF_NEEDAJ,'') IF_NEEDAJ,isnull(t.DEAL_STATE,'') DEAL_STATE,
+    isnull(t.taskId,'') taskId,isnull(t.rectRemark,'') rectRemark,isnull(t.introduce,'') introduce,isnull(t.rectDept,'') rectDept,
+    isnull(t.rectPerson,'') rectPerson,isnull(t.RECT_TEL,'') RECT_TEL,
+  (case  when t.AREA_ID IS not NULL  then (select cv.item_text from CODEVALUE cv where cv.code_id = (select c.row_id from CODE c where c.CODE_NAME='企业属地' and c.DEL_FLAG=0) and cv.item_value = t.AREA_ID and cv.DEL_FLAG=0) else  '' end ) areaName,
+  (case  when t.TROUBLE_LEVEL IS not NULL  then (select cv.item_text from CODEVALUE cv where cv.code_id = (select c.row_id from CODE c where c.CODE_NAME='隐患级别' and c.DEL_FLAG=0) and cv.item_value = t.TROUBLE_LEVEL and cv.DEL_FLAG=0) else  '' end ) troubleLevel,
+  (case  when t.TROUBLE_SORT IS not NULL  then (select cv.item_text from CODEVALUE cv where cv.code_id = (select c.row_id from CODE c where c.CODE_NAME='隐患类别' and c.DEL_FLAG=0) and cv.item_value = t.TROUBLE_SORT and cv.DEL_FLAG=0) else  '' end ) troubleSort,
+  (case  when (t.DEAL_DEPT_ID IS not NULL) and (t.DEAL_DEPT_ID !='')  then (select d.DEPT_NAME from DEPARTMENT d where d.DEPT_CODE = t.DEAL_DEPT_ID and d.DEL_FLAG=0) else  '' end ) dealDeptName,
+  isnull((select p.PATROL_NAME from PAT_MAN p where p.delflag = 0  and p.ROW_ID=t.CHECK_ITEM),'') checkItemName
+   from  TRO_MAN t  where t.delFlag=0 
+   
+   		<isNotEmpty property="ids">
+			<![CDATA[and  charindex(t.ROW_ID,#ids#) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="troubleName">
+			<![CDATA[and t.TROUBLE_NAME like #troubleName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="troubleSource">
+			<![CDATA[and t.TROUBLE_SOURCE like #troubleSource#]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.AREA_ID = #areaId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="userName">
+			<![CDATA[and t.USER_NAME like #userName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="troubleLevel">
+			<![CDATA[and t.TROUBLE_LEVEL = #troubleLevel#]]>
+		</isNotEmpty>
+		<isNotEmpty property="troubleSort">
+			<![CDATA[and t.TROUBLE_SORT = #troubleSort#]]>
+		</isNotEmpty>
+		<isEqual  property="rectificationState" compareValue="0">
+			<![CDATA[and  t.RECTIFICATION_STATE ='0' and (t.DEAL_STATE='整改完成' or t.DEAL_STATE is null)]]>
+		</isEqual>
+		<isEqual  property="rectificationState" compareValue="12">
+			<![CDATA[and t.RECTIFICATION_STATE ='0' and t.DEAL_STATE='整改未完成']]>
+		</isEqual>
+		<isEqual  property="rectificationState" compareValue="3">
+			<![CDATA[and  t.RECTIFICATION_STATE != 11 and t.RECTIFICATION_STATE != 0 and t.RECTIFICATION_STATE != 1]]>
+		</isEqual>
+		<isEqual  property="rectificationState" compareValue="11">
+			<![CDATA[and t.RECTIFICATION_STATE = 11]]>
+		</isEqual>
+		<isEqual  property="rectificationState" compareValue="1">
+			<![CDATA[and t.RECTIFICATION_STATE = 1]]>
+		</isEqual>
+		<isNotEmpty property="ifReportAwh">
+			<![CDATA[and t.IF_REPORT_AWH = #ifReportAwh#]]>
+		</isNotEmpty>
+		<isNotEmpty property="aj">
+			<![CDATA[and t.TROUBLE_SOURCE != '企业']]>
+		</isNotEmpty>
+		<isNotEmpty property="deptCode">
+			<![CDATA[and t.DEAL_DEPT_ID = #deptCode#]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.CREATEUSERID = #createUserId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="dsh">
+			and t.RECTIFICATION_STATE in
+			<iterate conjunction="," open="(" close=")" property="dsh">
+  				 #dsh[]#
+			</iterate>
+		</isNotEmpty>
+		<isNotEmpty property="dzg">
+			and  t.RECTIFICATION_STATE in
+			<iterate conjunction="," open="(" close=")" property="dzg">
+  				 #dzg[]#
+			</iterate>
+		</isNotEmpty>
+		<isNotEmpty property="zgwc">
+			<![CDATA[and  t.RECTIFICATION_STATE ='0' and (t.DEAL_STATE='整改完成' or t.DEAL_STATE is null)   ]]>
+		</isNotEmpty>
+		<isNotEmpty property="zgwwc">
+			<![CDATA[and t.RECTIFICATION_STATE ='0' and t.DEAL_STATE='整改未完成']]>
+		</isNotEmpty>
+		<isNotEmpty property="taskId">
+			<![CDATA[and t.taskId = #taskId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  charindex(t.COMPANY_ID,#companmyIds#) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+		order by t.createTime desc
+   </select>
+   
+   
+   <select id="query_tjYh_data_old" parameterClass="java.util.Map" resultClass="com.jshx.yhb.entity.TjYhBean"> 
+		select 
+		(
+			select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.ENTERPRISE_POSSESSION != '' and  e.ENTERPRISE_POSSESSION is not null
+			
+		) as qynum,
+		(
+			select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.ENTERPRISE_POSSESSION != '' and  e.ENTERPRISE_POSSESSION is not null
+		
+		) as qyTotal,
+		(
+			select count(distinct t.company_id) from TRO_MAN t,ENT_BASE_INFO e where t.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+			
+			and t.company_id= e.row_id and e.delflag = 0  and t.TROUBLE_SOURCE='企业' and e.ENTERPRISE_POSSESSION != '' and  e.ENTERPRISE_POSSESSION is not null
+			
+		) as sbqy,
+		(
+			select count(*) from TRO_MAN  t where t.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+			and t.TROUBLE_SOURCE='企业' and t.area_id  != '' and  t.area_id is not null
+		
+		) as sbcs,
+		
+		(select  count(*) from TRO_MAN t,ENT_BASE_INFO e where  t.RECTIFICATION_STATE='0' and (t.deal_state = '整改完成' or t.deal_state is null)  and  t.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+		and t.company_id = e.row_id and e.delflag = 0 and t.TROUBLE_SOURCE='企业' and t.area_id  != '' and  t.area_id is not null
+			
+		)  as zgwc,
+		(select  count(*) from TRO_MAN t,ENT_BASE_INFO e where ((t.deal_state = '整改未完成' and t.RECTIFICATION_STATE='0' ) or t.RECTIFICATION_STATE !='0') and  t.delFlag = 0
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+		 and t.company_id = e.row_id and e.delflag = 0 and t.TROUBLE_SOURCE='企业' and t.area_id  != '' and  t.area_id is not null
+			
+		)  as zgwwc
+		
+		
+	</select>
+	
+	<select id="query_tjyh_list_data" parameterClass="java.util.Map" resultClass="com.jshx.yhb.entity.TjYhBean">
+		select 
+			 (
+		    	select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.ENTERPRISE_POSSESSION = c.item_value 
+		    	
+		    ) as qynum,
+		    (
+		    	select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.ENTERPRISE_POSSESSION = c.item_value 
+		    	
+		    ) as qyTotal,
+		    (select count(distinct t.company_id) from TRO_MAN t,ENT_BASE_INFO e where t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		    and t.company_id= e.row_id and e.delflag = 0 and  e.ENTERPRISE_POSSESSION = c.item_value and t.TROUBLE_SOURCE='企业'
+				
+		     ) as sbqy,
+		      (select count(*) from TRO_MAN  t where t.delFlag = 0 
+		      	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		      and t.area_id= c.item_value and t.TROUBLE_SOURCE='企业'
+				
+			
+		    	
+		     ) as sbcs,
+		    (select  count(*) from TRO_MAN t,ENT_BASE_INFO e where  t.RECTIFICATION_STATE='0' and (t.deal_state = '整改完成' or t.deal_state is null) and  t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		    and t.company_id = e.row_id and e.delflag = 0  and t.area_id=c.item_value and t.TROUBLE_SOURCE='企业'
+			
+		    )  as zgwc,
+		    (select  count(*) from TRO_MAN t,ENT_BASE_INFO e where ((t.deal_state = '整改未完成' and t.RECTIFICATION_STATE='0' ) or t.RECTIFICATION_STATE !='0') and  t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+			 and t.company_id = e.row_id and e.delflag = 0  and t.area_id=c.item_value and t.TROUBLE_SOURCE='企业'
+			
+		    )  as zgwwc,
+		  
+		    c.item_text as dwdz,c.item_value as szzid
+		    from codevalue c where c.code_id = '40288008416c6c1a01416c95d3c50019' and c.del_flag = 0
+		   
+	</select>
+	
+	<select id="getZcyhCounts" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	select
+		(select count(*) from TRO_MAN t where t.delflag=0 
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+		and t.TROUBLE_SOURCE='企业' and t.trouble_sort='1' )as jcCount,
+		(select count(*) from TRO_MAN t where t.delflag=0
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		 and t.TROUBLE_SOURCE='企业' and t.trouble_sort='2' )as xcCount
+		
+	</select>
+   
+   
+    <select id="query_tjYh_data_grid" parameterClass="java.util.Map" resultClass="com.jshx.yhb.entity.TjYhBean"> 
+		select 
+		(
+			select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.GRID != '' and  e.GRID is not null
+			
+		) as qynum,
+		(
+			select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.GRID != '' and  e.GRID is not null
+		
+		) as qyTotal,
+		(
+			select count(distinct t.company_id) from TRO_MAN t,ENT_BASE_INFO e where t.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+			
+			and t.company_id= e.row_id and e.delflag = 0  and t.TROUBLE_SOURCE='企业' and e.GRID != '' and  e.GRID is not null
+			
+		) as sbqy,
+		(
+			select count(*) from TRO_MAN  t ,ENT_BASE_INFO e where t.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+			and t.company_id= e.row_id and e.delflag = 0  and t.TROUBLE_SOURCE='企业' and e.GRID != '' and  e.GRID is not null
+		
+		) as sbcs,
+		
+		(select  count(*) from TRO_MAN t,ENT_BASE_INFO e where  t.RECTIFICATION_STATE='0' and (t.deal_state = '整改完成' or t.deal_state is null)  and  t.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+		and t.company_id = e.row_id and e.delflag = 0  and t.TROUBLE_SOURCE='企业' and e.GRID != '' and  e.GRID is not null
+			
+		)  as zgwc,
+		(select  count(*) from TRO_MAN t,ENT_BASE_INFO e where ((t.deal_state = '整改未完成' and t.RECTIFICATION_STATE='0' ) or t.RECTIFICATION_STATE !='0') and  t.delFlag = 0
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+		 and t.company_id = e.row_id and e.delflag = 0  and t.TROUBLE_SOURCE='企业' and e.GRID != '' and  e.GRID is not null
+			
+		)  as zgwwc
+		
+		
+	</select>
+	
+	<select id="query_tjyh_list_data_grid" parameterClass="java.util.Map" resultClass="com.jshx.yhb.entity.TjYhBean">
+		select 
+			 (
+		    	select count(*)from ENT_BASE_INFO e where  e.delFlag=0  and e.GRID = c.ROW_ID
+		    	
+		    ) as qynum,
+		    (
+		    	select count(*)from ENT_BASE_INFO e where  e.delFlag=0  and e.GRID = c.ROW_ID
+		    	
+		    ) as qyTotal,
+		    (select count(distinct t.company_id) from TRO_MAN t,ENT_BASE_INFO e where t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		    and t.company_id= e.row_id and e.delflag = 0  and e.GRID = c.ROW_ID and t.TROUBLE_SOURCE='企业'
+				
+		     ) as sbqy,
+		      (select count(*) from TRO_MAN  t ,ENT_BASE_INFO e where t.delFlag = 0 
+		      	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		      and t.company_id= e.row_id and e.delflag = 0  and e.GRID = c.ROW_ID and t.TROUBLE_SOURCE='企业'
+				
+			
+		    	
+		     ) as sbcs,
+		    (select  count(*) from TRO_MAN t,ENT_BASE_INFO e where  t.RECTIFICATION_STATE='0' and (t.deal_state = '整改完成' or t.deal_state is null) and  t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		    and t.company_id = e.row_id and e.delflag = 0  and e.GRID = c.ROW_ID and t.TROUBLE_SOURCE='企业'
+			
+		    )  as zgwc,
+		    (select  count(*) from TRO_MAN t,ENT_BASE_INFO e where ((t.deal_state = '整改未完成' and t.RECTIFICATION_STATE='0' ) or t.RECTIFICATION_STATE !='0') and  t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+			 and t.company_id = e.row_id and e.delflag = 0  and e.GRID = c.ROW_ID and t.TROUBLE_SOURCE='企业'
+			
+		    )  as zgwwc,
+		  
+		    c.GRID_NAME as dwdz,c.ROW_ID as szzid
+		    from COM_GRI_MAN c where c.delFlag = 0
+		   
+	</select>
+	
+	<select id="query_tjyh_list_data_company" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		 select (select e.ENTERPRISE_NAME from ENT_BASE_INFO e where e.ROW_ID=t.COMPANY_ID) dwdz,t.total yhTotal,
+		  (select COUNT(t2.ROW_ID) from TRO_MAN  t2 where t2.COMPANY_ID=t.COMPANY_ID and t2.TROUBLE_SOURCE='企业'
+		   and t2.RECTIFICATION_STATE='0' and (t2.deal_state = '整改完成' or t2.deal_state is null) and  t2.delFlag = 0
+		   	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t2.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t2.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t2.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+				) zgwc,
+		   (select COUNT(t3.ROW_ID) from TRO_MAN  t3 where t3.COMPANY_ID=t.COMPANY_ID and t3.TROUBLE_SOURCE='企业'
+		   and ((t3.deal_state = '整改未完成' and t3.RECTIFICATION_STATE='0' ) or t3.RECTIFICATION_STATE !='0') and  t3.delFlag = 0 
+		   	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t3.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t3.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t3.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		   ) zgwwc
+		  from 
+		  ( select t1.COMPANY_ID,COUNT(t1.ROW_ID) total
+		  FROM TRO_MAN t1 WHERE t1.delFlag=0 and t1.TROUBLE_SOURCE='企业'
+		  		<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t1.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t1.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t1.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		  group by COMPANY_ID) t
+		  
+	
+	</select>
+	
+	
+	
+	
+   <select id="query_ajYh_data" parameterClass="java.util.Map" resultClass="com.jshx.yhb.entity.TjYhBean"> 
+		select 
+		(
+			select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.ENTERPRISE_POSSESSION != '' and  e.ENTERPRISE_POSSESSION is not null
+			
+		) as qynum,
+		(
+			select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.ENTERPRISE_POSSESSION != '' and  e.ENTERPRISE_POSSESSION is not null
+		
+		) as qyTotal,
+		(
+			select count(distinct t.company_id) from TRO_MAN t,ENT_BASE_INFO e where t.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+			
+			and t.company_id= e.row_id and e.delflag = 0  and t.TROUBLE_SOURCE!='企业' and e.ENTERPRISE_POSSESSION != '' and  e.ENTERPRISE_POSSESSION is not null
+			
+		) as sbqy,
+		(
+			select count(*) from TRO_MAN  t where t.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+			and t.TROUBLE_SOURCE!='企业' and t.area_id  != '' and  t.area_id is not null
+		
+		) as sbcs,
+		
+		(select  count(*) from TRO_MAN t,ENT_BASE_INFO e where  t.RECTIFICATION_STATE='0' and (t.deal_state = '整改完成' or t.deal_state is null)  and  t.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+		and t.company_id = e.row_id and e.delflag = 0  and t.TROUBLE_SOURCE!='企业' and t.area_id  != '' and  t.area_id is not null
+			
+		)  as zgwc,
+		(select  count(*) from TRO_MAN t,ENT_BASE_INFO e where ((t.deal_state = '整改未完成' and t.RECTIFICATION_STATE='0' ) or t.RECTIFICATION_STATE !='0') and  t.delFlag = 0
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+		 and t.company_id = e.row_id and e.delflag = 0  and t.TROUBLE_SOURCE!='企业' and t.area_id  != '' and  t.area_id is not null
+			
+		)  as zgwwc
+		
+		
+	</select>
+	
+	<select id="query_ajyh_list_data" parameterClass="java.util.Map" resultClass="com.jshx.yhb.entity.TjYhBean">
+		select 
+			 (
+		    	select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.ENTERPRISE_POSSESSION = c.item_value 
+		    	
+		    ) as qynum,
+		    (
+		    	select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.ENTERPRISE_POSSESSION = c.item_value 
+		    	
+		    ) as qyTotal,
+		    (select count(distinct t.company_id) from TRO_MAN t,ENT_BASE_INFO e where t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		    and t.company_id= e.row_id and e.delflag = 0 and e.ENTERPRISE_POSSESSION = c.item_value and t.TROUBLE_SOURCE!='企业'
+				
+		     ) as sbqy,
+		      (select count(*) from TRO_MAN  t where t.delFlag = 0 
+		      	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		      and t.area_id= c.item_value and t.TROUBLE_SOURCE!='企业'
+				
+			
+		    	
+		     ) as sbcs,
+		    (select  count(*) from TRO_MAN t,ENT_BASE_INFO e where  t.RECTIFICATION_STATE='0' and (t.deal_state = '整改完成' or t.deal_state is null) and  t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		    and t.company_id = e.row_id and e.delflag = 0  and t.area_id=c.item_value and t.TROUBLE_SOURCE!='企业'
+			
+		    )  as zgwc,
+		    (select  count(*) from TRO_MAN t,ENT_BASE_INFO e where ((t.deal_state = '整改未完成' and t.RECTIFICATION_STATE='0' ) or t.RECTIFICATION_STATE !='0') and  t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+			 and t.company_id = e.row_id and e.delflag = 0 and t.area_id=c.item_value and t.TROUBLE_SOURCE!='企业'
+			
+		    )  as zgwwc,
+		  
+		    c.item_text as dwdz,c.item_value as szzid
+		    from codevalue c where c.code_id = '40288008416c6c1a01416c95d3c50019' and c.del_flag = 0
+		   
+	</select>
+	
+	<select id="getAjyhCounts" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	select
+		(select count(*) from TRO_MAN t where t.delflag=0 
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+		and t.TROUBLE_SOURCE!='企业' and t.trouble_sort='1' )as jcCount,
+		(select count(*) from TRO_MAN t where t.delflag=0
+			<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		 and t.TROUBLE_SOURCE!='企业' and t.trouble_sort='2' )as xcCount
+		
+	</select>
+   
+   
+    <select id="query_ajYh_data_grid" parameterClass="java.util.Map" resultClass="com.jshx.yhb.entity.TjYhBean"> 
+		select 
+		(
+			select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.GRID != '' and  e.GRID is not null
+			
+		) as qynum,
+		(
+			select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.GRID != '' and  e.GRID is not null
+		
+		) as qyTotal,
+		(
+			select count(distinct t.company_id) from TRO_MAN t,ENT_BASE_INFO e where t.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+			
+			and t.company_id= e.row_id and e.delflag = 0  and t.TROUBLE_SOURCE!='企业' and e.GRID != '' and  e.GRID is not null
+			
+		) as sbqy,
+		(
+			select count(*) from TRO_MAN  t ,ENT_BASE_INFO e where t.delFlag = 0 
+		      	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		      and t.company_id= e.row_id and e.delflag = 0 and t.TROUBLE_SOURCE!='企业' and e.GRID != '' and  e.GRID is not null
+		
+		) as sbcs,
+		
+		(select  count(*) from TRO_MAN t,ENT_BASE_INFO e where  t.RECTIFICATION_STATE='0' and (t.deal_state = '整改完成' or t.deal_state is null)  and  t.delFlag = 0 
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+		and t.company_id = e.row_id and e.delflag = 0  and t.TROUBLE_SOURCE!='企业' and e.GRID != '' and  e.GRID is not null
+			
+		)  as zgwc,
+		(select  count(*) from TRO_MAN t,ENT_BASE_INFO e where ((t.deal_state = '整改未完成' and t.RECTIFICATION_STATE='0' ) or t.RECTIFICATION_STATE !='0') and  t.delFlag = 0
+			<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+			</isNotEmpty>
+		 and t.company_id = e.row_id and e.delflag = 0 and t.TROUBLE_SOURCE!='企业' and e.GRID != '' and  e.GRID is not null
+			
+		)  as zgwwc
+		
+		
+	</select>
+	
+	<select id="query_ajyh_list_data_grid" parameterClass="java.util.Map" resultClass="com.jshx.yhb.entity.TjYhBean">
+		select 
+			 (
+		    	select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.GRID = c.ROW_ID
+		    	
+		    ) as qynum,
+		    (
+		    	select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.GRID = c.ROW_ID
+		    	
+		    ) as qyTotal,
+		    (select count(distinct t.company_id) from TRO_MAN t,ENT_BASE_INFO e where t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		    and t.company_id= e.row_id and e.delflag = 0  and e.GRID = c.ROW_ID and t.TROUBLE_SOURCE!='企业'
+				
+		     ) as sbqy,
+		      (select count(*) from TRO_MAN  t ,ENT_BASE_INFO e where t.delFlag = 0 
+		      	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		      and t.company_id= e.row_id and e.delflag = 0  and e.GRID = c.ROW_ID and t.TROUBLE_SOURCE!='企业'
+				
+			
+		    	
+		     ) as sbcs,
+		    (select  count(*) from TRO_MAN t,ENT_BASE_INFO e where  t.RECTIFICATION_STATE='0' and (t.deal_state = '整改完成' or t.deal_state is null) and  t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+		    and t.company_id = e.row_id and e.delflag = 0  and e.GRID = c.ROW_ID and t.TROUBLE_SOURCE!='企业'
+			
+		    )  as zgwc,
+		    (select  count(*) from TRO_MAN t,ENT_BASE_INFO e where ((t.deal_state = '整改未完成' and t.RECTIFICATION_STATE='0' ) or t.RECTIFICATION_STATE !='0') and  t.delFlag = 0 
+		    	<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+				<isNotEmpty property="companyName">
+				<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+				</isNotEmpty>
+			 and t.company_id = e.row_id and e.delflag = 0 and e.GRID = c.ROW_ID and t.TROUBLE_SOURCE!='企业'
+			
+		    )  as zgwwc,
+		  
+		    c.GRID_NAME as dwdz,c.ROW_ID as szzid
+		    from COM_GRI_MAN c where c.delFlag = 0
+		   
+	</select>
+	
+	
+	<select id="query_tjyh_list_data_reportman" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		 select userid.deptName szzid
+		     ,(select DISPLAY_NAME from USERS where ROW_ID=userid.USER_ID) dwdz
+		     ,(
+				select COUNT(1) from TRO_MAN t where 
+				t.CREATEUSERID=userid.USER_ID and t.delFlag=0 
+				<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+		    ) sbcs 
+		    ,(
+				select COUNT(1) from TRO_MAN t where 
+				t.RECTIFICATION_STATE='0' and (t.deal_state = '整改完成' or t.deal_state is null) and t.CREATEUSERID=userid.USER_ID and t.delFlag=0 
+				<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+		    ) zgwc 
+		    ,(
+				select COUNT(1) from TRO_MAN t where 
+				((t.deal_state = '整改未完成' and t.RECTIFICATION_STATE='0' ) or t.RECTIFICATION_STATE !='0') and t.CREATEUSERID=userid.USER_ID and t.delFlag=0 
+				<isNotEmpty property="queryJcsjStart">
+				<![CDATA[and t.CREATETIME > #queryJcsjStart#]]>
+				</isNotEmpty>
+				<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and t.CREATETIME < #queryJcsjEnd#]]>
+				</isNotEmpty>
+		    ) zgwwc 
+   		 from (
+			select d.DEPT_NAME deptName,u.ROW_ID USER_ID from USERS u,DEPARTMENT d where  u.DEPT_ID=d.ROW_ID and u.ROW_ID in
+			(
+			select distinct(ur.USER_ID) from USER_RIGHT ur where ur.ROLE_ID in
+			( 
+			 select uro.row_id from USERROLE uro where uro.ROLE_CODE in ('A12','A24')
+			)
+			)
+	    ) userid order by userid.deptName;
+	
+	</select>
+	
+	<select id="query_tjyh_list_data_reportman_count" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*) num from
+	 		(select distinct(ur.USER_ID) from USER_RIGHT ur where ur.ROLE_ID in
+				( 
+				 select uro.row_id from USERROLE uro where uro.ROLE_CODE in ('A12','A24')
+				)
+			) a
+	</select>
+	
+	
+	<select id="query_yhtj_list_data_grid" parameterClass="java.util.Map" resultClass="com.jshx.yhb.entity.TjYhBean">
+		select 
+			 (
+		    	select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.GRID = c.ROW_ID
+		    	
+		    ) as qynum,
+		    (
+		    	select count(*)from ENT_BASE_INFO e where  e.delFlag=0 and e.GRID = c.ROW_ID
+		    	
+		    ) as qyTotal,
+		    (select count(distinct t.company_id) from TRO_MAN t,ENT_BASE_INFO e where t.delFlag = 0 
+		    and t.company_id= e.row_id and e.delflag = 0  and e.GRID = c.ROW_ID  
+				
+		     ) as sbqy,
+		      (select count(*) from TRO_MAN  t ,ENT_BASE_INFO e where t.delFlag = 0 
+		      and t.company_id= e.row_id and e.delflag = 0  and e.GRID = c.ROW_ID  
+				
+			
+		    	
+		     ) as sbcs,
+		    (select  count(*) from TRO_MAN t,ENT_BASE_INFO e where  t.RECTIFICATION_STATE='0' and (t.deal_state = '整改完成' or t.deal_state is null) and  t.delFlag = 0 
+		    and t.company_id = e.row_id and e.delflag = 0  and e.GRID = c.ROW_ID  
+			
+		    )  as zgwc,
+		    (select  count(*) from TRO_MAN t,ENT_BASE_INFO e where ((t.deal_state = '整改未完成' and t.RECTIFICATION_STATE='0' ) or t.RECTIFICATION_STATE !='0') and  t.delFlag = 0 
+			 and t.company_id = e.row_id and e.delflag = 0  and e.GRID = c.ROW_ID  
+			
+		    )  as zgwwc,
+		  
+		    c.GRID_NAME as dwdz,c.ROW_ID as szzid
+		    from COM_GRI_MAN c where c.delFlag = 0 and c.MAP_KEY=#mapKey#
+		   
+	</select>
+	
+	
+	
+	<select id="query_yhsbqy" parameterClass="java.util.Map" resultClass="com.jshx.qyjbxx.entity.EntBaseInfo">
+	select distinct t.row_id as id,t.ENTERPRISE_NAME as enterpriseName,t.ENTERPRISE_CODE enterpriseCode,t.ENTERPRISE_LEGAL_NAME enterpriseLegalName,t.GRID_NAME as gridName,t.ENTERPRISE_NATURE as enterpriseNature
+	from ENT_BASE_INFO t,TRO_MAN c where t.delflag = 0 and c.delFlag = 0 and t.row_id = c.company_id
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.ENTERPRISE_POSSESSION = #areaId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="noareaId">
+			<![CDATA[and t.ENTERPRISE_POSSESSION != '' and t.ENTERPRISE_POSSESSION is not null]]>
+		</isNotEmpty>
+		<isNotEmpty property="grid">
+			<![CDATA[and t.GRID = #grid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="nogrid">
+			<![CDATA[and t.GRID != '' and t.GRID is not null]]>
+		</isNotEmpty>
+		<isNotEmpty property="troubleSource">
+			<![CDATA[and c.TROUBLE_SOURCE = #troubleSource#]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and c.CREATETIME > #queryJcsjStart#]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and c.CREATETIME < #queryJcsjEnd#]]>
+		</isNotEmpty>
+	</select>
+	
+	
+	
+	<select id="query_yhwsbqy" parameterClass="java.util.Map" resultClass="com.jshx.qyjbxx.entity.EntBaseInfo">
+	select distinct t.row_id as id,t.ENTERPRISE_NAME as enterpriseName,t.ENTERPRISE_CODE enterpriseCode,t.ENTERPRISE_LEGAL_NAME enterpriseLegalName,t.GRID_NAME as gridName,t.ENTERPRISE_NATURE as enterpriseNature
+	from ENT_BASE_INFO t where t.delflag = 0 
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.ENTERPRISE_POSSESSION = #areaId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="noareaId">
+			<![CDATA[and t.ENTERPRISE_POSSESSION != '' and t.ENTERPRISE_POSSESSION is not null]]>
+		</isNotEmpty>
+		<isNotEmpty property="grid">
+			<![CDATA[and t.GRID = #grid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="nogrid">
+			<![CDATA[and t.GRID != '' and t.GRID is not null]]>
+		</isNotEmpty>
+		and t.row_id not in
+		(select distinct c.company_id from TRO_MAN c where c.delFlag = 0 
+		    <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and c.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and c.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="troubleSource">
+				<![CDATA[and c.TROUBLE_SOURCE = #troubleSource#]]>
+			</isNotEmpty>
+		 ) 
+	</select>
+	
+	
+	
+	
+	
+	<select id="query_yhsbqy_total" parameterClass="java.util.Map" resultClass="int">
+	select count(distinct t.row_id)
+	from ENT_BASE_INFO t,TRO_MAN c where t.delflag = 0 and c.delFlag = 0 and t.row_id = c.company_id
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.ENTERPRISE_POSSESSION = #areaId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="noareaId">
+			<![CDATA[and t.ENTERPRISE_POSSESSION != '' and t.ENTERPRISE_POSSESSION is not null]]>
+		</isNotEmpty>
+		<isNotEmpty property="grid">
+			<![CDATA[and t.GRID = #grid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="nogrid">
+			<![CDATA[and t.GRID != '' and t.GRID is not null]]>
+		</isNotEmpty>
+		<isNotEmpty property="troubleSource">
+			<![CDATA[and c.TROUBLE_SOURCE = #troubleSource#]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryJcsjStart">
+			<![CDATA[and c.CREATETIME > #queryJcsjStart#]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryJcsjEnd">
+			<![CDATA[and c.CREATETIME < #queryJcsjEnd#]]>
+		</isNotEmpty>
+	</select>
+	
+	
+	
+	<select id="query_yhwsbqy_total" parameterClass="java.util.Map" resultClass="int">
+	select count(distinct t.row_id)
+	from ENT_BASE_INFO t where t.delflag = 0 
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.ENTERPRISE_POSSESSION = #areaId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="noareaId">
+			<![CDATA[and t.ENTERPRISE_POSSESSION != '' and t.ENTERPRISE_POSSESSION is not null]]>
+		</isNotEmpty>
+		<isNotEmpty property="grid">
+			<![CDATA[and t.GRID = #grid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="nogrid">
+			<![CDATA[and t.GRID != '' and t.GRID is not null]]>
+		</isNotEmpty>
+		and t.row_id not in
+		(select distinct c.company_id from TRO_MAN c where c.delFlag = 0 
+		    <isNotEmpty property="queryJcsjStart">
+				<![CDATA[and c.CREATETIME > #queryJcsjStart#]]>
+			</isNotEmpty>
+			<isNotEmpty property="queryJcsjEnd">
+				<![CDATA[and c.CREATETIME < #queryJcsjEnd#]]>
+			</isNotEmpty>
+			<isNotEmpty property="troubleSource">
+				<![CDATA[and c.TROUBLE_SOURCE = #troubleSource#]]>
+			</isNotEmpty>
+		 ) 
+	</select>
+	
+</sqlMap>

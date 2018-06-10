@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="EQU_AND_FAC" extends="default" namespace="/jsp/sbsskjzywszydbj">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="equAndFacQuery" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="list">
+		</action>
+		
+		<action name="equAndFacList" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="init">
+			<result name="success">/WEB-INF/pages/sbsskjzywszydbj/EquAndFac_List.jsp</result>
+		</action>
+		
+		<action name="equAndFacView" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="view">
+			<result name="view">/WEB-INF/pages/sbsskjzywszydbj/EquAndFac_Detail.jsp</result>
+		</action>
+
+		<action name="equAndFacInitEdit" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/sbsskjzywszydbj/EquAndFac_Edit.jsp</result>
+		</action>
+
+		<action name="equAndFacSave" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_equAndFac</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="equAndFacDel" class="com.jshx.sbsskjzywszydbj.web.EquAndFacAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

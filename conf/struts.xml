@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.multipart.saveDir" value="" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<constant name="struts.multipart.maxSize" value="104857600" />
+	<!--  发布版本 打开
+	<include file="com/jshx/log/conf/struts-behavior.xml" />
+	<include file="com/jshx/log/conf/struts-log.xml" />
+	
+	<include file="com/jshx/module/admin/conf/struts_portal.xml" />
+	<include file="com/jshx/module/admin/conf/struts-admin.xml" />
+	<include file="com/jshx/module/admin/conf/struts-common.xml" />
+	<include file="com/jshx/module/admin/conf/struts-loginImage.xml" />
+	<include file="com/jshx/module/admin/conf/struts-permission.xml" />
+	
+	<include file="com/jshx/module/infomation/conf/struts-information.xml" />
+	<include file="com/jshx/module/mobile/version/conf/struts-version.xml" />
+	<include file="com/jshx/module/form/conf/struts_form.xml" />
+	-->
+	<package name="default" extends="struts-default" namespace="">
+   <interceptors>
+      <interceptor name="exceptionInterceptor" class="com.jshx.core.base.interceptor.ExceptionInterceptor" />
+      <interceptor name="fileUploadInterceptor" class="com.jshx.core.base.interceptor.FileUploadInterceptor" />
+      <interceptor name="xSSInterceptor" class="com.jshx.core.security.XSSInterceptor" />
+      <interceptor name="sensitiveInterceptor" class="com.jshx.sensitive.SensitiveInterceptor" />
+      <interceptor name="tokenInterceptor" class="com.jshx.core.base.interceptor.JsictTokenInterceptor" />
+      <interceptor-stack name="coreStack">
+         <interceptor-ref name="xSSInterceptor" />
+         <interceptor-ref name="sensitiveInterceptor" />
+         <interceptor-ref name="defaultStack" />
+         <interceptor-ref name="fileUploadInterceptor" />
+         <interceptor-ref name="exceptionInterceptor" />
+      </interceptor-stack>
+   </interceptors>
+   <default-interceptor-ref name="coreStack" />
+
+       <global-results>
+           <result name="error">/error.jsp</result>
+      <result name="xsserror">/error.jsp</result>
+      <result name="sensitive">/error.jsp</result>
+       </global-results>
+   <global-exception-mappings>
+      <exception-mapping exception="org.springframework.dao.DataAccessException" result="input" />
+      <exception-mapping exception="java.lang.Exception" result="error" />
+   </global-exception-mappings>
+</package>
+	
+	<include file="com/jshx/**/struts*.xml" />
+	<include file="com/wzxx/**/struts*.xml" />
+	<include file="com/zwt/**/struts*.xml" />
+</struts>

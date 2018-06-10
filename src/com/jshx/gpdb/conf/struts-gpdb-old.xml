@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SUPERVICE" extends="default" namespace="/jsp/gpdb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="superviceQuery" class="com.jshx.gpdb.web.SuperviceAction" method="list">
+		</action>
+		
+		<action name="superviceList" class="com.jshx.gpdb.web.SuperviceAction" method="init">
+			<result name="success">/WEB-INF/pages/gpdb/Supervice_List.jsp</result>
+			<result name="successZHC">/WEB-INF/pages/gpdb/Supervice_List_ZHC.jsp</result>
+			<result name="successZHCBSY">/WEB-INF/pages/gpdb/Supervice_List_ZHCBSY.jsp</result>
+			<result name="successWGJGRY">/WEB-INF/pages/gpdb/Supervice_List_WGJGRY.jsp</result>
+			<result name="successJDAJB">/WEB-INF/pages/gpdb/Supervice_List_JDAJB.jsp</result>
+			<result name="successAJJLD">/WEB-INF/pages/gpdb/Supervice_List_AJJLD.jsp</result>
+		</action>
+		
+		<action name="superviceView" class="com.jshx.gpdb.web.SuperviceAction" method="view">
+			<result name="view">/WEB-INF/pages/gpdb/Supervice_Detail.jsp</result>
+			<result name="viewZHC">/WEB-INF/pages/gpdb/Supervice_Detail_ZHC.jsp</result>
+			<result name="viewWGJGRY">/WEB-INF/pages/gpdb/Supervice_Detail_WGJGRY.jsp</result>
+			<result name="viewJDAJB">/WEB-INF/pages/gpdb/Supervice_Detail_JDAJB.jsp</result>
+			<result name="viewAJJLD">/WEB-INF/pages/gpdb/Supervice_Detail_AJJLD.jsp</result>
+		</action>
+
+		<action name="superviceInitEdit" class="com.jshx.gpdb.web.SuperviceAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/gpdb/Supervice_Edit.jsp</result>
+			<result name="editZHC">/WEB-INF/pages/gpdb/Supervice_Edit_ZHC.jsp</result>
+			<result name="editWGJGRY">/WEB-INF/pages/gpdb/Supervice_Edit_WGJGRY.jsp</result>
+			<result name="editJDAJB">/WEB-INF/pages/gpdb/Supervice_Edit_JDAJB.jsp</result>
+			<result name="editAJJLD">/WEB-INF/pages/gpdb/Supervice_Edit_AJJLD.jsp</result>
+		</action>
+
+		<action name="superviceSave" class="com.jshx.gpdb.web.SuperviceAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_supervice</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="superviceDel" class="com.jshx.gpdb.web.SuperviceAction" method="delete">
+		</action>
+		
+		<action name="superviceCheck" class="com.jshx.gpdb.web.SuperviceAction" method="check">
+			<result name="check1">/WEB-INF/pages/gpdb/Supervice_Check1.jsp</result>
+			<result name="check2">/WEB-INF/pages/gpdb/Supervice_Check2.jsp</result>
+		</action>
+		
+		<action name="superviceCheckSave" class="com.jshx.gpdb.web.SuperviceAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_supervice</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+	</package>
+</struts>

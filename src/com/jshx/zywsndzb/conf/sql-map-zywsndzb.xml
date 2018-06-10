@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findZywsndzbByMap">
+		select new com.jshx.zywsndzb.entity.Zywsndzb(t.id, t.yearTime, t.areaName) from Zywsndzb t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startYearTime">
+			<![CDATA[and t.yearTime = :startYearTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endYearTime">
+			<![CDATA[and t.yearTime <= :endYearTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getZywsndzbListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zywsndzb.entity.ZywsndzbBean">
+	 SELECT DISTINCT t.area_name as data1,
+     sum(cast(t.wssbmbs as int))as data2,
+     sum(cast(t.wssbwcs as int))as data3,
+     sum(cast(t.cfalmbs as int))as data4, 
+     sum(cast(t.cfalwcs as int))as data5, 
+     sum(cast(t.dqjcmbs as int))as data6,  
+     sum(cast(t.dqjcwcs as int))as data7, 
+     sum(cast(t.jkjhmbs as int))as data8, 
+     sum(cast(t.jkjhwcs as int))as data9, 
+     sum(cast(t.qypxmbs as int))as data10, 
+     sum(cast(t.qypxwcs as int))as data11,
+      sum(cast(t.jcjsmbs as int))as data12,
+      sum(cast(t.jcjswcs as int))as data13
+     from ZYWSNDZB t where t.delflag=0
+     <isNotEmpty property="startYearTime">
+			<![CDATA[and t.year_time = #startYearTime#]]>
+		</isNotEmpty>
+	
+     group by t.area_name
+	</select>
+	
+	<select id="getTotalZywsndzbListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zywsndzb.entity.ZywsndzbBean">
+	 SELECT
+     sum(cast(t.wssbmbs as int))as data2,
+     sum(cast(t.wssbwcs as int))as data3,
+     sum(cast(t.cfalmbs as int))as data4, 
+     sum(cast(t.cfalwcs as int))as data5, 
+     sum(cast(t.dqjcmbs as int))as data6,  
+     sum(cast(t.dqjcwcs as int))as data7, 
+     sum(cast(t.jkjhmbs as int))as data8, 
+     sum(cast(t.jkjhwcs as int))as data9, 
+     sum(cast(t.qypxmbs as int))as data10, 
+     sum(cast(t.qypxwcs as int))as data11,
+      sum(cast(t.jcjsmbs as int))as data12,
+      sum(cast(t.jcjswcs as int))as data13
+     from ZYWSNDZB t where t.delflag=0
+     <isNotEmpty property="startYearTime">
+			<![CDATA[and t.year_time = #startYearTime#]]>
+		</isNotEmpty>
+	
+	</select>
+</sqlMap>

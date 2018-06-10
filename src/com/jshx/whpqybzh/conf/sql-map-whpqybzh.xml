@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findWhpqybzhByMap">
+		select new com.jshx.whpqybzh.entity.Whpqybzh(t.id, t.areaName, t.monthTime) from Whpqybzh t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startMonthTime">
+			<![CDATA[and t.monthTime >= :startMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endMonthTime">
+			<![CDATA[and t.monthTime <= :endMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+	</select>
+	<select id="getWhpqybzhListByMap" parameterClass="java.util.Map" resultClass="com.jshx.whpqybzh.entity.WhpqybzhBean">
+	 SELECT DISTINCT t.area_name as data1,
+     sum(cast(t.jhhcshj as int))as data2,
+     sum(cast(t.jhhcssc as int))as data3,
+      sum(cast(t.jhhcssy as int))as data4, 
+     sum(cast(t.jhhcscc as int))as data5, 
+     sum(cast(t.jhhcsjydsc as int))as data6, 
+     sum(cast(t.jhhxsjyz as int))as data7, 
+     sum(cast(t.ywchcshj as int))as data8, 
+     sum(cast(t.ywchcssc as int))as data9, 
+     sum(cast(t.ywchcssy as int))as data10, 
+     sum(cast(t.ywchcscc as int))as data11, 
+     sum(cast(t.ywchcsjysc as int))as data12, 
+     sum(cast(t.ywchcsjyz as int))as data13
+     from WHPQYBZH t where t.delflag=0
+     
+     <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+     group by t.area_name 
+	</select>
+	
+	<select id="getTotalLiWhpqybzhstByMap" parameterClass="java.util.Map" resultClass="com.jshx.whpqybzh.entity.WhpqybzhBean">
+		SELECT 
+     sum(cast(t.jhhcshj as int))as data2,
+     sum(cast(t.jhhcssc as int))as data3,
+      sum(cast(t.jhhcssy as int))as data4, 
+     sum(cast(t.jhhcscc as int))as data5, 
+     sum(cast(t.jhhcsjydsc as int))as data6, 
+     sum(cast(t.jhhxsjyz as int))as data7, 
+     sum(cast(t.ywchcshj as int))as data8, 
+     sum(cast(t.ywchcssc as int))as data9, 
+     sum(cast(t.ywchcssy as int))as data10, 
+     sum(cast(t.ywchcscc as int))as data11, 
+     sum(cast(t.ywchcsjysc as int))as data12, 
+     sum(cast(t.ywchcsjyz as int))as data13
+     from WHPQYBZH t where t.delflag=0
+     <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+	</select>
+</sqlMap>

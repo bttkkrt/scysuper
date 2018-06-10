@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="COM_MAN_SYS" extends="default" namespace="/jsp/zdwxyglzd">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="comManSysQuery" class="com.jshx.zdwxyglzd.web.ComManSysAction" method="list">
+		</action>
+		
+		<action name="comManSysList" class="com.jshx.zdwxyglzd.web.ComManSysAction" method="init">
+			<result name="success">/WEB-INF/pages/zdwxyglzd/ComManSys_List.jsp</result>
+		</action>
+		
+		<action name="comManSysView" class="com.jshx.zdwxyglzd.web.ComManSysAction" method="view">
+			<result name="view">/WEB-INF/pages/zdwxyglzd/ComManSys_Detail.jsp</result>
+		</action>
+
+		<action name="comManSysInitEdit" class="com.jshx.zdwxyglzd.web.ComManSysAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zdwxyglzd/ComManSys_Edit.jsp</result>
+		</action>
+
+		<action name="comManSysSave" class="com.jshx.zdwxyglzd.web.ComManSysAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_comManSys</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="comManSysDel" class="com.jshx.zdwxyglzd.web.ComManSysAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

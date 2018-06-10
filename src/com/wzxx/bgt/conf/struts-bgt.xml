@@ -1,0 +1,34 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="LIGHTHOUSE" extends="default" namespace="/jsp/bgt">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="lighthouseQuery" class="com.wzxx.bgt.web.LighthouseAction" method="list">
+		</action>
+		
+		<action name="lighthouseList">
+			<result name="success">/WEB-INF/wzPage/bgt/Lighthouse_List.jsp</result>
+		</action>
+		
+		<action name="lighthouseView" class="com.wzxx.bgt.web.LighthouseAction" method="view">
+			<result name="view">/WEB-INF/wzPage/bgt/Lighthouse_Detail.jsp</result>
+		</action>
+
+		<action name="lighthouseInitEdit" class="com.wzxx.bgt.web.LighthouseAction" method="initEdit">
+			<result name="edit">/WEB-INF/wzPage/bgt/Lighthouse_Edit.jsp</result>
+		</action>
+
+		<action name="lighthouseSave" class="com.wzxx.bgt.web.LighthouseAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_lighthouse</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="lighthouseDel" class="com.wzxx.bgt.web.LighthouseAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

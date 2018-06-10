@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findComDanIdeByMap">
+		select new com.jshx.zdwxysbpgfj.entity.ComDanIde(t.id, t.areaName, t.companyName, t.dangerName, t.dangerType, t.dangerLevel, t.safePerson, t.auditResult,t.auditState) from ComDanIde t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="dangerName">
+			<![CDATA[and t.dangerName like :dangerName]]>
+		</isNotEmpty>
+		<isNotEmpty property="auditResult">
+			<![CDATA[and t.auditResult like :auditResult]]>
+		</isNotEmpty>
+		<isNotEmpty property="dangerLevel">
+			<![CDATA[and t.dangerLevel = :dangerLevel]]>
+		</isNotEmpty>
+		<isNotEmpty property="safePerson">
+			<![CDATA[and t.safePerson like :safePerson]]>
+		</isNotEmpty>
+		<isNotEmpty property="dangerType">
+			<![CDATA[and t.dangerType = :dangerType]]>
+		</isNotEmpty>
+			<isNotEmpty property="auditState">
+			<![CDATA[and t.auditState = :auditState]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  charindex(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and ( t.companyName like :searchLike or  t.dangerName like :searchLike or  t.safePerson like :searchLike)]]>
+		</isNotEmpty>
+		<isNotEmpty property="state">
+			<![CDATA[and t.auditState != :state]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+	<!-- 获取巡查人员 -->
+	<select id="findXcryList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	    	select t.ROW_ID as id,t.USER_NAME as checkPeopleName from PATROL_USER t where t.delflag=0
+	    	<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= #createUserId#]]>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 获取危险源用于定期生成任务 -->
+	<select id="query_Wxyplans" parameterClass="java.util.Map" resultClass="com.jshx.zdwxysbpgfj.entity.ComDanIde">
+		select row_id as id,
+		company_id as companyId,
+		company_name as companyName,
+			   area_id as areaId,
+			   area_name as areaName,
+			   check_People_Id as checkPeopleId,
+			   check_People_Name as checkPeopleName,
+			   DANGER_NAME as dangerName,
+			   CREATEUSERID as createUserID
+		  from COM_DAN_IDE where delflag = 0 and audit_state='审核通过' 
+		 <isNotEmpty property="checkFrequency">
+			<![CDATA[and check_Frequency =#checkFrequency#]]>
+		</isNotEmpty>
+		
+		
+	</select>
+</sqlMap>

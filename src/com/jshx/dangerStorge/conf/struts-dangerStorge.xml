@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="DANGERSTORGE" extends="default" namespace="/jsp/dangerStorge">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="dangerstorgeQuery" class="com.jshx.dangerStorge.web.DangerstorgeAction" method="list">
+		</action>
+		
+		<action name="dangerstorgeList" class="com.jshx.dangerStorge.web.DangerstorgeAction" method="initlist">
+			<result name="success">/WEB-INF/pages/dangerStorge/Dangerstorge_List.jsp</result>
+				<result name="qiye">/WEB-INF/pages/dangerStorge/DangerstorgeQiye_List.jsp</result>
+		</action>
+		
+		<action name="dangerstorgeView" class="com.jshx.dangerStorge.web.DangerstorgeAction" method="view">
+			<result name="view">/WEB-INF/pages/dangerStorge/Dangerstorge_Detail.jsp</result>
+		</action>
+
+		<action name="dangerstorgeInitEdit" class="com.jshx.dangerStorge.web.DangerstorgeAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/dangerStorge/Dangerstorge_Edit.jsp</result>
+		</action>
+
+		<action name="dangerstorgeSave" class="com.jshx.dangerStorge.web.DangerstorgeAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="dangerstorgeDel" class="com.jshx.dangerStorge.web.DangerstorgeAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

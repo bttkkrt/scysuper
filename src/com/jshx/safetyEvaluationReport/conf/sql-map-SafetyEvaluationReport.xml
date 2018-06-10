@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findSafetyEvaluationReportByMap">
+		from SafetyEvaluationReport t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="safetyPlanId">
+			<![CDATA[and t.safetyPlanId like :safetyPlanId]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyid">
+			<![CDATA[and t.qyid = :qyid]]>
+		</isNotEmpty>
+		<isNotEmpty property="startTbrq">
+			<![CDATA[and t.sendTime >= :startTbrq]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTbrq">
+			<![CDATA[and t.sendTime <= :endTbrq]]>
+		</isNotEmpty>
+		<isNotEmpty property="startBgwc">
+			<![CDATA[and t.bgwcDate >= :startBgwc]]>
+		</isNotEmpty>
+		<isNotEmpty property="endBgwc">
+			<![CDATA[and t.bgwcDate <= :endBgwc]]>
+		</isNotEmpty>
+		<isNotEmpty property="startBgsb">
+			<![CDATA[and t.bgsbDate >= :startBgsb]]>
+		</isNotEmpty>
+		<isNotEmpty property="endBgsb">
+			<![CDATA[and t.bgsbDate <= :endBgsb]]>
+		</isNotEmpty>
+		<isNotEmpty property="pjjg">
+			<![CDATA[and t.pjjg = :pjjg]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+</sqlMap>

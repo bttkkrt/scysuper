@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findTeaLeaTraByMap">
+		select new com.jshx.bzzpx.entity.TeaLeaTra(t.id, t.areaName, t.companyName, t.trainingWorkshopName, t.trainingName, t.trainingCardnum, t.trainingTime,t.trainingTimeEnd) from TeaLeaTra t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="startTrainingTime">
+			<![CDATA[and t.trainingTime >= :startTrainingTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTrainingTime">
+			<![CDATA[and t.trainingTime <= :endTrainingTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="startTrainingTimeEnd">
+			<![CDATA[and t.trainingTimeEnd >= :startTrainingTimeEnd]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTrainingTimeEnd">
+			<![CDATA[and t.trainingTimeEnd <= :endTrainingTimeEnd]]>
+		</isNotEmpty>
+		<isNotEmpty property="trainingName">
+			<![CDATA[and t.trainingName like :trainingName]]>
+		</isNotEmpty>
+		<isNotEmpty property="trainingCardnum">
+			<![CDATA[and t.trainingCardnum like :trainingCardnum]]>
+		</isNotEmpty>
+		<isNotEmpty property="trainingWorkshopName">
+			<![CDATA[and t.trainingWorkshopName like :trainingWorkshopName]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="searchLike">
+			<![CDATA[and (t.companyName like :searchLike   or t.trainingName like :searchLike or t.trainingWorkshopName like :searchLike)]]>
+		</isNotEmpty>
+		order by t.trainingTime desc 
+	</select>
+</sqlMap>

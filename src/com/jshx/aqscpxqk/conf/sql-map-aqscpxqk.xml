@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findAqscpxqkByMap">
+		select new com.jshx.aqscpxqk.entity.Aqscpxqk(t.id, t.monthTime, t.areaName) from Aqscpxqk t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startMonthTime">
+			<![CDATA[and t.monthTime >= :startMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endMonthTime">
+			<![CDATA[and t.monthTime <= :endMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getAqscpxqkListByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqscpxqk.entity.AqscpxqkBean">
+	 SELECT DISTINCT t.area_name as data1,
+     sum(cast(t.zyfzr as int))as data2,
+     sum(cast(t.aqglry as int))as data3,
+     sum(cast(t.zyws as int))as data4, 
+     sum(cast(t.zyws as int))as data5, 
+     sum(cast(t.tzzyry as int))as data6
+     from AQSCPXQK t where t.delflag=0
+      <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+     group by t.area_name
+	</select>
+	
+	<select id="getTotalAqscpxqkListByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqscpxqk.entity.AqscpxqkBean">
+	SELECT 
+     sum(cast(t.zyfzr as int))as data2,
+     sum(cast(t.aqglry as int))as data3,
+     sum(cast(t.zyws as int))as data4, 
+     sum(cast(t.zyws as int))as data5, 
+     sum(cast(t.tzzyry as int))as data6
+     from AQSCPXQK t where t.delflag=0
+     <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+	</select>
+	
+	
+</sqlMap>

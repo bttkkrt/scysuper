@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZYWSJBXX" extends="default" namespace="/jsp/zywsjbxx">
+
+		<!-- add by  高强      13年11月20  列表查询，返回Json数据 -->
+		<action name="zywsjbxxQuery" class="com.jshx.zywsjbxx.web.ZywsjbxxAction" method="list">
+		</action>
+		
+		<action name="zywsjbxxList" class="com.jshx.zywsjbxx.web.ZywsjbxxAction" method="initlist">
+			<result name="success">/WEB-INF/pages/zywsjbxx/Zywsjbxx_List.jsp</result>
+		</action>
+		
+		<action name="zywsjbxxView" class="com.jshx.zywsjbxx.web.ZywsjbxxAction" method="view">
+			<result name="view">/WEB-INF/pages/zywsjbxx/Zywsjbxx_Detail.jsp</result>
+		</action>
+
+		<action name="zywsjbxxInitEdit" class="com.jshx.zywsjbxx.web.ZywsjbxxAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zywsjbxx/Zywsjbxx_Edit.jsp</result>
+		</action>
+
+		<action name="zywsjbxxSave" class="com.jshx.zywsjbxx.web.ZywsjbxxAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToZyws.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zywsjbxxDel" class="com.jshx.zywsjbxx.web.ZywsjbxxAction" method="delete">
+		</action>
+		<!-- add by  高强      13年11月21  根据id删除管理人员信息，返回Json数据 -->
+		<action name="zywsglryDel" class="com.jshx.zywsjbxx.web.ZywsjbxxAction" method="zywsglryDel">
+		</action>
+		<!-- add by  高强      13年11月26  查询职业病危害企业统计列表页面 -->
+		<action name="zywsjbxxCountList" class="com.jshx.zywsjbxx.web.ZywsjbxxAction" method="countlist">
+			<result name="success">/WEB-INF/pages/zywsjbxx/Zywsjbxx_CountList.jsp</result>
+		</action>
+		<!-- add by  陆婷    2013-12-3 职业病危害企业统计导出 -->
+		<action name="zywsjbxxCountListExport" class="com.jshx.zywsjbxx.web.ZywsjbxxAction" method="countlistExport">
+		</action>
+	</package>
+</struts>

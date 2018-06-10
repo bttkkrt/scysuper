@@ -1,0 +1,5 @@
+addListElementDetail="%FieldDisplayName%:"+$("#%ObjectName%AddPage input[name=%FieldName%]").val()+"<br>"
+form=%FieldDisplayName%:<input type="text" name="%FieldName%">
+listElementDetail="%FieldDisplayName%:"+%ObjectName%s[i].%FieldName%+"<br>"
+objectDetail="%FieldDisplayName%:"+%ObjectName%.%FieldName%+"<br>"
+localElementDetail="%FieldDisplayName%:"+new%ClassName%.%FieldName%+"<br>"

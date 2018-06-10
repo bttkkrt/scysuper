@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title></title>
+	<link rel="stylesheet" type="text/css" href="../../resources/jquery_mobile_1.0b1/jquery.mobile-1.0b1.min.css" />
+	<script type="text/javascript" src="../../resources/jquery-1.6.1.min.js"></script>
+	<script type="text/javascript" src="../../resources/jquery_mobile_1.0b1/jquery.mobile-1.0b1.min.js"></script>
+	<script type="text/javascript" src="../../resources/mobile-common.js"></script>
+</head>
+<body>
+	<div data-role="page" id="%ObjectName%ListPage">
+		<script>
+			initPage();
+			$("#%ObjectName%ListPage").live("pagebeforeshow", list%ClassName%s);
+			function list%ClassName%s(page){
+				if(window.keepList){
+					window.keepList=false;
+					return;
+				}
+				page=(typeof page=="number")?page:1;
+				$("#%ObjectName%List").empty();
+				$.ajax({
+                	url:window.serverUrl+"/mobile/%ObjectName%/list%ClassName%s.action?callback=?&pagesize=8&page="+page,
+                	async: false,
+                	type:"GET",
+                	dataType:"jsonp",
+               		success:list%ClassName%sSuccess
+             	});
+             	window.pageNum=page;
+			}
+			function list%ClassName%sSuccess(data){
+				var jsonPage=data;
+				window.pageCount=jsonPage.pageCount||1;
+				var %ObjectName%s=jsonPage.results;
+				if(!%ObjectName%s||!%ObjectName%s.length){
+					$("#%ObjectName%List")[0].innerHTML="没有可以显示的数据！";
+				}
+				var $list=$("#%ObjectName%List");
+				for(var i=0;i<%ObjectName%s.length;i++){
+					var %ObjectName%Detail=%ListElementDetail%;
+					var $li=create$li(%ObjectName%Detail,"none");
+					$li.data("data",%ObjectName%s[i]);
+					$li.click(function(e){
+						$(e.currentTarget).addClass("jshx-selected");
+						show%ClassName%();
+					});
+					$li.appendTo($list);
+				}
+			}
+			function show%ClassName%(){
+				$.mobile.changePage("../%ObjectName%/%ObjectName%_detail.html");
+			}
+		</script>
+		<div data-role="header" data-theme="b" data-position="fixed">
+			<h1>%ClassDisplayName%查询</h1>
+		</div>
+		<div data-role="content">
+			<div data-role="fieldcontain" style="border-bottom-style: none; padding-top: 0em;">
+				<ul data-role="listview" id="%ObjectName%List">
+				</ul>
+			</div>
+			<div align="center">
+				<button data-icon="arrow-u" data-iconpos="notext" onclick="firstPage(list%ClassName%s);"></button>
+				<button data-icon="arrow-l" data-iconpos="notext" onclick="prevPage(list%ClassName%s);"></button>
+				<button data-icon="arrow-r" data-iconpos="notext" onclick="nextPage(list%ClassName%s);"></button>
+				<button data-icon="arrow-d" data-iconpos="notext" onclick="lastPage(list%ClassName%s);"></button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

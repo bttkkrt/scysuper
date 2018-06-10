@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MAT_INF" extends="default" namespace="/jsp/swwzxx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="matInfQuery" class="com.jshx.swwzxx.web.MatInfAction" method="list">
+		</action>
+		
+		<action name="matInfList" class="com.jshx.swwzxx.web.MatInfAction" method="init">
+			<result name="success">/WEB-INF/pages/swwzxx/MatInf_List.jsp</result>
+		</action>
+		
+		<action name="matInfView" class="com.jshx.swwzxx.web.MatInfAction" method="view">
+			<result name="view">/WEB-INF/pages/swwzxx/MatInf_Detail.jsp</result>
+		</action>
+
+		<action name="matInfInitEdit" class="com.jshx.swwzxx.web.MatInfAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/swwzxx/MatInf_Edit.jsp</result>
+		</action>
+
+		<action name="matInfSave" class="com.jshx.swwzxx.web.MatInfAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_matInf</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="matInfDel" class="com.jshx.swwzxx.web.MatInfAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

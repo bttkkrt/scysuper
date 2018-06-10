@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CHE_MAN_LIC" extends="default" namespace="/jsp/whpxzxk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="cheManLicQuery" class="com.jshx.whpxzxk.web.CheManLicAction" method="list">
+		</action>
+		
+		<action name="cheManLicList" class="com.jshx.whpxzxk.web.CheManLicAction" method="init">
+			<result name="success">/WEB-INF/pages/whpxzxk/CheManLic_List.jsp</result>
+		</action>
+		
+		<action name="cheManLicView" class="com.jshx.whpxzxk.web.CheManLicAction" method="view">
+			<result name="view">/WEB-INF/pages/whpxzxk/CheManLic_Detail.jsp</result>
+		</action>
+
+		<action name="cheManLicInitEdit" class="com.jshx.whpxzxk.web.CheManLicAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/whpxzxk/CheManLic_Edit.jsp</result>
+		</action>
+
+		<action name="cheManLicSave" class="com.jshx.whpxzxk.web.CheManLicAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_cheManLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="cheManLicDel" class="com.jshx.whpxzxk.web.CheManLicAction" method="delete">
+		</action>
+			<action name="cheManLicCheck" class="com.jshx.whpxzxk.web.CheManLicAction" method="check">
+			<result name="check">/WEB-INF/pages/whpxzxk/CheManLic_Check.jsp</result>
+		</action>
+		
+		<action name="cheManLicCheckSave" class="com.jshx.whpxzxk.web.CheManLicAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_cheManLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+	</package>
+</struts>

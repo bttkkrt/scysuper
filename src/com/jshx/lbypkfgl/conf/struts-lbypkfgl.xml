@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PPE_WARE_MANAG" extends="default" namespace="/jsp/lbypkfgl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="ppeWareManagQuery" class="com.jshx.lbypkfgl.web.PpeWareManagAction" method="list">
+		</action>
+		
+		<action name="ppeWareManagList" class="com.jshx.lbypkfgl.web.PpeWareManagAction" method="init">
+			<result name="success">/WEB-INF/pages/lbypkfgl/PpeWareManag_List.jsp</result>
+		</action>
+		
+		<action name="ppeWareManagView" class="com.jshx.lbypkfgl.web.PpeWareManagAction" method="view">
+			<result name="view">/WEB-INF/pages/lbypkfgl/PpeWareManag_Detail.jsp</result>
+		</action>
+
+		<action name="ppeWareManagInitEdit" class="com.jshx.lbypkfgl.web.PpeWareManagAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/lbypkfgl/PpeWareManag_Edit.jsp</result>
+		</action>
+
+		<action name="ppeWareManagSave" class="com.jshx.lbypkfgl.web.PpeWareManagAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_ppeWareManag</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="ppeWareManagDel" class="com.jshx.lbypkfgl.web.PpeWareManagAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

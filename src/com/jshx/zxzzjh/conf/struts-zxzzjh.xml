@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="REC_PLA" extends="default" namespace="/jsp/zxzzjh">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="recPlaQuery" class="com.jshx.zxzzjh.web.RecPlaAction" method="list">
+		</action>
+		
+		<action name="recPlaList" class="com.jshx.zxzzjh.web.RecPlaAction" method="init">
+			<result name="success">/WEB-INF/pages/zxzzjh/RecPla_List.jsp</result>
+		</action>
+		
+		<action name="recPlaView" class="com.jshx.zxzzjh.web.RecPlaAction" method="view">
+			<result name="view">/WEB-INF/pages/zxzzjh/RecPla_Detail.jsp</result>
+		</action>
+
+		<action name="recPlaInitEdit" class="com.jshx.zxzzjh.web.RecPlaAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zxzzjh/RecPla_Edit.jsp</result>
+		</action>
+
+		<action name="recPlaSave" class="com.jshx.zxzzjh.web.RecPlaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_recPla</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="recPlaDel" class="com.jshx.zxzzjh.web.RecPlaAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

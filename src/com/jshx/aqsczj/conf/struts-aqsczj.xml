@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SEC_PRO_MAJ" extends="default" namespace="/jsp/aqsczj">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="secProMajQuery" class="com.jshx.aqsczj.web.SecProMajAction" method="list">
+		</action>
+		
+		<action name="secProMajList" class="com.jshx.aqsczj.web.SecProMajAction" method="init">
+			<result name="success">/WEB-INF/pages/aqsczj/SecProMaj_List.jsp</result>
+		</action>
+		
+		<action name="secProMajLists" class="com.jshx.aqsczj.web.SecProMajAction" method="init">
+			<result name="success">/WEB-INF/pages/aqsczj/SecProMaj_Lists.jsp</result>
+		</action>
+		
+		<action name="secProMajView" class="com.jshx.aqsczj.web.SecProMajAction" method="view">
+			<result name="view">/WEB-INF/pages/aqsczj/SecProMaj_Detail.jsp</result>
+		</action>
+
+		<action name="secProMajInitEdit" class="com.jshx.aqsczj.web.SecProMajAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqsczj/SecProMaj_Edit.jsp</result>
+		</action>
+
+		<action name="secProMajSave" class="com.jshx.aqsczj.web.SecProMajAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_secProMaj</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProMajDel" class="com.jshx.aqsczj.web.SecProMajAction" method="delete">
+		</action>
+		
+		
+		<action name="sendInfo" class="com.jshx.aqsczj.web.SecProMajAction" method="sendInfo">
+		</action>
+	</package>
+</struts>

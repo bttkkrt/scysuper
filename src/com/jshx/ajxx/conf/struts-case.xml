@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CASE_INFO" extends="default" namespace="/jsp/case">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="caseInfoQuery" class="com.jshx.ajxx.web.CaseInfoAction" method="list">
+		</action>
+		
+		<action name="caseInfoList" class="com.jshx.ajxx.web.CaseInfoAction" method="init">
+			<result name="success">/WEB-INF/pages/case/CaseInfo_List.jsp</result>
+		</action>
+		
+		<action name="caseInfoLists">
+			<result name="success">/WEB-INF/pages/case/CaseInfo_Lists.jsp</result>
+		</action>
+		
+		<action name="caseInfoView" class="com.jshx.ajxx.web.CaseInfoAction" method="view">
+			<result name="view">/WEB-INF/pages/case/CaseInfo_Detail.jsp</result>
+		</action>
+
+		<action name="caseInfoInitEdit" class="com.jshx.ajxx.web.CaseInfoAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/case/CaseInfo_Edit.jsp</result>
+		</action>
+
+		<action name="caseInfoSave" class="com.jshx.ajxx.web.CaseInfoAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_caseInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="caseInfoDel" class="com.jshx.ajxx.web.CaseInfoAction" method="delete">
+		</action>
+		
+		<action name="caseInfoShenhe" class="com.jshx.ajxx.web.CaseInfoAction" method="shenhe">
+			<result name="success">/WEB-INF/pages/case/CaseInfo_Shenhe.jsp</result>
+		</action>
+		
+		
+		<action name="caseInfoShenheSave" class="com.jshx.ajxx.web.CaseInfoAction" method="shenheSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_caseInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		<action name="caseInfoGuidang" class="com.jshx.ajxx.web.CaseInfoAction" method="guidnag">
+			<result name="success">/WEB-INF/pages/case/CaseInfo_Guidang.jsp</result>
+		</action>
+		
+		
+		<action name="caseInfoShenheAll" class="com.jshx.ajxx.web.CaseInfoAction" method="shenheAll">
+			<result name="success">/WEB-INF/pages/case/CaseInfo_ShenheAll.jsp</result>
+		</action>
+		
+		
+		<action name="caseInfoShenheAllSave" class="com.jshx.ajxx.web.CaseInfoAction" method="shenheAllSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_caseInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		
+		<action name="caseInfoGuidangSave" class="com.jshx.ajxx.web.CaseInfoAction" method="guidnagSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_caseInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="downloadAllFile" class="com.jshx.ajxx.web.CaseInfoAction" method="downloadAllFile">
+		</action>
+		
+		<action name="initUploadFile" class="com.jshx.ajxx.web.CaseInfoAction" method="initUploadFile">
+			<result name="success">/WEB-INF/pages/case/CaseCl_List.jsp</result>
+		</action>
+		
+		<action name="uploadFileList" class="com.jshx.ajxx.web.CaseInfoAction" method="uploadFileList">
+		</action>
+		
+		<action name="uploadFileView" class="com.jshx.ajxx.web.CaseInfoAction" method="uploadFileView">
+			<result name="view">/WEB-INF/pages/case/CaseCl_Detail.jsp</result>
+		</action>
+
+		<action name="uploadFileInitEdit" class="com.jshx.ajxx.web.CaseInfoAction" method="uploadFileInitEdit">
+			<result name="edit">/WEB-INF/pages/case/CaseCl_Edit.jsp</result>
+		</action>
+		
+		<action name="saveUploadFile" class="com.jshx.ajxx.web.CaseInfoAction" method="saveUploadFile">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_caseCl</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="uploadFileDel" class="com.jshx.ajxx.web.CaseInfoAction" method="deleteUploadFile">
+		</action>
+		
+		
+		<action name="initUploadZjlb" class="com.jshx.ajxx.web.CaseInfoAction" method="initUploadZjlb">
+			<result name="success">/WEB-INF/pages/case/CaseZj_List.jsp</result>
+		</action>
+		
+		<action name="uploadZjlbList" class="com.jshx.ajxx.web.CaseInfoAction" method="uploadZjlbList">
+		</action>
+		
+		<action name="uploadZjlbView" class="com.jshx.ajxx.web.CaseInfoAction" method="uploadZjlbView">
+			<result name="view">/WEB-INF/pages/case/CaseZj_Detail.jsp</result>
+		</action>
+
+		<action name="uploadZjlbInitEdit" class="com.jshx.ajxx.web.CaseInfoAction" method="uploadZjlbInitEdit">
+			<result name="edit">/WEB-INF/pages/case/CaseZj_Edit.jsp</result>
+		</action>
+		
+		<action name="saveUploadZjlb" class="com.jshx.ajxx.web.CaseInfoAction" method="saveUploadZjlb">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_caseZj</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="uploadZjlbDel" class="com.jshx.ajxx.web.CaseInfoAction" method="deleteUploadZjlb">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PRO_COM" extends="default" namespace="/jsp/qyaqsccn">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="proComQuery" class="com.jshx.qyaqsccn.web.ProComAction" method="list">
+		</action>
+		
+		<action name="proComList" class="com.jshx.qyaqsccn.web.ProComAction" method="init">
+			<result name="success">/WEB-INF/pages/qyaqsccn/ProCom_List.jsp</result>
+		</action>
+		
+		<action name="proComView" class="com.jshx.qyaqsccn.web.ProComAction" method="view">
+			<result name="view">/WEB-INF/pages/qyaqsccn/ProCom_Detail.jsp</result>
+		</action>
+
+		<action name="proComInitEdit" class="com.jshx.qyaqsccn.web.ProComAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/qyaqsccn/ProCom_Edit.jsp</result>
+		</action>
+
+		<action name="proComSave" class="com.jshx.qyaqsccn.web.ProComAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_proCom</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proComDel" class="com.jshx.qyaqsccn.web.ProComAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

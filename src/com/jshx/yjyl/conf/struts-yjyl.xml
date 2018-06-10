@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="EME_DRI" extends="default" namespace="/jsp/yjyl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="emeDriQuery" class="com.jshx.yjyl.web.EmeDriAction" method="list">
+		</action>
+		
+		<action name="emeDriList" class="com.jshx.yjyl.web.EmeDriAction" method="init">
+			<result name="success">/WEB-INF/pages/yjyl/EmeDri_List.jsp</result>
+		</action>
+		
+		<action name="emeDriView" class="com.jshx.yjyl.web.EmeDriAction" method="view">
+			<result name="view">/WEB-INF/pages/yjyl/EmeDri_Detail.jsp</result>
+		</action>
+
+		<action name="emeDriInitEdit" class="com.jshx.yjyl.web.EmeDriAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/yjyl/EmeDri_Edit.jsp</result>
+		</action>
+
+		<action name="emeDriSave" class="com.jshx.yjyl.web.EmeDriAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_emeDri</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="emeDriDel" class="com.jshx.yjyl.web.EmeDriAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

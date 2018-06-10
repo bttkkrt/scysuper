@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MAJORDOMO_TRAINING" extends="default" namespace="/jsp/aqsczjpx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="majordomoTrainingQuery" class="com.jshx.aqsczjpx.web.MajordomoTrainingAction" method="list">
+		</action>
+		
+		<action name="majordomoTrainingList" class="com.jshx.aqsczjpx.web.MajordomoTrainingAction" method="init">
+			<result name="success">/WEB-INF/pages/aqsczjpx/MajordomoTraining_List.jsp</result>
+		</action>
+		
+		<action name="majordomoTrainingView" class="com.jshx.aqsczjpx.web.MajordomoTrainingAction" method="view">
+			<result name="view">/WEB-INF/pages/aqsczjpx/MajordomoTraining_Detail.jsp</result>
+		</action>
+
+		<action name="majordomoTrainingInitEdit" class="com.jshx.aqsczjpx.web.MajordomoTrainingAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqsczjpx/MajordomoTraining_Edit.jsp</result>
+		</action>
+
+		<action name="majordomoTrainingSave" class="com.jshx.aqsczjpx.web.MajordomoTrainingAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_majordomoTraining</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="majordomoTrainingDel" class="com.jshx.aqsczjpx.web.MajordomoTrainingAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/WebRoot/h-ui/lib/Highcharts/4.1.7/exporting-server/java/highcharts-export/highcharts-export-convert/src/main" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/WebRoot/h-ui/lib/Highcharts/4.1.7/exporting-server/java/highcharts-export/highcharts-export-web/src/main" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/WebRoot/h-ui/lib/Highcharts/4.1.7/exporting-server/java/highcharts-export/highcharts-export-web/target/tmp" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/WebRoot/h-ui/lib/ueditor/1.4.3/jsp" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/WebRoot/indexPage/js/datatables/extras/TableTools/media" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/WebRoot/webResources/webuploader-master/flash" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/out/production/fsajj/h-ui/lib/Highcharts/4.1.7/exporting-server/java/highcharts-export/highcharts-export-convert/src/main" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/out/production/fsajj/h-ui/lib/Highcharts/4.1.7/exporting-server/java/highcharts-export/highcharts-export-web/src/main" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/out/production/fsajj/h-ui/lib/Highcharts/4.1.7/exporting-server/java/highcharts-export/highcharts-export-web/target/tmp" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/out/production/fsajj/h-ui/lib/ueditor/1.4.3/jsp" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/out/production/fsajj/indexPage/js/datatables/extras/TableTools/media" vcs="svn" />
+    <mapping directory="$PROJECT_DIR$/out/production/fsajj/webResources/webuploader-master/flash" vcs="svn" />
+  </component>
+</project>

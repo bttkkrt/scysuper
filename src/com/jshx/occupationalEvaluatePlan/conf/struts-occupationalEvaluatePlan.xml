@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="OCCUPATIONAL_EVALUATE_PLAN" extends="default" namespace="/jsp/occupationalEvaluatePlan">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="occupationalEvaluatePlanQuery" class="com.jshx.occupationalEvaluatePlan.web.OccupationalEvaluatePlanAction" method="list">
+		</action>
+		
+		<action name="occupationalEvaluatePlanList" class="com.jshx.occupationalEvaluatePlan.web.OccupationalEvaluatePlanAction" method="init">
+			<result name="success">/WEB-INF/pages/occupationalEvaluatePlan/OccupationalEvaluatePlan_List.jsp</result>
+		</action>
+		
+		<action name="occupationalEvaluatePlanView" class="com.jshx.occupationalEvaluatePlan.web.OccupationalEvaluatePlanAction" method="view">
+			<result name="view">/WEB-INF/pages/occupationalEvaluatePlan/OccupationalEvaluatePlan_Detail.jsp</result>
+		</action>
+
+		<action name="occupationalEvaluatePlanInitEdit" class="com.jshx.occupationalEvaluatePlan.web.OccupationalEvaluatePlanAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/occupationalEvaluatePlan/OccupationalEvaluatePlan_Edit.jsp</result>
+		</action>
+
+		<action name="occupationalEvaluatePlanSave" class="com.jshx.occupationalEvaluatePlan.web.OccupationalEvaluatePlanAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occupationalEvaluatePlanDel" class="com.jshx.occupationalEvaluatePlan.web.OccupationalEvaluatePlanAction" method="delete">
+		</action>
+		
+		<action name="occupationalEvaluatePlanPrint" class="com.jshx.occupationalEvaluatePlan.web.OccupationalEvaluatePlanAction" method="print">
+			<result name="success">/WEB-INF/pages/occupationalEvaluatePlan/OccupationalEvaluatePlan_Print.jsp</result>
+		</action>
+		
+		<action name="occupationalEvaluatePlanUpload" class="com.jshx.occupationalEvaluatePlan.web.OccupationalEvaluatePlanAction" method="upload">
+			<result name="success">/WEB-INF/pages/occupationalEvaluatePlan/OccupationalEvaluatePlan_upload.jsp</result>
+		</action>
+		<action name="occupationalEvaluatePlanSavePhoto" class="com.jshx.occupationalEvaluatePlan.web.OccupationalEvaluatePlanAction" method="savePhoto">
+		</action>
+		<action name="occupationalEvaluatePlanImageDel" class="com.jshx.occupationalEvaluatePlan.web.OccupationalEvaluatePlanAction" method="deleteImage">
+		</action>
+		<action name="occupationalEvaluatePlanSaveFile" class="com.jshx.occupationalEvaluatePlan.web.OccupationalEvaluatePlanAction" method="saveFile">
+		</action>
+	</package>
+</struts>

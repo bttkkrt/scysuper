@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CASE_PROCESS_APPROVAL" extends="default" namespace="/jsp/ajclcpb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="caseProcessApprovalQuery" class="com.jshx.ajclcpb.web.CaseProcessApprovalAction" method="list">
+		</action>
+		
+		<action name="caseProcessApprovalList" class="com.jshx.ajclcpb.web.CaseProcessApprovalAction" method="init">
+			<result name="success">/WEB-INF/pages/ajclcpb/CaseProcessApproval_List.jsp</result>
+		</action>
+		
+		<action name="caseProcessApprovalView" class="com.jshx.ajclcpb.web.CaseProcessApprovalAction" method="view">
+			<result name="view">/WEB-INF/pages/ajclcpb/CaseProcessApproval_Detail.jsp</result>
+		</action>
+
+		<action name="caseProcessApprovalInitEdit" class="com.jshx.ajclcpb.web.CaseProcessApprovalAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/ajclcpb/CaseProcessApproval_Edit.jsp</result>
+		</action>
+
+		<action name="caseProcessApprovalSave" class="com.jshx.ajclcpb.web.CaseProcessApprovalAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_caseProcessApproval</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="caseProcessApprovalDel" class="com.jshx.ajclcpb.web.CaseProcessApprovalAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="COM_OPE_RUL" extends="default" namespace="/jsp/zdwxyczgc">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="comOpeRulQuery" class="com.jshx.zdwxyczgc.web.ComOpeRulAction" method="list">
+		</action>
+		
+		<action name="comOpeRulList" class="com.jshx.zdwxyczgc.web.ComOpeRulAction" method="init">
+			<result name="success">/WEB-INF/pages/zdwxyczgc/ComOpeRul_List.jsp</result>
+		</action>
+		
+		<action name="comOpeRulView" class="com.jshx.zdwxyczgc.web.ComOpeRulAction" method="view">
+			<result name="view">/WEB-INF/pages/zdwxyczgc/ComOpeRul_Detail.jsp</result>
+		</action>
+
+		<action name="comOpeRulInitEdit" class="com.jshx.zdwxyczgc.web.ComOpeRulAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zdwxyczgc/ComOpeRul_Edit.jsp</result>
+		</action>
+
+		<action name="comOpeRulSave" class="com.jshx.zdwxyczgc.web.ComOpeRulAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_comOpeRul</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="comOpeRulDel" class="com.jshx.zdwxyczgc.web.ComOpeRulAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

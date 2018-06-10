@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findDetOverStaManByMap">
+		select new com.jshx.jccbgl.entity.DetOverStaMan(t.id, t.areaName,t.companyName,t.detectionCategory,t.detectionMechanism) from DetOverStaMan t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName = :areaName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="sampleEncoding">
+			<![CDATA[and t.sampleEncoding like :sampleEncoding]]>
+		</isNotEmpty>
+		<isNotEmpty property="detectionCategory">
+			<![CDATA[and t.detectionCategory = :detectionCategory]]>
+		</isNotEmpty>
+		<isNotEmpty property="testItems">
+			<![CDATA[and t.testItems like :testItems]]>
+		</isNotEmpty>
+		<isNotEmpty property="detectionMechanism">
+			<![CDATA[and t.detectionMechanism like :detectionMechanism]]>
+		</isNotEmpty>
+			<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="searchLike">
+			<![CDATA[and ( t.companyName like :searchLike or  t.detectionMechanism like :searchLike )]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+</sqlMap>

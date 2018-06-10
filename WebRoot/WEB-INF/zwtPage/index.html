@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>政务通UI模版 V1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <link href="css/chosen.min.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="css/sipac.css" rel="stylesheet">
+    <!--[if lt IE 8]>
+    <![endif]-->
+</head>
+<body>
+<!-- Wrap all page content here -->
+	<div class="sipac_wrap">
+<!-- head style -->
+    	<div class="sipac_head">
+        	<a href="index.html" class="s_h_logo"><i></i><span>管理系统名称</span></a>
+            <div class="sipac_rtbox">
+                <ul class="sipac_adminbox">
+                    <li style="display:none;">
+                		<a class="help" title="帮助" href="#"></a>
+                	</li>
+                	<li>
+                		<a class="manage" title="管理" href="#"></a>
+                        <div class="dropdown_nav">
+                        	<em></em>
+                            <ul>
+                            	<li class="frame_Btn">
+                                <a class="f_more hide" href="javascript:void(0);">展开菜单</a><a class="f_less"  href="javascript:void(0);">隐藏菜单</a></li>
+                            	<li><a href="#">帮助</a></li>
+                            </ul>
+                        </div>
+                	</li>
+                </ul>
+            	<div class="sipac_searchbar"><input class="s_s_text" type="text" value="搜索相关信息"><input class="s_s_btn" type="submit"><!--a href="#" class="s_s_morebtn"></a--></div>
+            </div>
+    	</div>
+
+<!-- body style -->
+        <div class="sipac_body">
+        	<div class="sipac_menu">
+            	<ul>
+                	<li>
+                    	<a class="m_icon m_i_0" href="index.html"></a>
+                        <div class="dropdown_nav">
+                         <a class="s_m_tit" href="index.html">返回主界面</a>
+                        </div>
+                    </li>
+                	<!--li>
+                    	<a class="m_icon m_i_1" href="style_guide.html"></a>
+                        <div class="dropdown_nav">
+                        	<a class="s_m_tit" href="style_guide.html">样式规范</a>
+                        	<ul>
+                        	<li><a href="">图标</a></li>
+                        	<li><a href="">按钮</a></li>
+                        	</ul>
+                        </div>
+                    </li-->
+                	<li>
+                    	<a class="m_icon m_i_2" href="search_table.html"></a>
+                        <div class="dropdown_nav">
+                         <a class="s_m_tit" href="search_table.html">例：表格+搜索</a>
+                        </div>
+                    </li>
+                	<li>
+                    	<a class="m_icon m_i_3" href="form.html"></a>
+                        <div class="dropdown_nav">
+                         <a class="s_m_tit" href="form.html">例：表单示例</a>
+                        </div>
+                    </li>
+                	<li>
+                    	<a class="m_icon m_i_4" href="simple_page.html"></a>
+                        <div class="dropdown_nav">
+                         <a class="s_m_tit" href="simple_page.html">例：简洁框架</a>
+                        </div>
+                    </li>
+                </ul>
+                
+            </div>
+            <div class="sipac_container">
+            	<div class="s_cont_box">
+                    <div class="s_cont_tit"><h2>为统一用户体验，本套模板将用于园区政务通UI系统展示，以方便各应用开发人员使用。
+    设计还在不断优化中，期待您的宝贵意见！</h2></div>
+                </div>
+            	<div class="s_cont_box">
+                	<div class="s_cont_tit"><h1>按钮</h1></div>
+                	<div class="s_cont_tit"><h2>表单按钮</h2></div>
+                    <div class="s_cont_detail clearfix">
+                    <button class="sipac_btn s_b_submit">确认</button>
+                    <button class="sipac_btn s_b_cancel">取消</button>
+                    <button class="sipac_btn s_b_save">保存</button>
+                    <button class="sipac_btn" disabled>禁用</button>
+                    </div>
+                	<div class="s_cont_tit"><h2>表格按钮</h2></div>
+                    <div class="s_t_control">
+                            	<a class="s_t_Btn stb_1" href="#">编辑</a>
+                                <a class="s_t_Btn stb_2" href="#">删除</a>
+                            </div>
+				</div>
+            	<div class="s_cont_box">
+                	<div class="s_cont_tit"><h1>菜单</h1></div>
+                    <div class="s_cont_tit"><h2>表单操作菜单</h2></div>
+                    <div class="s_cont_detail clearfix">
+                        <div class="sipac_table_menu">
+                            <a href="#">新建</a><em></em><a href="#">修改</a><em></em><a href="#">批量删除</a><em></em><a href="#">通过</a><em></em><a href="#">禁用</a><em></em><a href="#">启用</a><em></em><a href="#">刷新</a>
+                        </div>
+                    </div>
+               </div>
+            	<div class="s_cont_box">
+                	<div class="s_cont_tit"><h1>折叠标签页</h1></div>
+                    <div class="s_cont_detail clearfix">
+                    	<div class="sipac_selectbox">
+                            <div class="s_sb_nav"><a class="active" href="#">基本信息</a><a href="#">相关信息</a><a href="#">栏目信息</a></div>
+                            <div class="s_sb_cont">
+                            </div>
+                        </div>
+                    </div>
+				</div>
+            	<div class="s_cont_box">
+                	<div class="s_cont_tit"><h1>提示/弹出框</h1></div>
+                    <div class="s_cont_detail clearfix">
+                    <button id="popupBtn" class="sipac_btn s_b_submit">点我点我</button>
+                    </div>
+				</div>
+            	<div class="s_cont_box">
+                	<div class="s_cont_tit"><h1>提醒/错误提示</h1></div>
+                    <div class="s_cont_tit"><h2>提醒</h2></div>
+                    <div class="s_cont_detail clearfix">
+                        <p class="s_from_info s_from_alert"><span class="s_form_btn s_f_alert"></span>举个例子。</p>
+                    </div>
+                    <div class="s_cont_tit"><h2>错误</h2></div>
+                    <div class="s_cont_detail clearfix">
+                        <p class="s_from_info s_from_error"><span class="s_form_btn s_f_error"></span>举个例子。</p>
+                    </div>
+                    <div class="s_cont_tit"><h2>默认</h2></div>
+                    <div class="s_cont_detail clearfix">
+                        <p class="s_from_info"><span class="s_form_btn s_f_normal"></span>举个例子。</p>
+                    </div>
+                </div>
+            	<div class="s_cont_box">
+                	<div class="s_cont_tit"><h1>日期选择器</h1></div>
+                    <div class="s_cont_detail sipac_form">
+                        <div id="datetimepicker"></div>
+            		</div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--弹出框开始-->
+	<div class="sipac_shadow"></div>
+	<div class="sipac_popup">
+        <div class="s_p_tit"><h1>新建相关内容</h1>
+			<a class="close">×</a>
+        </div>
+        <div class="sipac_editbox sipac_form" style="width:500px;">
+        	<table>
+            	<tr><th>申请人</th>
+                	<td><input class="s_input" type="text" value="XXX"></td>
+                </tr>
+                <tr>
+                	<th>自定义</th>
+                	<td><input class="s_input" type="text" value="XXX"></td>
+                </tr>
+                <tr>
+                	<th>表单类型</th>
+                    <td><span class="s_radio"><input type="radio"><label>类型1</label></span><span class="s_radio"><input type="radio" class="s_radio"><label>类型1</label></span></td>
+                </tr>
+                <tr>
+                	<th></th>
+                    <td><button class="sipac_btn s_b_submit">确认</button><button class="sipac_btn s_b_cancel">取消</button></td>
+                </tr>
+             </table>
+    	</div>
+	</div>
+
+<!--弹出框结束-->
+</body>
+
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script><!-- 日期控件修改版 -->
+<script type="text/javascript" src="js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript">
+	$('#popupBtn').click(function(){
+		$('.sipac_popup').show();
+		$('.sipac_shadow').show();
+	$(".s_select").chosen({disable_search_threshold: 5});
+	$(".sipac_searchBox .chosen-container").width("90%");
+		popup();
+	 });
+	$('.sipac_popup .close').click(function(){
+		$('.sipac_popup').hide();
+		$('.sipac_shadow').hide();
+	});
+	$(window).resize(function() {
+		popup();
+	});
+	$(window).scroll(function() {
+		popup();
+	});
+	$('#datetimepicker').datetimepicker({
+        language:  'zh-CN',
+        showWeek: true,
+        firstDay: 1
+    });
+</script>
+</html>

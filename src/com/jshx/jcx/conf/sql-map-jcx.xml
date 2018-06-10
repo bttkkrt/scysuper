@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findCheIteByMap">
+		select new com.jshx.jcx.entity.CheIte(t.id, t.checkName, t.checkType) from CheIte t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="checkName">
+			<![CDATA[and t.checkName like :checkName]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkType">
+			<![CDATA[and t.checkType = :checkType]]>
+		</isNotEmpty>
+	</select>
+</sqlMap>

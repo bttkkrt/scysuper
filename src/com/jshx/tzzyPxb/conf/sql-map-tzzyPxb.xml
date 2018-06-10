@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findJshxTzzyPxbByMap">
+		from JshxTzzyPxb t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = :createUserID]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzname">
+			<![CDATA[and t.szzname = :szzname]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="personName">
+			<![CDATA[and t.personName like :personName]]>
+		</isNotEmpty>
+		<isNotEmpty property="xl">
+			<![CDATA[and t.xl = :xl]]>
+		</isNotEmpty>
+		<isNotEmpty property="tzzh">
+			<![CDATA[and t.tzzh like :tzzh]]>
+		</isNotEmpty>
+		<isNotEmpty property="sfz">
+			<![CDATA[and t.sfz like :sfz]]>
+		</isNotEmpty>
+		<isNotEmpty property="gz">
+			<![CDATA[and t.gz = :gz]]>
+		</isNotEmpty>
+		<isNotEmpty property="gzxl">
+			<![CDATA[and t.gzxl = :gzxl]]>
+		</isNotEmpty>
+		<isNotEmpty property="startPxsj">
+			<![CDATA[and t.sj >= :startPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPxsj">
+			<![CDATA[and t.sj <= :endPxsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="startYxq">
+			<![CDATA[and t.yxsj >= :startYxq]]>
+		</isNotEmpty>
+		<isNotEmpty property="endYxq">
+			<![CDATA[and t.yxsj <= :endYxq]]>
+		</isNotEmpty>
+		<isNotEmpty property="startLzrq">
+			<![CDATA[and t.lzrq >= :startLzrq]]>
+		</isNotEmpty>
+		<isNotEmpty property="endLzrq">
+			<![CDATA[and t.lzrq <= :endLzrq]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<![CDATA[and t.qylx = :qylx]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	<select id="getJshxTzzyPxbListByMap" parameterClass="java.util.Map" resultClass="com.jshx.tzzyPxb.entity.JshxTzzyPxb">
+		select distinct t.qyid,t.szzid,t.qymc,t.szzname from jshx_tzzy_pxb t where t.delflag = 0
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like #qymc#]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifwhpqylx">
+			<![CDATA[and t.ifwhpqylx = #ifwhpqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifzywhqylx">
+			<![CDATA[and t.ifzywhqylx = #ifzywhqylx#]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifyhbzjyqy">
+			<![CDATA[and t.ifyhbzjyqy = #ifyhbzjyqy#]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = #createUserID#]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = #szc#]]>
+		</isNotEmpty>
+	</select>
+	<update id="deleteTzzyByQyid" parameterClass="java.util.Map">
+	update jshx_tzzy_pxb t set t.delFlag = 1 where t.qyid = #qyid#
+	</update>
+</sqlMap>

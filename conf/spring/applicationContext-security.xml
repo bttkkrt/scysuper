@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+    <!--
+    <bean id="userDAO" class="com.jshx.module.admin.dao.impl.UserDAOImpl"></bean>
+    <bean id="moduleDaoImpl" class="com.jshx.module.admin.dao.impl.ModuleDaoImpl"></bean>
+    <bean id="userRightDaoImpl" class="com.jshx.module.admin.dao.impl.UserRightDaoImpl"></bean>
+    <bean id="quicklyStartDaoImpl" class="com.jshx.module.admin.dao.impl.QuicklyStartDaoImpl"></bean>
+    <bean id="moduleRightDaoImpl" class="com.jshx.module.admin.dao.impl.ModuleRightDaoImpl"></bean>
+    <bean id="permissionDaoImpl" class="com.jshx.module.admin.dao.impl.PermissionDaoImpl"></bean>
+    <bean id="userRoleDaoImpl" class="com.jshx.module.admin.dao.impl.UserRoleDaoImpl"></bean>
+    
+    <bean id="securityService" class="com.jshx.module.admin.service.impl.SecurityServiceImpl" >
+    	<property name="userDAO" ref="userDAO"></property>
+    	<property name="moduleDao" ref="moduleDaoImpl"></property>
+    	<property name="userRightDao" ref="userRightDaoImpl"></property>
+    	<property name="quicklyStartDao" ref="quicklyStartDaoImpl"></property>
+    	<property name="moduleRightDao" ref="moduleRightDaoImpl"></property>
+    	<property name="permissionDao" ref="permissionDaoImpl"></property>
+    	<property name="userRoleDao" ref="userRoleDaoImpl"></property>
+    </bean>
+    -->
+    
+	<!-- 权限配置 -->
+	<bean id="shiroFilter" class="com.jshx.module.admin.security.EdpShiroFilterFactoryBean" >
+		
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login.jsp"/> 
+		<property name="successUrl" value="/index.action"/>
+		<property name="unauthorizedUrl" value="/403.jsp"/> 
+		
+		<property name="filterChainDefinitions">
+			<value>				
+				/webResources/** = anon
+				/403.jsp** = anon
+				/userLogin.action** = anon
+				/qytLogin.action** = anon
+				/captcha.action** = anon
+				/activiti-modeler/service/** = authc
+				/navbar.action** = authc
+				/index.action** = authc
+				/findQuicklyStartTree.action** = authc
+				/jsp/admin/form/formTableInitList.action** = authc
+				/index/** = authc
+				/admininex.action** = authc				
+				/logout.action** = anon
+				/jsp/company/companyRegisterUI.action** = anon
+				/jsp/company/companyRegisterNextUI.action** = anon
+				/jsp/company/companyRegister.action** = anon
+				/jsp/company/isCompanyExsit.action** = anon
+				/jsp/company/hyflTwoLevel.action** = anon
+				/jsp/company/hyflThreeLevel.action** = anon
+				/jsp/company/hyflFourLevel.action** = anon
+				/jsp/company/companyQuerySzz.action** = anon
+				/jsp/qyjbxx/entBaseInfoRegister.action** = anon
+				/jsp/qyjbxx/entBaseInfoSaveRegister.action** = anon
+				/jsp/qyjbxx/entBaseInfoNextRegister.action** = anon
+				/jsp/qyjbxx/isUserExit.action** = anon
+				/jsp/qyjbxx/getHylx.action** = anon
+				/wzxx/*.action** =anon
+				/jsp/loginImage/getloginImageURL.action** = anon
+				/jsp/http/*.action** = anon
+				/jsp/photoPic/*.action** = anon
+				/upload/** = anon
+				/apk/** = anon
+				/jsp/*/*.action** =authc
+				/zwt/zwtJcxx.action** = anon
+				/zwt/zwtJdyw.action** = anon
+				/zwt/zwtJgxx.action** = anon
+				/zwt/zwtGgxx.action** = anon
+				/zwt/zwtCxtj.action** = anon
+				/zwt/*.action** =authc
+            </value>
+		</property>
+	</bean>
+	
+	<bean id="roleOrFilter" class="com.jshx.module.admin.security.RolesOrAuthorizationFilter"></bean>
+	
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="shiroRealm" />
+	</bean>
+	
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	
+	<bean id="shiroRealm" class="com.jshx.module.admin.security.ShiroRealm">
+		
+	</bean>
+	
+	<!-- Enable Shiro Annotations for Spring-configured beans.  
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    -->
+</beans>

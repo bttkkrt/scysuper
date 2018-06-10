@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZJJTZSB" extends="default" namespace="/jsp/zjjtzsb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zjjtzsbQuery" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="list">
+		</action>
+		
+		<action name="zjjtzsbList" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="init">
+			<result name="success">/WEB-INF/pages/zjjtzsb/Zjjtzsb_List.jsp</result>
+		</action>
+		
+		<action name="zjjtzsbView" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="view">
+			<result name="view">/WEB-INF/pages/zjjtzsb/Zjjtzsb_Detail.jsp</result>
+		</action>
+
+		<action name="zjjtzsbInitEdit" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zjjtzsb/Zjjtzsb_Edit.jsp</result>
+		</action>
+
+		<action name="zjjtzsbSave" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zjjtzsbDel" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="delete">
+		</action>
+		
+		<action name="zjjtzsbDels" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="deletes">
+		</action>
+		
+		<action name="zjjtzsbShenhe" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="shenhe">
+			<result name="success">/WEB-INF/pages/zjjtzsb/Zjjtzsb_Shenhe.jsp</result>
+		</action>
+		
+		
+		<action name="zjjtzsbShenheSave" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="shenhesave">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="zjjtzsbUpload" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="upload">
+			<result name="success">/WEB-INF/pages/zjjtzsb/Zjjtzsb_upload.jsp</result>
+		</action>
+		<action name="zjjtzsbSaveFile" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="saveFile">
+		</action>
+		
+		<action name="zjjtzsbBy" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="zjjtzsbBy">
+		</action>
+		
+		<action name="zjjtzsbBj" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="zjjtzsbBj">
+			<result name="success">/WEB-INF/pages/zjjtzsb/Zjjtzsb_Shangbao.jsp</result>
+		</action>
+		
+		<action name="zjjtzsbShangbaoSave" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="shangbaosave">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="zjjtzsbPicUpload" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="picUpload">
+			<result name="success">/WEB-INF/pages/zjjtzsb/Zjjtzsb_picUpload.jsp</result>
+		</action>
+		<action name="zjjtzsbSavePhoto" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="savePhoto">
+		</action>
+		<action name="zjjtzsbImageDel" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="deleteImage">
+		</action>
+		<action name="zjjtzsbSavePic" class="com.jshx.zjjtzsb.web.ZjjtzsbAction" method="savePic">
+		</action>
+	</package>
+</struts>

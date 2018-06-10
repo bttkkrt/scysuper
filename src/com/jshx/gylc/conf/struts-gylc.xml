@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="TEC_PRO" extends="default" namespace="/jsp/gylc">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="tecProQuery" class="com.jshx.gylc.web.TecProAction" method="list">
+		</action>
+		
+		<action name="tecProList" class="com.jshx.gylc.web.TecProAction" method="init">
+			<result name="success">/WEB-INF/pages/gylc/TecPro_List.jsp</result>
+		</action>
+		
+		<action name="tecProView" class="com.jshx.gylc.web.TecProAction" method="view">
+			<result name="view">/WEB-INF/pages/gylc/TecPro_Detail.jsp</result>
+		</action>
+
+		<action name="tecProInitEdit" class="com.jshx.gylc.web.TecProAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/gylc/TecPro_Edit.jsp</result>
+		</action>
+
+		<action name="tecProSave" class="com.jshx.gylc.web.TecProAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_tecPro</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="tecProDel" class="com.jshx.gylc.web.TecProAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

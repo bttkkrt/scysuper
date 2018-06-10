@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findCityManByMap">
+		select new com.wzxx.csgl.entity.CityMan(t.id, t.publicDate, t.infoTitle,t.clickTime) from CityMan t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startPublicDate">
+			<![CDATA[and CONVERT(varchar(100), t.publicDate, 23) >= :startPublicDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPublicDate">
+			<![CDATA[and CONVERT(varchar(100), t.publicDate, 23) <= :endPublicDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="infoTitle">
+			<![CDATA[and t.infoTitle like :infoTitle]]>
+		</isNotEmpty>
+		order by t.publicDate desc
+	</select>
+	<select id="findCsglList" parameterClass="java.util.Map" resultClass="com.wzxx.csgl.entity.CityMan">
+		select t.ROW_ID as id,t.INFO_TITLE as infoTitle,t.INFO_CONTENT as infoContent,t.PUBLIC_DATE
+        as publicDate from CITY_MAN t where t.delFlag=0 order by t.PUBLIC_DATE desc
+	</select>
+	
+	<select id="findCsglListSize" parameterClass="java.util.Map" resultClass="int">
+		select count(*) from CITY_MAN t where t.delFlag=0  
+	</select>
+</sqlMap>

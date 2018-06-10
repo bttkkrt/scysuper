@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CHE_RES" extends="default" namespace="/jsp/zdwhpclqkb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="cheResQuery" class="com.jshx.zdwhpclqkb.web.CheResAction" method="list">
+		</action>
+		
+		<action name="cheResList"   class="com.jshx.zdwhpclqkb.web.CheResAction" method="init">
+			<result name="success">/WEB-INF/pages/zdwhpclqkb/CheRes_List.jsp</result>
+		</action>
+		
+		<action name="cheResView" class="com.jshx.zdwhpclqkb.web.CheResAction" method="view">
+			<result name="view">/WEB-INF/pages/zdwhpclqkb/CheRes_Detail.jsp</result>
+		</action>
+
+		<action name="cheResInitEdit" class="com.jshx.zdwhpclqkb.web.CheResAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zdwhpclqkb/CheRes_Edit.jsp</result>
+		</action>
+
+		<action name="cheResSave" class="com.jshx.zdwhpclqkb.web.CheResAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_cheRes</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="cheResDel" class="com.jshx.zdwhpclqkb.web.CheResAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

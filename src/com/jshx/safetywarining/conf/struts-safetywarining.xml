@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SAFETYWARINING" extends="default" namespace="/jsp/safetywarining">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="safetywariningQuery" class="com.jshx.safetywarining.web.SafetywariningAction" method="list">
+		</action>
+		
+		<action name="safetywariningList" class="com.jshx.safetywarining.web.SafetywariningAction" method="initlist">
+			<result name="success">/WEB-INF/pages/safetywarining/Safetywarining_List.jsp</result>
+			<result name="qiye">/WEB-INF/pages/safetywarining/SafetywariningQiye_List.jsp</result>
+		</action>
+		
+		<action name="safetywariningView" class="com.jshx.safetywarining.web.SafetywariningAction" method="view">
+			<result name="view">/WEB-INF/pages/safetywarining/Safetywarining_Detail.jsp</result>
+		</action>
+
+		<action name="safetywariningInitEdit" class="com.jshx.safetywarining.web.SafetywariningAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/safetywarining/Safetywarining_Edit.jsp</result>
+		</action>
+
+		<action name="safetywariningSave" class="com.jshx.safetywarining.web.SafetywariningAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+    			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="safetywariningDel" class="com.jshx.safetywarining.web.SafetywariningAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

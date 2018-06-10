@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findYhbzlsdByMap">
+		select new com.jshx.yhbzlsd.entity.Yhbzlsd(t.id, t.areaName, t.yearTime) from Yhbzlsd t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startYearTime">
+			<![CDATA[and t.yearTime = :startYearTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endYearTime">
+			<![CDATA[and t.yearTime <= :endYearTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+	</select>
+	<select id="getYhbzlsdListByMap" parameterClass="java.util.Map" resultClass="com.jshx.yhbzlsd.entity.YhbzlsdBean">
+	 SELECT DISTINCT t.area_name as data1,
+     sum(cast(t.xylsd as int))as data2,
+     sum(cast(t.dnhzlsdjhs as int))as data3,
+     sum(cast(t.dnhzlsdwcs as int))as data4, 
+     sum(cast(t.dncjpxjhs as int))as data5, 
+     sum(cast(t.dncjpxwcs as int))as data6,  
+     sum(cast(t.czsgrs as int))as data7, 
+     sum(cast(t.dnljdc as int))as data8
+     from YHBZLSD t where t.delflag=0
+     <isNotEmpty property="startYearTime">
+			<![CDATA[and t.year_time = #startYearTime#]]>
+		</isNotEmpty>
+	
+     group by t.area_name
+	</select>
+	
+	<select id="getTotalYhbzlsdListByMap" parameterClass="java.util.Map" resultClass="com.jshx.yhbzlsd.entity.YhbzlsdBean">
+	 SELECT 
+     sum(cast(t.xylsd as int))as data2,
+     sum(cast(t.dnhzlsdjhs as int))as data3,
+     sum(cast(t.dnhzlsdwcs as int))as data4, 
+     sum(cast(t.dncjpxjhs as int))as data5, 
+     sum(cast(t.dncjpxwcs as int))as data6,  
+     sum(cast(t.czsgrs as int))as data7, 
+     sum(cast(t.dnljdc as int))as data8
+     from YHBZLSD t where t.delflag=0
+     <isNotEmpty property="startYearTime">
+			<![CDATA[and t.year_time = #startYearTime#]]>
+		</isNotEmpty>
+	
+	</select>
+</sqlMap>

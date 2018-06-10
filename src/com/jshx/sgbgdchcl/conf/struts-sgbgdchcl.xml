@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ACC_REP_INV_HAN" extends="default" namespace="/jsp/sgbgdchcl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="accRepInvHanQuery" class="com.jshx.sgbgdchcl.web.AccRepInvHanAction" method="list">
+		</action>
+		
+		<action name="accRepInvHanList" class="com.jshx.sgbgdchcl.web.AccRepInvHanAction" method="init">
+			<result name="success">/WEB-INF/pages/sgbgdchcl/AccRepInvHan_List.jsp</result>
+		</action>
+		
+		<action name="accRepInvHanView" class="com.jshx.sgbgdchcl.web.AccRepInvHanAction" method="view">
+			<result name="view">/WEB-INF/pages/sgbgdchcl/AccRepInvHan_Detail.jsp</result>
+		</action>
+
+		<action name="accRepInvHanInitEdit" class="com.jshx.sgbgdchcl.web.AccRepInvHanAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/sgbgdchcl/AccRepInvHan_Edit.jsp</result>
+		</action>
+
+		<action name="accRepInvHanSave" class="com.jshx.sgbgdchcl.web.AccRepInvHanAction" method="save">
+			<interceptor-ref name="tokenInterceptor" /> 
+			<interceptor-ref name="coreStack" /> 
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_accRepInvHan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="accRepInvHanDel" class="com.jshx.sgbgdchcl.web.AccRepInvHanAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

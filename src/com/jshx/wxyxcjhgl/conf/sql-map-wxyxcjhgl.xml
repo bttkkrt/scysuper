@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findDanPlaManByMap">
+		select new com.jshx.wxyxcjhgl.entity.DanPlaMan(t.id, t.companyName, t.planName, t.dangerName, t.checkFrequency, t.checkPeopleName, t.checkTypeId, t.auditResult,t.isAudit) from DanPlaMan t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName = :areaName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="planName">
+			<![CDATA[and t.planName like :planName]]>
+		</isNotEmpty>
+		<isNotEmpty property="dangerName">
+			<![CDATA[and t.dangerName like :dangerName]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkFrequency">
+			<![CDATA[and t.checkFrequency = :checkFrequency]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkPeopleName">
+			<![CDATA[and t.checkPeopleName like :checkPeopleName]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkTypeId">
+			<![CDATA[and t.checkTypeId in (:checkTypeId)]]>
+		</isNotEmpty>
+		<isNotEmpty property="auditResult">
+			<![CDATA[and t.auditResult like :auditResult]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID = :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and ( t.companyName like :searchLike or  t.planName like :searchLike or  t.checkPeopleName like :searchLike)]]>
+		</isNotEmpty>
+		order by createTime desc 
+	</select>
+	<!-- 查询所有的巡查计划 lj 2015-10-15  -->
+	<select id="query_all_plans" parameterClass="java.util.Map" resultClass="com.jshx.wxyxcjhgl.entity.DanPlaMan">
+		select row_id,
+			   company_id as companyId,
+			   company_name as companyName,
+			   area_id as areaId,
+			   area_name as areaName,
+			   danger_Id as dangerId,
+			   danger_Name as dangerName,
+			   plan_start_time as planStartTime,
+			  plan_end_time as  planEndTime,
+			  check_Frequency as  checkFrequency,
+			   check_People_Id as checkPeopleId,
+			   check_People_Name as checkPeopleName,
+			  check_Type_Id as  checkTypeId 
+			   
+		 from DAN_PLA_MAN where delflag = 0 and plan_end_time >= getdate()
+	</select>
+	
+	<!-- 获取任务用于定期生成任务 -->
+	<select id="query_Danplans" parameterClass="java.util.Map" resultClass="com.jshx.wxyxcjhgl.entity.DanPlaMan">
+		select row_id as id,
+			company_id as companyId,
+			   company_name as companyName,
+			   area_id as areaId,
+			   area_name as areaName,
+			   check_People_Id as checkPeopleId,
+			   check_People_Name as checkPeopleName,
+			   CHECK_ID as checkId,
+			   CHECK_NAME as checkName,
+			   CREATEUSERID as createUserID
+			   from DAN_PLA_MAN where delflag = 0 and audit_result='审核通过' and plan_end_time >= #starttime#
+		 <![CDATA[ and plan_start_time<=#endtime#]]>
+		 <isNotEmpty property="checkFrequency">
+			<![CDATA[and check_Frequency =#checkFrequency#]]>
+		</isNotEmpty>
+		
+		
+	</select>
+</sqlMap>

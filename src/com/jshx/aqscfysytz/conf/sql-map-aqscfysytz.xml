@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findSecProFeeAccByMap">
+		select new com.jshx.aqscfysytz.entity.SecProFeeAcc(t.id, t.areaName, t.companyName, t.feeAccountAmount, t.feeAccountMonth,t.companyId,t.feeAccountRemark) from SecProFeeAcc t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="feeAccountProject">
+			<![CDATA[and t.feeAccountProject = :feeAccountProject]]>
+		</isNotEmpty>
+		<isNotEmpty property="startFeeAccountMonth">
+			<![CDATA[and t.feeAccountMonth >= :startFeeAccountMonth]]>
+		</isNotEmpty>
+		<isNotEmpty property="endFeeAccountMonth">
+			<![CDATA[and t.feeAccountMonth <= :endFeeAccountMonth]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and (t.companyName like :searchLike or convert(varchar(50),t.feeAccountMonth,120) like  :searchLike )]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+	
+	<select id="findSecProFeeAccListByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqscfysytz.entity.SecProFeeAcc">
+	select t.AREA_NAME as areaName,t.COMPANY_NAME as companyName,Convert(decimal(30,2),sum(cast(t.FEE_EXTRACT_FEE as float))) as feeAccountAmount,t.FEE_ACCOUNT_MONTH as feeAccountMonth,t.COMPANY_ID as companyId from  SEC_PRO_FEE_EXT t where t.delFlag = 0
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.AREA_ID = #areaId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="startFeeAccountMonth">
+			<![CDATA[and t.FEE_ACCOUNT_MONTH >= #startFeeAccountMonth#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endFeeAccountMonth">
+			<![CDATA[and t.FEE_ACCOUNT_MONTH <= #endFeeAccountMonth#]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= #createUserId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.COMPANY_ID,#companmyIds#) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyId">
+			<![CDATA[and t.COMPANY_ID = #companmyId#]]>
+		</isNotEmpty>
+	group by t.AREA_NAME,t.COMPANY_NAME,t.FEE_ACCOUNT_MONTH,t.COMPANY_ID
+	order by t.FEE_ACCOUNT_MONTH desc
+	</select>
+</sqlMap>

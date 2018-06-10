@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findProComNotByMap">
+		select new com.jshx.jsxmzybfhssba.entity.ProComNot(t.id, t.areaName, t.companyName, t.proNo, t.proDate,t.createUserID) from ProComNot t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="proNo">
+			<![CDATA[and t.proNo like :proNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="startProDate">
+			<![CDATA[and t.proDate >= :startProDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endProDate">
+			<![CDATA[and t.proDate <= :endProDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+</sqlMap>

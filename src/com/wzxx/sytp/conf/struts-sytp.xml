@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SYTP" extends="default" namespace="/jsp/sytp">
+		
+		<!-- 修改列表方法，返回Json数据 -->
+		<action name="sytpQuery" class="com.wzxx.sytp.web.SytpAction" method="list">
+		</action>
+		
+		<action name="sytpList">
+			<result name="success">/WEB-INF/wzPage/sytp/Sytp_List.jsp</result>
+		</action>
+		
+		<action name="sytpView" class="com.wzxx.sytp.web.SytpAction" method="view">
+			<result name="view">/WEB-INF/wzPage/sytp/Sytp_Detail.jsp</result>
+		</action>
+
+		<action name="sytpInitEdit" class="com.wzxx.sytp.web.SytpAction" method="initEdit">
+			<result name="edit">/WEB-INF/wzPage/sytp/Sytp_Edit.jsp</result>
+		</action>
+
+		<action name="sytpSave" class="com.wzxx.sytp.web.SytpAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp?windowId=win_sytp</result>
+			<result name="invalid.token">/invalid.jsp</result> 
+		</action>
+
+		<action name="sytpDel" class="com.wzxx.sytp.web.SytpAction" method="delete">
+		</action>
+		
+
+	</package>
+	
+</struts>

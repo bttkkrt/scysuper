@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SUP_CHE_RES" extends="default" namespace="/jsp/jdjcjg">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="supCheResQuery" class="com.jshx.jdjcjg.web.SupCheResAction" method="list">
+		</action>
+		
+		<action name="supCheResList" class="com.jshx.jdjcjg.web.SupCheResAction" method="init">
+			<result name="success">/WEB-INF/pages/jdjcjg/SupCheRes_List.jsp</result>
+		</action>
+		
+		<action name="supCheResView" class="com.jshx.jdjcjg.web.SupCheResAction" method="view">
+			<result name="view">/WEB-INF/pages/jdjcjg/SupCheRes_Detail.jsp</result>
+		</action>
+
+		<action name="supCheResInitEdit" class="com.jshx.jdjcjg.web.SupCheResAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/jdjcjg/SupCheRes_Edit.jsp</result>
+		</action>
+
+		<action name="supCheResSave" class="com.jshx.jdjcjg.web.SupCheResAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_supCheRes</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="supCheResDel" class="com.jshx.jdjcjg.web.SupCheResAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

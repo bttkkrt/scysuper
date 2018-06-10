@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="OCCUPATIONAL_EVALUATE_RECEIPT" extends="default" namespace="/jsp/occupationalEvaluateReceipt">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="occupationalEvaluateReceiptQuery" class="com.jshx.occupationalEvaluateReceipt.web.OccupationalEvaluateReceiptAction" method="list">
+		</action>
+		
+		<action name="occupationalEvaluateReceiptList" class="com.jshx.occupationalEvaluateReceipt.web.OccupationalEvaluateReceiptAction" method="init">
+			<result name="success">/WEB-INF/pages/occupationalEvaluateReceipt/OccupationalEvaluateReceipt_List.jsp</result>
+		</action>
+		
+		<action name="occupationalEvaluateReceiptView" class="com.jshx.occupationalEvaluateReceipt.web.OccupationalEvaluateReceiptAction" method="view">
+			<result name="view">/WEB-INF/pages/occupationalEvaluateReceipt/OccupationalEvaluateReceipt_Detail.jsp</result>
+		</action>
+
+		<action name="occupationalEvaluateReceiptInitEdit" class="com.jshx.occupationalEvaluateReceipt.web.OccupationalEvaluateReceiptAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/occupationalEvaluateReceipt/OccupationalEvaluateReceipt_Edit.jsp</result>
+		</action>
+
+		<action name="occupationalEvaluateReceiptSave" class="com.jshx.occupationalEvaluateReceipt.web.OccupationalEvaluateReceiptAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occupationalEvaluateReceiptDel" class="com.jshx.occupationalEvaluateReceipt.web.OccupationalEvaluateReceiptAction" method="delete">
+		</action>
+		
+		<action name="occupationalEvaluateReceiptPrint" class="com.jshx.occupationalEvaluateReceipt.web.OccupationalEvaluateReceiptAction" method="print">
+			<result name="success">/WEB-INF/pages/occupationalEvaluateReceipt/OccupationalEvaluateReceipt_Print.jsp</result>
+		</action>
+		
+		<action name="occupationalEvaluateReceiptUpload" class="com.jshx.occupationalEvaluateReceipt.web.OccupationalEvaluateReceiptAction" method="upload">
+			<result name="success">/WEB-INF/pages/occupationalEvaluateReceipt/OccupationalEvaluateReceipt_upload.jsp</result>
+		</action>
+		<action name="occupationalEvaluateReceiptSavePhoto" class="com.jshx.occupationalEvaluateReceipt.web.OccupationalEvaluateReceiptAction" method="savePhoto">
+		</action>
+		<action name="occupationalEvaluateReceiptImageDel" class="com.jshx.occupationalEvaluateReceipt.web.OccupationalEvaluateReceiptAction" method="deleteImage">
+		</action>
+		<action name="occupationalEvaluateReceiptSaveFile" class="com.jshx.occupationalEvaluateReceipt.web.OccupationalEvaluateReceiptAction" method="saveFile">
+		</action>
+	</package>
+</struts>

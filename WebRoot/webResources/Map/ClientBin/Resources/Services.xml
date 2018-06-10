@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--系统配置参数-->
+<configuration>
+  <ServiceAddress>
+   
+    <!--<service id="myServices" url="http://10.43.248.22/fc_admin/Symmanagement.ashx?user={0}&amp;psd={1}&amp;appId={2}" label="用户管理登陆服务请求入口"  des="用户登录服务" appId ="app_sipfc"/>-->
+     <service id="myServices" url="http://10.43.248.22/DataCenter/MapLayers.ashx?AppID={0}&amp;xUserName={1}&amp;xPassword={2}&amp;queryType=maplayers" label="用户管理登陆服务请求入口"  des="用户登录服务" appId ="szmap"/>
+     <service id="userinfoService" url="http://10.5.0.191/DataCenter/Query.ashx?DBTag=datacenter&amp;resultType=list&amp;queryName=GL_G04_User&amp;queryType=sql&amp;paras=[{'field':'appid','value':'#appid#','match':'='},{'field':'useraccount','value':'#useraccount#','match':'='}]" label="用户管理登陆服务请求入口"  des="用户登录服务" appId ="SIPCMU_2015"/>
+  </ServiceAddress>
+
+  <SymInfo>
+    <mainname>QS应用系统开发框架模板</mainname>
+    <secondname>苏州市</secondname>
+    <logoicon>/Images/login_logo.png</logoicon>
+    <backgroundicon>/Images/login_bg.JPG</backgroundicon>
+    <aboutme>苏州工业园区格网信息科技有限公司 技术支持</aboutme>
+    <author>苏州工业园区格网信息科技有限公司</author>
+    <timestamp>2014</timestamp>
+    <link label="www.dpark.com.cn" url="http://www.dpark.com.cn"/>
+  </SymInfo>
+  
+</configuration>

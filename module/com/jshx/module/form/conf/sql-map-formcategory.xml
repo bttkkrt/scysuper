@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<!-- 根据条件查找表单分类  -->
+	<select id="findFormCategory">
+		from FormCategory fc where 1=1
+		<isNotEmpty property="categoryNum">
+			and fc.categoryNum like :categoryNum
+		</isNotEmpty>
+		<isNotEmpty property="length">
+			and length(fc.categoryNum) = :length
+		</isNotEmpty>
+		<isEmpty property="sortSQ">
+			order by fc.sortSQ
+		</isEmpty>
+		<isNotEmpty property="sortSQ">
+			order by fc.categoryNum ASC
+		</isNotEmpty>
+	</select>
+
+	<!-- 查找同级分类下编号最大值 -->
+	<select id="findMaxCategoryNum">
+		select max(cast(substr(fc.categoryNum,(length(fc.categoryNum)-2+1),2) as integer)) from FormCategory fc where 1=1
+		<isNotEmpty property="categoryNum">
+			and fc.categoryNum like :categoryNum
+		</isNotEmpty>
+		<isNotEmpty property="length">
+			and length(fc.categoryNum) = :length
+		</isNotEmpty>
+	</select>
+	
+</sqlMap>

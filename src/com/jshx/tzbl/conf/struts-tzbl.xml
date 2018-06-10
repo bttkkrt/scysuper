@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="HEARING_NOTE" extends="default" namespace="/jsp/tzbl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="hearingNoteQuery" class="com.jshx.tzbl.web.HearingNoteAction" method="list">
+		</action>
+		
+		<action name="hearingNoteList" class="com.jshx.tzbl.web.HearingNoteAction" method="init">
+			<result name="success">/WEB-INF/pages/tzbl/HearingNote_List.jsp</result>
+		</action>
+		
+		<action name="hearingNoteView" class="com.jshx.tzbl.web.HearingNoteAction" method="view">
+			<result name="view">/WEB-INF/pages/tzbl/HearingNote_Detail.jsp</result>
+		</action>
+
+		<action name="hearingNoteInitEdit" class="com.jshx.tzbl.web.HearingNoteAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/tzbl/HearingNote_Edit.jsp</result>
+		</action>
+
+		<action name="hearingNoteSave" class="com.jshx.tzbl.web.HearingNoteAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_hearingNote</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="hearingNoteDel" class="com.jshx.tzbl.web.HearingNoteAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

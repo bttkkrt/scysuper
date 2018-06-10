@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findAqscsgccglbByMap">
+		from Aqscsgccglb t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="proid">
+			<![CDATA[and t.proid = :proid]]>
+		</isNotEmpty>
+		order by t.linktype
+	</select>
+	
+	<select id="getAqscsgccglbByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqscsgccglb.entity.Aqscsgccglb">
+	select sum(t.hj) as hj,sum(t.wxp) as wxp,sum(t.yhbz) as yhbz,sum(t.yj) as yj,
+	sum(t.youse) as youse,sum(t.qt) as qt
+ 	from aqscsgccglb t
+ 	where t.delflag = 0
+ 	<isNotEmpty property="proids">
+		and t.proid in 
+		<iterate conjunction="," open="(" close=")" property="proids">
+			#proids[]# 
+		</iterate>
+	</isNotEmpty>
+	<isNotEmpty property="linktype">
+		<![CDATA[and t.linktype = #linktype#]]>
+	</isNotEmpty>
+	</select>
+</sqlMap>

@@ -1,0 +1,57 @@
+cpool.acquireIncrement=5
+cpool.checkoutTimeout=5000
+cpool.maxIdleTime=25200
+cpool.maxIdleTimeExcessConnections=60
+cpool.maxPoolSize=40
+cpool.max_statement=50
+cpool.minPoolSize=5
+cpool.testConnectionOnCheckout=false
+dataSource.defaultAutoCommit=false
+dataSource.logAbandoned=true
+dataSource.maxActive=20
+dataSource.maxIdle=10
+dataSource.maxWait=-1
+dataSource.minIdle=5
+dataSource.removeAbandoned=true
+dataSource.removeAbandonedTimeout=60
+dataSource.testOnBorrow=false
+dataSource.testOnReturn=false
+dataSource.testWhileIdle=false
+
+#=========================================
+# DataBase Connection Setting  SQLServer
+#=========================================
+db.Dialect.prefix=org.hibernate.dialect
+db.Dialect.suffix=SQLServerDialect
+db.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
+db.url=jdbc:sqlserver://58.211.37.12:8083;DatabaseName=yqajj1
+
+#db.url=jdbc:sqlserver://192.168.0.228:1433;DatabaseName=yqajj
+db.username=sa
+db.password=1qaz!QAZ
+
+
+#=========================================
+# DataBase Connection Setting  Oracle
+#=========================================
+#db.Dialect.prefix=org.hibernate.dialect
+#db.Dialect.suffix=OracleDialect
+#db.driverClassName=oracle.jdbc.driver.OracleDriver
+#db.url = jdbc:oracle:thin:@192.168.0.228:1521:orcl
+#db.username = yqaj
+#db.password = yqaj
+#db.url = jdbc:oracle:thin:@202.102.101.124:1521:ORADB
+#db.username = platform
+#db.password = qazxsw123
+
+
+
+##=========================================
+## DataBase Connection Setting  MySQL
+##=========================================
+##db.Dialect.prefix=com.jshx.core.base.dialect
+##db.Dialect.suffix=MySQL5Dialect
+##db.driverClassName = com.mysql.jdbc.Driver
+##db.url = jdbc:mysql://202.102.101.123:3306/edp400?useUnicode=true&characterEncoding=UTF-8
+##db.username = root
+##db.password = chenmeng

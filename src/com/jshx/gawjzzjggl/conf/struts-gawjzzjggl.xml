@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="POLICE_INSTITUTIONS" extends="default" namespace="/jsp/gawjzzjggl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="policeInstitutionsQuery" class="com.jshx.gawjzzjggl.web.PoliceInstitutionsAction" method="list">
+		</action>
+		
+		<action name="policeInstitutionsList" class="com.jshx.gawjzzjggl.web.PoliceInstitutionsAction" method="init">
+			<result name="success">/WEB-INF/pages/gawjzzjggl/PoliceInstitutions_List.jsp</result>
+		</action>
+		
+		<action name="policeInstitutionsView" class="com.jshx.gawjzzjggl.web.PoliceInstitutionsAction" method="view">
+			<result name="view">/WEB-INF/pages/gawjzzjggl/PoliceInstitutions_Detail.jsp</result>
+		</action>
+
+		<action name="policeInstitutionsInitEdit" class="com.jshx.gawjzzjggl.web.PoliceInstitutionsAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/gawjzzjggl/PoliceInstitutions_Edit.jsp</result>
+		</action>
+
+		<action name="policeInstitutionsSave" class="com.jshx.gawjzzjggl.web.PoliceInstitutionsAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_policeInstitutions</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="policeInstitutionsDel" class="com.jshx.gawjzzjggl.web.PoliceInstitutionsAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

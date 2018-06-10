@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findEntBaseInfoByMap">
+		select new com.jshx.qyjbxx.entity.EntBaseInfo(t.id,t.enterpriseName,t.registrationNumber,t.enterpriseCode,t.enterpriseLegalName,t.enterpriseNature,t.gridName,t.enterprisePossession,t.enterprisePossessionName,t.basePass,t.gridManageId,t.grid,t.ifCz,t.gridManageteamCode) from EntBaseInfo t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="enterpriseName">
+			<![CDATA[and t.enterpriseName like :enterpriseName]]>
+		</isNotEmpty>
+		<isNotEmpty property="registrationNumber">
+			<![CDATA[and t.registrationNumber like :registrationNumber]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseCode">
+			<![CDATA[and t.enterpriseCode like :enterpriseCode]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseLegalName">
+			<![CDATA[and t.enterpriseLegalName like :enterpriseLegalName]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseNature">
+			<![CDATA[and t.enterpriseNature = :enterpriseNature]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseScale">
+			<![CDATA[and t.enterpriseScale = :enterpriseScale]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseCategory">
+			<![CDATA[and t.enterpriseCategory = :enterpriseCategory]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterprisePossession">
+			<![CDATA[and t.enterprisePossession like :enterprisePossession]]>
+		</isNotEmpty>
+		<isNotEmpty property="loginId">
+			<![CDATA[and t.loginId = :loginId]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridManageteamCode">
+			<![CDATA[and t.gridManageteamCode = :gridManageteamCode]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridName">
+			<![CDATA[and t.gridName = :gridName]]>
+		</isNotEmpty>
+		<isNotEmpty property="basePass">
+			<![CDATA[and t.basePass = :basePass]]>
+		</isNotEmpty>
+
+		<isNotEmpty property="grid">
+			<![CDATA[and t.grid in :grid]]>
+		</isNotEmpty>
+
+		<isNotEmpty property="gridManageId">
+			<![CDATA[and t.gridManageId = :gridManageId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.id,:companmyIds) >0]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="nameOrCode">
+			<![CDATA[and (t.enterpriseName like :nameOrCode or t.enterpriseCode like :nameOrCode) ]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseType">
+			<![CDATA[and t.enterpriseType like :enterpriseType]]>
+		</isNotEmpty>
+		<isNotEmpty property="total1">
+			<![CDATA[and convert(float,t.enterpriseStaffCount) >= :total1]]>
+		</isNotEmpty>
+		<isNotEmpty property="total2">
+			<![CDATA[and convert(float,t.enterpriseStaffCount) <= :total2]]>
+		</isNotEmpty>
+
+		order by t.createTime desc
+	</select>
+	
+	<select id="findEntBaseInfoByMaps">
+		from EntBaseInfo t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="enterpriseName">
+			<![CDATA[and t.enterpriseName = :enterpriseName]]>
+		</isNotEmpty>
+		<isNotEmpty property="registrationNumber">
+			<![CDATA[and t.registrationNumber = :registrationNumber]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseCode">
+			<![CDATA[and t.enterpriseCode = :enterpriseCode]]>
+		</isNotEmpty>
+		<isNotEmpty property="loginId">
+			<![CDATA[and t.loginId = :loginId]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseLegalName">
+			<![CDATA[and t.enterpriseLegalName like :enterpriseLegalName]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseNature">
+			<![CDATA[and t.enterpriseNature = :enterpriseNature]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseScale">
+			<![CDATA[and t.enterpriseScale = :enterpriseScale]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseCategory">
+			<![CDATA[and t.enterpriseCategory = :enterpriseCategory]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterprisePossession">
+			<![CDATA[and t.enterprisePossession = :enterprisePossession]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridName">
+			<![CDATA[and t.gridName like :gridName]]>
+		</isNotEmpty>
+		<isNotEmpty property="basePass">
+			<![CDATA[and t.basePass = :basePass]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="getEntBaseInfoListByUserAndType" parameterClass="java.util.Map" resultClass="com.jshx.qyjbxx.entity.EntBaseInfo">
+	select t.row_id as id,t.ENTERPRISE_NAME as enterpriseName,t.GRID_NAME as gridName,t.ENTERPRISE_NATURE as enterpriseNature,
+	t.ENTERPRISE_TYPE as enterpriseType,t.ENTERPRISE_CATEGORY as enterpriseCategory,t.LINK_ID as linkId,t.ENTERPRISE_POSSESSION enterprisePossession,t.ENTERPRISE_POSSESSION_NAME enterprisePossessionName
+	from ENT_BASE_INFO t where t.delflag = 0 
+		<isNotEmpty property="enterpriseName">
+			<![CDATA[and t.ENTERPRISE_NAME like #enterpriseName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="registrationNumber">
+			<![CDATA[and t.REGISTRATION_NUMBER like #registrationNumber#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseCode">
+			<![CDATA[and t.ENTERPRISE_CODE like #enterpriseCode#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseLegalName">
+			<![CDATA[and t.ENTERPRISE_LEGAL_NAME like #enterpriseLegalName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseNature">
+			<![CDATA[and t.ENTERPRISE_NATURE like #enterpriseNature#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseScale">
+			<![CDATA[and t.ENTERPRISE_SCALE like #enterpriseScale#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseCategory">
+			<![CDATA[and t.ENTERPRISE_CATEGORY = #enterpriseCategory#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseAddress">
+			<![CDATA[and t.ENTERPRISE_ADDRESS like #enterpriseAddress#]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridName">
+			<![CDATA[and t.GRID_NAME like #gridName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="basePass">
+			<![CDATA[and t.BASE_PASS = #basePass#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterprisePossession">
+			<![CDATA[and t.ENTERPRISE_POSSESSION = #enterprisePossession#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseType">
+			<![CDATA[and t.ENTERPRISE_TYPE like #enterpriseType#]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridManageteamCode">
+			<![CDATA[and t.GRID_MANAGETEAM_CODE = #gridManageteamCode#]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridManageId">
+			<![CDATA[and t.GRID in (select c.row_id from  COM_GRI_MAN c where c.delflag = 0 and c.GRID_MANAGE_DEPT = (select u.dept_code from users u where u.row_id = #gridManageId# and u.del_flag = 0))]]>
+		</isNotEmpty>
+	</select>
+	
+	
+	<select id="getEntBaseInfoListSizeByUserAndType" parameterClass="java.util.Map" resultClass="int">
+	select count(*) from ENT_BASE_INFO t where t.delflag = 0 
+		<isNotEmpty property="enterpriseName">
+			<![CDATA[and t.ENTERPRISE_NAME like #enterpriseName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="registrationNumber">
+			<![CDATA[and t.REGISTRATION_NUMBER like #registrationNumber#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseCode">
+			<![CDATA[and t.ENTERPRISE_CODE like #enterpriseCode#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseLegalName">
+			<![CDATA[and t.ENTERPRISE_LEGAL_NAME like #enterpriseLegalName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseNature">
+			<![CDATA[and t.ENTERPRISE_NATURE like #enterpriseNature#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseScale">
+			<![CDATA[and t.ENTERPRISE_SCALE like #enterpriseScale#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseCategory">
+			<![CDATA[and t.ENTERPRISE_CATEGORY = #enterpriseCategory#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseAddress">
+			<![CDATA[and t.ENTERPRISE_ADDRESS like #enterpriseAddress#]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridName">
+			<![CDATA[and t.GRID_NAME like #gridName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="basePass">
+			<![CDATA[and t.BASE_PASS = #basePass#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterprisePossession">
+			<![CDATA[and t.ENTERPRISE_POSSESSION = #enterprisePossession#]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseType">
+			<![CDATA[and t.ENTERPRISE_TYPE like #enterpriseType#]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridManageteamCode">
+			<![CDATA[and t.GRID_MANAGETEAM_CODE = #gridManageteamCode#]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridManageId">
+			<![CDATA[and t.GRID in (select c.row_id from COM_GRI_MAN c where c.delflag = 0 and c.GRID_MANAGE_DEPT = (select u.dept_code from users u where u.row_id = #gridManageId# and u.del_flag = 0))]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="findEntBaseInfoByMapss">
+		from EntBaseInfo t where t.delFlag = 0 
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="enterpriseName">
+			<![CDATA[and t.enterpriseName = :enterpriseName]]>
+		</isNotEmpty>
+		<isNotEmpty property="registrationNumber">
+			<![CDATA[and t.registrationNumber = :registrationNumber]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseCode">
+			<![CDATA[and t.enterpriseCode = :enterpriseCode]]>
+		</isNotEmpty>
+		<isNotEmpty property="loginId">
+			<![CDATA[and t.loginId = :loginId]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseLegalName">
+			<![CDATA[and t.enterpriseLegalName like :enterpriseLegalName]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseNature">
+			<![CDATA[and t.enterpriseNature = :enterpriseNature]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseScale">
+			<![CDATA[and t.enterpriseScale = :enterpriseScale]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterpriseCategory">
+			<![CDATA[and t.enterpriseCategory = :enterpriseCategory]]>
+		</isNotEmpty>
+		<isNotEmpty property="enterprisePossession">
+			<![CDATA[and t.enterprisePossession = :enterprisePossession]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridName">
+			<![CDATA[and t.gridName like :gridName]]>
+		</isNotEmpty>
+		<isNotEmpty property="basePass">
+			<![CDATA[and t.basePass = :basePass]]>
+		</isNotEmpty>
+		<isNotEmpty property="inserOrUpdateStartTime">
+			<![CDATA[and (t.createTime > :inserOrUpdateStartTime or t.updateTime > :inserOrUpdateStartTime)]]>
+		</isNotEmpty>
+		<isNotEmpty property="inserOrUpdateEndTime">
+			<![CDATA[and (t.createTime <= :inserOrUpdateEndTime or t.updateTime <= :inserOrUpdateEndTime)]]>
+		</isNotEmpty>
+		order by t.createTime asc
+	</select>
+</sqlMap>

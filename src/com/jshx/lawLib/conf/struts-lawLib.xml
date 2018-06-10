@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="LAW_LIB" extends="default" namespace="/jsp/lawLib">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="lawLibQuery" class="com.jshx.lawLib.web.LawLibAction" method="list">
+		</action>
+		
+		<action name="lawLibList" class="com.jshx.lawLib.web.LawLibAction" method="init">
+			<result name="success">/WEB-INF/pages/lawLib/LawLib_List.jsp</result>
+		</action>
+		
+		<action name="lawLibView" class="com.jshx.lawLib.web.LawLibAction" method="view">
+			<result name="view">/WEB-INF/pages/lawLib/LawLib_Detail.jsp</result>
+		</action>
+
+		<action name="lawLibInitEdit" class="com.jshx.lawLib.web.LawLibAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/lawLib/LawLib_Edit.jsp</result>
+		</action>
+
+		<action name="lawLibSave" class="com.jshx.lawLib.web.LawLibAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_lawLib</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="lawLibDel" class="com.jshx.lawLib.web.LawLibAction" method="delete">
+		</action>
+		<action name="lawLibTurn" class="com.jshx.lawLib.web.LawLibAction" method="lawLibTurn">
+		</action>
+		
+		
+		
+	</package>
+</struts>

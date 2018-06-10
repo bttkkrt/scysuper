@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="LXWM" extends="default" namespace="/jsp/lxwm">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="lxwmQuery" class="com.wzxx.lxwm.web.LxwmAction" method="list">
+		</action>
+		
+		<action name="lxwmList">
+			<result name="success">/WEB-INF/wzPage/lxwm/Lxwm_List.jsp</result>
+		</action>
+		
+		<action name="lxwmView" class="com.wzxx.lxwm.web.LxwmAction" method="view">
+			<result name="view">/WEB-INF/wzPage/lxwm/Lxwm_Detail.jsp</result>
+		</action>
+
+		<action name="lxwmInitEdit" class="com.wzxx.lxwm.web.LxwmAction" method="initEdit">
+			<result name="edit">/WEB-INF/wzPage/lxwm/Lxwm_Edit.jsp</result>
+		</action>
+
+		<action name="lxwmSave" class="com.wzxx.lxwm.web.LxwmAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_lxwm</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="lxwmDel" class="com.wzxx.lxwm.web.LxwmAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

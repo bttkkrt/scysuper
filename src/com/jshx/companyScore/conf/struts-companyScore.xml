@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="COMPANY_SCORE" extends="default" namespace="/jsp/companyScore">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="companyScoreQuery" class="com.jshx.companyScore.web.CompanyScoreAction" method="list">
+		</action>
+		
+		<action name="companyScoreList" class="com.jshx.companyScore.web.CompanyScoreAction" method="init">
+			<result name="success">/WEB-INF/pages/companyScore/CompanyScore_List.jsp</result>
+		</action>
+		
+		<action name="companyScoreView" class="com.jshx.companyScore.web.CompanyScoreAction" method="view">
+			<result name="view">/WEB-INF/pages/companyScore/CompanyScore_Detail.jsp</result>
+		</action>
+
+		<action name="companyScoreInitEdit" class="com.jshx.companyScore.web.CompanyScoreAction" method="initEdit">
+			<result name="qyEdit">/WEB-INF/pages/companyScore/CompanyScore_qyEdit.jsp</result>
+			<result name="ajEdit">/WEB-INF/pages/companyScore/CompanyScore_ajEdit.jsp</result>
+		</action>
+
+		<action name="companyScoreSave" class="com.jshx.companyScore.web.CompanyScoreAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_companyScore</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="companyScoreDel" class="com.jshx.companyScore.web.CompanyScoreAction" method="delete">
+		</action>
+		
+		<action name="companyScoreTime" class="com.jshx.companyScore.web.CompanyScoreAction" method="chooseCompanyAndYear">
+			<result name="success">/WEB-INF/pages/companyScore/CompanyScore_Time.jsp</result>
+		</action>
+		
+		
+		<action name="getScore" class="com.jshx.companyScore.web.CompanyScoreAction" method="getScore">
+		</action>
+		
+	</package>
+</struts>

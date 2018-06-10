@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZDWXYHXSQ" extends="default" namespace="/jsp/zdwxyhxsq">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zdwxyhxsqQuery" class="com.jshx.zdwxyhxsq.web.ZdwxyhxsqAction" method="list">
+		</action>
+		
+		<action name="zdwxyhxsqList" class="com.jshx.zdwxyhxsq.web.ZdwxyhxsqAction" method="init">
+			<result name="success">/WEB-INF/pages/zdwxyhxsq/Zdwxyhxsq_List.jsp</result>
+		</action>
+		
+		<action name="zdwxyhxsqView" class="com.jshx.zdwxyhxsq.web.ZdwxyhxsqAction" method="view">
+			<result name="view">/WEB-INF/pages/zdwxyhxsq/Zdwxyhxsq_Detail.jsp</result>
+		</action>
+
+		<action name="zdwxyhxsqInitEdit" class="com.jshx.zdwxyhxsq.web.ZdwxyhxsqAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zdwxyhxsq/Zdwxyhxsq_Edit.jsp</result>
+		</action>
+
+		<action name="zdwxyhxsqSave" class="com.jshx.zdwxyhxsq.web.ZdwxyhxsqAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zdwxyhxsqDel" class="com.jshx.zdwxyhxsq.web.ZdwxyhxsqAction" method="delete">
+		</action>
+		
+		<!-- 李军 2013-07-18 附件上传处理 -->
+		<action name="zdwxyhxsqUpload" class="com.jshx.zdwxyhxsq.web.ZdwxyhxsqAction" method="upload">
+			<result name="success">/WEB-INF/pages/zdwxyhxsq/Zdwxyhxsq_upload.jsp</result>
+		</action>
+		
+		<action name="fileUpload" class="com.jshx.zdwxyhxsq.web.ZdwxyhxsqAction" method="fileUpload">
+		</action>
+		
+		<action name="deleteFile" class="com.jshx.zdwxyhxsq.web.ZdwxyhxsqAction" method="deleteFile">
+		</action>
+		
+		<action name="download" class="com.jshx.zdwxyhxsq.web.ZdwxyhxsqAction" method="download">
+		</action>
+	</package>
+</struts>

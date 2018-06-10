@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MAJ_SOU_REC" extends="default" namespace="/jsp/wxhxpzdwxyba">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="majSouRecQuery" class="com.jshx.wxhxpzdwxyba.web.MajSouRecAction" method="list">
+		</action>
+		
+		<action name="majSouRecList" class="com.jshx.wxhxpzdwxyba.web.MajSouRecAction" method="init">
+			<result name="success">/WEB-INF/pages/wxhxpzdwxyba/MajSouRec_List.jsp</result>
+		</action>
+		
+		<action name="majSouRecView" class="com.jshx.wxhxpzdwxyba.web.MajSouRecAction" method="view">
+			<result name="view">/WEB-INF/pages/wxhxpzdwxyba/MajSouRec_Detail.jsp</result>
+		</action>
+
+		<action name="majSouRecInitEdit" class="com.jshx.wxhxpzdwxyba.web.MajSouRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/wxhxpzdwxyba/MajSouRec_Edit.jsp</result>
+		</action>
+
+		<action name="majSouRecSave" class="com.jshx.wxhxpzdwxyba.web.MajSouRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_majSouRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="majSouRecDel" class="com.jshx.wxhxpzdwxyba.web.MajSouRecAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

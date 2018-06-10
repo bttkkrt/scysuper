@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="OCC_DIS_PRE" extends="default" namespace="/jsp/ndzybfzjf">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="occDisPreQuery" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="list">
+		</action>
+		
+		<action name="occDisPreList" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="init">
+			<result name="success">/WEB-INF/pages/ndzybfzjf/OccDisPre_List.jsp</result>
+		</action>
+		
+		<action name="occDisPreView" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="view">
+			<result name="view">/WEB-INF/pages/ndzybfzjf/OccDisPre_Detail.jsp</result>
+		</action>
+
+		<action name="occDisPreInitEdit" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/ndzybfzjf/OccDisPre_Edit.jsp</result>
+		</action>
+
+		<action name="occDisPreSave" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_occDisPre</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occDisPreDel" class="com.jshx.ndzybfzjf.web.OccDisPreAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

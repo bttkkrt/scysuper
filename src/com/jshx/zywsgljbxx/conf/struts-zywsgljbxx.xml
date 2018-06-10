@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="OCC_HEA_INFO" extends="default" namespace="/jsp/zywsgljbxx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="occHeaInfoQuery" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="list">
+		</action>
+		
+		<action name="occHeaInfoList" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="init">
+			<result name="success">/WEB-INF/pages/zywsgljbxx/OccHeaInfo_List.jsp</result>
+		</action>
+		
+		<action name="occHeaInfoView" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="view">
+			<result name="view">/WEB-INF/pages/zywsgljbxx/OccHeaInfo_Detail.jsp</result>
+		</action>
+
+		<action name="occHeaInfoInitEdit" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zywsgljbxx/OccHeaInfo_Edit.jsp</result>
+		</action>
+
+		<action name="occHeaInfoSave" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_occHeaInfo</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occHeaInfoDel" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="delete">
+		</action>
+		<action name="occChaInfDel" class="com.jshx.zywsgljbxx.web.OccHeaInfoAction" method="occChaInfDel">
+		</action>
+		
+	</package>
+</struts>

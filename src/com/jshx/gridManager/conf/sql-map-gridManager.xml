@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findGridManagerByMap">
+		from GridManager t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="upUsername">
+			<![CDATA[and t.upUsername like :upUsername]]>
+		</isNotEmpty>
+		order by t.createTime
+	</select>
+	<!-- 查询所有乡镇及 企业数 -->
+	<select id="get_towns" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select 
+ 		row_id as id,
+ 		dept_name as name,
+ 		dept_code as code,
+ 		(select count(*) from companybackup c where instr(c.szc,dept_code) >0 ) as count,
+ 		(select count(*) from wzcompany c where instr(c.szc,dept_code) >0 ) as wzCount
+  		from department where length(dept_code) = 9 and dept_name like'%安监中队'
+  		<isNotEmpty property="deptCode">
+  			and dept_code  = #deptCode#
+  		</isNotEmpty>
+	</select>
+	<!-- 查询所有乡镇 企业总数 -->
+	<select id="get_towns_count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select 
+ 		count(*)
+  		from department where length(dept_code) = 9 and dept_name like'%安监中队'
+  		<isNotEmpty property="deptCode">
+  			and dept_code  = #deptCode#
+  		</isNotEmpty>
+	</select>
+	<!-- 查询某个乡镇的所有的镇安监办主任 的人员列表 -->
+	<select id="get_town_persons_byCode" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct u.row_id as id,
+      	 u.display_name as name
+		 from users u,user_right ur,userrole t
+		  where u.row_id = ur.user_id and ur.role_id = t.row_id and u.del_flag = 0 
+		  <isEqual property="flag" compareValue="0">
+		  	 and (t.role_code = 'A21' or t.role_code = 'A22')  and u.dept_code  = #deptCode#
+		  </isEqual>
+		  <isEqual property="flag" compareValue="1">
+		  	 and t.role_code = 'A09' and u.dept_code  = #deptCode#
+		  </isEqual>
+		  <isEqual property="flag" compareValue="6">
+		  	 and  t.role_code = 'A10' and u.dept_code  = #deptCode#
+		  </isEqual>
+		  <isEqual property="flag" compareValue="7">
+		  	 and  t.role_code = 'A31' and u.dept_code  = #deptCode#
+		  </isEqual>
+		  <isEqual property="flag" compareValue="2">
+		  	 and instr(u.dept_code,#deptCode#) >0
+		  </isEqual>
+		   <isEqual property="flag" compareValue="5">
+		  	 and  u.row_id = #userId#
+		  </isEqual>
+		  
+	</select>
+	<!-- 查询某个乡镇分管领导及有证照、无证照企业数 -->
+	<select id="get_one_fgld" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct u.row_id as id,
+      	 u.display_name as name,
+       (select count(distinct cb.row_id) from companybackup cb,grid_manager ga where cb.delflag = 0 and ga.grid_type = '5' and ga.down_userid = cb.row_id
+               and ga.up_userid in (
+                   select distinct gm.down_userid from grid_manager gm where gm.grid_type='4' and gm.up_userid in(
+                          select gg.down_userid from grid_manager gg where gg.grid_type='3' and gg.up_userid in(
+                             select gh.down_userid from grid_manager gh where gh.grid_type='2' and gh.up_userid in
+                              (
+                              		select gi.down_userid from grid_manager gi where gi.grid_type='1' and gi.up_userid = u.row_id
+                          	  )
+                           )
+                   )
+               )  
+       ) as count,
+        (select count(distinct cb.row_id) from wzcompany cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '6' and ga.down_userid = cb.row_id
+               and ga.up_userid in (
+                   select distinct gm.down_userid from grid_manager gm where gm.grid_type='4' and gm.up_userid in(
+                          select gg.down_userid from grid_manager gg where gg.grid_type='3' and gg.up_userid in(
+                             select gh.down_userid from grid_manager gh where gh.grid_type='2' and gh.up_userid in
+                              (
+                              		select gi.down_userid from grid_manager gi where gi.grid_type='1' and gi.up_userid = u.row_id
+                          	  )
+                           )
+                   )
+               )  
+       ) as wzCount
+		 from users u,user_right ur,userrole t
+		  where u.row_id = ur.user_id and ur.role_id = t.row_id and u.del_flag = 0 
+		  and t.role_code = 'A31'
+  		<isNotEmpty property="userId">
+  			and u.row_id  = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  			and instr(u.dept_code,#deptCode#) >0 
+  		</isNotEmpty>
+	</select>
+	<!-- 查询某个乡镇 分管领导及企业总数 -->
+	<select id="get_one_fgld_count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(distinct u.row_id)
+ 	from users u,user_right ur,userrole t
+  	where u.row_id = ur.user_id and ur.role_id = t.row_id and u.del_flag = 0 
+  	and t.role_code = 'A31'
+  		<isNotEmpty property="userId">
+  			and u.row_id = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  			and u.dept_code= #deptCode#
+  		</isNotEmpty>
+	</select>
+	<!-- 查询某个乡镇镇安监办主任及有证照、无证照企业数 -->
+	<select id="get_one_town" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct u.row_id as id,
+      	 u.display_name as name,
+      	 u.createTime,
+      	 (select count(*) from grid_manager where u.row_id =  down_userid and grid_type = '1') as mark,
+      	 (select wm_concat(up_username) from grid_manager where u.row_id =  down_userid and grid_type = '1') as info,
+       (select count(distinct cb.row_id) from companybackup cb,grid_manager ga where cb.delflag = 0 and ga.grid_type = '5' and ga.down_userid = cb.row_id
+               and ga.up_userid in(
+                   select distinct gm.down_userid from grid_manager gm where gm.grid_type='4' and gm.up_userid in(
+                          select gg.down_userid from grid_manager gg where gg.grid_type='3' and gg.up_userid in(
+                             select gh.down_userid from grid_manager gh where gh.grid_type='2' and gh.up_userid = u.row_id
+                           )
+                   )
+               )  
+       ) as count,
+        (select count(distinct cb.row_id) from wzcompany cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '6' and ga.down_userid = cb.row_id
+               and ga.up_userid in (
+                   select distinct gm.down_userid from grid_manager gm where gm.grid_type='4' and gm.up_userid in(
+                          select gg.down_userid from grid_manager gg where gg.grid_type='3' and gg.up_userid in(
+                             select gh.down_userid from grid_manager gh where gh.grid_type='2' and gh.up_userid = u.row_id
+                           )
+                   )
+               )  
+       ) as wzCount
+		 from users u,user_right ur,userrole t
+		  where u.row_id = ur.user_id and ur.role_id = t.row_id and u.del_flag = 0 
+		  and (t.role_code = 'A21' or t.role_code = 'A22')
+		   <isEqual property="bind" compareValue="1">
+		     and u.row_id in (
+		     	select down_userid from grid_manager where grid_type = '1' and up_userid = #bindId#
+		     )
+		  </isEqual>
+  		<isNotEmpty property="userId">
+  			and u.row_id  = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  			and instr(u.dept_code,#deptCode#) >0 
+  		</isNotEmpty>
+  		order by u.createTime desc
+	</select>
+	<!-- 查询某个乡镇 镇安监办主任及企业总数 -->
+	<select id="get_one_town_count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(distinct u.row_id)
+ 	from users u,user_right ur,userrole t
+  	where u.row_id = ur.user_id and ur.role_id = t.row_id and u.del_flag = 0 
+  	and (t.role_code = 'A21' or t.role_code = 'A22')
+  		<isEqual property="bind" compareValue="1">
+		     and u.row_id in (
+		     	select down_userid from grid_manager where grid_type = '1' and up_userid = #bindId#
+		     )
+		  </isEqual>
+  		<isNotEmpty property="userId">
+  			and u.row_id = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  			and u.dept_code= #deptCode#
+  		</isNotEmpty>
+	</select>
+	
+	<!-- 查询某个镇的所有镇级中队队长及对应的有证照、无证照企业数 -->
+	<select id="get_one_town_dzs" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct u.row_id as id,
+      	 u.display_name as name,
+      	 u.createTime,
+      	 (select count(*) from grid_manager where u.row_id =  down_userid and grid_type = '2') as mark,
+      	 (select wm_concat(up_username) from grid_manager where u.row_id =  down_userid and grid_type = '2') as info,
+	       (select count(distinct cb.row_id) from companybackup cb,grid_manager ga where cb.delflag = 0 and ga.grid_type = '5' and ga.down_userid = cb.row_id
+               and ga.up_userid in (
+	                    select distinct gm.down_userid from grid_manager gm where gm.grid_type='4' and gm.up_userid in(
+                          select gg.down_userid from grid_manager gg where gg.grid_type='3' and gg.up_userid = u.row_id
+                        )
+	               )  
+	       ) as count,
+	       (select count(distinct cb.row_id) from wzcompany cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '6' and ga.down_userid = cb.row_id
+               and ga.up_userid in (
+	                   select distinct gm.down_userid from grid_manager gm where gm.grid_type='4' and gm.up_userid in(
+                          select gg.down_userid from grid_manager gg where gg.grid_type='3' and gg.up_userid = u.row_id
+                       )
+                   )
+	       ) as wzCount
+		 from users u,user_right ur,userrole t
+		  where u.row_id = ur.user_id and ur.role_id = t.row_id and u.del_flag = 0 
+		  and t.role_code = 'A09'
+		  <isEqual property="bind" compareValue="1">
+		     and u.row_id in (
+		     	select down_userid from grid_manager where grid_type = '2' and up_userid = #bindId#
+		     )
+		  </isEqual>
+  		<isNotEmpty property="userId">
+  			and u.row_id  = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  			and u.dept_code= #deptCode#
+  		</isNotEmpty>
+  		order by u.createTime desc
+	</select>
+		<!-- 查询某个镇的所有镇级中队队长及对应的企业数 总条数 -->
+	<select id="get_one_town_dzs_count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select distinct count(*)
+		 from users u,user_right ur,userrole t
+		  where u.row_id = ur.user_id and ur.role_id = t.row_id and u.del_flag = 0 
+		  and t.role_code = 'A09'
+		  
+		  <isEqual property="bind" compareValue="1">
+		     and u.row_id in (
+		     	select down_userid from grid_manager where grid_type = '2' and up_userid = #bindId#
+		     )
+		  </isEqual>
+  		<isNotEmpty property="userId">
+  			and u.row_id  = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  			and u.dept_code= #deptCode#
+  		</isNotEmpty>
+	</select>
+	<!-- 查询某个镇的所有镇级安全责任人及对应的有证照、无证照企业数 -->
+	<select id="get_one_town_users" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct u.row_id as id,
+      	 u.display_name as name,
+      	 u.createTime,
+      	 (select count(*) from grid_manager where u.row_id =  down_userid and grid_type = '3') as mark,
+      	 (select wm_concat(up_username) from grid_manager where u.row_id =  down_userid and grid_type = '3') as info,
+	       (select count(distinct cb.row_id) from companybackup cb,grid_manager ga where cb.delflag = 0 and ga.grid_type = '5' and ga.down_userid = cb.row_id
+               and ga.up_userid in (
+	                          select gg.down_userid from grid_manager gg where gg.grid_type='4' and gg.up_userid = u.row_id
+	               )  
+	       ) as count,
+	       (select count(distinct cb.row_id) from wzcompany cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '6' and ga.down_userid = cb.row_id
+               and ga.up_userid in (
+	                          select gg.down_userid from grid_manager gg where gg.grid_type='4' and gg.up_userid = u.row_id
+	               )  
+	       ) as wzCount
+		 from users u,user_right ur,userrole t
+		  where u.row_id = ur.user_id and ur.role_id = t.row_id and u.del_flag = 0 
+		  and t.role_code = 'A10'
+		  <isEqual property="bind" compareValue="1">
+		     and u.row_id in (
+		     	select down_userid from grid_manager where grid_type = '3' and up_userid = #bindId#
+		     )
+		  </isEqual>
+  		<isNotEmpty property="userId">
+  			and u.row_id  = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  			and u.dept_code= #deptCode#
+  		</isNotEmpty>
+  		order by u.createTime desc
+	</select>
+		<!-- 查询某个镇的所有镇级安全责任人及对应的企业数 总条数 -->
+	<select id="get_one_town_users_count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select distinct count(*)
+		 from users u,user_right ur,userrole t
+		  where u.row_id = ur.user_id and ur.role_id = t.row_id and u.del_flag = 0 
+		  and t.role_code = 'A10'
+		  <isEqual property="bind" compareValue="1">
+		     and u.row_id in (
+		     	select down_userid from grid_manager where grid_type = '3' and up_userid = #bindId#
+		     )
+		  </isEqual>
+  		<isNotEmpty property="userId">
+  			and u.row_id  = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  			and u.dept_code= #deptCode#
+  		</isNotEmpty>
+	</select>
+	<!-- 删除绑定的关联信息 -->
+	<delete id="delete_bindUser_byUserId" parameterClass="java.util.Map">
+		delete from grid_manager where 1=1 
+		<isNotEmpty property="upId">
+			and up_userid = #upId#
+		</isNotEmpty>  
+		<isNotEmpty property="downId">
+			and down_userid = #downId#
+		</isNotEmpty> 
+		<isNotEmpty property="gridType">
+			and grid_Type = #gridType#
+		</isNotEmpty>  
+	</delete>
+	<!-- 查询某个镇的所有村级安全责任人及对应的有证照、无证照企业数 -->
+	<select id="get_one_country_users" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct u.row_id as id,
+      	 u.display_name as name,
+      	 u.createTime,u.gxfw,
+      	 (case when length(u.dept_code)=12 then (select d.dept_name from department d where d.row_id = u.dept_id) else '镇区' end ) as szc,
+      	 (select count(*) from grid_manager where u.row_id =  down_userid and grid_type = '4') as mark,
+      	 (select wm_concat(up_username) from grid_manager where u.row_id =  down_userid and grid_type = '4') as info,
+	       (select count(distinct cb.row_id) from companybackup cb,grid_manager ga where cb.delflag = 0 and ga.grid_type = '5' and ga.down_userid = cb.row_id
+               and ga.up_userid  = u.row_id
+	       ) as count,
+	       (select count(distinct cb.row_id) from wzcompany cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '6' and ga.down_userid = cb.row_id
+               and ga.up_userid = u.row_id
+	       ) as wzCount
+		 from users u
+		  where u.del_flag = 0 
+		  <isEqual property="bind" compareValue="1">
+		     and u.row_id in (
+		     	select down_userid from grid_manager where grid_type = '4' and up_userid = #bindId#
+		     )
+		  </isEqual>
+  		<isNotEmpty property="userId">
+  			and u.row_id  = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="szc">
+  			and u.dept_code  = #szc#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  			and instr(u.dept_code,#deptCode#)>0
+  		</isNotEmpty>
+  		order by u.createTime desc
+	</select>
+		<!-- 查询某个镇的所有村级安全责任人及对应的企业数 总条数 -->
+	<select id="get_one_country_users_count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select distinct count(*)
+		 from users u
+		  where u.del_flag = 0 
+		  <isEqual property="bind" compareValue="1">
+		     and u.row_id in (
+		     	select down_userid from grid_manager where grid_type = '4' and up_userid = #bindId#
+		     )
+		  </isEqual>
+  		<isNotEmpty property="userId">
+  			and u.row_id  = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="szc">
+  			and u.dept_code  = #szc#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  				and instr(u.dept_code,#deptCode#)>0 
+  		</isNotEmpty>
+	</select>
+	<!-- 查询企业列表 -->
+	<select id="get_companys_byCode" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select companyname as name,row_id as id from companybackup where  delflag = 0 
+		<isNotEmpty property="deptCode">
+  			and instr(szc,#deptCode#)>0
+  		</isNotEmpty>
+	</select>
+	<!-- 查询有证企业 -->
+	<select id="get_one_company_users" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct cb.row_id as id,
+	      	 cb.companyname as name,
+	         cb.createTime,
+	         (select count(*) from grid_manager ga where ga.grid_type = '5' and ga.down_userid = cb.row_id) as mark,
+	         (select wm_concat(ga.up_username) from grid_manager ga where ga.grid_type = '5' and ga.down_userid = cb.row_id) as info
+	     from companybackup cb 
+      	 where cb.delflag = 0 
+		  <isEqual property="bind" compareValue="1">
+		    and cb.row_id in(
+		     	select down_userid from grid_manager where grid_type = '5' and up_userid = #bindId#
+		     )
+		  </isEqual>
+  		<isNotEmpty property="userId">
+  			and cb.row_id  = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  			and instr(cb.szc,#deptCode#)>0
+  		</isNotEmpty>
+  		order by cb.createTime desc 
+	</select>
+		<!-- 查询有证企业总条数 -->
+	<select id="get_one_company_users_count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select distinct count(*)
+	    	 from companybackup cb 
+      	 	where cb.delflag = 0 
+      	 <isEqual property="bind" compareValue="1">
+		    and cb.row_id in(
+		     	select down_userid from grid_manager where grid_type = '5' and up_userid = #bindId#
+		     )
+		 </isEqual>
+  		<isNotEmpty property="userId">
+  			and cb.row_id  = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  			and instr(cb.szc,#deptCode#)>0
+  		</isNotEmpty>
+	</select>
+	<!-- 查询无证照企业列表 -->
+	<select id="get_no_companys_byCode" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select companyname as name,row_id as id from wzcompany where  delflag = 0 
+		<isNotEmpty property="deptCode">
+  			and instr(szc,#deptCode#)>0
+  		</isNotEmpty>
+	</select>
+	<!-- 查询无证企业 -->
+	<select id="get_one_no_company_users" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct cb.row_id as id,
+	      	 cb.companyname as name,
+	         cb.createTime,
+	         (select count(*) from grid_manager ga where ga.grid_type = '6' and ga.down_userid = cb.row_id) as mark,
+	         (select wm_concat(ga.up_username) from  grid_manager ga where ga.grid_type = '6' and ga.down_userid = cb.row_id) as info
+	     from wzcompany cb 
+      	 where cb.delflag = 0 
+		  <isEqual property="bind" compareValue="1">
+		    and cb.row_id in(
+		     	select down_userid from grid_manager where grid_type = '6' and up_userid = #bindId#
+		     )
+		  </isEqual>
+  		<isNotEmpty property="userId">
+  			and cb.row_id  = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  			and instr(cb.szc,#deptCode#)>0
+  		</isNotEmpty>
+  		order by cb.createTime desc 
+	</select>
+		<!-- 查询无证企业总条数 -->
+	<select id="get_one_no_company_users_count" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select distinct count(*)
+	    	 from wzcompany cb 
+      	 	where cb.delflag = 0 
+      	 <isEqual property="bind" compareValue="1">
+		    and cb.row_id in(
+		     	select down_userid from grid_manager where grid_type = '6' and up_userid = #bindId#
+		     )
+		 </isEqual>
+  		<isNotEmpty property="userId">
+  			and cb.row_id  = #userId#
+  		</isNotEmpty>
+  		<isNotEmpty property="deptCode">
+  			and instr(cb.szc,#deptCode#)>0
+  		</isNotEmpty>
+	</select>
+	<!-- 查询 某个乡镇下的企业信息 map lj 2014-07-21 -->
+	<select id="get_company_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,cb.dwdz as address,cb.fddbr as linkman,cb.fddbrlxhm as telephone,cb.longitude,cb.latitude from companybackup cb where cb.delflag = 0 
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	<!-- 查询 某个乡镇 某个主任 绑定的企业信息 lj 2014-07-21 -->
+	<select id="get_fgld_company_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,cb.dwdz as address,cb.fddbr as linkman,cb.fddbrlxhm as telephone,cb.longitude,cb.latitude from companybackup cb,grid_manager ga where cb.delflag = 0 and ga.grid_type = '5' and ga.down_userid = cb.row_id
+               and ga.up_userid in 
+              (
+                   select distinct gm.down_userid from grid_manager gm where gm.grid_type='4' and gm.up_userid in(
+                          select gg.down_userid from grid_manager gg where gg.grid_type='3' and gg.up_userid in
+                          (
+                          	select gh.down_userid from grid_manager gh where gh.grid_type='2' and gh.down_userid in
+                          	(
+                          		select gi.down_userid from grid_manager gi where gi.grid_type='1'
+                            	<isNotEmpty property="userId">
+			  				  	and gi.up_userid = #userId#
+			  			   		</isNotEmpty>
+                          	)
+			  			   )
+                   )
+               )  
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	<!-- 查询 某个乡镇 某个主任 绑定的企业信息 lj 2014-07-21 -->
+	<select id="get_zr_company_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,cb.dwdz as address,cb.fddbr as linkman,cb.fddbrlxhm as telephone,cb.longitude,cb.latitude from companybackup cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '5' and ga.down_userid = cb.row_id
+              and ga.up_userid in  ( 
+                   select distinct gm.down_userid from grid_manager gm where gm.grid_type='4' and gm.up_userid in(
+                          select gg.down_userid from grid_manager gg where gg.grid_type='3' and gg.up_userid in
+                          (
+                          	select gh.down_userid from grid_manager gh where gh.grid_type='2'
+                            <isNotEmpty property="userId">
+			  				  and gh.up_userid = #userId#
+			  			   </isNotEmpty>
+			  			   )
+                   )
+               )  
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	<!-- 查询 某个乡镇 某个主任的某个队长 绑定的企业信息 lj 2014-07-22 -->
+	<select id="get_towndz_company_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,cb.dwdz as address,cb.fddbr as linkman,cb.fddbrlxhm as telephone,cb.longitude,cb.latitude from companybackup cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '5' and ga.down_userid = cb.row_id
+              and ga.up_userid in (
+                   select distinct gm.down_userid from grid_manager gm where gm.grid_type='4' and gm.up_userid in 
+                   	(
+                   		select gg.down_userid from grid_manager gg where gg.grid_type='3'
+                            <isNotEmpty property="userId">
+			  				  and gg.up_userid = #userId#
+			  			   </isNotEmpty>
+			  		)
+               )  
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	<!-- 查询 某个乡镇 某个主任的某个队长 绑定的企业信息 lj 2014-07-22 -->
+	<select id="get_townaqy_company_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,cb.dwdz as address,cb.fddbr as linkman,cb.fddbrlxhm as telephone,cb.longitude,cb.latitude from companybackup cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '5' and ga.down_userid = cb.row_id
+              and ga.up_userid in (
+                   select distinct gm.down_userid from grid_manager gm where gm.grid_type='4'
+                            <isNotEmpty property="userId">
+			  				  and gm.up_userid = #userId#
+			  			   </isNotEmpty>
+               )  
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	<!-- 查询 某个乡镇 某个主任的某个安全员下的村安全员  绑定的企业信息 lj 2014-07-22 -->
+	<select id="get_countryaqy_company_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,cb.dwdz as address,cb.fddbr as linkman,cb.fddbrlxhm as telephone,cb.longitude,cb.latitude from companybackup cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '5' and ga.down_userid = cb.row_id
+                 <isNotEmpty property="userId">
+			  		and ga.up_userid = #userId#
+			  	</isNotEmpty>
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	<!-- 查询 某个乡镇 某个主任的某个安全员下的村安全员  绑定的 某个企业信息 lj 2014-07-22 -->
+	<select id="get_single_company_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,cb.dwdz as address,cb.fddbr as linkman,cb.fddbrlxhm as telephone,cb.longitude,cb.latitude from companybackup cb where cb.delflag = 0 
+                 <isNotEmpty property="userId">
+			  		and cb.row_id = #userId#
+			  	</isNotEmpty>
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	
+	<!-- 查询 某个乡镇下的企业信息 map lj 2014-07-22 -->
+	<select id="get_nocompany_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,concat(cb.szzname,cb.szcname) as address,cb.fzr as linkman,cb.mobile as telephone,cb.longitude,cb.latitude from wzcompany cb where cb.delflag = 0 
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	<!-- 查询 某个乡镇 某个分管领导 绑定的企业信息 lj 2014-07-22 -->
+	<select id="get_fgld_nocompany_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,concat(cb.szzname,cb.szcname) as address,cb.fzr as linkman,cb.mobile as telephone,cb.longitude,cb.latitude  from wzcompany cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '6' and ga.down_userid = cb.row_id
+              and ga.up_userid in (
+                   select distinct gm.down_userid from grid_manager gm where gm.grid_type='4' and gm.up_userid in(
+                          select gg.down_userid from grid_manager gg where gg.grid_type='3' and gg.up_userid in
+                          (
+                          	select gh.down_userid from grid_manager gh where gh.grid_type='2' and gh.down_userid in
+                          	(
+                          			select gi.down_userid from grid_manager gi where gi.grid_type='1'
+                           		 	<isNotEmpty property="userId">
+			  				  		and gi.up_userid = #userId#
+			  			   			</isNotEmpty>
+                          	)
+			  			  )
+                   )
+               )  
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	<!-- 查询 某个乡镇 某个主任 绑定的企业信息 lj 2014-07-22 -->
+	<select id="get_zr_nocompany_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,concat(cb.szzname,cb.szcname) as address,cb.fzr as linkman,cb.mobile as telephone,cb.longitude,cb.latitude  from wzcompany cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '6' and ga.down_userid = cb.row_id
+              and ga.up_userid in (
+                   select distinct gm.down_userid from grid_manager gm where gm.grid_type='4' and gm.up_userid in(
+                          select gg.down_userid from grid_manager gg where gg.grid_type='3' and gg.up_userid in
+                          (
+                          	select gh.down_userid from grid_manager gh where gh.grid_type='2'
+                            <isNotEmpty property="userId">
+			  				  and gh.up_userid = #userId#
+			  			   </isNotEmpty>
+			  			  )
+                   )
+               )  
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	<!-- 查询 某个乡镇 某个主任的某个队长 绑定的企业信息 lj 2014-07-22 -->
+	<select id="get_towndz_nocompany_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,concat(cb.szzname,cb.szcname) as address,cb.fzr as linkman,cb.mobile as telephone,cb.longitude,cb.latitude  from wzcompany cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '6' and ga.down_userid = cb.row_id
+              and ga.up_userid in (
+                   select distinct gm.down_userid from grid_manager gm where gm.grid_type='4' and gm.up_userid in
+                   (
+                   		 select gg.down_userid from grid_manager gg where gg.grid_type='3'
+                            <isNotEmpty property="userId">
+			  				  and gg.up_userid = #userId#
+			  			   </isNotEmpty>
+			  		)
+               )  
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	<!-- 查询 某个乡镇 某个主任的某个安全员 绑定的企业信息 lj 2014-07-22 -->
+	<select id="get_townaqy_nocompany_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,concat(cb.szzname,cb.szcname) as address,cb.fzr as linkman,cb.mobile as telephone,cb.longitude,cb.latitude  from wzcompany cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '6' and ga.down_userid = cb.row_id
+              and ga.up_userid in(
+                   select distinct gm.down_userid from grid_manager gm where gm.grid_type='4'
+                            <isNotEmpty property="userId">
+			  				  and gm.up_userid = #userId#
+			  			   </isNotEmpty>
+               )  
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	<!-- 查询 某个乡镇 某个主任的某个安全员下的村安全员  绑定的企业信息 lj 2014-07-22 -->
+	<select id="get_countryaqy_nocompany_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,concat(cb.szzname,cb.szcname) as address,cb.fzr as linkman,cb.mobile as telephone,cb.longitude,cb.latitude  from wzcompany cb,grid_manager ga where cb.delflag = 0  and ga.grid_type = '6' and ga.down_userid = cb.row_id
+              <isNotEmpty property="userId">
+			  		and ga.up_userid = #userId#
+			  	</isNotEmpty>
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	<!-- 查询 某个乡镇 某个主任的某个安全员下的村安全员  绑定的 某个企业信息 lj 2014-07-22 -->
+	<select id="get_single_nocompany_map_dots" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.CompanyMapBean">
+		select cb.row_id as id, cb.companyname as name,concat(cb.szzname,cb.szcname) as address,cb.fzr as linkman,cb.mobile as telephone,cb.longitude,cb.latitude from wzcompany cb where cb.delflag = 0 
+                 <isNotEmpty property="userId">
+			  		and cb.row_id = #userId#
+			  	</isNotEmpty>
+               <isNotEmpty property="deptCode">
+  					and instr(cb.szc,#deptCode#)>0
+  			   </isNotEmpty>
+	</select>
+	
+	<!-- 查询所有乡镇 -->
+	<select id="getDeptListByMap" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+	select  dept_name as name,dept_code as code
+  	from department where length(dept_code) = 9 and dept_name like'%安监中队'
+	</select>
+	
+	<!-- 查询某个镇分管领导 -->
+	<select id="getFgldListByMap" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct u.row_id as id,
+      	u.display_name as name
+		from users u,user_right ur,userrole t
+	    where u.row_id = ur.user_id and ur.role_id = t.row_id and u.del_flag = 0 
+		and t.role_code = 'A31' and u.dept_code  = #deptCode#
+	</select>
+	
+	<!-- 查询某个镇安监办主任 -->
+	<select id="getZzrListByMap" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct u.row_id as id,
+      	 u.display_name as name
+		 from users u
+		 where u.del_flag = 0 
+		 and u.row_id in (select down_userid from grid_manager where grid_type = '1' and up_userid = #fgldid#)
+	</select>
+	
+	<!-- 查询某个镇安监办主任绑定的镇安全责任人 -->
+	<select id="getZddzListByMap" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct u.row_id as id,
+      	 u.display_name as name
+		 from users u
+		 where u.del_flag = 0 
+		 and u.row_id in (select down_userid from grid_manager where grid_type = '2' and up_userid = #zrrid#)
+	</select>
+	
+	<!-- 查询某个镇安监办主任绑定的镇安全责任人 -->
+	<select id="getZaqzzrListByMap" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct u.row_id as id,
+      	 u.display_name as name
+		 from users u
+		 where u.del_flag = 0 
+		 and u.row_id in (select down_userid from grid_manager where grid_type = '3' and up_userid = #zddzid#)
+	</select>
+	
+	<!-- 查询某个镇安全责任人绑定的村安全责任人 -->
+	<select id="getCaqzzrListByMap" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.GridmanagerBean">
+		select distinct u.row_id as id,u.display_name as name,u.gxfw,
+		 (case when length(u.dept_code)=12 then (select d.dept_name from department d where d.row_id = u.dept_id) else '镇区' end ) as szc,
+	    (select count(*) from companybackup cb,grid_manager ga where cb.delflag = 0 and ga.grid_type = '5' and ga.down_userid = cb.row_id and ga.up_userid = u.row_id) as yznum,
+	   	(select count(*) from wzcompany cb,grid_manager ga where cb.delflag = 0 and ga.grid_type = '6' and ga.down_userid = cb.row_id and ga.up_userid = u.row_id) as wznum
+		from users u
+	    where u.del_flag = 0 
+		and u.row_id in (select down_userid from grid_manager where grid_type = '4' and up_userid = #zaqzrrid#)
+	</select>
+	
+	<select id="findWzCompanyByPage" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct cb.row_id as id, cb.companyname as name
+	    from wzcompany cb,grid_manager ga
+        where cb.delflag = 0 and ga.grid_type = '6' and ga.down_userid = cb.row_id and ga.up_userid = #bindId#
+        <isNotEmpty property="wzcompanyname">
+  			and cb.companyname  like #wzcompanyname#
+  		</isNotEmpty>
+	</select>
+	
+	<select id="findWzCompanyByPageSize" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*)
+	    from wzcompany cb ,grid_manager ga
+        where cb.delflag = 0  and ga.grid_type = '6' and ga.down_userid = cb.row_id and ga.up_userid = #bindId#
+       	<isNotEmpty property="wzcompanyname">
+  			and cb.companyname  like #wzcompanyname#
+  		</isNotEmpty>
+	</select>
+	
+	<select id="findYzCompanyByPage" parameterClass="java.util.Map" resultClass="com.jshx.gridManager.entity.BaseBean">
+		select distinct cb.row_id as id,cb.companyname as name
+	     from companybackup cb ,grid_manager ga
+      	 where cb.delflag = 0 and ga.grid_type = '5' and ga.down_userid = cb.row_id and ga.up_userid = #bindId#
+      	 <isNotEmpty property="yzcompanyname">
+  			and cb.companyname  like #yzcompanyname#
+  		</isNotEmpty>
+	</select>
+	
+	<select id="findYzCompanyByPageSize" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*)
+	     from companybackup cb,grid_manager ga 
+      	 where cb.delflag = 0  and ga.grid_type = '5' and ga.down_userid = cb.row_id and ga.up_userid = #bindId#
+      	 <isNotEmpty property="yzcompanyname">
+  			and cb.companyname  like #yzcompanyname#
+  		</isNotEmpty>
+	</select>
+</sqlMap>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="HEARING_REPORT" extends="default" namespace="/jsp/tzhbgs">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="hearingReportQuery" class="com.jshx.tzhbgs.web.HearingReportAction" method="list">
+		</action>
+		
+		<action name="hearingReportList" class="com.jshx.tzhbgs.web.HearingReportAction" method="init">
+			<result name="success">/WEB-INF/pages/tzhbgs/HearingReport_List.jsp</result>
+		</action>
+		
+		<action name="hearingReportView" class="com.jshx.tzhbgs.web.HearingReportAction" method="view">
+			<result name="view">/WEB-INF/pages/tzhbgs/HearingReport_Detail.jsp</result>
+		</action>
+
+		<action name="hearingReportInitEdit" class="com.jshx.tzhbgs.web.HearingReportAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/tzhbgs/HearingReport_Edit.jsp</result>
+		</action>
+
+		<action name="hearingReportSave" class="com.jshx.tzhbgs.web.HearingReportAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_hearingReport</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="hearingReportDel" class="com.jshx.tzhbgs.web.HearingReportAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

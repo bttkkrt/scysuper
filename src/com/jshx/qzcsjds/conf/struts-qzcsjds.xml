@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ENFORENCE_DECISION" extends="default" namespace="/jsp/qzcsjds">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="enforenceDecisionQuery" class="com.jshx.qzcsjds.web.EnforenceDecisionAction" method="list">
+		</action>
+		
+		<action name="enforenceDecisionList" class="com.jshx.qzcsjds.web.EnforenceDecisionAction" method="init">
+			<result name="success">/WEB-INF/pages/qzcsjds/EnforenceDecision_List.jsp</result>
+		</action>
+		
+		<action name="enforenceDecisionView" class="com.jshx.qzcsjds.web.EnforenceDecisionAction" method="view">
+			<result name="view">/WEB-INF/pages/qzcsjds/EnforenceDecision_Detail.jsp</result>
+		</action>
+
+		<action name="enforenceDecisionInitEdit" class="com.jshx.qzcsjds.web.EnforenceDecisionAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/qzcsjds/EnforenceDecision_Edit.jsp</result>
+		</action>
+
+		<action name="enforenceDecisionSave" class="com.jshx.qzcsjds.web.EnforenceDecisionAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_enforenceDecision</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="enforenceDecisionDel" class="com.jshx.qzcsjds.web.EnforenceDecisionAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

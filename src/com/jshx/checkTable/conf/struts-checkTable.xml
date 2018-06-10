@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CHECK_TABLE" extends="default" namespace="/jsp/checkTable">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="checkTableQuery" class="com.jshx.checkTable.web.CheckTableAction" method="list">
+		</action>
+		
+		<action name="checkTableList" class="com.jshx.checkTable.web.CheckTableAction" method="init">
+			<result name="success">/WEB-INF/pages/checkTable/CheckTable_List.jsp</result>
+		</action>
+		
+		<action name="checkTableView" class="com.jshx.checkTable.web.CheckTableAction" method="view">
+			<result name="view">/WEB-INF/pages/checkTable/CheckTable_Detail.jsp</result>
+		</action>
+
+		<action name="checkTableInitEdit" class="com.jshx.checkTable.web.CheckTableAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/checkTable/CheckTable_Edit.jsp</result>
+		</action>
+
+		<action name="checkTableSave" class="com.jshx.checkTable.web.CheckTableAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_checkTable</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="checkTableDel" class="com.jshx.checkTable.web.CheckTableAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

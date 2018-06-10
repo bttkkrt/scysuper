@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="AID" extends="default" namespace="/jsp/aid">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="aidQuery" class="com.jshx.aid.web.AidAction" method="list">
+		</action>
+		
+		<action name="aidList" class="com.jshx.aid.web.AidAction" method="init">
+			<result name="success">/WEB-INF/pages/aid/Aid_List.jsp</result>
+		</action>
+		
+		<action name="aidView" class="com.jshx.aid.web.AidAction" method="view">
+			<result name="view">/WEB-INF/pages/aid/Aid_Detail.jsp</result>
+		</action>
+
+		<action name="aidInitEdit" class="com.jshx.aid.web.AidAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aid/Aid_Edit.jsp</result>
+		</action>
+
+		<action name="aidSave" class="com.jshx.aid.web.AidAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_aid</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="aidDel" class="com.jshx.aid.web.AidAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

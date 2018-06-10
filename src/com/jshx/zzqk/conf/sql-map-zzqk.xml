@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findIntSitByMap">
+		select new com.jshx.zzqk.entity.IntSit(t.id, t.areaName, t.companyName, t.intelligenceCardnum, t.intelligenceCardname, t.intelligenceType,t.auditResult,t.auditState,t.createUserID) from IntSit t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName = :areaName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="intelligenceCardnum">
+			<![CDATA[and t.intelligenceCardnum like :intelligenceCardnum]]>
+		</isNotEmpty>
+		<isNotEmpty property="intelligenceCardname">
+			<![CDATA[and t.intelligenceCardname like :intelligenceCardname]]>
+		</isNotEmpty>
+		<isNotEmpty property="intelligenceType">
+			<![CDATA[and t.intelligenceType = :intelligenceType]]>
+		</isNotEmpty>
+		<isNotEmpty property="auditResult">
+			<![CDATA[and t.auditResult like :auditResult]]>
+		</isNotEmpty>
+		<isNotEmpty property="auditState">
+			<![CDATA[and t.auditState like :auditState]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  charindex(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and (t.companyName like :searchLike or t.intelligenceCardnum like :searchLike or intelligenceCardname like :searchLike)]]>
+		</isNotEmpty>
+			<isNotEmpty property="state">
+			<![CDATA[and t.auditState != :state]]>
+		</isNotEmpty>
+		
+		
+		order by t.createTime desc 
+	</select>
+	
+	<select id="findIntSitByMaps" parameterClass="java.util.Map" resultClass="com.jshx.zzqk.entity.IntSit">
+		select row_id as id,
+		(select cv.item_text from code c,codevalue cv where c.row_id = cv.code_id and c.del_flag = 0 and cv.del_flag = 0
+		and c.code_Name = '资质类型'  and cv.item_value = INTELLIGENCE_TYPE) as intelligenceType,
+		INTELLIGENCE_VALIDITY_END as intelligenceValidityEnd,
+		CREATEUSERID as createUserID
+		from INT_SIT where delFlag = 0
+		<isNotEmpty property="intelligenceValidityEnd">
+			<![CDATA[and INTELLIGENCE_VALIDITY_END < #intelligenceValidityEnd#]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="findIntSitByMapss">
+		from IntSit t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName = :areaName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="intelligenceCardnum">
+			<![CDATA[and t.intelligenceCardnum like :intelligenceCardnum]]>
+		</isNotEmpty>
+		<isNotEmpty property="intelligenceCardname">
+			<![CDATA[and t.intelligenceCardname like :intelligenceCardname]]>
+		</isNotEmpty>
+		<isNotEmpty property="intelligenceType">
+			<![CDATA[and t.intelligenceType = :intelligenceType]]>
+		</isNotEmpty>
+		<isNotEmpty property="auditResult">
+			<![CDATA[and t.auditResult like :auditResult]]>
+		</isNotEmpty>
+		<isNotEmpty property="auditState">
+			<![CDATA[and t.auditState like :auditState]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  charindex(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and (t.companyName like :searchLike or t.intelligenceCardnum like :searchLike or intelligenceCardname like :searchLike)]]>
+		</isNotEmpty>
+			<isNotEmpty property="state">
+			<![CDATA[and t.auditState != :state]]>
+		</isNotEmpty>
+		<isNotEmpty property="inserOrUpdateStartTime">
+			<![CDATA[and (t.createTime > :inserOrUpdateStartTime or t.updateTime > :inserOrUpdateStartTime)]]>
+		</isNotEmpty>
+		<isNotEmpty property="inserOrUpdateEndTime">
+			<![CDATA[and (t.createTime <= :inserOrUpdateEndTime or t.updateTime <= :inserOrUpdateEndTime)]]>
+		</isNotEmpty>
+		order by t.createTime asc ,t.updateTime asc
+	</select>
+</sqlMap>

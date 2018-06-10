@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findReviewLogByMap">
+		from ReviewLog t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="itemId">
+			<![CDATA[and t.itemId like :itemId]]>
+		</isNotEmpty>
+		<isNotEmpty property="itemType">
+			<![CDATA[and t.itemType like :itemType]]>
+		</isNotEmpty>
+		<isNotEmpty property="state">
+			<![CDATA[and t.state like :state]]>
+		</isNotEmpty>
+		<isNotEmpty property="dutyFlag">
+			<![CDATA[and t.dutyFlag like :dutyFlag]]>
+		</isNotEmpty>
+		<isNotEmpty property="userId">
+			<![CDATA[and t.userId like :userId]]>
+		</isNotEmpty>
+		<isNotEmpty property="userName">
+			<![CDATA[and t.userName like :userName]]>
+		</isNotEmpty>
+		<isNotEmpty property="userDeptCode">
+			<![CDATA[and t.userDeptCode like :userDeptCode]]>
+		</isNotEmpty>
+		<isNotEmpty property="startStartTime">
+			<![CDATA[and t.startTime >= :startStartTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endStartTime">
+			<![CDATA[and t.startTime <= :endStartTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="startEndTime">
+			<![CDATA[and t.endTime >= :startEndTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endEndTime">
+			<![CDATA[and t.endTime <= :endEndTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="record">
+			<![CDATA[and t.record like :record]]>
+		</isNotEmpty>
+		order by t.endTime desc,t.startTime desc,t.createTime desc
+	</select>
+</sqlMap>

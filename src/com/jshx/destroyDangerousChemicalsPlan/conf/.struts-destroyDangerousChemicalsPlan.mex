@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="DESTROY_DANGEROUS_PLAN" location="-78,92" size="1750,875">
+    <action name="destroyDangerousPlanQuery" location="1535,58" size="150,40" />
+    <action name="destroyDangerousPlanList" location="1535,162" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="DestroyDangerousPlan_List.jsp" />
+      </result>
+    </action>
+    <action name="destroyDangerousPlanView" location="1535,337" size="150,41">
+      <result name="view">
+        <resourceEdge source="view" routing="0" target="DestroyDangerousPlan_Detail.jsp" />
+      </result>
+    </action>
+    <action name="destroyDangerousPlanInitEdit" location="1535,512" size="150,41">
+      <result name="edit">
+        <resourceEdge source="edit" routing="0" target="DestroyDangerousPlan_Edit.jsp" />
+      </result>
+    </action>
+    <action name="destroyDangerousPlanSave" location="1535,677" size="150,62">
+      <result name="reload">
+        <resourceEdge source="reload" routing="0" target="successToClose1.jsp" />
+      </result>
+      <result name="invalid.token">
+        <resourceEdge source="invalid.token" routing="0" target="invalid.jsp" />
+      </result>
+    </action>
+    <action name="destroyDangerousPlanDel" location="1290,688" size="150,40" />
+    <action name="destroyDangerousPlanPrint" location="1045,687" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="DestroyDangerousPlan_Print.jsp" />
+      </result>
+    </action>
+    <action name="destroyDangerousPlanUpload" location="450,687" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="DestroyDangerousPlan_upload.jsp" />
+      </result>
+    </action>
+    <action name="destroyDangerousPlanSavePhoto" location="65,688" size="150,40" />
+    <action name="destroyDangerousPlanImageDel" location="65,793" size="150,40" />
+    <action name="destroyDangerousPlanSaveFile" location="310,793" size="150,40" />
+  </package>
+  <webResource name="DestroyDangerousPlan_List.jsp" path="/WEB-INF/pages/destroyDangerousChemicalsPlan/DestroyDangerousPlan_List.jsp" location="1825,135" size="150,55" />
+  <webResource name="DestroyDangerousPlan_Detail.jsp" path="/WEB-INF/pages/destroyDangerousChemicalsPlan/DestroyDangerousPlan_Detail.jsp" location="1818,310" size="150,55" />
+  <webResource name="DestroyDangerousPlan_Edit.jsp" path="/WEB-INF/pages/destroyDangerousChemicalsPlan/DestroyDangerousPlan_Edit.jsp" location="1824,485" size="150,55" />
+  <webResource name="successToClose1.jsp" path="/WEB-INF/pages/common/successToClose1.jsp" location="1469,940" size="150,55" />
+  <webResource name="invalid.jsp" path="/invalid.jsp" location="1815,660" size="150,55" />
+  <webResource name="DestroyDangerousPlan_Print.jsp" path="/WEB-INF/pages/destroyDangerousChemicalsPlan/DestroyDangerousPlan_Print.jsp" location="877,940" size="150,55" />
+  <webResource name="DestroyDangerousPlan_upload.jsp" path="/WEB-INF/pages/destroyDangerousChemicalsPlan/DestroyDangerousPlan_upload.jsp" location="274,940" size="150,55" />
+</Struts2Diagram>
+

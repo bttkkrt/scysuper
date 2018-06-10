@@ -1,0 +1,1271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findZywsqkByMap">
+		from Zywsqk t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = :createUserID]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="startTjnf">
+			<![CDATA[and t.tjnf >= :startTjnf]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and t.tjnf <= :endTjnf]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty	property="qyid">
+			<![CDATA[and t.qyid = :qyid]]>
+		</isNotEmpty>
+		<isNotEmpty	property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<delete id="deleteZywhglbByMap" parameterClass="java.util.Map">
+	delete from ZYWHGLB  where zywsid = #zywsid#
+	</delete>
+	
+	<select id="getZywsqkAllListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zywsqk.entity.ZywsqkAll">
+	select t.item_text as data0,
+  	(
+  		select count(*) from companybackup c where t.item_value = c.dwdz1 and c.basepass = 1 and c.ifzywhqylx = 1
+  	) as data1,
+  	(
+  		select IFNULL(sum(c.cyry),0) from companybackup c where t.item_value = c.dwdz1 and c.basepass = 1 and c.ifzywhqylx = 1
+  	) as data2,
+  	(
+  		select IFNULL(sum(z.fcjcrshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data4,
+  	(
+  		select IFNULL(sum(z.jcrs),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'FC1' and z.type = 'fc'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data5,
+  	(
+  		select IFNULL(sum(z.jcrs),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'FC5' and z.type = 'fc'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data6,
+  	(
+  		select IFNULL(sum(z.hxjcrshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data7,
+  	(
+  		select IFNULL(sum(z.jcrs),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhmc like '%*%' and z.type = 'hx'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  		
+  	) as data8,
+  	(
+  		select IFNULL(sum(z.wljcrshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data9,
+  	(
+  		select IFNULL(sum(z.jcrs),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'WL9' and z.type = 'wl'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data10,
+  	(
+  		select IFNULL(sum(z.jcrs),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'WL2' and z.type = 'wl'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data11,
+  	(
+  		select IFNULL(sum(z.swjcrshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data12,
+  	(
+  		select IFNULL(sum(z.jcrs),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'SW1' and z.type = 'sw'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data13,
+  	(
+  		select count(distinct z.qyid) from zywsqk z where t.item_value = z.szzid and z.delflag = 0 and z.zybwhsb = '已申报'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data25,
+   	(
+   		select IFNULL(sum(z.yzxms),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data27,
+  	(
+  		select IFNULL(sum(z.sjxms),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data28,
+  	(
+  		select IFNULL(sum(z.yzpjxms),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data30,
+  	(
+  		select IFNULL(sum(z.sjpjxms),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data31,
+  	(
+  		select IFNULL(sum(z.htrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data33,
+  	(
+  		select IFNULL(sum(z.jdrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data35,
+  	(
+  		select IFNULL(sum(z.zygws),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data37,
+  	(
+  		select IFNULL(sum(z.szgws),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data38,
+  	(
+  		select count(distinct z.qyid) from zywsqk z where t.item_value = z.szzid and z.delflag = 0 and z.zyfzrzywspx = '已培训'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data40,
+  	(
+  		select IFNULL(sum(z.yzrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data42,
+  	(
+  		select IFNULL(sum(z.sjrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data43,
+  	(
+  		select count(distinct z.qyid) from zywsqk z where t.item_value = z.szzid and z.delflag = 0 and z.zzrs != '0'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data45,
+	(
+		select count(distinct z.qyid) from zywsqk z where t.item_value = z.szzid and z.delflag = 0 and z.jzrs != '0'
+		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+	) as data47,
+ 	(
+ 		select IFNULL(sum(z.zzrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+ 		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+ 	) as data49,
+ 	(
+ 		select IFNULL(sum(z.zzrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0 and z.cyrys >= '10000'
+ 		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+ 	) as data50,
+ 	(
+ 		select IFNULL(sum(z.jzrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+ 		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+ 	) as data51,
+ 	(
+ 		select IFNULL(sum(z.jzrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0 and z.cyrys >= '10000'
+ 		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+ 	) as data52,
+ 	(
+ 		select count(distinct z.qyid) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+ 		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+ 	) as data53,
+ 	(
+ 		select IFNULL(sum(z.fcjcrshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+ 		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+ 	) as data56,
+  	(
+  		select IFNULL(sum(z.jcds),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'FC1' and z.type = 'fc'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data57,
+  	(
+  		select IFNULL(sum(z.jcds),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'FC5' and z.type = 'fc'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data58,
+  	(
+  		select IFNULL(sum(z.hxjcdshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data59,
+  	(
+  		select IFNULL(sum(z.jcds),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhmc like '%*%' and z.type = 'hx'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data60,
+  	(
+  		select IFNULL(sum(z.wljcdshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data61,
+  	(
+  		select IFNULL(sum(z.jcds),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'WL9' and z.type = 'wl'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data62,
+  	(
+  		select IFNULL(sum(z.jcds),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'WL2' and z.type = 'wl'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data63,
+  	(
+  		select IFNULL(sum(z.swjcdshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data64,
+  	(
+  		select IFNULL(sum(z.jcds),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'SW1' and z.type = 'sw'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data65,
+  	(
+  		select IFNULL(sum(z.fcdbdshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data67,
+  	(
+  		select IFNULL(sum(z.dbds),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'FC1' and z.type = 'fc'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data68,
+  	(
+  		select IFNULL(sum(z.dbds),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'FC5' and z.type = 'fc'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data69,
+  	(
+  		select IFNULL(sum(z.hxdbdshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data70,
+  	(
+  		select IFNULL(sum(z.dbds),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhmc like '%*%' and z.type = 'hx'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data71,
+  	(
+  		select IFNULL(sum(z.wldbdshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data72,
+  	(
+  		select IFNULL(sum(z.dbds),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'WL9' and z.type = 'wl'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data73,
+  	(
+  		select IFNULL(sum(z.dbds),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'WL2' and z.type = 'wl'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data74,
+  	(
+  		select IFNULL(sum(z.swdbdshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data75,
+  	(
+  		select IFNULL(sum(z.dbds),0) from zywhglb z where t.item_value = z.szzid and z.delflag = 0 and z.zywhid = 'SW1' and z.type = 'sw'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data76,
+   	(
+   		select IFNULL(sum(z.gqyzjcrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data88,
+   	(
+   		select IFNULL(sum(z.zgyzjcrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data89,
+   	(
+   		select IFNULL(sum(z.lgyzjcrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data90,
+   	(
+   		select IFNULL(sum(z.gqsjjcrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data91,
+   	(
+   		select IFNULL(sum(z.zgsjjcrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data92,
+   	(
+   		select IFNULL(sum(z.lgsjjcrs),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data93,
+   	(
+   		select IFNULL(sum(z.fcdbdshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data94,
+   	(
+   		select IFNULL(sum(z.fcdbdshj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data95,
+   	(
+   		select IFNULL(sum(z.xfhj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data100,
+   	(
+   		select IFNULL(sum(z.xfcf),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data101,
+   	(
+   		select IFNULL(sum(z.xfzd),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data102,
+   	(
+   		select IFNULL(sum(z.xfsz),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data103,
+   	(
+   		select IFNULL(sum(z.xfpfb),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data104,
+   	(
+   		select IFNULL(sum(z.ljhj),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data105,
+   	(
+   		select IFNULL(sum(z.ljcf),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data106,
+   	(
+   		select IFNULL(sum(z.ljzd),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data107,
+   	(
+   		select IFNULL(sum(z.ljsl),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data108,
+   	(
+   		select IFNULL(sum(z.ljpfb),0) from zywsqk z where t.item_value = z.szzid and z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data109
+  	from codevalue t where t.code_id  = #codeId#
+	</select>
+	
+	<select id="getZywsqkAllByMap" parameterClass="java.util.Map" resultClass="com.jshx.zywsqk.entity.ZywsqkAll">
+	select 
+  	(
+  		select count(*) from companybackup c where  c.basepass = 1 and c.ifzywhqylx = 1
+  	) as data1,
+  	(
+  		select IFNULL(sum(c.cyry),0) from companybackup c where c.basepass = 1 and c.ifzywhqylx = 1
+  	) as data2,
+  	(
+  		select IFNULL(sum(z.fcjcrshj),0) from zywsqk z where z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data4,
+  	(
+  		select IFNULL(sum(z.jcrs),0) from zywhglb z where z.delflag = 0 and z.zywhid = 'FC1' and z.type = 'fc'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data5,
+  	(
+  		select IFNULL(sum(z.jcrs),0) from zywhglb z where  z.delflag = 0 and z.zywhid = 'FC5' and z.type = 'fc'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data6,
+  	(
+  		select IFNULL(sum(z.hxjcrshj),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data7,
+  	(
+  		select IFNULL(sum(z.jcrs),0) from zywhglb z where  z.delflag = 0 and z.zywhmc like '%*%' and z.type = 'hx'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  		
+  	) as data8,
+  	(
+  		select IFNULL(sum(z.wljcrshj),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data9,
+  	(
+  		select IFNULL(sum(z.jcrs),0) from zywhglb z where  z.delflag = 0 and z.zywhid = 'WL9' and z.type = 'wl'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data10,
+  	(
+  		select IFNULL(sum(z.jcrs),0) from zywhglb z where  z.delflag = 0 and z.zywhid = 'WL2' and z.type = 'wl'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data11,
+  	(
+  		select IFNULL(sum(z.swjcrshj),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data12,
+  	(
+  		select IFNULL(sum(z.jcrs),0) from zywhglb z where  z.delflag = 0 and z.zywhid = 'SW1' and z.type = 'sw'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data13,
+  	(
+  		select count(distinct z.qyid) from zywsqk z where  z.delflag = 0 and z.zybwhsb = '已申报'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data25,
+   	(
+   		select IFNULL(sum(z.yzxms),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data27,
+  	(
+  		select IFNULL(sum(z.sjxms),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data28,
+  	(
+  		select IFNULL(sum(z.yzpjxms),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data30,
+  	(
+  		select IFNULL(sum(z.sjpjxms),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data31,
+  	(
+  		select IFNULL(sum(z.htrs),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data33,
+  	(
+  		select IFNULL(sum(z.jdrs),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data35,
+  	(
+  		select IFNULL(sum(z.zygws),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data37,
+  	(
+  		select IFNULL(sum(z.szgws),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data38,
+  	(
+  		select count(distinct z.qyid) from zywsqk z where  z.delflag = 0 and z.zyfzrzywspx = '已培训'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data40,
+  	(
+  		select IFNULL(sum(z.yzrs),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data42,
+  	(
+  		select IFNULL(sum(z.sjrs),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data43,
+  	(
+  		select count(distinct z.qyid) from zywsqk z where  z.delflag = 0 and z.zzrs != '0'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data45,
+	(
+		select count(distinct z.qyid) from zywsqk z where  z.delflag = 0 and z.jzrs != '0'
+		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+	) as data47,
+ 	(
+ 		select IFNULL(sum(z.zzrs),0) from zywsqk z where  z.delflag = 0
+ 		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+ 	) as data49,
+ 	(
+ 		select IFNULL(sum(z.zzrs),0) from zywsqk z where  z.delflag = 0 and z.cyrys >= '10000'
+ 		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+ 	) as data50,
+ 	(
+ 		select IFNULL(sum(z.jzrs),0) from zywsqk z where  z.delflag = 0
+ 		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+ 	) as data51,
+ 	(
+ 		select IFNULL(sum(z.jzrs),0) from zywsqk z where  z.delflag = 0 and z.cyrys >= '10000'
+ 		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+ 	) as data52,
+ 	(
+ 		select count(distinct z.qyid) from zywsqk z where  z.delflag = 0
+ 		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+ 	) as data53,
+ 	(
+ 		select IFNULL(sum(z.fcjcrshj),0) from zywsqk z where  z.delflag = 0
+ 		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+ 	) as data56,
+  	(
+  		select IFNULL(sum(z.jcds),0) from zywhglb z where  z.delflag = 0 and z.zywhid = 'FC1' and z.type = 'fc'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data57,
+  	(
+  		select IFNULL(sum(z.jcds),0) from zywhglb z where  z.delflag = 0 and z.zywhid = 'FC5' and z.type = 'fc'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data58,
+  	(
+  		select IFNULL(sum(z.hxjcdshj),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data59,
+  	(
+  		select IFNULL(sum(z.jcds),0) from zywhglb z where  z.delflag = 0 and z.zywhmc like '%*%' and z.type = 'hx'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data60,
+  	(
+  		select IFNULL(sum(z.wljcdshj),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data61,
+  	(
+  		select IFNULL(sum(z.jcds),0) from zywhglb z where  z.delflag = 0 and z.zywhid = 'WL9' and z.type = 'wl'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data62,
+  	(
+  		select IFNULL(sum(z.jcds),0) from zywhglb z where  z.delflag = 0 and z.zywhid = 'WL2' and z.type = 'wl'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data63,
+  	(
+  		select IFNULL(sum(z.swjcdshj),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data64,
+  	(
+  		select IFNULL(sum(z.jcds),0) from zywhglb z where z.delflag = 0 and z.zywhid = 'SW1' and z.type = 'sw'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data65,
+  	(
+  		select IFNULL(sum(z.fcdbdshj),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data67,
+  	(
+  		select IFNULL(sum(z.dbds),0) from zywhglb z where  z.delflag = 0 and z.zywhid = 'FC1' and z.type = 'fc'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data68,
+  	(
+  		select IFNULL(sum(z.dbds),0) from zywhglb z where  z.delflag = 0 and z.zywhid = 'FC5' and z.type = 'fc'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data69,
+  	(
+  		select IFNULL(sum(z.hxdbdshj),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data70,
+  	(
+  		select IFNULL(sum(z.dbds),0) from zywhglb z where  z.delflag = 0 and z.zywhmc like '%*%' and z.type = 'hx'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data71,
+  	(
+  		select IFNULL(sum(z.wldbdshj),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data72,
+  	(
+  		select IFNULL(sum(z.dbds),0) from zywhglb z where  z.delflag = 0 and z.zywhid = 'WL9' and z.type = 'wl'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data73,
+  	(
+  		select IFNULL(sum(z.dbds),0) from zywhglb z where  z.delflag = 0 and z.zywhid = 'WL2' and z.type = 'wl'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data74,
+  	(
+  		select IFNULL(sum(z.swdbdshj),0) from zywsqk z where  z.delflag = 0
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data75,
+  	(
+  		select IFNULL(sum(z.dbds),0) from zywhglb z where z.delflag = 0 and z.zywhid = 'SW1' and z.type = 'sw'
+  		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+  	) as data76,
+   	(
+   		select IFNULL(sum(z.gqyzjcrs),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data88,
+   	(
+   		select IFNULL(sum(z.zgyzjcrs),0) from zywsqk z where z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data89,
+   	(
+   		select IFNULL(sum(z.lgyzjcrs),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data90,
+   	(
+   		select IFNULL(sum(z.gqsjjcrs),0) from zywsqk z where z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data91,
+   	(
+   		select IFNULL(sum(z.zgsjjcrs),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data92,
+   	(
+   		select IFNULL(sum(z.lgsjjcrs),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data93,
+   	(
+   		select IFNULL(sum(z.fcdbdshj),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data94,
+   	(
+   		select IFNULL(sum(z.fcdbdshj),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data95,
+   	(
+   		select IFNULL(sum(z.xfhj),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data100,
+   	(
+   		select IFNULL(sum(z.xfcf),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data101,
+   	(
+   		select IFNULL(sum(z.xfzd),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data102,
+   	(
+   		select IFNULL(sum(z.xfsz),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data103,
+   	(
+   		select IFNULL(sum(z.xfpfb),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data104,
+   	(
+   		select IFNULL(sum(z.ljhj),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data105,
+   	(
+   		select IFNULL(sum(z.ljcf),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data106,
+   	(
+   		select IFNULL(sum(z.ljzd),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data107,
+   	(
+   		select IFNULL(sum(z.ljsl),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data108,
+   	(
+   		select IFNULL(sum(z.ljpfb),0) from zywsqk z where  z.delflag = 0
+   		<isNotEmpty property="startTjnf">
+			<![CDATA[and z.tjnf >= #startTjnf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjnf">
+			<![CDATA[and z.tjnf <= #endTjnf#]]>
+		</isNotEmpty>
+   	) as data109
+  	from dual
+	</select>
+</sqlMap>

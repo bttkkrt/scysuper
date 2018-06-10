@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="OPE_PRO" extends="default" namespace="/jsp/czgc">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="opeProQuery" class="com.jshx.czgc.web.OpeProAction" method="list">
+		</action>
+		
+		<action name="opeProList" class="com.jshx.czgc.web.OpeProAction" method="init">
+			<result name="success">/WEB-INF/pages/czgc/OpePro_List.jsp</result>
+		</action>
+		
+		<action name="opeProLists" class="com.jshx.czgc.web.OpeProAction" method="init">
+			<result name="success">/WEB-INF/pages/czgc/OpePro_Lists.jsp</result>
+		</action>
+		
+		<action name="opeProView" class="com.jshx.czgc.web.OpeProAction" method="view">
+			<result name="view">/WEB-INF/pages/czgc/OpePro_Detail.jsp</result>
+		</action>
+
+		<action name="opeProInitEdit" class="com.jshx.czgc.web.OpeProAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/czgc/OpePro_Edit.jsp</result>
+		</action>
+
+		<action name="opeProSave" class="com.jshx.czgc.web.OpeProAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_opePro</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="opeProDel" class="com.jshx.czgc.web.OpeProAction" method="delete">
+		</action>
+		
+		<action name="initImportOpePro" class="com.jshx.czgc.web.OpeProAction" method="initImport">
+		    <result name="success">/WEB-INF/pages/czgc/importOpePro.jsp</result>
+		</action>
+		
+		<action name="importOpePro" class="com.jshx.czgc.web.OpeProAction" method="importOpePro">
+			<result name="success" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+		</action>
+		
+	</package>
+</struts>

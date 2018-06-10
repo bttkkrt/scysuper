@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="USER_TERMINAL" extends="default" namespace="/jsp/terminal">
+		<!-- 修改前的配置 
+		<action name="userTerminalList" class="com.jshx.terminal.web.UserTerminalAction" method="list">
+			<result name="list">/WEB-INF/pages/terminal/UserTerminal_List.jsp</result>
+		</action>
+		-->
+		
+		<!-- 修改列表方法，返回Json数据 -->
+		<action name="userTerminalQuery" class="com.jshx.terminal.web.UserTerminalAction" method="list">
+		</action>
+		
+		<!-- 查询部门下用户信息列表，返回Json数据 -->
+		<action name="userTerminalQueryUser" class="com.jshx.terminal.web.UserTerminalAction" method="queryUser">
+		</action>
+		
+		<action name="userTerminalList" class="com.jshx.terminal.web.UserTerminalAction" method="initList">
+			<result name="success">/WEB-INF/pages/terminal/UserTerminal_List.jsp</result>
+		</action>
+		
+		<action name="userTerminalView" class="com.jshx.terminal.web.UserTerminalAction" method="view">
+			<result name="view">/WEB-INF/pages/terminal/UserTerminal_Detail.jsp</result>
+		</action>
+
+		<action name="userTerminalInitEdit" class="com.jshx.terminal.web.UserTerminalAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/terminal/UserTerminal_Edit.jsp</result>
+		</action>
+
+		<action name="userTerminalSave" class="com.jshx.terminal.web.UserTerminalAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="userTerminalDel" class="com.jshx.terminal.web.UserTerminalAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

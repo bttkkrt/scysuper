@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="GZDT" extends="default" namespace="/jsp/gzdt">
+		
+		<!-- 修改列表方法，返回Json数据 -->
+		<action name="gzdtQuery" class="com.wzxx.gzdt.web.GzdtAction" method="list">
+		</action>
+		
+		<action name="gzdtList">
+			<result name="success">/WEB-INF/wzPage/gzdt/Gzdt_List.jsp</result>
+		</action>
+		
+		<action name="gzdtView" class="com.wzxx.gzdt.web.GzdtAction" method="view">
+			<result name="view">/WEB-INF/wzPage/gzdt/Gzdt_Detail.jsp</result>
+		</action>
+
+		<action name="gzdtInitEdit" class="com.wzxx.gzdt.web.GzdtAction" method="initEdit">
+			<result name="edit">/WEB-INF/wzPage/gzdt/Gzdt_Edit.jsp</result>
+		</action>
+
+		<action name="gzdtSave" class="com.wzxx.gzdt.web.GzdtAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_gzdt</result>
+			<result name="invalid.token">/invalid.jsp</result> 
+		</action>
+
+		<action name="gzdtDel" class="com.wzxx.gzdt.web.GzdtAction" method="delete">
+		</action>
+		<action name="initImportGzdt" class="com.wzxx.gzdt.web.GzdtAction" method="initImport">
+		    <result name="success">/WEB-INF/wzPage/gzdt/importGzdt.jsp</result>
+		</action>
+		<action name="importGzdt" class="com.wzxx.gzdt.web.GzdtAction" method="importGzdt">
+			<result name="success" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+		</action>
+
+	</package>
+	
+</struts>

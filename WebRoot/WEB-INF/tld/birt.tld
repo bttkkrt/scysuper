@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib
+    PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+    "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>1.2</jsp-version>
+	<short-name>BIRT Tag</short-name>
+	<description>
+		This Tag Library makes user develope JSP with BIRT Viewer component easily.
+	</description>
+	
+    <!--**********************************************-->
+    <!--             showReport Tag                   -->
+    <!--**********************************************-->
+	<tag>
+		<name>showReport</name>
+		<tag-class>com.jshx.report.web.tag.ShowReportTag</tag-class>
+		<body-content>JSP</body-content>
+		<description>
+			The viewer tag is to specify how to import and control BIRT Report Viewer into JSP page.
+		</description>
+
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>
+				Specifies the current viewer id. It should be unique.
+				It can contain number,letter or underline.
+			</description>			
+		</attribute>	
+
+        <attribute>
+            <name>pattern</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+            	Specifies which servlet pattern to be used to show report.
+            	Default value is frameset.
+            	( frameset or run )
+            </description>
+        </attribute>
+        		        
+        <attribute>
+            <name>rptdesignFileName</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+            	Specifies the report design file name.
+            	( for example: birtTagReportTest.rptdesign )
+            </description>
+        </attribute>
+        
+        <attribute>
+            <name>title</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+            	Specifies the report title displayed at the top.
+            </description>
+        </attribute>
+
+       <attribute>
+            <name>scrolling </name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+            	Sets the IFrame style "scrolling ".
+            	( auto | yes | no )
+            </description>
+        </attribute>
+
+       <attribute>
+            <name>style</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+            	Sets the style of report container.
+            </description>
+        </attribute>
+                        
+        <attribute>
+            <name>height</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+            	Sets the height of report container in pixels.
+            </description>
+        </attribute>
+
+        <attribute>
+            <name>width</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+	            Sets the width of report container in pixels.
+            </description>
+        </attribute>
+
+        <attribute>
+            <name>align</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+            	Sets the align of report container.
+            	( bottom | left | middle | right | top )
+            </description>
+        </attribute>
+
+        <attribute>
+            <name>frameborder</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+ 				Specifies whether displays the iframe border.
+            </description>
+        </attribute>
+        
+        <attribute>
+            <name>format</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>
+ 				报表输出格式：html或pdf，缺省是html
+            </description>
+        </attribute>
+	</tag>
+</taglib>

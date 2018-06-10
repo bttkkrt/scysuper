@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findSgyhjbByMap">
+		from Sgyhjb t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="jbr">
+			<![CDATA[and t.jbr like :jbr]]>
+		</isNotEmpty>
+		<isNotEmpty property="jbrdh">
+			<![CDATA[and t.jbrdh like :jbrdh]]>
+		</isNotEmpty>
+		<isNotEmpty property="yhjb">
+			<![CDATA[and t.yhjb = :yhjb]]>
+		</isNotEmpty>
+		<isNotEmpty property="jbszz">
+			<![CDATA[and t.jbszz = :jbszz]]>
+		</isNotEmpty>
+		<isNotEmpty property="jbqy">
+			<![CDATA[and t.jbqy like :jbqy]]>
+		</isNotEmpty>
+		<isNotEmpty property="state">
+			<![CDATA[and t.state = :state]]>
+		</isNotEmpty>
+		<isNotEmpty property="deptCode">
+			<![CDATA[and (t.jbbm = :deptCode or t.clbm = :deptCode)]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="getJbbmListByMap" parameterClass="java.util.Map" resultClass="com.jshx.module.admin.entity.Department">
+		select c.dept_code as deptCode,c.dept_name as deptName
+        from department c where length(c.dept_code) = 6 and c.dept_code != '033' and  c.dept_name != '乡镇安监中队'  and c.del_flag = 0 and c.dept_code like '002%' and c.dept_code != '002005' and c.dept_code != '002007'
+		order by c.dept_code
+	</select>
+	
+	<select id="getClbmListByMap" parameterClass="java.util.Map" resultClass="com.jshx.module.admin.entity.Department">
+		select c.dept_code as deptCode,c.dept_name as deptName
+        from department c where length(c.dept_code) = 9 and c.del_flag = 0 and c.dept_name like'%安监中队'
+		order by c.dept_code
+	</select>
+	
+</sqlMap>

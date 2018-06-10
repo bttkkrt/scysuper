@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findReportWorkByMap">
+		from ReportWork t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="workTitle">
+			<![CDATA[and t.workTitle like :workTitle]]>
+		</isNotEmpty>
+		<isNotEmpty property="workType">
+			<![CDATA[and t.workType like :workType]]>
+		</isNotEmpty>
+		<isNotEmpty property="deptCode">
+			<![CDATA[and t.deptCode like :deptCode]]>
+		</isNotEmpty>
+		<isNotEmpty property="userName">
+			<![CDATA[and t.userName like :userName]]>
+		</isNotEmpty>
+		<isEqual property="listType" compareValue="1">
+			<isNotEmpty property="createUserID">
+				<![CDATA[ and instr(t.userIds,:createUserID) != 0 ]]>
+			</isNotEmpty>
+		</isEqual>
+		<isEqual property="listType" compareValue="2">
+			<isNotEmpty property="createUserID">
+				<![CDATA[and t.createUserID = :createUserID]]>
+			</isNotEmpty>
+		</isEqual>
+		order by t.createTime desc
+	</select>
+</sqlMap>

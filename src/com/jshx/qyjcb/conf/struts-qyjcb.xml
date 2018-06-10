@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHX_QYJCB" extends="default" namespace="/jsp/qyjcb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxQyjcbQuery" class="com.jshx.qyjcb.web.JshxQyjcbAction" method="list">
+		</action>
+		
+		<action name="jshxQyjcbList"  class="com.jshx.qyjcb.web.JshxQyjcbAction" method="init">
+			<result name="success">/WEB-INF/pages/qyjcb/JshxQyjcb_List.jsp</result>
+		</action>
+		
+		<action name="jshxQyjcbView" class="com.jshx.qyjcb.web.JshxQyjcbAction" method="view">
+			<result name="view">/WEB-INF/pages/qyjcb/JshxQyjcb_Detail.jsp</result>
+		</action>
+
+		<action name="jshxQyjcbInitEdit" class="com.jshx.qyjcb.web.JshxQyjcbAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/qyjcb/JshxQyjcb_Edit.jsp</result>
+		</action>
+
+		<action name="jshxQyjcbSave" class="com.jshx.qyjcb.web.JshxQyjcbAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="jshxQyjcbDel" class="com.jshx.qyjcb.web.JshxQyjcbAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

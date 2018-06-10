@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CHECK_BASIC" extends="default" namespace="/jsp/checkBasic">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="checkBasicQuery" class="com.jshx.checkBasic.web.CheckBasicAction" method="list">
+		</action>
+		
+		<action name="checkBasicList">
+			<result name="success">/WEB-INF/pages/checkBasic/CheckBasic_List.jsp</result>
+		</action>
+		
+		<action name="checkBasicView" class="com.jshx.checkBasic.web.CheckBasicAction" method="view">
+			<result name="view">/WEB-INF/pages/checkBasic/CheckBasic_Detail.jsp</result>
+		</action>
+
+		<action name="checkBasicInitEdit" class="com.jshx.checkBasic.web.CheckBasicAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/checkBasic/CheckBasic_Edit.jsp</result>
+			<result name="fucha">/WEB-INF/pages/checkBasic/CheckBasic_Fucha.jsp</result>
+		</action>
+
+		<action name="checkBasicSave" class="com.jshx.checkBasic.web.CheckBasicAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		<action name="checkBasicFucha" class="com.jshx.checkBasic.web.CheckBasicAction" method="fucha">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+
+		<!-- zhangzh start -->
+
+		<action name="initToClaimTaskList">
+			<result name="success">/WEB-INF/pages/checkBasic/CheckBasic_toClaimTaskList.jsp</result>
+		</action>
+		
+	    <action name="findToClaimTaskList" class="com.jshx.checkBasic.web.CheckBasicAction" 
+	    	method="findToClaimTaskList">
+		</action>
+		
+		<action name="initClaimedTaskList">
+			<result name="success">/WEB-INF/pages/checkBasic/CheckBasic_claimedTaskList.jsp</result>
+		</action>	
+		
+	    <action name="findClaimedTaskList" class="com.jshx.checkBasic.web.CheckBasicAction" 
+	    	method="findClaimedTaskList">
+	    	
+		</action>		
+		<action name="claimTask" class="com.jshx.checkBasic.web.CheckBasicAction" method="claimTask"/>
+		 
+		
+		<action name="doZhenggai" class="com.jshx.checkBasic.web.CheckBasicAction" 	method="doZhenggai">
+			<result name="reload">/common/successToClose1.jsp</result>
+		</action>
+		<action name="doYanshou" class="com.jshx.checkBasic.web.CheckBasicAction" 	method="doYanshou">
+			<result name="reload">/common/successToClose1.jsp</result>
+		</action>
+		 
+		
+		<action name="endProcess" class="com.jshx.checkBasic.web.CheckBasicAction" method="endProcess"/>
+		<!-- zhangzh end -->
+
+		<action name="checkBasicDel" class="com.jshx.checkBasic.web.CheckBasicAction" method="delete">
+		</action>
+		
+				
+		<!-- 生成安全生成执法检查表 -->
+		<action name="createSaveCheckDoc" class="com.jshx.checkBasic.web.CheckBasicAction" method="createSaveCheckDoc">
+		</action>
+		
+		<!-- 生成现场检查记录表 -->
+		<action name="createFieldCheckDoc" class="com.jshx.checkBasic.web.CheckBasicAction" method="createFieldCheckDoc">
+		</action>
+		
+		<!-- 生成责令限期整改指令书 -->
+		<action name="createRectifyCheckDoc" class="com.jshx.checkBasic.web.CheckBasicAction" method="createRectifyCheckDoc">
+		</action>
+		
+		<!-- 生成整改复查意见书 -->
+		<action name="createRectifyOpinionDoc" class="com.jshx.checkBasic.web.CheckBasicAction" method="createRectifyOpinionDoc">
+		</action>
+		
+			<!-- 生成责令限期整改指令书套打模板 -->
+		<action name="createTDRectifyCheckDoc" class="com.jshx.checkBasic.web.CheckBasicAction" method="createTDRectifyCheckDoc">
+		</action>
+		<action name="selectUsers" class="com.jshx.checkBasic.web.CheckBasicAction" method="selectUsers">
+			<result name="success">/WEB-INF/pages/checkBasic/CheckBasic_SelectUser.jsp</result>
+		</action>
+		<action name="getDepartUser" class="com.jshx.checkBasic.web.CheckBasicAction" method="getDepartUser">
+		</action>
+		<action name="savePhoto" class="com.jshx.checkBasic.web.CheckBasicAction" method="savePhoto">
+		</action>	
+		<action name="deleteImage" class="com.jshx.checkBasic.web.CheckBasicAction" method="deleteImage">
+		</action>	
+		
+	</package>
+</struts>

@@ -1,0 +1,2309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<select id="query_user_byMap" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.MyUserBean">
+	select u.row_id as id,
+			u.display_name as userName,
+			u.dept_id  deptId,
+			u.password as password,
+			u.dept_code as deptCode,
+			(select d.dept_name from department d where d.row_id = u.dept_id) as deptName,
+			INSERT(  
+				(select group_concat(r.role_code) from user_right ur,userrole r 
+					where r.delflag = 0 and u.row_id = ur.user_id and ur.role_id = r.row_id
+					), 1, 1, '')  as role
+			from users u
+		where  u.del_flag = 0 and u.login_id = #loginName# 
+	</select>
+	<!-- 查询版本信息 -->
+	<select id="query_versionNumByPlatForm" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.KeyBean">
+		select 
+			 v.version_number as versionNumber,
+			 v.version_download as versionDownload,
+			 v.content as versionContent
+			 from version v where v.version_platform = #platform# and v.delFlag = 0 and v.version_number in (
+     			  select max(vn.version_number) from version vn where vn.version_platform= #platform#
+     			  and vn.delFlag = 0
+			) 
+	</select>
+	
+	<!-- 根据图片类型 查询图片名称 lj 2013-07-24 -->
+	<select id="query_photoList_byMap" parameterClass="java.util.Map" resultClass="com.jshx.photoPic.entity.PhotoPic">
+	 	select p.file_name fileName,p.pic_name as picName,p.http_url httpUrl,p.file_size fileSize from photo_pic p  where p.delFlag=0 and p.pic_type = #picType# and p.link_id = #linkId# and p.mk_type=#mkType#
+	</select>
+	
+	 <!-- 查询$table$列表  费谦  2015-10-13 -->
+	<select id="getListByTableAndCompanyId" parameterClass="java.util.Map"  resultClass="java.util.HashMap" remapResults="true">
+		select *  from $table$  where delFlag=0 
+		<isNotEmpty property="companyId">
+			and COMPANY_ID=#companyId#
+		</isNotEmpty>
+		<isNotEmpty property="jjrktgType1">
+		   <![CDATA[ and   AUDIT_STATE = '待审核' ]]>
+		</isNotEmpty>
+		<isNotEmpty property="jjrktgType2">
+		   <![CDATA[  and  AUDIT_STATE != '待审核' ]]>
+		</isNotEmpty>
+		<isNotEmpty property="jjrktgSearchName">
+		   <![CDATA[  and ( (COMPANY_NAME like #jjrktgSearchName# ) or (AREA_NAME like  #jjrktgSearchName#)) ]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="lddbqkType1">
+		   <![CDATA[ and   AUDIT_STATE = '待审核' ]]>
+		</isNotEmpty>
+		<isNotEmpty property="lddbqkType2">
+		   <![CDATA[  and  AUDIT_STATE != '待审核' ]]>
+		</isNotEmpty>
+		<isNotEmpty property="lddbqkSearchName">
+		   <![CDATA[  and ( (COMPANY_NAME like #lddbqkSearchName# ) or (AREA_NAME like  #lddbqkSearchName#)) ]]>
+		</isNotEmpty>
+		order by createTime desc 
+			
+	</select>
+	
+	<!-- 查询$table$列表总数  费谦  2015-10-13 -->
+	<select id="getListByTableAndCompanyIdForCount" parameterClass="java.util.Map"  resultClass="java.util.HashMap" remapResults="true">
+		select count(*) as TOTAL from $table$  where delFlag=0 
+		<isNotEmpty property="companyId">
+			and COMPANY_ID=#companyId#
+		</isNotEmpty>
+		<isNotEmpty property="jjrktgType1">
+		   <![CDATA[  and  AUDIT_STATE = '待审核' ]]>
+		</isNotEmpty>
+		<isNotEmpty property="jjrktgType2">
+		   <![CDATA[  and  AUDIT_STATE != '待审核' ]]>
+		</isNotEmpty>
+		<isNotEmpty property="jjrktgSearchName">
+		  <![CDATA[  and ( (COMPANY_NAME like #jjrktgSearchName# ) or (AREA_NAME like  #jjrktgSearchName#)) ]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="lddbqkType1">
+		   <![CDATA[ and   AUDIT_STATE = '待审核' ]]>
+		</isNotEmpty>
+		<isNotEmpty property="lddbqkType2">
+		   <![CDATA[  and  AUDIT_STATE != '待审核' ]]>
+		</isNotEmpty>
+		<isNotEmpty property="lddbqkSearchName">
+		   <![CDATA[  and ( (COMPANY_NAME like #lddbqkSearchName# ) or (AREA_NAME like  #lddbqkSearchName#)) ]]>
+		</isNotEmpty>
+	</select>
+
+<!-- 查询危险源计划列表  lj 2015-10-15-->
+	<select id="queryPlansByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select row_id as id,company_Name as companyName,check_kind as checkKind,plan_Name as planName from DAN_PLA_MAN where delflag = 0
+		<isNotEmpty property="companyName">
+			and company_name like #companyName#
+		</isNotEmpty>
+		<isEqual property="type" compareValue="1">
+			and AUDIT_RESULT = '待审核'
+		</isEqual>
+		<isEqual property="type" compareValue="2">
+			and AUDIT_RESULT != '待审核'
+		</isEqual> 
+		<isNotEmpty property="userId">
+			and CHECK_PEOPLE_ID = #userId#
+		</isNotEmpty>
+		order by createTime desc 
+	</select>
+	<!-- 查询危险源计划列表总数  lj 2015-10-15-->
+	<select id="queryPlansCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(row_id) from DAN_PLA_MAN where delflag = 0
+		<isNotEmpty property="companyName">
+			and company_name like #companyName#
+		</isNotEmpty>
+		<isEqual property="type" compareValue="1">
+			and AUDIT_RESULT = '待审核'
+		</isEqual>
+		<isEqual property="type" compareValue="2">
+			and AUDIT_RESULT != '待审核'
+		</isEqual>
+		<isNotEmpty property="userId">
+			and CHECK_PEOPLE_ID = #userId#
+		</isNotEmpty>
+	</select>
+	<!-- 查询危险源的详情 lj 2015-10-15 -->
+	<select id="queryPlansDetailByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+			select row_id as id,company_Name as companyName,plan_Name as planName ,
+			 danger_name as dangerName,
+			 check_kind as checkKind,
+			 CONVERT(varchar(100), PLAN_START_TIME, 23) as startTime,
+			 CONVERT(varchar(100), PLAN_END_TIME, 23) as endTime,
+			(select item_text from codevalue where code_id =  '4028800550461444015046a50a5a0115' and item_value = CHECK_FREQUENCY)as frequency,
+			 CHECK_PEOPLE_NAME as checkName,
+			CHECK_RODE_NAME as checkTerm 
+			from DAN_PLA_MAN where delflag = 0 and row_id  = #id#
+	</select>
+	<!-- 审核危险源计划 lj 2015-10-15 -->
+	<update id="AuditPlanslByMap" parameterClass="java.util.Map">
+		update DAN_PLA_MAN set AUDIT_RESULT = #result#,
+		AUDIT_PERSON_ID = #userId#,
+		remark = #remark#,
+		AUDIT_PERSON_NAME = (select display_name from users where row_id = #userId#) 
+		where row_id = #id# 
+	</update>
+	<!-- 查询任务列表 lj 2015-10-15 -->
+	<select id="queryTasksByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select row_id as id,
+			   task_name as taskName,
+			   check_id as checkId,
+			   check_name as checkName,
+			   CONVERT(varchar(100), check_Time, 23) as checkTime,
+				CONVERT(varchar(100), checkTimeEnd, 23) as checkTimeEnd
+			    from DAN_TAS_MAN where delflag = 0 
+			 <isNotEmpty property="companyName">
+				and company_Name like #companyName#
+			</isNotEmpty>
+			 <isNotEmpty property="companyId">
+				and company_id = #companyId#
+			</isNotEmpty> 
+			<isEqual property="type" compareValue="0">
+				and result = '待巡查' 
+			</isEqual>
+			<isEqual property="type" compareValue="1">
+				and result = '已巡查' 
+			</isEqual>
+			<isNotEmpty property="userId">
+			 and INSTR(#userId# ,CHECK_PEOPLE_ID)>0
+			</isNotEmpty>
+			order by checkTimeEnd asc
+	</select>
+	<!-- 查询任务列表总条数 lj 2015-10-16 -->
+	<select id="queryTasksCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select  count(row_id) from DAN_TAS_MAN where delflag = 0 
+		
+		<isNotEmpty property="companyName">
+			and company_Name like #companyName#
+		</isNotEmpty>
+		 <isNotEmpty property="companyId">
+				and company_id = #companyId#
+		</isNotEmpty>
+		<isEqual property="type" compareValue="0">
+			and result != '已巡查' 
+		</isEqual>
+		<isEqual property="type" compareValue="1">
+			and result = '已巡查' 
+		</isEqual>
+		<isNotEmpty property="userId">
+			and INSTR(#userId# ,CHECK_PEOPLE_ID)>0
+			</isNotEmpty>
+	</select>
+	<!-- 获取任务详情 lj2015-10-16 -->
+	<select id="queryTasksDetailByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select row_id as id,
+				chenk_no as checkNo,
+				task_name as taskName,
+				check_kind as checkKind,
+				check_id as checkId,
+				check_name as checkName,
+				CONVERT(varchar(100), check_time, 23) as checkTime,
+				CONVERT(varchar(100), checkTimeEnd, 23) as checkTimeEnd,
+				check_people_name as checkPeopleName,
+				company_id as companyId,
+				company_name as companyName,
+                (case when ass_plan_no != '' then '计划任务'
+                   else '临时任务'
+                   end) as type,
+              realcheckterm as actualCheckName ,
+              reportTime as actualCheckTime,
+              remark 
+			  from DAN_TAS_MAN where delflag = 0 and row_id = #id#
+	</select>
+	<!-- 更新任务反馈信息  lj  2015-10-16-->
+	<update id="TaskFeedBackByMap" parameterClass="java.util.Map">
+		update DAN_TAS_MAN set reportTime = #reportTime#, realCheckTerm = #checkTerm# ,remark = #remark#,result=#result# where row_id = #taskId#
+	</update>
+	
+		<!-- 查询安全生产费用提取情况列表 -->
+	<select id="findsecProFeeExtList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID, t.FEE_EXTRACT_FEE,t.FEE_EXTRACT_TIME,t.FEE_EXTRACT_REMARK   from SEC_PRO_FEE_EXT  t where t.delFlag=0 
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = :companyId]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询安全生产费用提取情况数量 -->
+	<select id="findsecProFeeExtCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*) as NUM from SEC_PRO_FEE_EXT  t where t.delFlag=0 
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID =#companyId#]]>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询安全生产费用使用台账列表 -->
+	<select id="findsecProFeeAccList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.FEE_ACCOUNT_AMOUNT,t.FEE_ACCOUNT_MONTH,t.FEE_ACCOUNT_PROJECT ,t.FEE_ACCOUNT_REMARK from SEC_PRO_FEE_ACC  t where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID =#companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询安全生产费用使用台账数量 -->
+	<select id="findsecProFeeAccCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*) as TOTAL from SEC_PRO_FEE_ACC  t where t.delFlag=0 
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID =#companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询安全生产规章制度列表 -->
+	<select id="findsecProSysList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.SYSTEM_NAME from SEC_PRO_SYS t where t.delFlag =0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID =#companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询安全生产规章制度数量 -->
+	<select id="findsecProSysAccCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*) as NUM from SEC_PRO_SYS t where t.delFlag=0 
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID =#companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询安全生产规章制度详情 -->
+	<select id="findsecProSysDetail" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.SYSTEM_NAME,t.SYSTEM_TIME,t.SYSTEM_TYPE from SEC_PRO_SYS t where t.delFlag=0
+		<isNotEmpty property="id">
+			<![CDATA[and  t.ROW_ID =#id#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询法律法规和标准规范列表 -->
+	<select id="findlegStaList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID from LEG_STA t where t.delFlag =0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID =#companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询法律法规和标准规范数量 -->
+	<select id="findlegStaCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*) as NUM from LEG_STA t where t.delFlag=0 
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询生产现场管理列表 -->
+	<select id="findproductionManageList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.JOB_TYPE from PRODUCTION_MANAGE t where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询生产现场管理数量 -->
+	<select id="findproductionManageCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*) as NUM from PRODUCTION_MANAGE t where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询生产现场管理详情 -->
+	<select id="findproductionManageDetail" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.JOB_TYPE,t.JOB_CONTENT,t.HAZARD_ANALYSISS,t.PERSON_IN_CHARGE,t.SAFETY_MEASURES,t.EMERGENCY_MEASURES from  PRODUCTION_MANAGE t  where t.delFlag=0
+		<isNotEmpty property="id">
+			<![CDATA[and  t.ROW_ID = #id#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询公告栏列表 -->
+	<select id="findpublicBoardList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.PUBLIC_NO,t.PUBLIC_NAME from PUBLIC_BOARD t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询公告栏数量 -->
+	<select id="findpublicBoardCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select(*)from as NUM PUBLIC_BOARD t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询公告栏详情 -->
+	<select id="findpublicBoardDetail" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.PUBLIC_NO,t.PUBLIC_NAME,t.PUBLIC_TYPE,t.PUBLIC_ADDRESS,t.PUBLIC_CONTENT from PUBLIC_BOARD t  where t.delFlag=0
+		<isNotEmpty property="id">
+			<![CDATA[and  t.ROW_ID = #id#]]>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询告知卡列表 -->
+	<select id="findinformCardList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.INFORM_NO,t.INFORM_NAME from INFORM_CARD t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询告知卡数量 -->
+	<select id="findinformCardCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*)as NUM from INFORM_CARD t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询告知卡详情 -->
+	<select id="findinformCardDetail" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.INFORM_NO,t.INFORM_NAME,t.INFORM_ADDRESS,t.INFORM_CONTENT,t.INFORM_TYPE from INFORM_CARD t  where t.delFlag=0
+		<isNotEmpty property="id">
+			<![CDATA[and  t.ROW_ID = #id#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询明显标志列表 -->
+	<select id="findsignsList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.SIGNS_NO,t.SIGNS_NAME from SIGNS t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询明显标志数量 -->
+	<select id="findsignsCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*)as NUM from SIGNS t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询明显标志详情 -->
+	<select id="findsignsDetail" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.SIGNS_NO,t.SIGNS_NAME,t.SIGNS_ADDRESS ,t.SIGNS_CONTENT,t.SIGNS_TYPE from SIGNS t  where t.delFlag=0
+		<isNotEmpty property="id">
+			<![CDATA[and  t.ROW_ID = #id#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询安全生产保险投保情况列表 -->
+	<select id="findsecProInsList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.INSURANCE_COMPNAY,t.INSURANCE_TIME from SEC_PRO_INS t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询安全生产保险投保情况数量 -->
+	<select id="findsecProInsCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*)as NUM from SEC_PRO_INS t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询安全生产保险投保情况详情 -->
+	<select id="findsecProInsDetail" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.INSURANCE_ENTERPRISE_PERSONS,t.INSURANCE_WORKER_COUNT,t.INSURANCE_PERSON_COUNT,t.INSURANCE_TOTAL_FEE,
+		t.INSURANCE_TOTAL_INSURED,t.INSURANCE_EMPLOYER_COUNT,t.INSURANCE_EMPLOYER_FEE,t.INSURANCE_EMPLOYER_INSURED,t.INSURANCE_PUBLIC_FEE,
+		t.INSURANCE_PUBLIC_INSURED,t.INSURANCE_TEAM_FEE,t.INSURANCE_TEAM_INSURED,t.INSURANCE_COMPNAY,t.INSURANCE_TIME from SEC_PRO_INS t  where t.delFlag=0
+		<isNotEmpty property="id">
+			<![CDATA[and  t.ROW_ID = #id#]]>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询企业重点危险源列表 -->
+	<select id="findcomDanIdeList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.DANGER_NAME  from COM_DAN_IDE t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询企业重点危险源数量 -->
+	<select id="findcomDanIdeCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*) as NUM from COM_DAN_IDE t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询企业重点危险源详情 -->
+	<select id="findcomDanIdeDetail" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.DANGER_NAME,t.DANGER_TYPE,t.DANGER_LEVEL,t.DANGER_ADDRESS,t.SAFE_PERSON,t.TELE  from COM_DAN_IDE t  where t.delFlag=0
+		<isNotEmpty property="id">
+			<![CDATA[and  t.ROW_ID = #id#]]>
+		</isNotEmpty>
+	</select>
+	
+	
+	<!-- 查询企业重点危险源的管理制度列表 -->
+	<select id="findcomManSysList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.SYSTEM_NAME  from COM_MAN_SYS t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询企业重点危险源的管理制度数量 -->
+	<select id="findcomManSysCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*) as NUM from COM_MAN_SYS t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询企业重点危险源的管理制度详情 -->
+	<select id="findcomManSysDetail" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.DANGER_LEVEL,t.DANGER_TYPE,t.SYSTEM_NAME  from COM_DAN_IDE t  where t.delFlag=0
+		<isNotEmpty property="id">
+			<![CDATA[and  t.ROW_ID = #id#]]>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询企业重点危险源的操作规程列表 -->
+	<select id="findcomOpeRulList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.RULE_NAME  from COM_OPE_RUL t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询企业重点危险源的操作规程数量 -->
+	<select id="findcomOpeRulCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*) as NUM from COM_OPE_RUL t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询企业重点危险源的操作规程详情 -->
+	<select id="findcomOpeRulDetail" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.DANGER_LEVEL,t.DANGER_TYPE,t.RULE_NAME from COM_OPE_RUL t  where t.delFlag=0
+		<isNotEmpty property="id">
+			<![CDATA[and  t.ROW_ID = #id#]]>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询企业重点危险源的应急处置列表 -->
+	<select id="findcomDanEmeList" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.EMERGENCY_NAME  from COM_DAN_EME t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询企业重点危险源的应急处置数量 -->
+	<select id="findcomDanEmeCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*) as NUM from COM_DAN_EME t  where t.delFlag=0
+		<isNotEmpty property="companyId">
+			<![CDATA[and  t.COMPANY_ID = #companyId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询企业重点危险源的应急处置详情 -->
+	<select id="findcomDanEmeDetail" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.ROW_ID,t.DANGER_LEVEL,t.DANGER_TYPE,t.EMERGENCY_NAME,t.EMERGENCY_CONTENT from COM_DAN_EME t  where t.delFlag=0
+		<isNotEmpty property="id">
+			<![CDATA[and  t.ROW_ID = #id#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询企业隐患列表信息 lj 2015-10-21 -->
+	<select id="queryTroubleListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select row_id as id,
+			trouble_name as troubleName,
+			company_name as companyName,
+			user_name as userName,
+			CONVERT(varchar(100), report_time, 23) as time
+			 from tro_man where delflag = 0 
+			<isNotEmpty property="companyName">
+				and company_name like #companyName#
+			</isNotEmpty>
+			<isNotEmpty property="companyId">
+				and company_id = #companyId#
+			</isNotEmpty>
+			
+			<isNotEmpty property="companyIds">
+				<![CDATA[and  INSTR(company_Id,#companyIds#) >0]]>
+			</isNotEmpty>
+			<isEqual property="type" compareValue="0">
+				and (
+					(RECTIFICATION_STATE  = 4 and DEAL_DEPT_ID = #deptCode# and  #userType# = 6)
+					  or
+					 (RECTIFICATION_STATE  = 6 and  #userType# = 2) 
+					  or(RECTIFICATION_STATE  = 11 and #userType# = 0)
+					  or(RECTIFICATION_STATE  = 11 and #userType# = 7)
+					)
+			</isEqual>
+			<isEqual property="type" compareValue="1">
+				and (
+					( RECTIFICATION_STATE  = 21 and #userType# = 1)
+					  or
+					((RECTIFICATION_STATE  = 2 or RECTIFICATION_STATE  = 20) and #userType# = 3) or 
+					(RECTIFICATION_STATE  = 3 and #userType# = 2) or 
+					(RECTIFICATION_STATE  = 5 and #userType# = 4 and trouble_level = '2') or 
+					(RECTIFICATION_STATE  = 5 and #userType# = 4 and trouble_level = '3' and if_corrected = 0) or 
+					(RECTIFICATION_STATE  = 7 and #userType# = 5 and trouble_level = '3'))
+			</isEqual>
+			<isEqual property="type" compareValue="2">
+				<isEqual property="userType" compareValue="7">
+					and createuserid = #userId#
+				</isEqual>
+			</isEqual>
+			<isEqual property="type" compareValue="3">
+				and createuserid = #userId#
+			</isEqual>
+			<isEqual property="type" compareValue="4">
+				and (RECTIFICATION_STATE  = 3 and #userType# = 1)
+			</isEqual>
+			order by report_time desc 
+	</select>
+	<!-- 查询企业隐患列表信息 总条数 lj 2015-10-21 修改 上报整改信息 仅网格管理人员和企业可执行 lj 2015-12-07 -->
+	<select id="queryTroubleListCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(row_id) from tro_man where delflag = 0 
+			<isNotEmpty property="companyName">
+				and company_name like #companyName#
+			</isNotEmpty>
+			<isNotEmpty property="companyId">
+				and company_id = #companyId#
+			</isNotEmpty>
+			<isNotEmpty property="companyIds">
+				<![CDATA[and  INSTR(company_Id,#companyIds#) >0]]>
+			</isNotEmpty>
+			<isEqual property="type" compareValue="0">
+				and (
+					(RECTIFICATION_STATE  = 4 and DEAL_DEPT_ID = #deptCode# and  #userType# = 6)
+					  or
+					 (RECTIFICATION_STATE  = 6 and  #userType# = 2) 
+					  or(RECTIFICATION_STATE  = 11 and #userType# = 0)
+					  or(RECTIFICATION_STATE  = 11 and #userType# = 7)
+					)
+			</isEqual>
+				
+			<isEqual property="type" compareValue="1">
+				and (
+					(RECTIFICATION_STATE  = 3 and #userType# = 1)
+					  or
+					(RECTIFICATION_STATE  = 3 and #userType# = 2) or 
+					(RECTIFICATION_STATE  = 2 and #userType# = 3) or 
+					(RECTIFICATION_STATE  = 5 and #userType# = 4 and trouble_level = '2') or 
+					(RECTIFICATION_STATE  = 5 and #userType# = 4 and trouble_level = '3' and if_corrected = 0) or 
+					(RECTIFICATION_STATE  = 7 and #userType# = 5 and trouble_level = '3'))
+			</isEqual>
+			<isEqual property="type" compareValue="2">
+				<isEqual property="userType" compareValue="7">
+					and createuserid = #userId#
+				</isEqual>
+			</isEqual>
+			<isEqual property="type" compareValue="3">
+				and createuserid = #userId#
+			</isEqual>
+	</select>
+	<!-- 获取企业隐患的详情 lj  2015-10-21 -->
+	<select id="queryTroubleDetailByMap"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select
+				row_id as id,
+				 trouble_name as troubleName,
+				trouble_source as troubleSource,
+				(select item_text from codevalue where code_id =  '40288008416c6c1a01416c95d3c50019' and item_value = area_id limit 1) as areaName,
+				company_name as companyName,
+				user_name as userName,
+				CONVERT(varchar(100), report_time, 23) as time,
+				trouble_add as troubleAdd,
+				deal_dept_name as dealDeptName,
+				(select item_text from codevalue where code_id =  '402880084196a4a301419759d52a024b' and item_value = trouble_level) as troubleLevel,
+				(select item_text from codevalue where  code_id = '402880084196a4a301419759b28e0249' and item_value =  trouble_sort) as troubleSort,
+				(select  PATROL_NAME from PAT_MAN p where p.row_id =  check_item)  as checkItem,
+				CONVERT(varchar(100), rectification_term, 23) as recTerm,
+				rectification_state as recState,
+				CONVERT(varchar(100), recfinish_time, 23) as recTime,
+				rectification_money as recMoney,
+				link_id as linkId ,
+				rectremark  as remark,
+				introduce,
+				rectDept,
+				rectPerson,
+				RECT_TEL rectTel,
+				(select item_text from codevalue where  code_id = '402809812e7f8c28012e7fa82239000c' and item_value =  IF_REPORT_AWH ) ifReportAwh
+				 from tro_man where delflag = 0 and row_id = #id#
+	</select>
+	<!-- 更新企业隐患的整改信息 lj 2015-10-21 -->
+	<update id="troubleRectUploadByMap" parameterClass="java.util.Map">
+		update tro_man set recfinish_time = #recTime#,rectification_money = #recMoney#,
+		RECTIFICATION_STATE = (case when trouble_level = 1 then 2 
+		     when trouble_level = 2 then 5 
+		     when trouble_level = 3 then 7 
+		     end )
+		,deal_state='整改完成',if_corrected  = 1 
+			where row_id = #id# 
+	</update>
+	<!-- 获取企业的区域和名称 lj  2015-10-21 -->
+	<select id="queryCompanyInfoHttp" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select 
+	    eb.row_id as companyId,
+        eb.ENTERPRISE_NAME as companyName,
+        eb.ENTERPRISE_POSSESSION as areaId,
+        eb.ENTERPRISE_POSSESSION_NAME as areaName,
+        eb.ENTERPRISE_CODE as code,
+        u.row_id as userId  
+		 from ent_base_info eb,users u where eb.login_id = u.login_id  and eb.delflag = 0 and u.del_flag = 0 
+         and (u.row_id = #id# or eb.row_id = #id#)
+         limit 1
+	</select>
+	
+		 <!-- 查询RIS_KNO_BAS列表  费谦  2015-10-24 -->
+	<select id="getWpwxxzskListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select *  from RIS_KNO_BAS  where delFlag=0 
+		 and DEPT_TYPE=#deptType#
+		<isNotEmpty property="userId">
+			<![CDATA[and  CREATEUSERID = #userId#]]>
+		</isNotEmpty>
+		order by CREATETIME desc 
+	</select>
+	
+	<!-- 查询RIS_KNO_BAS列表总数  费谦  2015-10-24 -->
+	<select id="getWpwxxzskListByMapForCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select count(*) as TOTAL from RIS_KNO_BAS  where delFlag=0 
+		and DEPT_TYPE=#deptType#
+		<isNotEmpty property="userId">
+			<![CDATA[and  CREATEUSERID = #userId#]]>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询查询监督检查我的任务列表 zyl 2015-10-31 -->
+	<select id="queryJdjcrwListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	 select t.ROW_ID as id,
+	 t.AREA_NAME as areaName,
+	 t.COMPANY_ID as companyId,
+	 t.COMPANY_NAME as companyName ,
+     t.TASK_NAME as taskName,
+     t.TASK_NUM as taskNum,
+     t.TASK_STATE as state,
+     t.TASK_TYPE as type ,
+     CONVERT(varchar(100), t.STIME, 23) as checkTime,
+     CONVERT(varchar(100), t.FTIME, 23) as checkTimeEnd
+     from SUP_TAS  t where t.delFlag=0 
+	 and (t.CHECK_USERID = #checkUserid# or t.xbUserId = #checkUserid#)
+         <isNotEmpty property="key">
+			<![CDATA[and (t.AREA_NAME like #key#  or t.COMPANY_NAME  like #key# or t.TASK_NAME  like #key#
+			or t.TASK_NUM  like #key# or t.TASK_STATE  like #key#  or t.TASK_TYPE  like #key#)
+			]]> 
+		</isNotEmpty>
+		ORDER BY t.STIME desc
+	</select>
+	<!-- 查询查询监督检查我的任务列表 总数 zyl 2015-10-31 -->
+	<select id="queryJdjcrwCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	    select count(*)
+     from SUP_TAS  t where t.delFlag=0 
+			and (t.CHECK_USERID = #checkUserid# or t.xbUserId = #checkUserid#)
+			<isNotEmpty property="key">
+			<![CDATA[and (t.AREA_NAME like #key#  or t.COMPANY_NAME  like #key# or t.TASK_NAME  like #key#
+			or t.TASK_NUM  like #key# or t.TASK_STATE  like #key#  or t.TASK_TYPE  like #key#)
+			]]> 
+		</isNotEmpty>
+	</select>
+	<!-- 查询查询监督检查当月任务列表 zyl 2015-11-02 -->
+	<select id="queryJdjcrwDyListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	 select t.ROW_ID as id,
+	 t.AREA_NAME as areaName,
+	 t.COMPANY_NAME as companyName,
+	 t.COMPANY_ID as companyId,
+     t.TASK_NAME as taskName,t.TASK_NUM as taskNum,t.TASK_STATE as state,
+     t.TASK_TYPE as type ,
+     CONVERT(varchar(100), t.STIME, 23) as checkTime,
+     CONVERT(varchar(100), t.FTIME, 23) as checkTimeEnd,
+     CONVERT(varchar(100), t.CHECK_TIME, 23) as actualCheckTime
+     from SUP_TAS  t where t.delFlag=0 
+			and (t.CHECK_USERID = #checkUserid# or t.xbUserId = #checkUserid#)
+			<isNotEmpty property="stime">
+			<![CDATA[and SUBSTRING(CONVERT(varchar(100), t.STIME, 23), 1, 7 )<=#stime#]]> 
+			</isNotEmpty>
+			<isNotEmpty property="stime">
+			<![CDATA[and SUBSTRING(CONVERT(varchar(100), t.FTIME, 23), 1, 7 )>=#stime#]]> 
+			</isNotEmpty>
+			ORDER BY t.TASK_STATE, t.STIME asc
+	</select>
+	<!-- 查询查询监督检查当月任务列表 总数 zyl 2015-11-02 -->
+	<select id="queryJdjcrwDyCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	    select count(*)
+     from SUP_TAS  t where t.delFlag=0 
+			and (t.CHECK_USERID = #checkUserid# or t.xbUserId = #checkUserid#)
+			<isNotEmpty property="stime">
+			<![CDATA[and SUBSTRING(CONVERT(varchar(100), t.STIME, 23), 1, 7 )<=#stime#]]> 
+			</isNotEmpty>
+			<isNotEmpty property="stime">
+			<![CDATA[and SUBSTRING(CONVERT(varchar(100), t.FTIME, 23), 1, 7 )>=#stime#]]> 
+			</isNotEmpty>
+	</select>
+	<!-- 查询查询监督检查当月任务已完成列表 总数 zyl 2015-11-02 -->
+	<select id="queryJdjcrwDyywcCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	    select count(*)
+     from SUP_TAS  t where t.delFlag=0 and t.TASK_STATE='已完成'
+			and (t.CHECK_USERID = #checkUserid# or t.xbUserId = #checkUserid#)
+			and SUBSTRING(CONVERT(varchar(100), t.CHECK_TIME, 23), 1, 7 )=#stime#
+	</select>
+	<!-- 查询查询监督检查任务详情 zyl 2015-10-31 -->
+	<select id="queryJdjcrwDetailByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	    	 select t.ROW_ID as id,t.AREA_NAME as areaName,t.COMPANY_ID as companyId,t.COMPANY_NAME as companyName ,
+             t.TASK_NAME as taskName,t.TASK_NUM as taskNum,t.TASK_STATE as state,
+             t.TASK_TYPE as type ,
+             CONVERT(varchar(100), t.STIME, 23) as checkTime,
+             CONVERT(varchar(100), t.FTIME, 23) as checkTimeEnd,
+             CONVERT(varchar(100), t.CHECK_TIME, 23) as actualCheckTime,
+             t.CHECK_USERNAME as checkUsername,
+             t.CHECK_ITEM_ID  as checkItemId,
+             t.CHECK_ITEM_NAME as checkType,
+             t.ACTUAL_CHECK_NAME as actualCheckName,
+             t.REMARK as remark
+             from SUP_TAS  t where t.delFlag=0
+			<isNotEmpty property="id">
+			<![CDATA[and  t.ROW_ID = #id#]]>
+		   </isNotEmpty>
+	</select>
+	<!-- 查询检查项 总数 zyl 2015-10-31 -->
+	<select id="find_checkName" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	    	select t.ROW_ID as id,t.PATROL_NAME  as checkItemName from PAT_MAN  t where t.delFlag=0
+	    	<isNotEmpty property="checkItemId">
+			<![CDATA[ and INSTR(t.PATROL_TYPE,#checkItemId#) >0]]>
+		   </isNotEmpty>
+			order by t.createTime
+	</select>
+	<!-- 更新监督检查任务  zyl  2015-10-31-->
+	<update id="JdjcrwFeedBackByMap" parameterClass="java.util.Map">
+		update SUP_TAS set REMARK = #remark# ,TASK_STATE=#taskState#,CHECK_TIME=#checkTime#,ACTUAL_CHECK_ID=#actualCheckId#,ACTUAL_CHECK_NAME=#actualCheckName#,PLAN_CHECK_NAME =#planCheckNames# where ROW_ID = #taskId#
+	</update>
+
+	<!-- 获取一维代码表数据 lj 2015-11-02 -->
+	<select id="queryCodeListCountByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select 
+			cv.item_value as id,
+			cv.item_text as name from code c,codevalue cv where c.row_id = cv.code_id
+			and c.del_flag = 0 and cv.del_flag = 0 
+			<isEqual property="type" compareValue="0">
+				 and c.code_name = '隐患级别'
+			</isEqual>
+			<isEqual property="type" compareValue="1">
+				 and c.code_name = '隐患类别'
+			</isEqual>
+			<isEqual property="type" compareValue="3">
+				 and c.code_name = '案件来源'
+			</isEqual>
+			<isEqual property="type" compareValue="4">
+				 and c.code_name = '事故级别'
+			</isEqual>
+			<isEqual property="type" compareValue="5">
+				 and c.code_name = '事故类别'
+			</isEqual>
+			<isEqual property="type" compareValue="6">
+				 and c.code_name = '文书类型'
+			</isEqual>
+			<isEqual property="type" compareValue="7">
+				 and c.code_name = '处罚种类'
+			</isEqual>
+			<isEqual property="type" compareValue="8">
+				 and c.code_name = '企业属地'
+			</isEqual>
+			<isEqual property="type" compareValue="9">
+				 and c.code_name = '企业分类'
+			</isEqual>
+			<isEqual property="type" compareValue="10">
+				 and c.code_name = '行业类别'
+			</isEqual>
+			<isEqual property="type" compareValue="12">
+				 and c.code_name = '挂牌督办整改级别'
+			</isEqual>
+	</select>
+	<!-- 查询挂牌督办列表 2015-11-3 fq -->
+	<select id="queryGpdbListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	    select * from (select s.CREATETIME,s.ROW_ID,s.DANGER_NAME,CONVERT(varchar(100), s.LISTING_TIME, 20) LISTING_TIME,s.RECTIFICATION_STATE,s.RECT_USER_ID,
+		  s.COMPANY_NAME,s.RECTIFICATION_LEVEL,s.RECTIFICATION_MONEY,s.CREATEUSERID,s.COMPANY_ID,
+		  (select cv.item_text from CODEVALUE cv ,CODE c where cv.CODE_ID=c.ROW_ID and c.CODE_NAME='隐患类别' and cv.ITEM_VALUE=s.DANGER_SORT) SORT,
+		  (select cv.item_text from CODEVALUE cv ,CODE c where cv.CODE_ID=c.ROW_ID and c.CODE_NAME='挂牌督办整改级别' and cv.ITEM_VALUE=s.RECTIFICATION_LEVEL) LEVELS
+		from SUPERVICE s where s.delFlag=0 )t where 1=1 
+			<isNotEmpty property="searchName">
+			<![CDATA[and  (t.DANGER_NAME like #searchName# or t.COMPANY_NAME like #searchName# or t.SORT like #searchName#)]]>
+		   </isNotEmpty>
+		   <!-- 综合处 -->
+		   <isNotEmpty property="zhc0">
+		   </isNotEmpty>
+		   <isNotEmpty property="zhc1">
+			<![CDATA[and   1=2]]>
+		   </isNotEmpty>
+		   <isNotEmpty property="zhc2">
+			<![CDATA[and  (t.RECTIFICATION_LEVEL ='1' or t.RECTIFICATION_LEVEL ='2') and  t.RECTIFICATION_STATE = '已整改待审核']]>
+		   </isNotEmpty>
+		   <isNotEmpty property="zhc3">
+			<![CDATA[and  (t.RECTIFICATION_LEVEL ='1' or t.RECTIFICATION_LEVEL ='2') and t.RECTIFICATION_STATE = '审核通过']]>
+		   </isNotEmpty>
+		   <!-- 安监中队队长-->
+		   <isNotEmpty property="ajzddz0">
+		   </isNotEmpty>
+		   <isNotEmpty property="ajzddz1">
+			<![CDATA[and  1=2]]>
+		   </isNotEmpty>
+		   <isNotEmpty property="ajzddz2">
+			<![CDATA[and  t.RECTIFICATION_LEVEL ='3'   and  t.RECTIFICATION_STATE = '已整改待审核' and t.COMPANY_ID in (select e.row_id from ENT_BASE_INFO e where e.GRID in (select g.row_id from COM_GRI_MAN g where g.GRID_MANAGE_DEPT=#ajzddz2#))]]>
+		   </isNotEmpty>
+		   <isNotEmpty property="ajzddz3">
+			<![CDATA[and  t.RECTIFICATION_LEVEL ='3' and t.RECTIFICATION_STATE = '审核通过'  and t.COMPANY_ID in (select e.row_id from ENT_BASE_INFO e where e.GRID in (select g.row_id from COM_GRI_MAN g where g.GRID_MANAGE_DEPT=#ajzddz2#))]]>
+		   </isNotEmpty>
+		   <!-- 网格管理员-->
+		   <isNotEmpty property="wgglry0">
+		   </isNotEmpty>
+		   <isNotEmpty property="wgglry1">
+			<![CDATA[and  ( t.RECTIFICATION_STATE = '待整改' or t.RECTIFICATION_STATE = '审核未通过') and t.COMPANY_ID in (select e.row_id from ENT_BASE_INFO e where e.GRID in (select g.row_id from COM_GRI_MAN g where g.grid_manage_person=#wgglry1#))]]>
+		   </isNotEmpty>
+		   <isNotEmpty property="wgglry2">
+			<![CDATA[and  1=2]]>
+		   </isNotEmpty>
+		   <isNotEmpty property="wgglry3">
+			<![CDATA[and  t.RECTIFICATION_STATE = '审核通过']]>
+		   </isNotEmpty>
+		   <isNotEmpty property="wgglry4">
+			<![CDATA[and  t.RECTIFICATION_MONEY  is not null and t.ROW_ID in (select r.yhb_id from  yhb_rect r where r.userId= #wgglry4#)]]>
+		   </isNotEmpty>
+		    <!-- 其他-->
+		   <isNotEmpty property="other0">
+		   </isNotEmpty>
+		   <isNotEmpty property="otherNone">
+			<![CDATA[and  1=2]]>
+		   </isNotEmpty>
+		   <!-- 综合处办事员-->
+		   <isNotEmpty property="zhcbsy0">
+		   </isNotEmpty>
+		   <isNotEmpty property="zhcbsy4">
+			<![CDATA[and  t.CREATEUSERID=#zhcbsy4#]]>
+		   </isNotEmpty>
+		   <isNotEmpty property="ky0">
+		   </isNotEmpty>
+		   <isNotEmpty property="ky1">
+			<![CDATA[and  t.RECTIFICATION_STATE =#ky1#]]>
+		   </isNotEmpty>
+		   <isNotEmpty property="ky4">
+			<![CDATA[and  (t.CREATEUSERID =#ky4# or t.RECT_USER_ID =#ky4#)]]>
+		   </isNotEmpty>
+		   
+		   <isNotEmpty property="cz0">
+		   </isNotEmpty>
+		   <isNotEmpty property="cz2">
+			<![CDATA[and  INSTR(#cz2#,t.RECTIFICATION_STATE) >0 ]]>
+		   </isNotEmpty>
+		   
+		   <isNotEmpty property="ld0">
+		   </isNotEmpty>
+		   <isNotEmpty property="ld2">
+			<![CDATA[and  INSTR(#ld2#,t.RECTIFICATION_STATE) >0 ]]>
+		   </isNotEmpty>
+		   
+			order by t.CREATETIME desc
+	</select>
+	<!-- 查询挂牌督办总数 2015-11-3 fq -->
+	<select id="queryGpdbListByMapForCount" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	    select count(*) as TOTAL from ( select s.CREATETIME,s.ROW_ID,s.DANGER_NAME,CONVERT(varchar(100), s.LISTING_TIME, 20) LISTING_TIME,s.RECTIFICATION_STATE,s.RECT_USER_ID,
+		   COMPANY_NAME,s.RECTIFICATION_LEVEL,s.RECTIFICATION_MONEY,s.CREATEUSERID,s.COMPANY_ID,
+		  (select cv.item_text from CODEVALUE cv ,CODE c where cv.CODE_ID=c.ROW_ID and c.CODE_NAME='隐患类别' and cv.ITEM_VALUE=s.DANGER_SORT) SORT
+		from SUPERVICE s where s.delFlag=0 )t where 1=1 
+			<isNotEmpty property="searchName">
+			<![CDATA[and  (t.DANGER_NAME like #searchName# or t.COMPANY_NAME like #searchName# or t.SORT like #searchName#)]]>
+		   </isNotEmpty>
+		   <!-- 综合处 -->
+		   <isNotEmpty property="zhc0">
+		   </isNotEmpty>
+		   <isNotEmpty property="zhc1">
+			<![CDATA[and   1=2]]>
+		   </isNotEmpty>
+		   <isNotEmpty property="zhc2">
+			<![CDATA[and  (t.RECTIFICATION_LEVEL ='1' or t.RECTIFICATION_LEVEL ='2') and  t.RECTIFICATION_STATE = '已整改待审核']]>
+		   </isNotEmpty>
+		   <isNotEmpty property="zhc3">
+			<![CDATA[and  (t.RECTIFICATION_LEVEL ='1' or t.RECTIFICATION_LEVEL ='2') and t.RECTIFICATION_STATE = '审核通过']]>
+		   </isNotEmpty>
+		   <!-- 安监中队队长-->
+		   <isNotEmpty property="ajzddz0">
+		   </isNotEmpty>
+		   <isNotEmpty property="ajzddz1">
+			<![CDATA[and  1=2]]>
+		   </isNotEmpty>
+		   <isNotEmpty property="ajzddz2">
+			<![CDATA[and  t.RECTIFICATION_LEVEL ='3'   and  t.RECTIFICATION_STATE = '已整改待审核' and t.COMPANY_ID in (select e.row_id from ENT_BASE_INFO e where e.GRID in (select g.row_id from COM_GRI_MAN g where g.GRID_MANAGE_DEPT=#ajzddz2#))]]>
+		   </isNotEmpty>
+		   <isNotEmpty property="ajzddz3">
+			<![CDATA[and  t.RECTIFICATION_LEVEL ='3' and t.RECTIFICATION_STATE = '审核通过'  and t.COMPANY_ID in (select e.row_id from ENT_BASE_INFO e where e.GRID in (select g.row_id from COM_GRI_MAN g where g.GRID_MANAGE_DEPT=#ajzddz2#))]]>
+		   </isNotEmpty>
+		   <!-- 网格管理员-->
+		   <isNotEmpty property="wgglry0">
+		   </isNotEmpty>
+		   <isNotEmpty property="wgglry1">
+			<![CDATA[and  ( t.RECTIFICATION_STATE = '待整改' or t.RECTIFICATION_STATE = '审核未通过') and t.COMPANY_ID in (select e.row_id from ENT_BASE_INFO e where e.GRID in (select g.row_id from COM_GRI_MAN g where g.grid_manage_person=#wgglry1#))]]>
+		   </isNotEmpty>
+		   <isNotEmpty property="wgglry2">
+			<![CDATA[and  1=2]]>
+		   </isNotEmpty>
+		   <isNotEmpty property="wgglry3">
+			<![CDATA[and  t.RECTIFICATION_STATE = '审核通过']]>
+		   </isNotEmpty>
+		   <isNotEmpty property="wgglry4">
+			<![CDATA[and  t.RECTIFICATION_MONEY  is not null and t.ROW_ID in (select r.yhb_id from  yhb_rect r where r.userId= #wgglry4#)]]>
+		   </isNotEmpty>
+		    <!-- 其他-->
+		   <isNotEmpty property="other0">
+		   </isNotEmpty>
+		   <isNotEmpty property="otherNone">
+			<![CDATA[and  1=2]]>
+		   </isNotEmpty>
+		   <!-- 综合处办事员-->
+		   <isNotEmpty property="zhcbsy0">
+		   </isNotEmpty>
+		   <isNotEmpty property="zhcbsy4">
+			<![CDATA[and  t.CREATEUSERID=#zhcbsy4#]]>
+		   </isNotEmpty>
+		   
+		    <isNotEmpty property="ky0">
+		   </isNotEmpty>
+		   <isNotEmpty property="ky1">
+			<![CDATA[and  t.RECTIFICATION_STATE =#ky1#]]>
+		   </isNotEmpty>
+		   <isNotEmpty property="ky4">
+			<![CDATA[and  (t.CREATEUSERID =#ky4# or t.RECT_USER_ID =#ky4#)]]>
+		   </isNotEmpty>
+		   
+		   <isNotEmpty property="cz0">
+		   </isNotEmpty>
+		   <isNotEmpty property="cz2">
+			<![CDATA[and  INSTR(#cz2#,t.RECTIFICATION_STATE) >0 ]]>
+		   </isNotEmpty>
+		   
+		   <isNotEmpty property="ld0">
+		   </isNotEmpty>
+		   <isNotEmpty property="ld2">
+			<![CDATA[and  INSTR(#ld2#,t.RECTIFICATION_STATE) >0 ]]>
+		   </isNotEmpty>
+		   
+	</select>
+     <!-- 查询待待审核危险源列表2015-11-6 zyl -->
+     <select id="queryZdwxyListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+     SELECT t.ROW_ID  as id,
+     t.COMPANY_NAME as companyName,
+     t.DANGER_NAME   as dangerName,
+     t.DANGER_LEVEL as dangerLevel,
+     t.DANGER_TYPE as dangerType
+     from COM_DAN_IDE t where t.delFlag=0 
+     <isEqual property="type" compareValue="1">	
+	   and t.AUDIT_STATE='待审核' 	
+	</isEqual>
+    <isEqual property="type" compareValue="2">	
+	   and t.AUDIT_STATE='审核通过'or t.AUDIT_STATE='审核未通过'
+	</isEqual>
+     </select>
+     <!-- 查询待审核危险源列表数量2015-11-6 zyl -->
+     <select id="queryZdwxyCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+     SELECT count(*)
+     from COM_DAN_IDE t where t.delFlag=0 
+    <isEqual property="type" compareValue="1">	
+	   and t.AUDIT_STATE='待审核' 	
+	</isEqual>
+    <isEqual property="type" compareValue="2">	
+	   and t.AUDIT_STATE='审核通过'or t.AUDIT_STATE='审核未通过'
+	</isEqual>
+     </select>
+     <!-- 更新危险源列表记录2015-11-6 zyl -->
+     <update id="QyzdwxyFeedBackByMap" parameterClass="java.util.Map">
+		update COM_DAN_IDE set AUDIT_STATE=#checkResult# where row_id = #id#
+	</update>
+	<!-- 查询待审核收文列表2015-11-10 zyl -->
+	<select id="querySwglListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	SELECT t.ROW_ID as id,
+	t.RECINFO_TITLE as reTitle,
+	t.RECINFO_TYPE as retype,
+	t.RECINFO_DEPT as reDept,
+	t.RECINFO_TIME as retime,
+	n.isRead as readed
+	from RECEIVE_INFORMATION t,NoticeCallback n where t.delFlag=0 and t.row_id = n.noticeId 
+	<isEqual property="type" compareValue="1">	
+	   and t.AUDIT_STATE='待审核' 	
+	</isEqual>
+	<isNotEmpty property="createUserID">
+				<![CDATA[and n.userID=#createUserID#]]>
+	</isNotEmpty>
+	order by t.CREATETIME desc
+	 </select>
+	 <!-- 查询待审核收文列表数量2015-11-10 zyl -->
+	<select id="querySwglCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	SELECT count(*) 
+	from RECEIVE_INFORMATION t,NoticeCallback n where t.delFlag=0 and t.row_id = n.noticeId 
+	<isEqual property="type" compareValue="1">	
+	   and t.AUDIT_STATE='待审核' 	
+	</isEqual>
+	<isNotEmpty property="createUserID">
+				<![CDATA[and n.userID=#createUserID#]]>
+	</isNotEmpty>
+	 </select>
+	 
+	 <!-- 查询可以查看收文列表2015-11-10 zyl -->
+	<select id="querySwglReadListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	SELECT t.ROW_ID as id,
+	t.RECINFO_TITLE as reTitle,
+	t.RECINFO_TYPE as retype,
+	t.RECINFO_DEPT as reDept,
+	t.RECINFO_TIME as retime,
+	n.isRead as readed
+	from RECEIVE_INFORMATION t,NoticeCallback n where t.delFlag=0 and t.row_id = n.noticeId 
+	<isNotEmpty property="createUserID">
+				<![CDATA[and (INSTR(#createUserID#,t.USER_IDS)>0  )]]>
+	</isNotEmpty>
+	<isNotEmpty property="createUserID">
+				<![CDATA[and n.userID=#createUserID#]]>
+	</isNotEmpty>
+	order  by n.isRead asc,t.CREATETIME desc
+	</select>
+	<!-- 查询可以查看收文列表2015-11-10 zyl -->
+	<select id="querySwglReadCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	SELECT count(*)
+	from RECEIVE_INFORMATION t ,NoticeCallback n where t.delFlag=0 and t.row_id = n.noticeId 
+	<isNotEmpty property="createUserID">
+				<![CDATA[and (INSTR(#createUserID#,t.USER_IDS)>0)]]>
+	</isNotEmpty>
+	<isNotEmpty property="createUserID">
+				<![CDATA[and n.userID=#createUserID#]]>
+	</isNotEmpty>
+	</select>
+	
+	<!-- 查询待审核发文列表2015-11-10 zyl -->
+	<select id="queryFwglListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	SELECT t.ROW_ID as id,
+	t.SENDINFO_TITLE as sendTitle,
+	t.SENDINFO_TYPE as sendType,
+	t.SENDINFO_SIGNER_NAME as signName,
+	t.SENDINFO_DRAFT_TIME as sendTime,
+	t.SENDINFO_SIGN_TIME as signTime,
+	n.isRead as readed 
+	from SEND_INFORMATION t ,NoticeCallback n where t.delFlag=0 and t.row_id = n.noticeId 
+	<isEqual property="type" compareValue="1">	
+	   and t.AUDIT_STATE='待审核' 	
+	</isEqual>
+	<isNotEmpty property="createUserID">
+				<![CDATA[and n.userID=#createUserID#]]>
+	</isNotEmpty>
+	order by t.CREATETIME desc
+	 </select>
+	 <!-- 查询待审核发文列表数量2015-11-10 zyl -->
+	<select id="queryFwglCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	SELECT count(*) 
+	from SEND_INFORMATION t ,NoticeCallback n where t.delFlag=0 and t.row_id = n.noticeId 
+	<isEqual property="type" compareValue="1">	
+	   and t.AUDIT_STATE='待审核' 	
+	</isEqual>
+	<isNotEmpty property="createUserID">
+				<![CDATA[and n.userID=#createUserID#]]>
+	</isNotEmpty>
+	 </select>
+	 <!-- 查询可以查看发文列表2015-11-10 zyl -->
+	<select id="queryFwglReadListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	SELECT t.ROW_ID as id,
+	t.SENDINFO_TITLE as sendTitle,
+	t.SENDINFO_TYPE as sendType,
+	t.SENDINFO_SIGNER_NAME as signName,
+	t.SENDINFO_DRAFT_TIME as sendTime,
+	t.SENDINFO_SIGN_TIME as signTime,
+	n.isRead as readed 
+	from SEND_INFORMATION t ,NoticeCallback n where t.delFlag=0 and t.row_id = n.noticeId and t.AUDIT_STATE='审核通过'
+	<isNotEmpty property="createUserID">
+				<![CDATA[and (INSTR(#createUserID#,t.USER_IDS)>0)]]>
+	</isNotEmpty>
+	<isNotEmpty property="createUserID">
+				<![CDATA[and n.userID=#createUserID#]]>
+	</isNotEmpty>
+	order by t.CREATETIME desc
+	</select>
+	<!-- 查询可以查看发文列表数量2015-11-10 zyl -->
+	<select id="queryFwglReadCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	SELECT count(*)
+	from SEND_INFORMATION t ,NoticeCallback n where t.delFlag=0 and t.row_id = n.noticeId and t.AUDIT_STATE='审核通过'
+	<isNotEmpty property="createUserID">
+				<![CDATA[and (INSTR(#createUserID#,t.USER_IDS)>0)]]>
+	</isNotEmpty>
+	<isNotEmpty property="createUserID">
+				<![CDATA[and n.userID=#createUserID#]]>
+	</isNotEmpty>
+	</select>
+	<!-- 更新收文列表记录2015-11-10 zyl -->
+     <update id="SwglFeedBackByMap" parameterClass="java.util.Map">
+		update RECEIVE_INFORMATION set AUDIT_STATE=#checkResult# where row_id = #id#
+	</update>
+	<!-- 更新发文列表记录2015-11-10 zyl -->
+     <update id="FwglFeedBackByMap" parameterClass="java.util.Map">
+		update SEND_INFORMATION set AUDIT_STATE=#checkResult#,SENDINFO_SIGN_TIME=#signTime#,SENDINFO_SIGNER_NAME=#signName# where row_id = #id#
+	</update>
+	
+	<!-- 查询隐患处理职能部门2015-12-07 fq -->
+	<select id="findDealDepts" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	select dept_code as id,dept_name as name  from department where del_flag = 0
+	 and substring(DEPT_CODE,0,4)='002' and DEPT_CODE !='002'   and len(DEPT_CODE)=6
+	 </select>
+	 
+	 	<!-- 查询隐患处理职能部门(安监局除外)2015-12-07 fq -->
+	<select id="findDealDeptsWithout002001" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	select dept_code as id,dept_name as name  from department where del_flag = 0
+	 and substring(DEPT_CODE,0,4)='002' and DEPT_CODE !='002001'   and len(DEPT_CODE)=6
+	 </select>
+	 
+	 <!-- 查询查询监督检查所有任务列表 zyl 2015-12-10 -->
+	<select id="queryJdjcrwAllListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	 select t.ROW_ID as id,
+	 t.AREA_NAME as areaName,
+	 t.COMPANY_ID as companyId,
+	 t.COMPANY_NAME as companyName ,
+     t.TASK_NAME as taskName,
+     t.TASK_NUM as taskNum,
+     t.TASK_STATE as state,
+     t.TASK_TYPE as type ,
+     CONVERT(varchar(100), t.STIME, 23) as checkTime,
+     CONVERT(varchar(100), t.FTIME, 23) as checkTimeEnd
+     from SUP_TAS  t where t.delFlag=0 
+         <isNotEmpty property="key">
+			<![CDATA[and (t.AREA_NAME like #key#  or t.COMPANY_NAME  like #key# or t.TASK_NAME  like #key#
+			or t.TASK_NUM  like #key# or t.TASK_STATE  like #key#  or t.TASK_TYPE  like #key#)
+			]]> 
+		</isNotEmpty>
+		ORDER BY t.STIME desc
+	</select>
+	<!-- 查询查询监督检查所有任务列表 总数 zyl 2015-12-10 -->
+	<select id="queryJdjcrwAllCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	    select count(*)
+     from SUP_TAS  t where t.delFlag=0 
+			<isNotEmpty property="key">
+			<![CDATA[and (t.AREA_NAME like #key#  or t.COMPANY_NAME  like #key# or t.TASK_NAME  like #key#
+			or t.TASK_NUM  like #key# or t.TASK_STATE  like #key#  or t.TASK_TYPE  like #key#)
+			]]> 
+		</isNotEmpty>
+	</select>
+	
+	<select id="queryCountForLogin" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	 	
+  	select row_id id,user_name name, company_id companyId from  PATROL_USER 
+  	 where delFlag=0
+  	 <isNotEmpty property="loginId">
+  	 and  LOGIN_ID=#loginId#
+	</isNotEmpty>
+  	  
+  	 <isNotEmpty property="password">
+  	  and PASS_WORD=#password#
+	</isNotEmpty>
+	
+	<isNotEmpty property="id">
+  	 and  row_id=#id#
+	</isNotEmpty>
+	</select>
+	
+	<select id="queryCountForLoginFromUsers" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+  	select ROW_ID id,DISPLAY_NAME name from  USERS 
+  	 where DEL_FLAG=0 and  LOGIN_ID=#loginId#
+	</select>
+	
+	<select id="findAllJcxlx" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+  	select t.row_id id,t.PATROL_TYPE_NAME name from PAT_TYP_MAN t where t.delflag = 0
+	</select>
+	
+	
+	<!-- add by wuhuaqing -->
+	
+	<!-- 保存图片信息 -->
+	<insert id="insert_photoInfo" parameterClass="com.jshx.http.bean.PhotoBean">
+		insert into photo_pic(row_id,pic_name,pic_type,task_pro_id,task_remark,createtime,filename) values
+		(#id#,#picName#,#type#,#taskId#,#remark#,sysdate,#fileName#)
+	</insert>
+	<!-- 查询所在镇列表信息 lj 2013-07-23 -->
+	<select id="query_townlist_byMap" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.DataBean">
+		select cv.item_text as rname,cv.item_value as rid  from
+		 code t, codevalue cv where t.row_id = cv.code_id 
+ 		and t.del_flag = 0 and cv.del_flag = 0 and t.code_name = '地址'
+ 		<isNotEmpty property="szz">
+ 			and cv.item_value = #szz#
+ 		</isNotEmpty>
+ 		<isNotEmpty property="szzname">
+ 			and cv.item_text like #szzname#
+ 		</isNotEmpty>
+	</select>
+	<!-- 查询所在县列表信息 lj 2013-07-23 -->
+	<select id="query_countylist_byMap" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.DataBean">
+		select cv.item_text as rname,cv.item_value as rid  from
+		 code t, codevalue cv where t.row_id = cv.code_id 
+ 		and t.del_flag = 0 and cv.del_flag = 0 and t.code_name = '地址'
+ 		<isNotEmpty property="county">
+ 			and cv.item_value = #county#
+ 		</isNotEmpty>
+ 		<isNotEmpty property="szzname">
+ 			and cv.item_text like #szzname#
+ 		</isNotEmpty>
+	</select>
+	<!-- 查询执法文书列表 lj 2013-07-23 -->
+	<select id="query_wslist_byMap" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.DataBean">
+		select cv.item_text as rname,cv.item_value as rid  from
+		 code t, codevalue cv where t.row_id = cv.code_id 
+ 		and t.del_flag = 0 and cv.del_flag = 0 and t.code_name = '执法文书'
+ 		<isNotEmpty property="zfws">
+ 			and cv.item_value = #zfws#
+ 		</isNotEmpty>
+	</select>
+	<!-- 查询一般安全隐患列表 审核状态 为 审核通过  lj 2013-07-23 -->
+	<!--  t.deptId in 
+			<iterate conjunction="," open="(" close=")" property="deptIds">
+				#deptIds[]# 
+			</iterate> -->
+	<select id="query_commonTroubleList_byMap" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.CommonTroubleBean">
+		<!--
+		select t.row_id as rid, t.qymc, t.jcsj,t.jcry,t.linkId
+			from commo_trouble t ,CompanyBackUp c 
+			where t.qymcId = c.row_id and t.delflag = 0   and (
+			<isNotEmpty property="deptId">
+				<![CDATA[t.deptId = #deptId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="deptCode">
+				<![CDATA[ or c.dwdz1 like concat(#deptCode#,'%')]]>
+			</isNotEmpty>
+			<isEqual property="whp" compareValue="1">
+				or c.ifwhpqylx  =  1
+			</isEqual>
+			<isEqual property="zyjk" compareValue="1">
+				or c.ifzywhqylx  =  1
+			</isEqual>
+			<isEqual property="yhbz" compareValue="1">
+				or c.yhbzjyqy  =  1
+			</isEqual>
+			) 
+			-->
+			select t.row_id as rid, t.qymc, t.jcsj,t.jcry,t.linkId
+			from commo_trouble t 
+			where  t.delflag = 0 and (t.shzt = '0' or t.shzt = '2')
+			<isNotEmpty property="userId">
+				<![CDATA[and t.createUserID = #userId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymcId">
+				<![CDATA[and t.qymcId = #qymcId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="isqysb">
+				<![CDATA[and t.isqysb = #isqysb#]]>
+			</isNotEmpty>
+			<!--hanxc 20150117 start-->
+			<isNotEmpty property="deptCode">
+				<![CDATA[and t.szz like #deptCode#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ifzsqy">
+				<![CDATA[and t.ifzsqy = #ifzsqy#]]>
+			</isNotEmpty>
+			<isNotEmpty property="isNotZsqy">
+				<![CDATA[and (t.ifzsqy != 1 or t.ifzsqy is null) ]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyType">
+				<![CDATA[and ( t.companyType like $companyType$ )]]>
+			</isNotEmpty>
+			<!--hanxc 2010117 end-->
+			order by t.createtime desc
+	</select>
+	<!-- 查询一般安全隐患列表总条数   lj 2013-07-23 -->
+	<select id="query_commonTroubleListCount_byMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		<!--
+		select count(*)
+			from commo_trouble t, CompanyBackUp c
+			where t.qymcId = c.row_id and t.delflag = 0   and (
+			<isNotEmpty property="deptId">
+				<![CDATA[t.deptId = #deptId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="deptCode">
+				<![CDATA[ or c.dwdz1 like concat(#deptCode#,'%')]]>
+			</isNotEmpty>
+			<isEqual property="whp" compareValue="1">
+				or c.ifwhpqylx  =  1
+			</isEqual>
+			<isEqual property="zyjk" compareValue="1">
+				or c.ifzywhqylx  =  1
+			</isEqual>
+			<isEqual property="yhbz" compareValue="1">
+				or c.yhbzjyqy  =  1
+			</isEqual>
+			) 
+			-->
+			select count(*)
+			from commo_trouble t 
+			where  t.delflag = 0 and (t.shzt = '0' or t.shzt = '2')
+			<isNotEmpty property="userId">
+				<![CDATA[and t.createUserID = #userId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymcId">
+				<![CDATA[and t.qymcId = #qymcId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="isqysb">
+				<![CDATA[and t.isqysb = #isqysb#]]>
+			</isNotEmpty>
+	</select>
+	
+	
+	<!-- 一般安全隐患部门检查完整数据查询  李海棠 2014-04-03 -->
+	<select id="query_allCommonTrouble_byMap" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.CommonTroubleBean">
+			select t.row_id as rid, t.qymc, t.jcsj,t.jcry,t.linkId
+			from commo_trouble t 
+			where  t.delflag = 0 and (t.shzt = '0' or t.shzt = '2')
+			<isNotEmpty property="deptCodes">
+		 and  t.deptId in
+		 <iterate open="(" close=")" conjunction="," property="deptCodes">
+		 #deptCodes[]#
+		 </iterate>
+				
+			</isNotEmpty>
+			<isNotEmpty property="ids">
+			<iterate open="(" close=")" conjunction="," property="ids">
+							#ids[]#
+		 	</iterate>
+			</isNotEmpty>
+			<isNotEmpty property="szz">
+				<isNotEmpty property="deptCode">
+					and (t.szz = #szz# or t.deptId in
+					<iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 			</iterate> )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.szz = #szz#]]>
+				</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="shzt">
+				<![CDATA[and t.shzt = #shzt#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymc">
+				<![CDATA[and t.qymc like #qymc#]]>
+			</isNotEmpty>
+			<isNotEmpty property="gpBeginDate">
+				<![CDATA[and t.gpsj >= #gpBeginDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="gpEndDate">
+				<![CDATA[and t.gpsj <= #gpEndDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="wcBeginDate">
+				<![CDATA[and t.zgwcrq >= #wcBeginDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="wcEndDate">
+				<![CDATA[and t.zgwcrq <= #wcEndDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ysBeginDate">
+				<![CDATA[and t.yssj >= #ysBeginDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ysEndDate">
+				<![CDATA[and t.yssj <= #ysEndDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymcId">
+				<![CDATA[and t.qymcId = #qymcId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ifwhpqylx">
+				<isNotEmpty property="deptCode">
+					and (t.ifwhpqylx = #ifwhpqylx# or t.deptId in 
+					<iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 		</iterate>  )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.ifwhpqylx = #ifwhpqylx#]]>
+				</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="ifzywhqylx">
+				<isNotEmpty property="deptCode">
+					and (t.ifzywhqylx = #ifzywhqylx# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate>  )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.ifzywhqylx = #ifzywhqylx#]]>
+				</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="ifyhbzjyqy">
+				<isNotEmpty property="deptCode">
+					and (t.ifyhbzjyqy = #ifyhbzjyqy# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate>  )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.ifyhbzjyqy = #ifyhbzjyqy#]]>
+			</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="userId">
+				<![CDATA[and t.createUserID = #userId#]]>
+			</isNotEmpty>
+			order by t.createtime desc
+	</select>
+	<!-- 一般安全隐患部门检查完整数据条数查询  李海棠 2014-04-03 -->
+	<select id="query_allCommonTroubleCount_byMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+			select count(*)
+			from commo_trouble t 
+			where  t.delflag = 0 and (t.shzt = '0' or t.shzt = '2')
+			<isNotEmpty property="deptCodes">
+		 and  t.deptId in
+		 <iterate open="(" close=")" conjunction="," property="deptCodes">
+		 #deptCodes[]#
+		 </iterate>
+				
+			</isNotEmpty>
+			<isNotEmpty property="ids">
+			<iterate open="(" close=")" conjunction="," property="ids">
+							#ids[]#
+		 	</iterate>
+			</isNotEmpty>
+			<isNotEmpty property="szz">
+				<isNotEmpty property="deptCode">
+					and (t.szz = #szz# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate> )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.szz = #szz#]]>
+				</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="shzt">
+				<![CDATA[and t.shzt = #shzt#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymc">
+				<![CDATA[and t.qymc like #qymc#]]>
+			</isNotEmpty>
+			<isNotEmpty property="gpBeginDate">
+				<![CDATA[and t.gpsj >= #gpBeginDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="gpEndDate">
+				<![CDATA[and t.gpsj <= #gpEndDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="wcBeginDate">
+				<![CDATA[and t.zgwcrq >= #wcBeginDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="wcEndDate">
+				<![CDATA[and t.zgwcrq <= #wcEndDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ysBeginDate">
+				<![CDATA[and t.yssj >= #ysBeginDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ysEndDate">
+				<![CDATA[and t.yssj <= #ysEndDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymcId">
+				<![CDATA[and t.qymcId = #qymcId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ifwhpqylx">
+				<isNotEmpty property="deptCode">
+					and (t.ifwhpqylx = #ifwhpqylx# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate>  )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.ifwhpqylx = #ifwhpqylx#]]>
+				</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="ifzywhqylx">
+				<isNotEmpty property="deptCode">
+					and (t.ifzywhqylx = #ifzywhqylx# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate>  )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.ifzywhqylx = #ifzywhqylx#]]>
+				</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="ifyhbzjyqy">
+				<isNotEmpty property="deptCode">
+					and (t.ifyhbzjyqy = #ifyhbzjyqy# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate>  )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.ifyhbzjyqy = #ifyhbzjyqy#]]>
+			</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="userId">
+				<![CDATA[and t.createUserID = #userId#]]>
+			</isNotEmpty>
+	</select>
+	
+	
+	
+	
+	<!-- 查询填报部门列表信息 lj 2013-07-23 -->
+	<select id="query_deptlist_byMap"  parameterClass="java.util.Map" resultClass="com.jshx.http.bean.DataBean">
+		select cv.item_text as rname,cv.item_value as rid  from
+		 code t, codevalue cv where t.row_id = cv.code_id 
+ 		and t.del_flag = 0 and cv.del_flag = 0 and t.code_name = '填报部门'
+ 		<isNotEmpty property="tbbm">
+ 			and cv.item_value = #tbbm#
+ 		</isNotEmpty>
+	</select>
+	
+	
+	
+	<!-- 查询重大安全隐患列表 审核状态 为 审核通过  lj 2013-07-23 -->
+	<select id="query_majorTroubleList_byMap" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.CommonTroubleBean">
+	<!--
+	select t.row_id as rid, t.qymc,t.gpsj,t.zrr,t.linkId from major_trouble t 
+			 , CompanyBackUp c 
+			where t.qymcId = c.row_id and t.delflag = 0  
+			  
+			and (
+			<isNotEmpty property="deptId">
+				<![CDATA[t.deptId = #deptId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="deptCode">
+				<![CDATA[ or c.dwdz1 like concat(#deptCode#,'%')]]>
+			</isNotEmpty>
+			<isEqual property="whp" compareValue="1">
+				or c.ifwhpqylx  =  1
+			</isEqual>
+			<isEqual property="zyjk" compareValue="1">
+				or c.ifzywhqylx  =  1
+			</isEqual>
+			<isEqual property="yhbz" compareValue="1">
+				or c.yhbzjyqy  =  1
+			</isEqual>
+			) 
+			-->
+			select t.row_id as rid, t.qymc,t.gpsj,t.zrr,t.linkId from major_trouble t 
+			where  t.delflag = 0   and (t.shzt = '0' or t.shzt = '2')
+			<isNotEmpty property="userId">
+				<![CDATA[and t.createUserID = #userId#]]>
+			</isNotEmpty>
+			<!--hanxc 20150117 start-->
+			<isNotEmpty property="deptCode">
+				<![CDATA[and t.szz like #deptCode#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ifzsqy">
+				<![CDATA[and t.ifzsqy = #ifzsqy#]]>
+			</isNotEmpty>
+			<isNotEmpty property="isNotZsqy">
+				<![CDATA[and (t.ifzsqy != 1 or t.ifzsqy is null) ]]>
+			</isNotEmpty>
+			<isNotEmpty property="companyType">
+				<![CDATA[and ( t.companyType like $companyType$ )]]>
+			</isNotEmpty>
+			<!--hanxc 2010117 end-->
+			order by t.createtime desc
+	</select>
+	<!-- 查询重大安全隐患列表总条数 审核状态 为 审核通过  lj 2013-07-23 -->
+	<select id="query_majorTroubleListCount_byMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(*) from major_trouble t 
+	where t.delflag = 0  and (t.shzt = '0' or t.shzt = '2')
+	<!--
+		, CompanyBackUp c 
+			where t.qymcId = c.row_id and t.delflag = 0  and (
+			<isNotEmpty property="deptId">
+				<![CDATA[t.deptId = #deptId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="deptCode">
+				<![CDATA[ or c.dwdz1 like concat(#deptCode#,'%')]]>
+			</isNotEmpty>
+			<isEqual property="whp" compareValue="1">
+				or c.ifwhpqylx  =  1
+			</isEqual>
+			<isEqual property="zyjk" compareValue="1">
+				or c.ifzywhqylx  =  1
+			</isEqual>
+			<isEqual property="yhbz" compareValue="1">
+				or c.yhbzjyqy  =  1
+			</isEqual>
+			) 
+			-->
+			<isNotEmpty property="userId">
+				<![CDATA[and t.createUserID = #userId#]]>
+			</isNotEmpty>
+	</select>
+	
+	
+	
+	
+	
+	<!-- 重大安全隐患部门检查完整数据查询  李海棠 2014-04-03 -->
+	<select id="query_allMajorTrouble_byMap" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.CommonTroubleBean">
+		select t.row_id as rid, t.qymc,t.gpsj,t.zrr,t.linkId from major_trouble t 
+			where  t.delflag = 0   and (t.shzt = '0' or t.shzt = '2')
+		 <isNotEmpty property="deptCodes">
+		 and  t.deptId in
+		 <iterate open="(" close=")" conjunction="," property="deptCodes">
+		 #deptCodes[]#
+		 </iterate>
+				
+			</isNotEmpty>
+			<isNotEmpty property="ids">
+			<iterate open="(" close=")" conjunction="," property="ids">
+							#ids[]#
+		 	</iterate>
+			</isNotEmpty>
+			<isNotEmpty property="szz">
+				<isNotEmpty property="deptCode">
+					and (t.szz = #szz# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate> )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.szz = #szz#]]>
+				</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="shzt">
+				<![CDATA[and t.shzt = #shzt#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymc">
+				<![CDATA[and t.qymc like #qymc#]]>
+			</isNotEmpty>
+			<isNotEmpty property="gpBeginDate">
+				<![CDATA[and t.gpsj >= #gpBeginDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="gpEndDate">
+				<![CDATA[and t.gpsj <= #gpEndDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="wcBeginDate">
+				<![CDATA[and t.zgwcrq >= #wcBeginDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="wcEndDate">
+				<![CDATA[and t.zgwcrq <= #wcEndDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ysBeginDate">
+				<![CDATA[and t.yssj >= #ysBeginDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ysEndDate">
+				<![CDATA[and t.yssj <= #ysEndDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymcId">
+				<![CDATA[and t.qymcId = #qymcId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ifwhpqylx">
+				<isNotEmpty property="deptCode">
+					and (t.ifwhpqylx = #ifwhpqylx# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate>  )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.ifwhpqylx = #ifwhpqylx#]]>
+				</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="ifzywhqylx">
+				<isNotEmpty property="deptCode">
+					and (t.ifzywhqylx = #ifzywhqylx# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate>  )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.ifzywhqylx = #ifzywhqylx#]]>
+				</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="ifyhbzjyqy">
+				<isNotEmpty property="deptCode">
+					and (t.ifyhbzjyqy = #ifyhbzjyqy# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate>  )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.ifyhbzjyqy = #ifyhbzjyqy#]]>
+			</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="userId">
+				<![CDATA[and t.createUserID = #userId#]]>
+			</isNotEmpty>
+			order by t.createtime desc
+	</select>
+	<!-- 重大安全隐患部门检查完整数据条数查询  李海棠 2014-04-03 -->
+	<select id="query_allMajorTroubleCount_byMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(*) from major_trouble t 
+	where t.delflag = 0  and (t.shzt = '0' or t.shzt = '2')
+	<isNotEmpty property="deptCodes">
+		 and  t.deptId in
+		 <iterate open="(" close=")" conjunction="," property="deptCodes">
+		 #deptCodes[]#
+		 </iterate>
+				
+			</isNotEmpty>
+			<isNotEmpty property="ids">
+			<iterate open="(" close=")" conjunction="," property="ids">
+							#ids[]#
+		 	</iterate>
+			</isNotEmpty>
+			<isNotEmpty property="szz">
+				<isNotEmpty property="deptCode">
+					and (t.szz = #szz# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate> )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.szz = #szz#]]>
+				</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="shzt">
+				<![CDATA[and t.shzt = #shzt#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymc">
+				<![CDATA[and t.qymc like #qymc#]]>
+			</isNotEmpty>
+			<isNotEmpty property="gpBeginDate">
+				<![CDATA[and t.gpsj >= #gpBeginDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="gpEndDate">
+				<![CDATA[and t.gpsj <= #gpEndDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="wcBeginDate">
+				<![CDATA[and t.zgwcrq >= #wcBeginDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="wcEndDate">
+				<![CDATA[and t.zgwcrq <= #wcEndDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ysBeginDate">
+				<![CDATA[and t.yssj >= #ysBeginDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ysEndDate">
+				<![CDATA[and t.yssj <= #ysEndDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="qymcId">
+				<![CDATA[and t.qymcId = #qymcId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="ifwhpqylx">
+				<isNotEmpty property="deptCode">
+					and (t.ifwhpqylx = #ifwhpqylx# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate>  )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.ifwhpqylx = #ifwhpqylx#]]>
+				</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="ifzywhqylx">
+				<isNotEmpty property="deptCode">
+					and (t.ifzywhqylx = #ifzywhqylx# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate>  )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.ifzywhqylx = #ifzywhqylx#]]>
+				</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="ifyhbzjyqy">
+				<isNotEmpty property="deptCode">
+					and (t.ifyhbzjyqy = #ifyhbzjyqy# or t.deptId in <iterate open="(" close=")" conjunction="," property="deptCode">#deptCode[]#
+		 	</iterate>  )
+				</isNotEmpty>
+				<isEmpty property="deptCode">
+					<![CDATA[and  t.ifyhbzjyqy = #ifyhbzjyqy#]]>
+			</isEmpty>
+			</isNotEmpty>
+			<isNotEmpty property="userId">
+				<![CDATA[and t.createUserID = #userId#]]>
+			</isNotEmpty>
+	</select>
+	
+	
+	
+	
+	<!-- 根据图片类型 查询图片名称 lj 2013-07-24 -->
+	<select id="query_photoList_byMap_new" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.DataBean">
+	 	select wm_concat(p.pic_name) as rname from photo_pic p  where p.pic_type = #type# and p.task_pro_id = #linkId#
+	</select>
+	<!-- 根据用户id 查询用户的角色列表 lj 2013-07-28 -->
+	<select id="query_role_byUserId" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.DataBean">
+		select role_code as rid,rolename as rname from userrole t
+		 where t.delflag = 0 
+		   and t.row_id in( select u.role_id from  user_right u where u.user_id = #userId#)
+	</select>
+	<!-- 根据用户id 查询用户的关联用户id信息 lj 2013-07-28 -->
+	<select id="query_deptCode_byUserId" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.DataBean">
+		select u.dept_code as rid,u.dept_id as rname from users u where u.del_flag = 0 and u.row_id = #userId# 
+	</select>
+	<!-- 查询安监去下所有科室的部门id lj 2013-07-28 -->
+	<select id="query_allDeptIds_byDeptCode" parameterClass="java.util.Map" resultClass="java.lang.String">
+		select t.row_id from department t where t.del_flag = 0 and  t.dept_name like'%安监中队'
+	</select>	
+
+
+		<!-- 查询挂牌督办列表 lht 2013-09-25 -->
+	<select id="query_commonSuperviseHandlingList_byMap" parameterClass="java.util.Map" resultClass="com.jshx.gpdb.entity.Gpdb">
+		select t.row_id as id,t.SZZNAME,t.QYMC,t.YHMC,t.GPSJ,t.YHLB,t.ZGWCSJ,t.YSSJ,t.STATE
+			from GPDB t
+			where t.CREATEUSERID = #userId# and t.delflag = 0 and (t.state = '0' or t.state = '2') order by t.createtime DESC
+	</select>
+		<!-- 查询挂牌督办列表总条数   lht 2013-09-25 -->
+	<select id="query_commonSuperviseHandlingListCount_byMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*)
+			from GPDB t
+			where t.CREATEUSERID = #userId# and t.delflag = 0 and (t.state = '0' or t.state = '2')
+	</select>
+	
+	<!-- 企业自查隐患列表 -->
+	<select id="getZcyhListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zcyhsb.entity.JshxZcyhsb">
+	select t.row_id as id,t.jcsj,t.jcry,t.jhwcsj,t.mqzt from JSHX_ZCYHSB t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	<isNotEmpty property="userId">
+		<![CDATA[and t.createUserID = #userId# and t.type = 0 and t.mqzt = 1]]>
+	</isNotEmpty>
+	order by t.createtime DESC
+	</select>
+	<!-- 企业自查隐患列表数量 -->
+	<select id="getZcyhListSizeByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(*) from JSHX_ZCYHSB t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	<isNotEmpty property="userId">
+		<![CDATA[and t.createUserID = #userId# and t.type = 0 and t.mqzt = 1]]>
+	</isNotEmpty>
+	</select>
+	<!-- 企业主要负责人、安全管理员安全培训和职业卫生培训情况列表 -->
+	<select id="getZazpxListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zazPxb.entity.JshxZazPxb">
+	select t.szzname,t.qymc,t.person_name as personName,t.sex,t.zw,t.xl,t.lxfs,t.address,t.cpsj,t.pxzh,t.kscj,t.whpqylx from JSHX_ZAZ_PXB t where t.delflag = 0
+	<isNotEmpty property="sfz">
+		<![CDATA[and t.sfz = #sfz#]]>
+	</isNotEmpty>
+	<isNotEmpty property="name">
+		<![CDATA[and t.person_name like #name#]]>
+	</isNotEmpty>
+	<isNotEmpty property="qymc">
+		<![CDATA[and t.qymc like #qymc#]]>
+	</isNotEmpty>
+	order by t.createtime DESC
+	</select>
+	<!-- 企业主要负责人、安全管理员安全培训和职业卫生培训情况列表数量 -->
+	<select id="getZazpxListSizeByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(*) from JSHX_ZAZ_PXB t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	</select>
+	<!-- 特种作业人员培训情况列表-->
+	<select id="getTzzypxListByMap" parameterClass="java.util.Map" resultClass="com.jshx.tzzyPxb.entity.JshxTzzyPxb">
+	select t.szzname,t.qymc,t.person_name as personName,t.sex,t.xl,t.llcj,t.sjcj,t.tzzh,t.sj,t.gz,t.gzxl,t.lzrq,t.yxsj from JSHX_TZZY_PXB t where t.delflag = 0
+	<isNotEmpty property="sfz">
+		<![CDATA[and t.sfz = #sfz#]]>
+	</isNotEmpty>
+	<isNotEmpty property="name">
+		<![CDATA[and t.person_name like #name#]]>
+	</isNotEmpty>
+	<isNotEmpty property="qymc">
+		<![CDATA[and t.qymc like #qymc#]]>
+	</isNotEmpty>
+	order by t.createtime DESC
+	</select>
+	<!-- 特种作业人员培训情况列表数量 -->
+	<select id="getTzzypxListSizeByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(*) from JSHX_TZZY_PXB t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	</select>
+	<!-- 新入厂员工的培训情况列表 -->
+	<select id="getXrcpxListByMap" parameterClass="java.util.Map" resultClass="com.jshx.xrcPxb.entity.JshxXrcPxb">
+	select t.person_name as personName,t.sex,t.whcd,t.csgw,t.pxxs,t.facpxsj,t.facpxskr,t.facpxkhcj,t.facpxnr,t.cjpxsj,t.cjpxskr,t.cjpxkhcj,t.cjpxnr,t.bzpxsj,t.bzpxskr,t.bzpxkhcj,t.bzpxnr from JSHX_XRC_PXB t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	order by t.createtime DESC
+	</select>
+	<!-- 新入厂员工的培训情况列表数量 -->
+	<select id="getXrcpxListSizeByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(*) from JSHX_XRC_PXB t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	</select>
+	<!-- 员工再培训及转岗、下岗、脱岗培训情况列表 -->
+	<select id="getZzxtpxListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zzxtPxb.entity.JshxZzxtPxb">
+	select t.person_name as personName,t.sex,t.whcd,t.csgw,t.pxsj,t.pxxs,t.skr,t.khcj,t.pxnr from JSHX_ZZXT_PXB t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	order by t.createtime DESC
+	</select>
+	<!-- 员工再培训及转岗、下岗、脱岗培训情况列表数量 -->
+	<select id="getZzxtpxListSizeByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(*) from JSHX_ZZXT_PXB t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	</select>
+	<!-- 行政许可信息列表 -->
+	<select id="getXzxkListByMap" parameterClass="java.util.Map" resultClass="com.jshx.xkzsb.entity.JshxXkzsb">
+	select t.jshx_type as jshxType,t.linkId from JSHX_XKZSB t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	order by t.createtime DESC
+	</select>
+	<!-- 行政许可信息列表数量 -->
+	<select id="getXzxkListSizeByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(*) from JSHX_XKZSB t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	</select>
+	<!-- 厂区图片列表 -->
+	<select id="getCqtpListByMap" parameterClass="java.util.Map" resultClass="com.jshx.factorypicture.entity.Factorypicture">
+	select t.physicalplantname,t.linkid from FACTORYPICTURE t where t.delflag = 0
+	<isNotEmpty property="companyid">
+		<![CDATA[and t.comid = #companyid#]]>
+	</isNotEmpty>
+	order by t.createtime DESC
+	</select>
+	<!-- 厂区图片列表列表 -->
+	<select id="getCqtpListSizeByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(*) from FACTORYPICTURE t where t.delflag = 0
+	<isNotEmpty property="companyid">
+		<![CDATA[and t.comid = #companyid#]]>
+	</isNotEmpty>
+	</select>
+	<!-- 关键装置部位列表-->
+	<select id="getZzbwListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zzbw.entity.JshxZzbw">
+	select t.gjzzmc,t.zywxys,t.zrr,t.gwygsl,t.proId from JSHX_ZZBW t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	order by t.createtime DESC
+	</select>
+	<!-- 关键装置部位列表数量  -->
+	<select id="getZzbwListSizeByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(*) from JSHX_ZZBW t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	</select>
+	
+	
+	<!-- 质监局特种设备列表-->
+	<select id="getZjjTzsbListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zjjtzsb.entity.Zjjtzsb">
+	select t.row_id as id,t.dwdz,t.szzname,t.sblb,t.sbdah,t.zcdm,t.jyrq,t.jyjl,t.jcrq,t.jcry,t.zywt,t.dwlxr,t.dh,t.bz,t.qymc,
+	t.zgqk,t.zgwcsj,t.linkId
+	from Zjjtzsb t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	<isNotEmpty property="shbs">
+		<![CDATA[and t.shbs = #shbs#]]>
+	</isNotEmpty>
+	<isNotEmpty property="szzid">
+		<![CDATA[and t.szzid = #szzid#]]>
+	</isNotEmpty>
+	<isNotEmpty property="states">
+		and t.state in
+			<iterate conjunction="," open="(" close=")" property="states">
+				#states[]# 
+			</iterate>
+	</isNotEmpty>
+	order by t.createtime DESC
+	</select>
+	<!-- 质监局特种设备数量  -->
+	<select id="getZjjTzsbListSizeByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(*) from Zjjtzsb t where t.delflag = 0
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	<isNotEmpty property="shbs">
+		<![CDATA[and t.shbs = #shbs#]]>
+	</isNotEmpty>
+	<isNotEmpty property="szzid">
+		<![CDATA[and t.szzid = #szzid#]]>
+	</isNotEmpty>
+	<isNotEmpty property="states">
+		and t.state in
+			<iterate conjunction="," open="(" close=")" property="states">
+				#states[]# 
+			</iterate>
+	</isNotEmpty>
+	</select>
+	
+	
+	<select id="getZjjTzsbzyryListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zjjtzsbzyry.entity.Zjjtzsbzyry">
+	select t.mc,t.sex,t.szzname,t.xl,t.lxdh,t.xm,t.pydw,t.dwdz,t.dwlxdh,t.pzrq,t.yxrq from ZJJTZSBZYRY t where t.delflag = 0
+	<isNotEmpty property="sfz">
+		<![CDATA[and t.sfz = #sfz#]]>
+	</isNotEmpty>
+	<isNotEmpty property="name">
+		<![CDATA[and t.mc like #name#]]>
+	</isNotEmpty>
+	<isNotEmpty property="qymc">
+		<![CDATA[and pydw like #qymc#]]>
+	</isNotEmpty>
+	order by t.createtime DESC
+	</select>
+	
+	<!-- 获取安全检查任务列表 hanxc 2014-11-13 -->
+	<select id="getInspectTaskListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap" remapResults="true">
+		select d.row_id as "distributeId",
+		       c.item_text as "inspectType",
+		       d.title as "title",
+		       d.task_time as "taskTime",
+		       d.task_status as "taskStatus",
+		       d.root_id as "rootId",
+		       d.inspect_num as "inspectNum",
+           	   d.serial_num as "serialNum",
+           	   d.cycle_flag as "cycleFlag",
+           	   d.cycle_value as "cycleValue",
+           		u.login_id as "loginId",
+           		u.display_name as "displayName",
+           		e.dept_name as "deptName",
+           		d.personnel as "userId"
+		from safe_inspect_distribute d 
+		inner join codevalue c on d.inspect_type = c.item_value 
+    	inner join users u on u.row_id = d.personnel
+    	inner join department e on e.dept_code = d.personnel_dept_code
+		where d.delflag = 0 and 
+		      c.code_id = '402881e7497d66f001497d7f65a40007'
+		      <isNotEmpty property="userId">
+				<![CDATA[and d.personnel = #userId#]]>
+			</isNotEmpty>
+		      <isNotEmpty property="taskStatus">
+				<![CDATA[and d.task_status = #taskStatus#]]>
+			</isNotEmpty>
+		      <isNotEmpty property="inspectNum">
+				<![CDATA[and d.inspect_num = #inspectNum#]]>
+			</isNotEmpty>
+			<isNotEmpty property="rootId">
+				<![CDATA[and d.root_id = #rootId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="taskTime">
+				<![CDATA[and d.task_time like #taskTime#]]>
+			</isNotEmpty>
+			<isNotEmpty property="startDate">
+				<![CDATA[and d.task_time >= #startDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="endDate">
+				<![CDATA[and d.task_time <= #endDate#]]>
+			</isNotEmpty>
+			<isNotEmpty property="historyFlag">
+				<![CDATA[and d.task_status != '0' and d.task_status != '1']]>
+			</isNotEmpty>
+			<isNotEmpty property="personnelDeptCode">
+				<![CDATA[and d.personnel_Dept_Code like #personnelDeptCode#]]>
+			</isNotEmpty>
+			<isNotEmpty property="serialNum">
+				<![CDATA[and d.serial_num = #serialNum#]]>
+			</isNotEmpty>
+			<isNotEmpty property="totalFlag">
+				<![CDATA[and d.task_status != '0' and d.task_status != '4' ]]>
+			</isNotEmpty>
+			 <isNotEmpty property="status">
+				<![CDATA[and d.task_status = #status#]]>
+			</isNotEmpty>
+			<isNotEmpty property="checkName">
+				<![CDATA[ and (u.display_name like #checkName# or lower(u.login_id) like lower(#checkName#))]]>
+			</isNotEmpty>
+			
+		order by d.task_time desc,d.createTime desc,d.inspect_num
+	</select>
+	<!-- 获取安全检查任务数 hanxc 2014-11-13 -->
+	<select id="getInspectTaskListCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(*) from (
+		select d.row_id as "distributeId",
+		       c.item_text as "inspectType",
+		       d.title as "title",
+		       d.task_time as "taskTime",
+		       d.task_status as "taskStatus",
+		       d.root_id as "rootId",
+		       d.inspect_num as "inspectNum",
+           	   d.serial_num as "serialNum",
+           	   d.cycle_flag as "cycleFlag",
+           	   d.cycle_value as "cycleValue",
+           	   u.login_id as "loginId",
+           	   u.display_name as "displayName",
+           	   e.dept_name as "deptName"
+		from safe_inspect_distribute d 
+		inner join codevalue c on d.inspect_type = c.item_value 
+    	inner join users u on u.row_id = d.personnel
+    	inner join department e on e.dept_code = d.personnel_dept_code
+		where d.delflag = 0 and 
+		      c.code_id = '402881e7497d66f001497d7f65a40007'
+		      <isNotEmpty property="userId">
+				<![CDATA[and d.personnel = #userId#]]>
+			</isNotEmpty>
+		      <isNotEmpty property="taskStatus">
+				<![CDATA[and d.task_status = #taskStatus#]]>
+			</isNotEmpty>
+		      <isNotEmpty property="inspectNum">
+				<![CDATA[and d.inspect_num = #inspectNum#]]>
+			</isNotEmpty>
+			<isNotEmpty property="rootId">
+				<![CDATA[and d.root_id = #rootId#]]>
+			</isNotEmpty>
+			<isNotEmpty property="taskTime">
+				<![CDATA[and d.task_time = #taskTime#]]>
+			</isNotEmpty>
+			<isNotEmpty property="historyFlag">
+				<![CDATA[and d.task_status != '0' and d.task_status != '1']]>
+			</isNotEmpty>
+			<isNotEmpty property="personnelDeptCode">
+				<![CDATA[and d.personnel_Dept_Code like #personnelDeptCode#]]>
+			</isNotEmpty>
+			<isNotEmpty property="serialNum">
+				<![CDATA[and d.serial_num = #serialNum#]]>
+			</isNotEmpty>
+			<isNotEmpty property="totalFlag">
+				<![CDATA[and d.task_status != '0' and d.task_status != '4' ]]>
+			</isNotEmpty>
+			 <isNotEmpty property="status">
+				<![CDATA[and d.task_status = #status#]]>
+			</isNotEmpty>
+			<isNotEmpty property="checkName">
+				<![CDATA[ and (u.display_name like #checkName# or lower(u.login_id) like lower(#checkName#))]]>
+			</isNotEmpty>
+		order by d.task_time desc,d.createTime desc,d.inspect_num
+	) t 
+	</select>
+	
+	<!-- 获取安全检查项列表 hanxc 2014-11-13 -->
+	<select id="GetInspectItemListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap" remapResults="true">
+		select t.row_id as "id",
+			   t.distribute_id as "distributeId", 
+		       t.item as "item", 
+		       t.requirement as "requirement", 
+		       t.isinspect as "isinspect", 
+		       t.image as "image", 
+		       t.count as "count", 
+		       t.remark as "remark", 
+		       t.user_id as "userId", 
+		       t.report_time as "reportTime", 
+		       t.task_time as "taskTime",
+		       t.describe as "describe",
+		       t.review_Result as "reviewResult",
+		       t.review_Remark as "reviewRemark",
+		       t.review_Latitude as "reviewLatitude",
+		       t.review_Longitude as "reviewLongitude",
+		       t.review_User_Id as "reviewUserId",
+		       t.review_Time as "reviewTime"
+		from distribute_item t 
+		where t.delflag = 0 
+		      <isNotEmpty property="distributeId">
+				<![CDATA[and t.distribute_id = #distributeId#]]>
+			</isNotEmpty>
+		order by t.index_num,t.report_time desc,t.createTime desc
+	</select>
+	<!-- 获取安全检查项数 hanxc 2014-11-13 -->
+	<select id="GetInspectItemListCountByMap" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+	select count(*) from (
+		select t.row_id as "id",
+		   	   t.distribute_id as "distributeId", 
+		       t.item as "item", 
+		       t.requirement as "requirement", 
+		       t.isinspect as "isinspect", 
+		       t.image as "image", 
+		       t.count as "count", 
+		       t.remark as "remark", 
+		       t.user_id as "userId", 
+		       t.report_time as "reportTime", 
+		       t.task_time as "taskTime"
+		from distribute_item t 
+		where t.delflag = 0 
+		      <isNotEmpty property="distributeId">
+				<![CDATA[and t.distribute_id = #distributeId#]]>
+			</isNotEmpty>
+		order by t.report_time desc
+	) t 
+	</select>
+	
+	<!-- 获取新闻图片 GY-UPDATE 2015-01-07-->
+<select id="getNewsphotoListByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap" remapResults="true">
+	select t.row_id id,t.news_title title,p.pic_name picsrc,t.news_content content from Newsphoto t,PHOTO_PIC p where t.delflag = 0
+	  and p.delflag = 0
+	  and t.linkid = p.task_pro_id
+	  and p.pic_type = 'xwtp'
+	  order by t.createtime DESC
+	</select>
+	
+	<!-- 企业自查隐患列表 -->
+	<select id="getZcyhNumByMap" parameterClass="java.util.Map" resultClass="java.util.HashMap" remapResults="true">
+	select f.sj sbsj, count(f.sj) sjnum
+ 	 from (
+ 	 select 
+ 	 	<isEqual property="dateflag" compareValue="year">
+ 	 		to_char(t.jcsj, 'yyyyMM') sj
+ 	 	</isEqual>
+ 	 	<isEqual property="dateflag" compareValue="month">
+ 	 		to_char(t.jcsj, 'yyyyMMdd') sj
+ 	 	</isEqual>
+          from JSHX_ZCYHSB t
+         where t.delflag = 0
+		<isNotEmpty property="creatorDeptCode">
+			<![CDATA[and t.creator_Dept_Code like #creatorDeptCode#]]>
+		</isNotEmpty>
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	<isNotEmpty property="jcsj">
+		<![CDATA[and to_char(t.jcsj, 'yyyyMMdd') like #jcsj#]]>
+	</isNotEmpty>
+	<isNotEmpty property="mqzt">
+		<![CDATA[and t.mqzt = #mqzt#]]>
+	</isNotEmpty>
+	<isNotEmpty property="userId">
+		<![CDATA[and t.createUserID = #userId# and t.mqzt = 1]]>
+	</isNotEmpty>
+	<isNotEmpty property="deptCode">
+		<![CDATA[and t.szzid like #deptCode#]]>
+	</isNotEmpty>
+	<isNotEmpty property="szc">
+		<![CDATA[and t.szc = #szc#]]>
+	</isNotEmpty>
+	<isNotEmpty property="whp">
+		<![CDATA[and t.ifwhpqylx = #whp#]]>
+	</isNotEmpty>
+	<isNotEmpty property="zyjk">
+		<![CDATA[and t.ifzywhqylx = #zyjk#]]>
+	</isNotEmpty>
+	<isNotEmpty property="yhbz">
+		<![CDATA[and t.ifyhbzjyqy = #yhbz#]]>
+	</isNotEmpty>
+	<isNotEmpty property="creatorDeptCode">
+		<![CDATA[and t.CREATOR_DEPT_CODE like #creatorDeptCode#]]>
+	</isNotEmpty>
+	<isNotEmpty property="jcry">
+			<![CDATA[and t.jcry like #jcry#]]>
+	</isNotEmpty>
+	<isNotEmpty property="startDate">
+			<![CDATA[and t.jcsj >= #startDate#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endDate">
+			<![CDATA[and t.jcsj <= #endDate#]]>
+		</isNotEmpty>
+	) f
+group by f.sj
+order by f.sj
+	</select>
+	
+	<select id="getInspectTaskNumByMonth" parameterClass="java.util.Map" resultClass="java.util.HashMap" remapResults="true">
+	select sj, count(*) db, sum(yb) yb
+  from (select sj,
+               serial_num,
+               sum(db) db,
+               decode(sum(db) - sum(yb), 0, 1, 0) yb
+          from (select to_CHAR(createtime, 'yyyymmdd') sj,
+                       serial_num,
+                       count(*) db,
+                       0 yb
+                  from safe_inspect_distribute
+                 where 1=1
+                 <isNotEmpty property="deptCode"> 
+                 	<![CDATA[and personnel_dept_code like #deptCode#]]>
+            	</isNotEmpty>
+               	<isNotEmpty property="taskTime"> 
+                  <![CDATA[and to_CHAR(createtime, 'yyyymm') = #taskTime#]]>
+                </isNotEmpty>
+                 <isNotEmpty property="personnel"> 
+                 	<![CDATA[and personnel = #personnel#]]>
+            	 </isNotEmpty>
+                   and serial_num is not null
+                 group by serial_num, to_CHAR(createtime, 'yyyymmdd')
+                union all
+                select to_CHAR(createtime, 'yyyymmdd'),
+                       serial_num,
+                       0 db,
+                       count(*) yb
+                  from safe_inspect_distribute
+                 where 1=1 
+                 <isNotEmpty property="deptCode"> 
+                  <![CDATA[ and personnel_dept_code like #deptCode#]]>
+                  </isNotEmpty>
+                  <isNotEmpty property="taskTime"> 
+                    <![CDATA[and to_CHAR(createtime, 'yyyymm') = #taskTime#]]>
+                     </isNotEmpty>
+                 <isNotEmpty property="personnel"> 
+                 	<![CDATA[and personnel = #personnel#]]>
+            	 </isNotEmpty>
+                   and serial_num is not null
+                   and task_status in (2, 3)
+                 group by serial_num, to_CHAR(createtime, 'yyyymmdd')) s
+         group by sj, serial_num)
+ group by sj order by sj
+	</select>
+	<select id="getInspectTaskNumByYear" parameterClass="java.util.Map" resultClass="java.util.HashMap" remapResults="true">
+	select sj, count(*) db, sum(yb) yb
+  from (select sj,
+               serial_num,
+               sum(db) db,
+               decode(sum(db) - sum(yb), 0, 1, 0) yb
+          from (select to_CHAR(createtime, 'yyyymm') sj,
+                       serial_num,
+                       count(*) db,
+                       0 yb
+                  from safe_inspect_distribute
+                 where 1=1
+                 <isNotEmpty property="deptCode"> 
+                 	<![CDATA[and personnel_dept_code like #deptCode#]]>
+                 	</isNotEmpty>
+                	 <isNotEmpty property="taskTime"> 
+                   <![CDATA[and to_CHAR(createtime, 'yyyy') = #taskTime#]]>
+                   </isNotEmpty>
+                 <isNotEmpty property="personnel"> 
+                 	<![CDATA[and personnel = #personnel#]]>
+            	 </isNotEmpty>
+                   and serial_num is not null
+                 group by serial_num, to_CHAR(createtime, 'yyyymm')
+                union all
+                select to_CHAR(createtime, 'yyyymm'),
+                       serial_num,
+                       0 db,
+                       count(*) yb
+                  from safe_inspect_distribute
+                 where 1=1 
+                 <isNotEmpty property="deptCode"> 
+                  <![CDATA[ and personnel_dept_code like #deptCode#]]>
+                  </isNotEmpty>
+                  <isNotEmpty property="taskTime"> 
+                    <![CDATA[and to_CHAR(createtime, 'yyyy') = #taskTime#]]>
+                     </isNotEmpty>
+                 <isNotEmpty property="personnel"> 
+                 	<![CDATA[and personnel = #personnel#]]>
+            	 </isNotEmpty>
+                   and serial_num is not null
+                   and task_status in (2, 3)
+                 group by serial_num, to_CHAR(createtime, 'yyyymm')) s
+         group by sj, serial_num)
+ group by sj order by sj
+	</select>
+	
+	</sqlMap>
+

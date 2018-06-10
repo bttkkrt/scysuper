@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CAREQUIPMENT" extends="default" namespace="/jsp/carequipment">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="carequipmentQuery" class="com.jshx.carequipment.web.CarequipmentAction" method="list">
+		</action>
+		
+		<action name="carequipmentList">
+			<result name="success">/WEB-INF/pages/carequipment/Carequipment_List.jsp</result>
+		</action>
+		
+		<action name="carequipmentView" class="com.jshx.carequipment.web.CarequipmentAction" method="view">
+			<result name="view">/WEB-INF/pages/carequipment/Carequipment_Detail.jsp</result>
+		</action>
+
+		<action name="carequipmentInitEdit" class="com.jshx.carequipment.web.CarequipmentAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/carequipment/Carequipment_Edit.jsp</result>
+		</action>
+
+		<action name="carequipmentSave" class="com.jshx.carequipment.web.CarequipmentAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="carequipmentDel" class="com.jshx.carequipment.web.CarequipmentAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

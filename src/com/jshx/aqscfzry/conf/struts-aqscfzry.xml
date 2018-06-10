@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SEC_PRO_CHA_PER" extends="default" namespace="/jsp/aqscfzry">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="secProChaPerQuery" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="list">
+		</action>
+		
+		<action name="secProChaPerList" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="init">
+			<result name="success">/WEB-INF/pages/aqscfzry/SecProChaPer_List.jsp</result>
+		</action>
+		
+		<action name="secProChaPerLists" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="init">
+			<result name="success">/WEB-INF/pages/aqscfzry/SecProChaPer_Lists.jsp</result>
+		</action>
+		
+		<action name="secProChaPerView" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="view">
+			<result name="view">/WEB-INF/pages/aqscfzry/SecProChaPer_Detail.jsp</result>
+		</action>
+
+		<action name="secProChaPerInitEdit" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqscfzry/SecProChaPer_Edit.jsp</result>
+		</action>
+
+		<action name="secProChaPerSave" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />
+			<interceptor-ref name="coreStack" />  
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_secProChaPer</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProChaPerDel" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="delete">
+		</action>
+		<action name="initImportSecProChaPer" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="initImport">
+		    <result name="success">/WEB-INF/pages/aqscfzry/importSecProChaPer.jsp</result>
+		</action>
+		
+		<action name="importSecProChaPer" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="importSecProChaPer">
+			<result name="success" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+		</action>
+		
+		
+		<action name="sendInfo" class="com.jshx.aqscfzry.web.SecProChaPerAction" method="sendInfo">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="REVIEW_LOG" extends="default" namespace="/jsp/reviewLog">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="reviewLogQuery" class="com.jshx.reviewLog.web.ReviewLogAction" method="list">
+		</action>
+		
+		<action name="reviewLogList">
+			<result name="success">/WEB-INF/pages/reviewLog/ReviewLog_List.jsp</result>
+		</action>
+		
+		<action name="reviewLogView" class="com.jshx.reviewLog.web.ReviewLogAction" method="view">
+			<result name="view">/WEB-INF/pages/reviewLog/ReviewLog_Detail.jsp</result>
+		</action>
+
+		<action name="reviewLogInitEdit" class="com.jshx.reviewLog.web.ReviewLogAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/reviewLog/ReviewLog_Edit.jsp</result>
+		</action>
+
+		<action name="reviewLogSave" class="com.jshx.reviewLog.web.ReviewLogAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="reviewLogDel" class="com.jshx.reviewLog.web.ReviewLogAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

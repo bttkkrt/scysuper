@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="WFWGCOMPANY" extends="default" namespace="/jsp/wfwgcompany">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="wfwgcompanyQuery" class="com.jshx.wfwgcompany.web.WfwgcompanyAction" method="list">
+		</action>
+		
+		<action name="wfwgcompanyList" class="com.jshx.wfwgcompany.web.WfwgcompanyAction" method="init">
+			<result name="success">/WEB-INF/pages/wfwgcompany/Wfwgcompany_List.jsp</result>
+		</action>
+		
+		<action name="wfwgcompanyView" class="com.jshx.wfwgcompany.web.WfwgcompanyAction" method="view">
+			<result name="view">/WEB-INF/pages/wfwgcompany/Wfwgcompany_Detail.jsp</result>
+		</action>
+
+		<action name="wfwgcompanyInitEdit" class="com.jshx.wfwgcompany.web.WfwgcompanyAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/wfwgcompany/Wfwgcompany_Edit.jsp</result>
+		</action>
+
+		<action name="wfwgcompanySave" class="com.jshx.wfwgcompany.web.WfwgcompanyAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+    		<result name="reload">/WEB-INF/pages/wfwgcompany/Wfwgcompany_Edit.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="wfwgcompanyDel" class="com.jshx.wfwgcompany.web.WfwgcompanyAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

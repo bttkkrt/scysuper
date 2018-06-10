@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findOccDisByMap">
+		select new com.jshx.zybwhysfbqk.entity.OccDis(t.id,t.workPlace,t.contactNum,t.proId) from OccDis t where t.delFlag = 0
+		 and t.workPlace is not null and t.workPlace !='' 
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="workPlace">
+			<![CDATA[and t.workPlace like (:workPlace)]]>
+		</isNotEmpty>
+		<isNotEmpty property="contactNum">
+			<![CDATA[and t.contactNum = :contactNum]]>
+		</isNotEmpty>
+		<isNotEmpty property="proId">
+			<![CDATA[and t.proId = :proId]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+</sqlMap>

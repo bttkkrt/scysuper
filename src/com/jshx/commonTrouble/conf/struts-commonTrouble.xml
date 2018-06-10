@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="COMMO_TROUBLE" extends="default" namespace="/jsp/commonTrouble">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="commoTroubleQuery" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="list">
+		</action>
+		
+		<action name="commoTroubleList"  class="com.jshx.commonTrouble.web.CommoTroubleAction" method="init">
+			<result name="success">/WEB-INF/pages/commonTrouble/CommoTrouble_List.jsp</result>
+		</action>
+		
+		<action name="commoTroubleView" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="view">
+			<result name="view">/WEB-INF/pages/commonTrouble/CommoTrouble_Detail.jsp</result>
+		</action>
+
+		<action name="commoTroubleInitEdit" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/commonTrouble/CommoTrouble_Edit.jsp</result>
+		</action>
+
+		<action name="commoTroubleSave" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/commonTrouble/CommoTrouble_Edit.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="commoTroubleDel" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="delete">
+		</action>
+		<!-- 李军 2013-07-18 附件上传处理 -->
+		<action name="commoTroubleUpload" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="upload">
+			<result name="success">/WEB-INF/pages/commonTrouble/CommoTrouble_upload.jsp</result>
+		</action>
+		<action name="commoTroubleSavePhoto" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="savePhoto">
+		</action>
+		<action name="commoTroubleImageDel" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="deleteImage">
+		</action>
+		<action name="commoTroubleSaveFile" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="saveFile">
+		</action>
+		<!-- 李军 2013-07-18 更新隐患状态 -->
+		
+		<action name="commoTroubleUpdateStatus" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="updateStatus">
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+		</action>
+		
+		<!-- 陆婷  2013-07-22 附件上传-->
+		<action name="infoFileUpload" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="infoFileUpload">
+		</action>
+		<!-- 李军 2013-08-05 选择企业 -->
+		<action name="commoTroubleChoseCompany" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="choseCompany">
+			<result name="success">/WEB-INF/pages/commonTrouble/ChoseCompany_List.jsp</result>
+		</action>
+		<!-- 列表查询，返回Json数据 -->
+		<action name="commoTroubleCompanyQuery" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="companyList">
+		</action>
+		
+		<!-- 李军 2013-11-13  一般安全隐患统计 -->
+		<action name="commoTroubleTongJi" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="tongJi">
+			<result name="tongji">/WEB-INF/pages/commonTrouble/CommoTrouble_tongji.jsp</result>
+		</action>
+		<!-- 李军 2013-11-14  一般安全隐患统计 按乡镇-->
+		<action name="commoTroubleDeptData" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="deptData">
+			<result name="xz">/WEB-INF/pages/commonTrouble/CommoTrouble_dataXz.jsp</result>
+		</action>
+		<!-- 李军 2013-11-14  一般安全隐患统计 按企业类型 -->
+		<action name="commoTroubleDataQylx" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="qylxData">
+			<result name="qylx">/WEB-INF/pages/commonTrouble/CommoTrouble_dataQylx.jsp</result>
+		</action>
+		
+		
+		<!--   乡镇检查职业危害企业统计 -->
+		<action name="commoTroubleXzzywhTongJi" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="xzzywhTongji">
+			<result name="xzzywh">/WEB-INF/pages/commonTrouble/CommoTrouble_xzzywh.jsp</result>
+		</action>
+		
+		
+		
+		
+		<!-- 陆婷 2013-12-2   一般安全隐患统计 按乡镇导出-->
+		<action name="commoTroubleDeptDataExport" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="deptDataExport">
+		</action>
+		<!-- 陆婷 2013-12-2   一般安全隐患统计 按企业类型导出 -->
+		<action name="commoTroubleDataQylxExport" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="qylxDataExport">
+		</action>
+		
+		
+		<!-- 职业病危害档案查询 陆婷 2013-11-27 -->
+		<action name="commoTroubleDataQyQuery" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="commoTroubleDataQyQuery">
+		</action>
+		
+		<!-- 职业病危害档案列表 陆婷 2013-11-27 -->
+		<action name="commoTroubleDataQyList" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="commoTroubleDataQyList">
+			<result name="success">/WEB-INF/pages/commonTrouble/CommoTrouble_dataQy.jsp</result>
+		</action>
+		<!-- add by  陆婷    2013-12-3 职业病危害档案统计导出 -->
+		<action name="commoTroubleDataQyExport" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="commoTroubleDataQyExport">
+		</action>
+		
+		<!-- 乡镇检查职业危害企业导出 -->
+		<action name="commoTroubleXzzywhExport" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="xzzywhTongJiExport">
+		</action>
+		
+		
+		<!--   各科室检查企业统计 -->
+		<action name="commoTroubleKsjcTongJi" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="ksjcTongji">
+			<result name="success">/WEB-INF/pages/commonTrouble/CommoTrouble_ksjc.jsp</result>
+		</action>
+		<!--  各科室检查企业导出 -->
+		<action name="commoTroubleKsjcExport" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="ksjcTongJiExport">
+		</action>
+		
+		<!--   各科室检查企业统计 -->
+		<action name="commoTroubleXzjcTongJi" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="xzjcTongji">
+			<result name="success">/WEB-INF/pages/commonTrouble/CommoTrouble_xzjc.jsp</result>
+		</action>
+		<!--  各科室检查企业导出 -->
+		<action name="commoTroubleXzjcExport" class="com.jshx.commonTrouble.web.CommoTroubleAction" method="xzjcTongJiExport">
+		</action>
+		
+		
+	</package>
+</struts>

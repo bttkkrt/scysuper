@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>政务通UI模版 V1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <link href="css/chosen.min.css" rel="stylesheet">
+    <link href="css/sipac.css" rel="stylesheet">
+    <!--[if lt IE 8]>
+    <![endif]-->
+</head>
+<body>
+<!-- Wrap all page content here -->
+	<div class="sipac_wrap">
+    	<div class="sipac_head">
+        	<a href="index.html" class="s_h_logo"><i></i><span>管理系统名称</span></a>
+            <div class="s_h_nav">
+                <ul>
+                	<li>
+                		<a class="active" href="#">栏目一</a>
+                    </li>
+                	<li>
+                		<a href="#">栏目二</a>
+                    </li>
+                	<li>
+                		<a href="#">栏目三</a>
+                	</li>
+                </ul>
+            </div>
+            <div class="sipac_rtbox">
+                <ul class="sipac_adminbox">
+                    <li style="display:none;">
+                		<a class="help" title="帮助" href="#"></a>
+                	</li>
+                	<li>
+                		<a class="manage" title="管理" href="#"></a>
+                        <div class="dropdown_nav">
+                        	<em></em>
+                            <ul>
+                            	<li class="frame_Btn">
+                                <a class="f_more hide" href="javascript:void(0);">展开菜单</a><a class="f_less"  href="javascript:void(0);">隐藏菜单</a></li>
+                            	<li><a href="#">帮助</a></li>
+                            </ul>
+                        </div>
+                	</li>
+                </ul>
+            	<div class="sipac_searchbar"><input class="s_s_text" type="text" value="搜索相关信息"><input class="s_s_btn" type="submit"><div class="s_s_mDrop"><a href="#" class="s_s_morebtn"></a><a href="#" class="s_s_lessbtn"></a>
+                        <div class="s_s_popup">
+                        	<div class="s_s_p_tit"><h1>综合搜索</h1><a class="close">×</a></div>
+                                <div class="sipac_editbox sipac_form">
+                                    <table>
+                                        <tr><th>条件一</th>
+                                            <td><input class="s_input" type="text" value="XXX"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>条件二</th>
+                                            <td><input class="s_input" type="text" value="XXX"></td>
+                                        </tr>
+                                        <tr>
+                                            <th></th>
+                                            <td><button class="sipac_btn s_b_submit">确认</button><button class="sipac_btn s_b_cancel">清空</button></td>
+                                        </tr>
+                                     </table>
+                                </div>
+                        </div>
+                	</div></div>
+            </div>
+    	</div>
+        <div class="sipac_body">
+        	<div class="sipac_menu">
+            	<ul>
+                	<li>
+                    	<a class="m_icon m_i_0" href="index.html"></a>
+                        <div class="dropdown_nav">
+                         <a class="s_m_tit" href="index.html">返回主界面</a>
+                        </div>
+                    </li>
+                	<!--li>
+                    	<a class="m_icon m_i_1" href="style_guide.html"></a>
+                        <div class="dropdown_nav">
+                        	<a class="s_m_tit" href="style_guide.html">样式规范</a>
+                        	<ul>
+                        	<li><a href="">图标</a></li>
+                        	<li><a href="">按钮</a></li>
+                        	</ul>
+                        </div>
+                    </li-->
+                	<li>
+                    	<a class="m_icon m_i_2 " href="search_table.html"></a>
+                        <div class="dropdown_nav">
+                         <a class="s_m_tit" href="search_table.html">例：表格+搜索</a>
+                        </div>
+                    </li>
+                	<li class="dropdown_active">
+                    	<a class="m_icon m_i_3" href="form.html"></a>
+                        <div class="dropdown_nav">
+                         <a class="s_m_tit" href="form.html">例：表单示例</a>
+                        </div>
+                    </li>
+                	<li>
+                    	<a class="m_icon m_i_4" href="simple_page.html"></a>
+                        <div class="dropdown_nav">
+                         <a class="s_m_tit" href="simple_page.html">例：简洁框架</a>
+                        </div>
+                    </li>
+                </ul>
+                
+            </div>
+            <div class="sipac_container">
+                <div class="sipac_crumbs"><a class="s_c_back" href="#" title="返回">&lt;</a><div class="s_c_cont">栏目一 &gt; 新建相关内容</div></div>
+                <div class="sipac_selectbox">
+                	<div class="s_sb_nav"><a class="active" href="#">基本信息</a><a href="#">相关信息</a><a href="#">栏目信息</a></div>
+                    <div class="s_sb_cont sipac_editbox sipac_form">
+                        <table>
+                            <tr>
+                                <th>APP ID</th>
+                                <td><input class="s_input" type="text" value="禁用" disabled></td>
+                            </tr>
+                            <tr>
+                                <th>APP ID</th>
+                                <td><input class="s_input" type="text" value="可用"></td>
+                            </tr>
+                            <tr>
+                                <th>应用插件头像</th>
+                                <td>自定控件</td>
+                            </tr>
+                            <tr>
+                                <th>应用插件全称</th>
+                                <td><select class="s_select">
+                                		<option value="">全部</option>
+                                        <option value="">最近一个月</option>
+                                        <option value="">最近一个月</option>
+                                     </select><!--
+                                     --><p class="s_from_info"><span class="s_form_btn s_f_normal"></span>举个例子。</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>应用插件分类</th>
+                                <td><span class="s_checkbox"><input type="checkbox"><label>文字文字文字文字</label></span><!--
+                                     --><span class="s_checkbox"><input type="checkbox"><label>文字文字文字</label></span><!--
+                                     --><span class="s_checkbox"><input type="checkbox"><label>文字文字文字文字</label></span><!--
+                                     --><span class="s_checkbox"><input type="checkbox"><label>文字文字文字</label></span></td>
+                            </tr>
+                            <tr>
+                                <th>应用插件</th>
+                                <td><textarea class="s_textarea"></textarea></td>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <td class="s_sb_bar"><button class="sipac_btn s_b_submit">确认</button><button class="sipac_btn s_b_cancel">取消</button></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
+</html>

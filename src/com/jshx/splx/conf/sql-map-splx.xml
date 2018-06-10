@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findSplxByMap">
+		select new com.jshx.splx.entity.Splx(t.id,t.fileName,t.endTime,t.beginTime,t.guid,t.taskId) from Splx t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="fileName">
+			<![CDATA[and t.fileName like :fileName]]>
+		</isNotEmpty>
+		<isNotEmpty property="startBeginTime">
+			<![CDATA[and t.beginTime >= :startBeginTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endBeginTime">
+			<![CDATA[and t.beginTime <= :endBeginTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="startEndTime">
+			<![CDATA[and t.endTime >= :startEndTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endEndTime">
+			<![CDATA[and t.endTime <= :endEndTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="guid">
+			<![CDATA[and t.guid = :guid]]>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询 所有人员 -->
+	<select id="findSplxList" parameterClass="java.util.Map" resultClass="com.jshx.splx.entity.Splx">
+	select t.row_id as id from SPLX t where t.delflag=0 and t.file_name=#FILENAME#
+	</select>
+	
+	<delete id="deleteSplxByMap" parameterClass="java.util.Map">
+	delete from SPLX where guid = #guid#
+	</delete>
+</sqlMap>

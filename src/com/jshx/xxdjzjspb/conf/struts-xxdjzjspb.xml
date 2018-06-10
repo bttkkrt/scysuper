@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PRESERVE_EVIDENCE" extends="default" namespace="/jsp/xxdjzjspb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="preserveEvidenceQuery" class="com.jshx.xxdjzjspb.web.PreserveEvidenceAction" method="list">
+		</action>
+		
+		<action name="preserveEvidenceList" class="com.jshx.xxdjzjspb.web.PreserveEvidenceAction" method="init">
+			<result name="success">/WEB-INF/pages/xxdjzjspb/PreserveEvidence_List.jsp</result>
+		</action>
+		
+		<action name="preserveEvidenceView" class="com.jshx.xxdjzjspb.web.PreserveEvidenceAction" method="view">
+			<result name="view">/WEB-INF/pages/xxdjzjspb/PreserveEvidence_Detail.jsp</result>
+		</action>
+
+		<action name="preserveEvidenceInitEdit" class="com.jshx.xxdjzjspb.web.PreserveEvidenceAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/xxdjzjspb/PreserveEvidence_Edit.jsp</result>
+		</action>
+
+		<action name="preserveEvidenceSave" class="com.jshx.xxdjzjspb.web.PreserveEvidenceAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_preserveEvidence</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="preserveEvidenceDel" class="com.jshx.xxdjzjspb.web.PreserveEvidenceAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

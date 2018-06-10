@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Node id="w_g1" label="社会经济" icon="/.../x.png" widget="w_g1" visible="1" selected="0" openFun="m_showOneWidget">
+  <Node id="w_g1_qwgk" label="人口数据" icon="..." widget="w_g1_qwgk"  visible="1" selected="0" openFun="m_showOneWidget">
+    <Node id="rkStats" label="历年人口统计" icon="/.../x.png" widget="mySwipeMap_new" visible="1" selected="0" openFun="showWidget" />
+    <Node id="rkQuery" label="社区人口查询" icon="/.../x.png" widget="myCmpMap" visible="1" selected="0" openFun="showWidget"/>
+  </Node>
+  <Node id="w_g1_dxdm" label="岗位数据" icon="..." widget="w_g1_dxdm" visible="1" selected="0" openFun="m_showOneWidget">
+    <Node id="gwStats" label="产业人口统计" icon="/.../x.png" widget="MainContainer" visible="1" selected="0" openFun="showWidget"/>
+    <Node id="gwQuery" label="岗位信息查询" icon="/.../x.png" widget="MainContainer" visible="1" selected="0" openFun="showWidget"/>
+  </Node>
+  <Node id="w_g1_dbfg" label="经济数据" icon="..." widget="w_g1_dbfg" visible="1" selected="0" openFun="showWidget">
+    <Node id="hgjjStats" label="宏观经济统计" icon="/.../x.png" widget="MainContainer" visible="1" selected="0" openFun="showWidget"/>
+    <Node id="jckStats" label="进出口总额统计" icon="/.../x.png" widget="MainContainer" visible="1" selected="0" openFun="showWidget"/>
+  </Node>
+  <Node id="w_g1_qhtj" label="就学数据" icon="..." widget="w_g1_qhtj" visible="1" selected="0" openFun="m_showOneWidget">
+    <Node id="zxxQuery" label="中小学师生查询" icon="/.../x.png" widget="MainContainer" visible="1" selected="0" openFun="showWidget"/>
+    <Node id="gxssQuery" label="高校师生查询" icon="/.../x.png" widget="MainContainer" visible="1" selected="0" openFun="showWidget"/>
+    <Node id="xssjStats" label="学生数据统计" icon="/.../x.png" widget="MainContainer" visible="1" selected="0" openFun="showWidget"/>
+  </Node>
+</Node>

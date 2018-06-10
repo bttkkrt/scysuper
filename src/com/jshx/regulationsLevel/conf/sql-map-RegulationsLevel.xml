@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findRegulationsLevelByMap">
+		from RegulationsLevel t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="levelCode">
+			<![CDATA[and t.levelCode like :levelCode]]>
+		</isNotEmpty>
+		<isNotEmpty property="levelName">
+			<![CDATA[and t.levelName like :levelName]]>
+		</isNotEmpty>
+		order by t.createTime
+	</select>
+	
+	
+	<select id="getRegulationsLevelRoot">
+		from RegulationsLevel t where 1=1 and t.delFlag=0
+		and  t.uplevelId='-1'
+		order by t.createTime desc
+	</select>
+	
+	<!-- 根据物资用品类别父节点类型查找到对应的子节点列表 -->
+	<select id="getChildRegulationsLevelNodesByParentId">
+		from RegulationsLevel t where 1=1 and t.delFlag=0
+		<isNotEmpty property="parentId">
+			and t.uplevelId= :parentId
+		</isNotEmpty>
+		<isNotEmpty property="levelName">
+			and t.levelName= :levelName
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<!-- 取得fullpath -->
+	<select id="findFullPathBySuperId">
+		from RegulationsLevel t where t.delFlag = 0 and t.id =:parentId
+	</select>
+	
+	<select id="findPageTree">
+		select t.row_id row_id, t.level_name levelName, t.uplevel_id uplevelId,
+        (select mu.display_name from users mu where t.createuserid = mu.row_id) createUser ,
+        (select md.dept_name from department md where t.deptid = md.row_id) deptName,
+        to_char(t.updatetime,'yyyy-MM-dd HH24:mi:ss') updateTime,        
+        t.createuserid  createuserid
+        from regulations_level t
+		where t.delflag = 0
+		<isNotEmpty property="levelName">
+			and t.level_name like :levelName
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<!-- ORACLE 迁移MYSQL 原递归查询方法作废 GY-UPDATE 2014-11-05-->
+	<select id="mfSuppliesTypeDao_checkOfficesupply">
+	select count(1) cnt from regulations_level a where a.delFlag=0 and a.uplevel_id in (
+		select t.row_id
+  	from regulations_level t
+ 	where 1=1 and t.delFlag=0
+ 	<!-- 
+ 	and FIND_IN_SET(t.row_id, queryAllSupplies(:ids))
+ 	 -->
+ 	start with t.row_id = :ids
+	connect by prior t.row_id = t.uplevel_id
+	)
+	</select>
+	
+</sqlMap>

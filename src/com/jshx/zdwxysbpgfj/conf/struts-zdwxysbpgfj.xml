@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="COM_DAN_IDE" extends="default" namespace="/jsp/zdwxysbpgfj">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="comDanIdeQuery" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="list">
+		</action>
+		
+		<action name="comDanIdeList" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="init">
+			<result name="success">/WEB-INF/pages/zdwxysbpgfj/ComDanIde_List.jsp</result>
+		</action>
+		
+		<action name="comDanIdeView" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="view">
+			<result name="view">/WEB-INF/pages/zdwxysbpgfj/ComDanIde_Detail.jsp</result>
+		</action>
+
+		<action name="comDanIdeInitEdit" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zdwxysbpgfj/ComDanIde_Edit.jsp</result>
+		</action>
+
+		<action name="comDanIdeSave" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_comDanIde</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="comDanIdeDel" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="delete">
+		</action>
+		<action name="comDanIdeCheck" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="check">
+			<result name="check">/WEB-INF/pages/zdwxysbpgfj/ComDanIde_Check.jsp</result>
+		</action>
+		
+		<action name="comDanIdeCheckSave" class="com.jshx.zdwxysbpgfj.web.ComDanIdeAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_comDanIde</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+	</package>
+</struts>

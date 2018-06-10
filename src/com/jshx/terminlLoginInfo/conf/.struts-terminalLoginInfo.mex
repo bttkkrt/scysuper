@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="TERMINAL_LOGIN_INFO" location="10,10" size="525,700">
+    <action name="terminalLoginInfoQuery" location="310,58" size="150,40" />
+    <action name="terminalLoginInfoList" location="310,162" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="TerminalLoginInfo_List.jsp" />
+      </result>
+    </action>
+    <action name="terminalLoginInfoView" location="310,337" size="150,41">
+      <result name="view">
+        <resourceEdge source="view" routing="0" target="TerminalLoginInfo_Detail.jsp" />
+      </result>
+    </action>
+    <action name="terminalLoginInfoInitEdit" location="310,512" size="150,41">
+      <result name="edit">
+        <resourceEdge source="edit" routing="0" target="TerminalLoginInfo_Edit.jsp" />
+      </result>
+    </action>
+    <action name="terminalLoginInfoSave" location="310,617" size="150,41">
+      <result name="reload">
+        <resourceEdge source="reload" routing="0" target="successToSelf.jsp" />
+      </result>
+    </action>
+    <action name="terminalLoginInfoDel" location="65,618" size="150,40" />
+  </package>
+  <webResource name="TerminalLoginInfo_List.jsp" path="/WEB-INF/pages/terminalLoginInfo/TerminalLoginInfo_List.jsp" location="588,135" size="150,55" />
+  <webResource name="TerminalLoginInfo_Detail.jsp" path="/WEB-INF/pages/terminalLoginInfo/TerminalLoginInfo_Detail.jsp" location="581,310" size="150,55" />
+  <webResource name="TerminalLoginInfo_Edit.jsp" path="/WEB-INF/pages/terminalLoginInfo/TerminalLoginInfo_Edit.jsp" location="587,485" size="150,55" />
+  <webResource name="successToSelf.jsp" path="/common/successToSelf.jsp" location="302,765" size="150,55" />
+</Struts2Diagram>
+

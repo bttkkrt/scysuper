@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="USER_BEHAVIOR" extends="default" namespace="/jsp/admin/behavior">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="userBehaviorQuery" class="com.jshx.log.web.UserBehaviorAction"
+			method="list">
+		</action>
+
+		<action name="userBehaviorList">
+			<result name="success">/WEB-INF/pages/admin/behavior/UserBehavior_List.jsp
+			</result>
+		</action>
+
+		<action name="userBehaviorView" class="com.jshx.log.web.UserBehaviorAction"
+			method="view">
+			<result name="view">/WEB-INF/pages/admin/behavior/UserBehavior_Detail.jsp
+			</result>
+		</action>
+
+		<action name="userBehaviorInitEdit" class="com.jshx.log.web.UserBehaviorAction"
+			method="initEdit">
+			<result name="edit">/WEB-INF/pages/admin/behavior/UserBehavior_Edit.jsp
+			</result>
+		</action>
+
+		<action name="userBehaviorSave" class="com.jshx.log.web.UserBehaviorAction"
+			method="save">
+			<interceptor-ref name="tokenInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result name="reload">/common/successToSelf.jsp?windowId=behavoirWindow</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="userBehaviorDel" class="com.jshx.log.web.UserBehaviorAction"
+			method="delete">
+		</action>
+		
+		<action name="findAllUserBehaviors" class="com.jshx.log.web.UserBehaviorAction"
+			method="findAllUserBehaviors">
+		</action>
+		
+		<action name="userBehaviorIndex">
+			<result name="success">/WEB-INF/pages/admin/behavior/UserBehaviorLog_index.jsp
+			</result>
+		</action>
+		
+		<action name="userBehaviorTree">
+			<result name="success">/WEB-INF/pages/admin/behavior/UserBehaviorLog_Tree.jsp
+			</result>
+		</action>
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="userBehaviorLogQuery" method="list"
+			class="com.jshx.log.web.UserBehaviorLogAction">
+
+		</action>
+
+		<action name="userBehaviorLogList"
+				class="com.jshx.log.web.UserBehaviorLogAction"
+				method="userBehaviorLogList">
+			<result name="success">/WEB-INF/pages/admin/behavior/UserBehaviorLog_List.jsp
+			</result>
+		</action>
+
+		<action name="userBehaviorLogView" method="view"
+			class="com.jshx.log.web.UserBehaviorLogAction">
+			<result name="view">/WEB-INF/pages/admin/behavior/UserBehaviorLog_Detail.jsp
+			</result>
+		</action>
+
+		<action name="userBehaviorLogInitEdit" method="initEdit"
+			class="com.jshx.log.web.UserBehaviorLogAction">
+			<result name="edit">/WEB-INF/pages/admin/behavior/UserBehaviorLog_Edit.jsp
+			</result>
+		</action>
+
+		<action name="userBehaviorLogSave" method="save"
+			class="com.jshx.log.web.UserBehaviorLogAction">
+			<interceptor-ref name="tokenInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="userBehaviorLogDel" method="delete"
+			class="com.jshx.log.web.UserBehaviorLogAction">
+		</action>
+
+		<action name="behaviorLogParamQuery" method="list"
+			class="com.jshx.log.web.BehaviorLogParamAction">
+		</action>
+		<action name="behaviorLogParamList">
+			<result name="success">/WEB-INF/pages/admin/behavior/BehaviorLogParam_List.jsp
+			</result>
+		</action>
+		<action name="behaviorLogParamView" method="view"
+			class="com.jshx.log.web.BehaviorLogParamAction">
+			<result name="view">/WEB-INF/pages/admin/behavior/BehaviorLogParam_Detail.jsp
+			</result>
+		</action>
+		<action name="behaviorLogParamInitEdit" method="initEdit"
+			class="com.jshx.log.web.BehaviorLogParamAction">
+			<result name="edit">/WEB-INF/pages/admin/behavior/BehaviorLogParam_Edit.jsp
+			</result>
+		</action>
+		<action name="behaviorLogParamSave" method="save"
+			class="com.jshx.log.web.BehaviorLogParamAction">
+			<interceptor-ref name="tokenInterceptor" />
+			<interceptor-ref name="defaultStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		<action name="behaviorLogParamDel" method="delete"
+			class="com.jshx.log.web.BehaviorLogParamAction">
+		</action>
+	</package>
+</struts>

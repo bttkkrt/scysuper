@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="FUNCTION_POINT" extends="default" namespace="/jsp/admin/permission">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="functionPointQuery" class="com.jshx.module.admin.web.action.FunctionPointAction" method="list">
+		</action>
+		
+		<action name="functionPointList">
+			<result name="success">/WEB-INF/pages/admin/permission/FunctionPoint_List.jsp</result>
+		</action>
+		
+		<action name="functionPointView" class="com.jshx.module.admin.web.action.FunctionPointAction" method="view">
+			<result name="view">/WEB-INF/pages/admin/permission/FunctionPoint_Detail.jsp</result>
+		</action>
+
+		<action name="functionPointInitEdit" class="com.jshx.module.admin.web.action.FunctionPointAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/admin/permission/FunctionPoint_Edit.jsp</result>
+		</action>
+
+		<action name="functionPointSave" class="com.jshx.module.admin.web.action.FunctionPointAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_functionPoint</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="functionPointDel" class="com.jshx.module.admin.web.action.FunctionPointAction" method="delete">
+		</action>
+		
+		<action name="funcRoleTree">
+			<result>/WEB-INF/pages/admin/permission/roleTree.jsp</result>
+		</action>
+		
+		<action name="editFuncRole"
+			class="com.jshx.module.admin.web.action.FunctionPointAction"
+			method="editFuncRole">
+			<result name="success">
+				/WEB-INF/pages/admin/permission/listFuncRight.jsp
+			</result>
+		</action>
+		
+		<action name="saveFuncRole"
+			class="com.jshx.module.admin.web.action.FunctionPointAction"
+			method="saveFuncRole">
+		</action>
+		
+		<action name="funcUserTree">
+			<result>/WEB-INF/pages/admin/permission/userTree.jsp</result>
+		</action>
+		
+		<action name="findUserTreeForFunc"
+			class="com.jshx.module.admin.web.action.FunctionPointAction"
+			method="findUserTreeForFunc">
+		</action>
+		
+		<action name="editFuncUser"
+			class="com.jshx.module.admin.web.action.FunctionPointAction"
+			method="editFuncUser">
+			<result name="success">
+				/WEB-INF/pages/admin/permission/listFuncUser.jsp
+			</result>
+		</action>
+		
+		<action name="saveFuncUser"
+			class="com.jshx.module.admin.web.action.FunctionPointAction"
+			method="saveFuncUser">
+		</action>
+		
+	</package>
+</struts>

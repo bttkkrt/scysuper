@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHXJF" extends="default" namespace="/jsp/jshxJf">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxjfQuery" class="com.jshx.jshxJf.web.JshxjfAction" method="list">
+		</action>
+		
+		<action name="jshxjfList">
+			<result name="success">/WEB-INF/pages/jshxJf/Jshxjf_List.jsp</result>
+		</action>
+		
+		<action name="jshxjfView" class="com.jshx.jshxJf.web.JshxjfAction" method="view">
+			<result name="view">/WEB-INF/pages/jshxJf/Jshxjf_Detail.jsp</result>
+		</action>
+
+		<action name="jshxjfInitEdit" class="com.jshx.jshxJf.web.JshxjfAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/jshxJf/Jshxjf_Edit.jsp</result>
+		</action>
+
+		<action name="jshxjfSave" class="com.jshx.jshxJf.web.JshxjfAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="jshxjfDel" class="com.jshx.jshxJf.web.JshxjfAction" method="delete">
+		</action>
+		
+		<action name="jshxjfQuerys" class="com.jshx.jshxJf.web.JshxjfAction" method="lists">
+		</action>
+		
+		<action name="jshxjfLists">
+			<result name="success">/WEB-INF/pages/jshxJf/Jshxjf_Lists.jsp</result>
+		</action>
+		
+	</package>
+</struts>

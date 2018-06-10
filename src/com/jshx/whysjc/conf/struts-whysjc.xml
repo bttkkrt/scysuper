@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="HAZ_DET" extends="default" namespace="/jsp/whysjc">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="hazDetQuery" class="com.jshx.whysjc.web.HazDetAction" method="list">
+		</action>
+		
+		<action name="hazDetList" class="com.jshx.whysjc.web.HazDetAction" method="init">
+			<result name="success">/WEB-INF/pages/whysjc/HazDet_List.jsp</result>
+		</action>
+		
+		<action name="hazDetView" class="com.jshx.whysjc.web.HazDetAction" method="view">
+			<result name="view">/WEB-INF/pages/whysjc/HazDet_Detail.jsp</result>
+		</action>
+
+		<action name="hazDetInitEdit" class="com.jshx.whysjc.web.HazDetAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/whysjc/HazDet_Edit.jsp</result>
+		</action>
+
+		<action name="hazDetSave" class="com.jshx.whysjc.web.HazDetAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_hazDet</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="hazDetDel" class="com.jshx.whysjc.web.HazDetAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

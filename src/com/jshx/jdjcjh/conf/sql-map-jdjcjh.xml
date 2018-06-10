@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findSupPlaByMap">
+		select new com.jshx.jdjcjh.entity.SupPla(t.id, t.checkCompanyName, t.planName, t.planType, t.checkItemType,t.createUserID,t.ifywc) from SupPla t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="planName">
+			<![CDATA[and t.planName like :planName]]>
+		</isNotEmpty>
+		<isNotEmpty property="planType">
+			<![CDATA[and t.planType = :planType]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkItemType">
+			<![CDATA[and t.checkItemType = :checkItemType]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkCompanyName">
+			<![CDATA[and t.checkCompanyName like :checkCompanyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and (t.createUserID= :createUserId or t.planType='year' or t.planType='interim')]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+	<!-- 查询中队部门列表  lj 2015-10-27-->
+	<select id="query_dept_byMap_lj" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select dept_code as code,dept_name as name from department where del_flag  =0 and dept_code like #code#
+	</select>
+	<!-- 查询中队下部门人员信息 lj 2015-10-27 -->
+	<select id="query_person_byMap_lj"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select row_id as id,display_name as name from users where del_flag  =0 and dept_code like #code#
+		<isNotEmpty property="userId">
+			<![CDATA[and row_id != #userId#]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询计划名称信息  -->
+	<select id="query_planName_byMap"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		SELECT t.ROW_ID as planId,t.PLAN_NAME as planName from SUP_PLA  t where t.delFlag=0 and (t.PLAN_TYPE='year' or t.PLAN_TYPE='interim') and <![CDATA[t.PLAN_START_TIME <= #todaytime# and t.PLAN_END_TIME >= #todaytime#]]>
+	</select>
+	<!-- 查询巡查项信息 -->
+	<select id="query_xcx_byMap"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select t.PATROL_NAME as name from PAT_MAN  t  where t.delFlag=0
+	</select>
+	<!-- 查询周计划巡查信息 -->
+	<select id="findCheckCompanyIds"  parameterClass="java.util.Map" resultClass="String">
+		SELECT t.CHECK_COMPANY_ID  as checkcompantId from SUP_PLA t  
+		 where t.ROW_ID=#planId#
+	</select>
+	<!-- 查询计划的任务   -->
+	<select id="findTask" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	   SELECT t.ROW_ID as id from SUP_TAS t where t.delFlag=0 and t.PLAN_ID=#planId# 
+	  <isNotEmpty property="state">
+			<![CDATA[and t.TASK_STATE=#state#]]>
+		</isNotEmpty> 
+	</select>
+	<!-- 查询检查人的网格id   -->
+	<select id="findwglist" parameterClass="java.util.Map" resultClass="java.lang.String">
+	   SELECT t.ROW_ID as id from COM_GRI_MAN  t where t.delFlag=0 and t.GRID_MANAGE_DEPT = (select u.dept_code from users u where u.row_id = #checkUserId# and u.del_flag = 0)
+	</select>
+	<!-- 查询所有企业   -->
+	<select id="findCompanyList" parameterClass="java.util.Map" resultClass="com.jshx.qyjbxx.entity.EntBaseInfo">
+	 SELECT t.ROW_ID as id,t.GRID as grid ,t.ENTERPRISE_NAME as enterpriseName from ENT_BASE_INFO t where t.delFlag=0 and t.BASE_PASS='1'
+	 <isNotEmpty property="grid">
+			<![CDATA[and t.GRID=#grid#]]>
+	 </isNotEmpty>
+	 <isNotEmpty property="enterpriseNature">
+			<![CDATA[and t.ENTERPRISE_NATURE=#enterpriseNature#]]>
+	 </isNotEmpty>
+	 <isNotEmpty property="enterpriseType">
+			<![CDATA[and t.ENTERPRISE_TYPE=#enterpriseType#]]>
+	 </isNotEmpty>
+	 <isNotEmpty property="enterpriseScale">
+			<![CDATA[and t.ENTERPRISE_SCALE=#enterpriseScale#]]>
+	 </isNotEmpty>
+	 <isNotEmpty property="enterpriseName">
+			<![CDATA[and t.ENTERPRISE_NAME like #enterpriseName#]]>
+	 </isNotEmpty>
+	</select>
+	<!-- 查询周计划的企业  -->
+	<select id="findCompanyList2" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	 SELECT t.ROW_ID as id,t.ENTERPRISE_NAME as enterpriseName,t.ENTERPRISE_LEVEL as level,(SELECT count(*)from SUP_TAS a where a.delFlag=0 and a.COMPANY_ID=t.ROW_ID and SUBSTRING(CONVERT(varchar(100), a.STIME, 23), 1, 4 )=#stime#)as count from ENT_BASE_INFO t where t.delFlag=0 and t.BASE_PASS='1'
+	 <isNotEmpty property="ids">
+			<![CDATA[and t.ROW_ID in $ids$]]>
+	  </isNotEmpty>
+	 <isNotEmpty property="wgIds">
+			<![CDATA[and t.GRID in $wgIds$]]>
+	  </isNotEmpty>
+	</select>
+	<!-- 查询所有网格  -->
+	<select id="findWglistAll" parameterClass="java.util.Map" resultClass="com.jshx.qywghjdgl.entity.ComGriMan">
+	 SELECT t.ROW_ID as id,t.GRID_NAME as gridName from COM_GRI_MAN t where t.delFlag=0
+	</select>
+	<!-- 查询该企业分配的任务次数  -->
+	<select id="findTaskCount" parameterClass="java.util.Map" resultClass="java.lang.String">
+	 SELECT t.ROW_ID as id,t.GRID_NAME as gridName from COM_GRI_MAN t where t.delFlag=0
+	</select>
+	
+	<!-- 查询周计划的企业  -->
+	<select id="findCompanyList22" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	select t.ROW_ID id,
+	t.COMPANY_NAME enterpriseName,
+	t.TYPE_DETAIL level ,
+	t.AREA,
+	t.ADDRESS,
+	t.CHARGER,
+	t.CHARGER_PHONE,
+	t.CONTACT,
+	t.CONTACT_PHONE,
+	t.EMAIL,
+	(SELECT count(*) from SUP_TAS a where a.delFlag=0 and a.COMPANY_ID=t.ROW_ID and SUBSTRING(CONVERT(varchar(100), a.STIME, 23), 1, 4 )=#stime# and a.TASK_STATE='已完成')as count
+  FROM COMPANY_INFO_PLAN t
+  where t.delFlag=0 and t.AREA=( select d.DEPT_NAME from DEPARTMENT d where d.DEPT_CODE=(select u.DEPT_CODE  from USERS u where u.ROW_ID=#checkUserId# ))
+	 <isNotEmpty property="planbId">
+			<![CDATA[and t.PLAN_ID = #planbId#]]>
+	  </isNotEmpty>
+	  <isNotEmpty property="companyName">
+			<![CDATA[and t.COMPANY_NAME like #companyName#]]>
+	  </isNotEmpty>
+	  <isNotEmpty property="companyType">
+			<![CDATA[and substring(t.TYPE_DETAIL,#companyType#,1)='1']]>
+	  </isNotEmpty>
+	  
+	</select>
+	
+	<select id="getXccs">
+	from SupPlaXccs
+	</select>
+	
+	<!-- 查询没有完成的任务的companyid  -->
+	<select id="findNotFinishCompanyId" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	select t.COMPANY_ID companyId
+	from SUP_TAS t where t.delFlag=0 and t.TASK_STATE='未完成'   
+	</select>
+	
+	
+	<!-- 计算周计划完成度  -->
+	<select id="calFinishStateForWeekPlan" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	select cast((select COUNT(*) from SUP_TAS
+  where plan_id=#planId# and TASK_STATE='已完成' and delflag = 0)/((select COUNT(*) from  SUP_TAS
+  where plan_id=#planId#  and delflag = 0)+0.0) as decimal(3,2))*100 as finishState  
+	</select>
+	
+	
+	<!-- 查询年计划的企业  -->
+	<select id="findCompanyListForYearPlan" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	select t.ROW_ID id,
+	t.COMPANY_NAME enterpriseName,
+	t.TYPE_DETAIL level ,
+	t.AREA,
+	t.ADDRESS,
+	t.CHARGER,
+	t.CHARGER_PHONE,
+	t.CONTACT,
+	t.CONTACT_PHONE,
+	t.EMAIL
+  FROM COMPANY_INFO_PLAN t
+  where t.delFlag=0 
+	 <isNotEmpty property="planbId">
+			<![CDATA[and t.PLAN_ID = #planbId#]]>
+	  </isNotEmpty>
+	 </select>
+	 
+	 
+	<!-- 查询年计划的已完成的任务数量  -->
+	<select id="findFinishTaskCountForYearPlan" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	select count(*) as finishCount from SUP_TAS t 
+  where t.delFlag=0 and t.YEAR_PLAN_ID= #yearPlanbId# and t.TASK_STATE='已完成'
+	 </select>
+	 
+	
+</sqlMap>

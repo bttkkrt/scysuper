@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<import resource="classpath:**/applicationContext-hibernate.xml"/>
+	
+
+	<bean id="DateBaseDDLOracleDialect"
+		class="com.jshx.module.form.dbddl.DateBaseDDLOracleDialect">
+	</bean>
+	
+	<bean id="DateBaseDDLSQLServerDialect"
+		class="com.jshx.module.form.dbddl.DateBaseDDLSQLServerDialect">
+	</bean>
+	
+	<bean id="DateBaseDDLMySQL5Dialect"
+		class="com.jshx.module.form.dbddl.DateBaseDDLMySQL5Dialect">
+	</bean>
+
+	<bean id="DateBaseDDLDB2Dialect"
+		class="com.jshx.module.form.dbddl.DateBaseDDLDB2Dialect">
+	</bean>
+
+	<bean id="formTableDao"
+		class="com.jshx.module.form.dao.impl.FormTableDao">
+		<property name="testDDL" ref="DateBaseDDL${db.Dialect.suffix}" />
+	</bean>
+
+	<bean id="formFieldDao"
+		class="com.jshx.module.form.dao.impl.FormFieldDao">
+		<property name="testDDL" ref="DateBaseDDL${db.Dialect.suffix}" />
+	</bean>
+
+	<!-- 
+	<bean id="xmlParser" class="com.jshx.core.utils.XmlParser">
+		<property name="dbType" value="${db.Dialect.suffix}" />
+	</bean>
+
+	<bean id="formFieldAction"
+		class="com.jshx.module.form.web.FormFieldAction">
+		<property name="dbType" value="${db.Dialect.suffix}" />
+	</bean>
+	 -->
+
+
+</beans>

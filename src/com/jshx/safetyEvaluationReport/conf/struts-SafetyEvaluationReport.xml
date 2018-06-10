@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SAFETY_EVALUATION_REPORT" extends="default" namespace="/jsp/SafetyEvaluationReport">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="safetyEvaluationReportQuery" class="com.jshx.safetyEvaluationReport.web.SafetyEvaluationReportAction" method="list">
+		</action>
+		
+		<action name="safetyEvaluationReportList" class="com.jshx.safetyEvaluationReport.web.SafetyEvaluationReportAction" method="init">
+			<result name="success">/WEB-INF/pages/SafetyEvaluationReport/SafetyEvaluationReport_List.jsp</result>
+		</action>
+		
+		<action name="safetyEvaluationReportView" class="com.jshx.safetyEvaluationReport.web.SafetyEvaluationReportAction" method="view">
+			<result name="view">/WEB-INF/pages/SafetyEvaluationReport/SafetyEvaluationReport_Detail.jsp</result>
+		</action>
+
+		<action name="safetyEvaluationReportInitEdit" class="com.jshx.safetyEvaluationReport.web.SafetyEvaluationReportAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/SafetyEvaluationReport/SafetyEvaluationReport_Edit.jsp</result>
+		</action>
+
+		<action name="safetyEvaluationReportSave" class="com.jshx.safetyEvaluationReport.web.SafetyEvaluationReportAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="safetyEvaluationReportDel" class="com.jshx.safetyEvaluationReport.web.SafetyEvaluationReportAction" method="delete">
+		</action>
+		
+		
+		<action name="safetyEvaluationReportPrint" class="com.jshx.safetyEvaluationReport.web.SafetyEvaluationReportAction" method="print">
+			<result name="success">/WEB-INF/pages/SafetyEvaluationReport/SafetyEvaluationReport_Print.jsp</result>
+		</action>
+		
+		<action name="safetyEvaluationReportUpload" class="com.jshx.safetyEvaluationReport.web.SafetyEvaluationReportAction" method="upload">
+			<result name="success">/WEB-INF/pages/SafetyEvaluationReport/SafetyEvaluationReport_upload.jsp</result>
+		</action>
+		<action name="safetyEvaluationReportSavePhoto" class="com.jshx.safetyEvaluationReport.web.SafetyEvaluationReportAction" method="savePhoto">
+		</action>
+		<action name="safetyEvaluationReportImageDel" class="com.jshx.safetyEvaluationReport.web.SafetyEvaluationReportAction" method="deleteImage">
+		</action>
+		<action name="safetyEvaluationReportSaveFile" class="com.jshx.safetyEvaluationReport.web.SafetyEvaluationReportAction" method="saveFile">
+		</action>
+	</package>
+</struts>

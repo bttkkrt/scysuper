@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findSupCheResByMap">
+		select new com.jshx.jdjcjg.entity.SupCheRes(t.id, t.areaName, t.companyName, t.checkTime, t.checkUsername, t.checkInstrumentNum) from SupCheRes t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="startCheckTime">
+			<![CDATA[and t.checkTime >= :startCheckTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCheckTime">
+			<![CDATA[and t.checkTime <= :endCheckTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkUsername">
+			<![CDATA[and t.checkUsername like :checkUsername]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkInstrumentNum">
+			<![CDATA[and t.checkInstrumentNum like :checkInstrumentNum]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+</sqlMap>

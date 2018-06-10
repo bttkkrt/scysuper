@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="WHP_CLSC" extends="default" namespace="/jsp/whpclsc">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="whpClscQuery" class="com.jshx.whpclsc.web.WhpClscAction" method="list">
+		</action>
+		
+		<action name="whpClscList"  class="com.jshx.whpclsc.web.WhpClscAction" method="init">
+			<result name="success">/WEB-INF/pages/whpclsc/WhpClsc_List.jsp</result>
+			<result name="success1">/WEB-INF/pages/whpclsc/WhpClsc_List1.jsp</result>
+			<result name="success2">/WEB-INF/pages/whpclsc/WhpClsc_List2.jsp</result>
+			
+			<result name="success3">/WEB-INF/pages/whpclsc/WhpClsc_List3.jsp</result>
+			<result name="success4">/WEB-INF/pages/whpclsc/WhpClsc_List4.jsp</result>
+			<result name="success5">/WEB-INF/pages/whpclsc/WhpClsc_List5.jsp</result>
+			<result name="success6">/WEB-INF/pages/whpclsc/WhpClsc_List6.jsp</result>
+			
+			<result name="success7">/WEB-INF/pages/whpclsc/WhpClsc_List7.jsp</result>
+			<result name="success8">/WEB-INF/pages/whpclsc/WhpClsc_List8.jsp</result>
+			<result name="success9">/WEB-INF/pages/whpclsc/WhpClsc_List9.jsp</result>
+			<result name="success10">/WEB-INF/pages/whpclsc/WhpClsc_List10.jsp</result>
+		</action>
+		
+		<action name="whpClscView" class="com.jshx.whpclsc.web.WhpClscAction" method="view">
+			<result name="view">/WEB-INF/pages/whpclsc/WhpClsc_Detail.jsp</result>
+			<result name="view1">/WEB-INF/pages/whpclsc/WhpClsc_Detail1.jsp</result>
+			<result name="view2">/WEB-INF/pages/whpclsc/WhpClsc_Detail2.jsp</result>
+			
+			<result name="view3">/WEB-INF/pages/whpclsc/WhpClsc_Detail3.jsp</result>
+			<result name="view4">/WEB-INF/pages/whpclsc/WhpClsc_Detail4.jsp</result>
+			<result name="view5">/WEB-INF/pages/whpclsc/WhpClsc_Detail5.jsp</result>
+			<result name="view6">/WEB-INF/pages/whpclsc/WhpClsc_Detail6.jsp</result>
+			
+			<result name="view7">/WEB-INF/pages/whpclsc/WhpClsc_Detail7.jsp</result>
+			<result name="view8">/WEB-INF/pages/whpclsc/WhpClsc_Detail8.jsp</result>
+			<result name="view9">/WEB-INF/pages/whpclsc/WhpClsc_Detail9.jsp</result>
+			<result name="view10">/WEB-INF/pages/whpclsc/WhpClsc_Detail10.jsp</result>
+		</action>
+
+		<action name="whpClscInitEdit" class="com.jshx.whpclsc.web.WhpClscAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/whpclsc/WhpClsc_Edit.jsp</result>
+			<result name="edit1">/WEB-INF/pages/whpclsc/WhpClsc_Edit1.jsp</result>
+			<result name="edit2">/WEB-INF/pages/whpclsc/WhpClsc_Edit2.jsp</result>
+			
+			<result name="edit3">/WEB-INF/pages/whpclsc/WhpClsc_Edit3.jsp</result>
+			<result name="edit4">/WEB-INF/pages/whpclsc/WhpClsc_Edit4.jsp</result>
+			<result name="edit5">/WEB-INF/pages/whpclsc/WhpClsc_Edit5.jsp</result>
+			<result name="edit6">/WEB-INF/pages/whpclsc/WhpClsc_Edit6.jsp</result>
+			
+			<result name="edit7">/WEB-INF/pages/whpclsc/WhpClsc_Edit7.jsp</result>
+			<result name="edit8">/WEB-INF/pages/whpclsc/WhpClsc_Edit8.jsp</result>
+			<result name="edit9">/WEB-INF/pages/whpclsc/WhpClsc_Edit9.jsp</result>
+			<result name="edit10">/WEB-INF/pages/whpclsc/WhpClsc_Edit10.jsp</result>
+		</action>
+
+		<action name="whpClscSave" class="com.jshx.whpclsc.web.WhpClscAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="whpClscDel" class="com.jshx.whpclsc.web.WhpClscAction" method="delete">
+		</action>
+		
+		<!-- 李军 2013-07-18 附件上传处理 -->
+		<action name="whpClscUpload" class="com.jshx.whpclsc.web.WhpClscAction" method="upload">
+			<result name="success">/WEB-INF/pages/whpclsc/WhpClsc_upload.jsp</result>
+		</action>
+		<action name="whpClscSavePhoto" class="com.jshx.whpclsc.web.WhpClscAction" method="savePhoto">
+		</action>
+		<action name="whpClscImageDel" class="com.jshx.whpclsc.web.WhpClscAction" method="deleteImage">
+		</action>
+		<action name="whpClscSaveFile" class="com.jshx.whpclsc.web.WhpClscAction" method="saveFile">
+		</action>
+			<!-- 李军 2013-09-22 更新状态 -->
+		
+		<action name="whpClscUpdateStatus" class="com.jshx.whpclsc.web.WhpClscAction" method="updateStatus">
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+		</action>
+		
+		<action name="whpClscShenhe" class="com.jshx.whpclsc.web.WhpClscAction" method="shenhe">
+			<result name="success">/WEB-INF/pages/whpclsc/WhpClsc_Shenhe.jsp</result>
+			<result name="success1">/WEB-INF/pages/whpclsc/WhpClsc_Shenhe1.jsp</result>
+			<result name="success2">/WEB-INF/pages/whpclsc/WhpClsc_Shenhe2.jsp</result>
+			<result name="success3">/WEB-INF/pages/whpclsc/WhpClsc_Shenhe3.jsp</result>
+			<result name="success4">/WEB-INF/pages/whpclsc/WhpClsc_Shenhe4.jsp</result>
+			<result name="success5">/WEB-INF/pages/whpclsc/WhpClsc_Shenhe5.jsp</result>
+			<result name="success6">/WEB-INF/pages/whpclsc/WhpClsc_Shenhe6.jsp</result>
+			<result name="success7">/WEB-INF/pages/whpclsc/WhpClsc_Shenhe7.jsp</result>
+			<result name="success8">/WEB-INF/pages/whpclsc/WhpClsc_Shenhe8.jsp</result>
+			<result name="success9">/WEB-INF/pages/whpclsc/WhpClsc_Shenhe9.jsp</result>
+			<result name="success10">/WEB-INF/pages/whpclsc/WhpClsc_Shenhe10.jsp</result>
+		</action>
+		
+		<action name="whpClscExport" class="com.jshx.whpclsc.web.WhpClscAction" method="export">
+		</action>
+		
+	</package>
+</struts>

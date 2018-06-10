@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findWhpClscByMap">
+		from WhpClsc t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="state">
+			<![CDATA[and t.state like :state]]>
+		</isNotEmpty>
+		<isNotEmpty property="sclx">
+			<![CDATA[and t.sclx = :sclx]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = :createUserID]]>
+		</isNotEmpty>
+		<isNotEmpty	property="qyid">
+			<![CDATA[and t.qyid = :qyid]]>
+		</isNotEmpty>
+		
+		
+		
+		<isNotEmpty	property="pjjg">
+			<![CDATA[and t.pjjg = :pjjg]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[and to_char(t.createTime,'yyyy-MM-dd') >= :startCreateTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[and to_char(t.createTime,'yyyy-MM-dd') <= :endCreateTime]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startCreateTimeJs">
+			<![CDATA[and to_char(t.cljsrq,'yyyy-MM-dd') >= :startCreateTimeJs]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTimeJs">
+			<![CDATA[and to_char(t.cljsrq,'yyyy-MM-dd') <= :endCreateTimeJs]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startCreateTimeSb">
+			<![CDATA[and to_char(t.clsbsjrq,'yyyy-MM-dd') >= :startCreateTimeSb]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTimeSb">
+			<![CDATA[and to_char(t.clsbsjrq,'yyyy-MM-dd') <= :endCreateTimeSb]]>
+		</isNotEmpty>
+		
+		<isNotEmpty	property="fzdw">
+			<![CDATA[and t.fzdw = :fzdw]]>
+		</isNotEmpty>
+		<isNotEmpty property="startCreateTimeSl">
+			<![CDATA[and to_char(t.slclrq,'yyyy-MM-dd') >= :startCreateTimeSl]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTimeSl">
+			<![CDATA[and to_char(t.slclrq,'yyyy-MM-dd') <= :endCreateTimeSl]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startCreateTimeXk">
+			<![CDATA[and to_char(t.xkzyxq,'yyyy-MM-dd') >= :startCreateTimeXk]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTimeXk">
+			<![CDATA[and to_char(t.xkzyxq,'yyyy-MM-dd') <= :endCreateTimeXk]]>
+		</isNotEmpty>
+		 
+		
+		
+		
+		
+		
+		<isNotEmpty property="startCreateTimeSc">
+			<![CDATA[and to_char(t.scrq,'yyyy-MM-dd') >= :startCreateTimeSc]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTimeSc">
+			<![CDATA[and to_char(t.scrq,'yyyy-MM-dd') <= :endCreateTimeSc]]>
+		</isNotEmpty>
+		<isNotEmpty property="startCreateTimeSp">
+			<![CDATA[and to_char(t.sprq,'yyyy-MM-dd') >= :startCreateTimeSp]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTimeSp">
+			<![CDATA[and to_char(t.sprq,'yyyy-MM-dd') <= :endCreateTimeSp]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startCreateTimeBa">
+			<![CDATA[and to_char(t.barq,'yyyy-MM-dd') >= :startCreateTimeBa]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTimeBa">
+			<![CDATA[and to_char(t.barq,'yyyy-MM-dd') <= :endCreateTimeBa]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startCreateTimeYs">
+			<![CDATA[and to_char(t.ysrq,'yyyy-MM-dd') >= :startCreateTimeYs]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTimeYs">
+			<![CDATA[and to_char(t.ysrq,'yyyy-MM-dd') <= :endCreateTimeYs]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startCreateTimeYxq">
+			<![CDATA[and to_char(t.yxq,'yyyy-MM-dd') >= :startCreateTimeYxq]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTimeYxq">
+			<![CDATA[and to_char(t.yxq,'yyyy-MM-dd') <= :endCreateTimeYxq]]>
+		</isNotEmpty>
+		
+		
+		
+		<isNotEmpty	property="xmnr">
+			<![CDATA[and t.xmnr like :xmnr]]>
+		</isNotEmpty>
+		<isNotEmpty	property="sczj">
+			<![CDATA[and t.sczj like :sczj]]>
+		</isNotEmpty>
+		<isNotEmpty	property="scjg">
+			<![CDATA[and t.scjg like :scjg]]>
+		</isNotEmpty>
+		<isNotEmpty	property="spbh">
+			<![CDATA[and t.spbh like :spbh]]>
+		</isNotEmpty>
+		<isNotEmpty	property="xmxz">
+			<![CDATA[and t.xmxz = :xmxz]]>
+		</isNotEmpty>
+	 
+		
+		<isNotEmpty property="xmlx">
+			<![CDATA[and t.xmlx like :xmlx]]>
+		</isNotEmpty>
+		
+		
+		<isNotEmpty	property="sjdw">
+			<![CDATA[and t.sjdw like :sjdw]]>
+		</isNotEmpty>
+		
+		<isNotEmpty	property="babh">
+			<![CDATA[and t.babh like :babh]]>
+		</isNotEmpty>	 
+			 
+			 
+		<isNotEmpty	property="pjdw">
+			<![CDATA[and t.pjdw like :pjdw]]>
+		</isNotEmpty>	 
+		<isNotEmpty	property="yszj">
+			<![CDATA[and t.yszj like :yszj]]>
+		</isNotEmpty>	 	 
+			 
+			 
+		<isNotEmpty	property="fzjg">
+			<![CDATA[and t.fzjg like :fzjg]]>
+		</isNotEmpty>	 
+		<isNotEmpty	property="yzdhxp">
+			<![CDATA[and t.yzdhxp like :yzdhxp]]>
+		</isNotEmpty>	 		 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="getWhpUserListByMap" parameterClass="java.util.Map" resultClass="com.jshx.module.admin.entity.User">
+	select t.row_id as id,t.display_name as displayName from users t,user_right ut,userrole u where t.del_flag = 0 and u.delflag = 0 
+	and t.row_id = ut.user_id and ut.role_id = u.row_id 
+	<isNotEmpty property="roleCode">
+		and u.role_code in 
+		<iterate conjunction="," open="(" close=")" property="roleCode">
+			#roleCode[]# 
+		</iterate>
+	</isNotEmpty>
+	</select>
+	
+</sqlMap>

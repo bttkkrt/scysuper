@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Events >
+    <Node   source="Sym.MapViewer.xap"      type="Sym.MapViewer.MapEvent.MapZoomInEvent"    id="zoomIn"                label="地图放大" />
+    <Node   source="Sym.MapViewer.xap"      type="Sym.MapViewer.MapEvent.MapZoomOutEvent"  id="zoomOut"              label="地图缩小" />
+    <Node   source="Sym.MapViewer.xap"      type="Sym.MapViewer.MapEvent.MapZoomToGraphic" id="zoomToGraphic"    label="地图定位到图形"/>
+    <Node   source="Sym.MapViewer.xap"      type="Sym.MapViewer.MapEvent.MapFullScreen"        id="fullMap"               label="地图全图" />
+   <Node id="panMap"               label="地图漫游" source="Sym.MapViewer.xap"                         type="Sym.MapViewer.MapEvent.MapPanEvent"/>
+    <Node id="startDistMeasure" label="距离测量" source="Sym.MapViewer.xap"                        type="Sym.MapViewer.MapEvent.MapDistMeasureEvent"/>
+    <Node id="startAreaMeasure" label="面积测量" source="Sym.MapViewer.xap"                       type="Sym.MapViewer.MapEvent.MapAreaMeasureEvent"/>
+    <Node id="changeBaseMapLayer" label="切换Main地图控件的底图" source="Sym.MapViewer.xap" type="Sym.MapViewer.MapEvent.MapBLayerChangeEvent"/>
+
+    <Node id="ZoomEvent" label="缩放" source="Sym.MapEvents.dll" type="Sym.MapEvents.Events.ZoomEvent"/>
+    <Node id="clearBaseLayersNullEvent" label="底图置空" source="Sym.MapEvents.dll" type="Sym.MapEvents.ChangeBaseMapNull"/>
+    <Node id="clearLayersEvent" label="图层清除" source="Sym.MapEvents.dll" type="Sym.MapEvents.MapLayersClear"/>
+    <Node id="setLayerVisible" label="控制一个图层显示与否" source="Sym.MapEvents.dll" type="Sym.MapEvents.LayersControlEvent"/>
+    <Node id="changeLayerAlpha" label="调整图层透明度" source="Sym.MapEvents.dll" type="Sym.MapEvents.Events.ChangeLayerAlphaEvent"/>
+    <Node id="movelayer" label="图层移动" source="Sym.MapEvents.dll" type="Sym.MapEvents.Events.LayerMoveEvent"/>
+    <Node id="changeBaseMap" label="切换地图控件" source="Sym.MapEvents.dll" type="Sym.MapEvents.ChangedBaseMap"/>
+    <Node id="identifyEvent" label="点空间查询" source="Sym.MapEvents.dll" type="Sym.MapEvents.Events.IdentifyEvent"/>    
+    <Node id="AddShapeFileEvent" label="添加本地ShapeFile文件" source="Sym.MapEvents.dll" type="Sym.MapEvents.AddLocalShapFileEvent"/>
+    <Node id="drawtest" label="测试" source="Sym.MapEvents.dll" type="Sym.MapEvents.Events.DrawGeoTestEvent"/>
+    <Node id="drawpop" label="测试" source="Sym.MapEvents.dll" type="Sym.MapEvents.Events.DrawPopEvent"/>
+
+    <Node id="ZoomToExtentStr" label="定位到地图范围" source="Sym.MapEvents.dll" type="Sym.MapEvents.Events.ZoomToExtentStr"/>
+    <Node id="spatialQueryEvent" label="空间查询" source="Sym.MapEvents.dll" type="Sym.MapEvents.Events.SpatialQueryEvent"/>
+
+  <Node id="LocateCom" label="企业查询定位" source="Geone_AJ.dll" type="Geone_AJ.LocateCompany"/>
+  <Node id="drawGraphic" label="绘制要素" source="Geone_AJ.dll" type="Geone_AJ.DrawGraphic"/>
+
+  <Node id="addgrid" label="添加网格" source="Geone_AJ.dll" type="Geone_AJ.AddGrid"/>
+
+  <Node id="showpoint" label="展示点位" source="Geone_AJ.dll" type="Geone_AJ.ShowPoint"/>
+  <Node id="getcoor" label="获取坐标" source="Geone_AJ.dll" type="Geone_AJ.getCoor"/>
+
+  <Node id="gridsearch" label="网格查询" source="Geone_AJ.dll" type="Geone_AJ.GridSearch"/>
+
+  <Node id="findgridbycom" label="通过企业找网格" source="Geone_AJ.dll" type="Geone_AJ.FindGridByCom"/>
+  <Node id="findcombygrid" label="通过网格找企业" source="Geone_AJ.dll" type="Geone_AJ.FindComByGrid"/>
+
+  <Node id="widgetControl" label="部件控制" source="Geone_AJ.dll" type="Geone_AJ.WidgetControl"/>
+
+  <Node id="statistics" label="统计分析" source="Geone_AJ.dll" type="Geone_AJ.Statistics"/>
+  <Node id="gridsearch" label="网格查询" source="Geone_AJ.dll" type="Geone_AJ.GridSearch"/>
+  <Node id="clearNotMeLayer" label="清除指定图层外的图层要素" source="Geone_AJ.dll" type="Geone_AJ.ClearLayersButMe"/>
+  <Node id="aroundAnalysis" label="周边分析" source="Geone_AJ.dll" type="Geone_AJ.AroundAnalysis"/>
+
+  <Node id="doGeoRasterMapEvent" label="危险源影响范围分析" source="Geone.GeoAnalysis.xap" type="Geone.GeoAnalysis.GeoRasterMapEvent"/>
+  <Node id="showYHStatsicData" label="网格中隐患统计结果展示" source="Geone_AJ.dll" type="Geone_AJ.ShowYHStatsicData"/>
+  <Node id="statGridYH" label="获取统计隐患网格ID" source="Geone_AJ.dll" type="Geone_AJ.StatGridYH"/>
+  
+  <Node id="doWithSubModule" label="企业子模块增删改查" source="Geone_AJ.dll" type="Geone_AJ.DoWithSubModule"/>
+
+
+
+
+
+</Events>

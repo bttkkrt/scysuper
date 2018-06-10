@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PRODUCTION_MANAGE" extends="default" namespace="/jsp/scxcgl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="productionManageQuery" class="com.jshx.scxcgl.web.ProductionManageAction" method="list">
+		</action>
+		
+		<action name="productionManageList" class="com.jshx.scxcgl.web.ProductionManageAction" method="init">
+			<result name="success">/WEB-INF/pages/scxcgl/ProductionManage_List.jsp</result>
+		</action>
+		
+		<action name="productionManageView" class="com.jshx.scxcgl.web.ProductionManageAction" method="view">
+			<result name="view">/WEB-INF/pages/scxcgl/ProductionManage_Detail.jsp</result>
+		</action>
+
+		<action name="productionManageInitEdit" class="com.jshx.scxcgl.web.ProductionManageAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/scxcgl/ProductionManage_Edit.jsp</result>
+		</action>
+
+		<action name="productionManageSave" class="com.jshx.scxcgl.web.ProductionManageAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_productionManage</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="productionManageDel" class="com.jshx.scxcgl.web.ProductionManageAction" method="delete">
+		</action>
+		<action name="initImportProductionManage" class="com.jshx.scxcgl.web.ProductionManageAction" method="initImport">
+		    <result name="success">/WEB-INF/pages/scxcgl/importProductionManage.jsp</result>
+		</action>
+		
+		<action name="importProductionManage" class="com.jshx.scxcgl.web.ProductionManageAction" method="importProductionManage">
+			<result name="success" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MAJOR_TROUBLE" extends="default" namespace="/jsp/majorTrouble">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="majorTroubleQuery" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="list">
+		</action>
+		
+		<action name="majorTroubleList" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="init">
+			<result name="success">/WEB-INF/pages/majorTrouble/MajorTrouble_List.jsp</result>
+		</action>
+		
+		<action name="majorTroubleView" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="view">
+			<result name="view">/WEB-INF/pages/majorTrouble/MajorTrouble_Detail.jsp</result>
+		</action>
+
+		<action name="majorTroubleInitEdit" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/majorTrouble/MajorTrouble_Edit.jsp</result>
+		</action>
+
+		<action name="majorTroubleSave" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/majorTrouble/MajorTrouble_Edit.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="majorTroubleDel" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="delete">
+		</action>
+		
+		<action name="majorTroubleUpload" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="upload">
+			<result name="success">/WEB-INF/pages/majorTrouble/MajorTrouble_upload.jsp</result>
+		</action>
+		<action name="majorTroubleSavePhoto" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="savePhoto">
+		</action>
+		<action name="majorTroubleImageDel" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="deleteImage">
+		</action>
+		<action name="majorTroubleSaveFile" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="saveFile">
+		</action>
+		<!-- 李军 2013-07-19 更新隐患状态 -->
+		
+		<action name="majorTroubleUpdateStatus" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="updateStatus">
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+		</action>
+		<!-- 李军 2013-11-14  重大安全隐患统计 -->
+		<action name="majorTroubleTongJi" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="tongJi">
+			<result name="tongji">/WEB-INF/pages/majorTrouble/MajorTrouble_tongji.jsp</result>
+		</action>
+		<!-- 李军 2013-11-14  重大安全隐患统计 按乡镇-->
+		<action name="majorTroubleDeptData" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="deptData">
+			<result name="xz">/WEB-INF/pages/majorTrouble/MajorTrouble_dataXz.jsp</result>
+		</action>
+		<!-- 李军 2013-11-14  重大安全隐患统计 按企业类型 -->
+		<action name="majorTroubleDataQylx" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="qylxData">
+			<result name="qylx">/WEB-INF/pages/majorTrouble/MajorTrouble_dataQylx.jsp</result>
+		</action>
+		
+		<!-- 陆婷 2013-12-2  重大安全隐患统计 按乡镇导出-->
+		<action name="majorTroubleDeptDataExport" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="deptDataExport">
+		</action>
+		<!-- 陆婷 2013-12-2   重大安全隐患统计 按企业类型导出 -->
+		<action name="majorTroubleDataQylxExport" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="qylxDataExport">
+		</action>
+		
+		
+		
+		<!-- 重大安全隐患统计 按企业统计查询 陆婷 2013-12-13 -->
+		<action name="majorTroubleDataQyQuery" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="majorTroubleDataQyQuery">
+		</action>
+		
+		<!-- 重大安全隐患统计 按企业统计页面 陆婷 2013-12-13  -->
+		<action name="majorTroubleDataQyList" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="majorTroubleDataQyList">
+			<result name="success">/WEB-INF/pages/majorTrouble/MajorTrouble_dataQy.jsp</result>
+		</action>
+		<!-- add by  陆婷    2013-12-13 重大安全隐患统计 按企业统计导出 -->
+		<action name="majorTroubleDataQyExport" class="com.jshx.majorTrouble.web.MajorTroubleAction" method="majorTroubleDataQyExport">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="HMD" extends="default" namespace="/jsp/hmd">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="hmdQuery" class="com.jshx.hmd.web.HmdAction" method="list">
+		</action>
+		
+		<action name="hmdList" class="com.jshx.hmd.web.HmdAction" method="init">
+			<result name="success">/WEB-INF/pages/hmd/Hmd_List.jsp</result>
+		</action>
+		
+		<action name="hmdView" class="com.jshx.hmd.web.HmdAction" method="view">
+			<result name="view">/WEB-INF/pages/hmd/Hmd_Detail.jsp</result>
+		</action>
+
+		<action name="hmdInitEdit" class="com.jshx.hmd.web.HmdAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/hmd/Hmd_Edit.jsp</result>
+		</action>
+
+		<action name="hmdSave" class="com.jshx.hmd.web.HmdAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_hmd</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="hmdDel" class="com.jshx.hmd.web.HmdAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

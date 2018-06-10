@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="AQSCZFWS" extends="default" namespace="/jsp/aqsczfws">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="aqsczfwsQuery" class="com.jshx.aqsczfws.web.AqsczfwsAction" method="list">
+		</action>
+		
+		<action name="aqsczfwsList" class="com.jshx.aqsczfws.web.AqsczfwsAction" method="init">
+			<result name="success">/WEB-INF/pages/aqsczfws/Aqsczfws_List.jsp</result>
+		</action>
+		
+		<action name="aqsczfwsView" class="com.jshx.aqsczfws.web.AqsczfwsAction" method="view">
+			<result name="view">/WEB-INF/pages/aqsczfws/Aqsczfws_Detail.jsp</result>
+		</action>
+
+		<action name="aqsczfwsInitEdit" class="com.jshx.aqsczfws.web.AqsczfwsAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqsczfws/Aqsczfws_Edit.jsp</result>
+		</action>
+
+		<action name="aqsczfwsSave" class="com.jshx.aqsczfws.web.AqsczfwsAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="aqsczfwsDel" class="com.jshx.aqsczfws.web.AqsczfwsAction" method="delete">
+		</action>
+		
+		<action name="aqsczfwsExport" class="com.jshx.aqsczfws.web.AqsczfwsAction" method="export">
+		</action>
+	</package>
+</struts>

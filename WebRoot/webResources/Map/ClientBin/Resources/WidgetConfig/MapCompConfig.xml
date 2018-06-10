@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <node id="l_bd" label="百度"  />
+  <node id="l_osm" label="OSM"   />
+  <node id="l_gd" label="高德"  />
+  <node id="l_qq" label="腾讯"   />
+  <node id="l_wmts" label="WMTS"   />
+  <node id="l_kml" label="KML"   />
+</configuration>

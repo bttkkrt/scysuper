@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZFJH" extends="default" namespace="/jsp/zfjh">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zfjhQuery" class="com.jshx.zfjh.web.ZfjhAction" method="list">
+		</action>
+		
+		<action name="zfjhList">
+			<result name="success">/WEB-INF/pages/zfjh/Zfjh_List.jsp</result>
+		</action>
+		
+		<action name="zfjhView" class="com.jshx.zfjh.web.ZfjhAction" method="view">
+			<result name="view">/WEB-INF/pages/zfjh/Zfjh_Detail.jsp</result>
+		</action>
+
+		<action name="zfjhInitEdit" class="com.jshx.zfjh.web.ZfjhAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zfjh/Zfjh_Edit.jsp</result>
+		</action>
+
+		<action name="zfjhSave" class="com.jshx.zfjh.web.ZfjhAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zfjhDel" class="com.jshx.zfjh.web.ZfjhAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

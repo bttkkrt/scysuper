@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- add by  高强      13年11月20    根据搜索条件查询   -->
+	<select id="findZywsjbxxByMap">
+		from Zywsjbxx t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="szzname">
+			<![CDATA[and t.szzname = :szzname]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyid">
+			<![CDATA[and t.qyid =:qyid]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="qylx">
+			<![CDATA[and t.qylx = :qylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="hyfl">
+			<![CDATA[and t.hyfl = :hyfl]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyzclx">
+			<![CDATA[and t.qyzclx = :qyzclx]]>
+		</isNotEmpty>
+			<!-- add by  高强      13年11月22    增加部门查询条件的过滤   -->
+			<isNotEmpty property="deptcode">
+			<![CDATA[and t.szzid like :deptcode]]>
+		</isNotEmpty>
+		order by t.createTime
+	</select>
+	
+	<select id="getZywhqytjByMap" parameterClass="java.util.Map" resultClass="com.jshx.zywsjbxx.entity.Zybwhqytj">
+	select 
+	(select count(*) from companybackup cb where cb.delflag = 0 and cb.basepass = 1) as qyzs,
+	(select IFNULL(sum(cb.cyry),0) from companybackup cb where cb.delflag = 0 and cb.basepass = 1) as zgrs,
+	(select count(*) from zycsjcry zj where zj.delflag = 0) as jcrs,
+	(select IFNULL(sum(z.lnzgrs),0) from zywsjbxx z where z.delflag = 0) as zybrs,
+	(select IFNULL(sum(zh.jcds),0) from zybwhysjc zh where zh.delflag = 0
+	<isNotEmpty property="queryStartTime">
+		<![CDATA[and to_char(zh.createtime,'yyyy-MM-dd') >= #queryStartTime#]]>
+	</isNotEmpty>
+	<isNotEmpty property="queryEndTime">
+		<![CDATA[and to_char(zh.createtime,'yyyy-MM-dd') <= #queryEndTime#]]>
+	</isNotEmpty>
+	) as jcds,
+	(select (case when IFNULL(sum(zh.jcds),0) = 0 then 100.00 else left((sum(zh.jcds)-IFNULL(sum(zh.bhgds),0))*100/sum(zh.jcds),LENGTH((sum(zh.jcds)-IFNULL(sum(zh.bhgds),0))*100/sum(zh.jcds))-2) end) from zybwhysjc zh where zh.delflag = 0
+	<isNotEmpty property="queryStartTime">
+		<![CDATA[and to_char(zh.createtime,'yyyy-MM-dd') >= #queryStartTime#]]>
+	</isNotEmpty>
+	<isNotEmpty property="queryEndTime">
+		<![CDATA[and to_char(zh.createtime,'yyyy-MM-dd') <= #queryEndTime#]]>
+	</isNotEmpty>
+	) as jcdhgl,
+	(select count(*) from zycsjcry zj where zj.delflags = 0
+	<isNotEmpty property="queryStartTime">
+		<![CDATA[and zj.tjrq >= #queryStartTime#]]>
+	</isNotEmpty>
+	<isNotEmpty property="queryEndTime">
+		<![CDATA[and zj.tjrq <= #queryEndTime#]]>
+	</isNotEmpty>
+	) as tjygs,
+	(select count(*) from zycsjcry zj where zj.delflags = 0 and zj.tjjguo != '正常'
+	<isNotEmpty property="queryStartTime">
+		<![CDATA[and zj.tjrq >= #queryStartTime#]]>
+	</isNotEmpty>
+	<isNotEmpty property="queryEndTime">
+		<![CDATA[and zj.tjrq <= #queryEndTime#]]>
+	</isNotEmpty>
+	) as tjycs
+	from dual
+	</select>
+	
+	<select id="getZywhqytjListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zywsjbxx.entity.Zybwhqytj">
+	select t.item_text as szzname,
+	(select count(*) from companybackup cb where cb.delflag = 0 and cb.basepass = 1 and cb.dwdz1 like t.item_value) as qyzs,
+	(select IFNULL(sum(cb.cyry),0) from companybackup cb where cb.delflag = 0 and cb.basepass = 1 and cb.dwdz1 like t.item_value) as zgrs,
+	(select count(*) from zycsjcry zj where zj.delflag = 0 and zj.szzid = t.item_value) as jcrs,
+	(select IFNULL(sum(z.lnzgrs),0) from zywsjbxx z where z.delflag = 0 and z.szzid = t.item_value) as zybrs,
+	(select IFNULL(sum(zh.jcds),0) from zybwhysjc zh,zycsqk zc where zh.delflag = 0 and zc.delflag = 0 and zh.cjid = zc.row_id and zc.szzid = t.item_value
+	<isNotEmpty property="queryStartTime">
+		<![CDATA[and to_char(zh.createtime,'yyyy-MM-dd') >= #queryStartTime#]]>
+	</isNotEmpty>
+	<isNotEmpty property="queryEndTime">
+		<![CDATA[and to_char(zh.createtime,'yyyy-MM-dd') <= #queryEndTime#]]>
+	</isNotEmpty>
+	) as jcds,
+	(select (case when IFNULL(sum(zh.jcds),0) = 0 then 100.00 else left((sum(zh.jcds)-IFNULL(sum(zh.bhgds),0))*100/sum(zh.jcds),LENGTH((sum(zh.jcds)-IFNULL(sum(zh.bhgds),0))*100/sum(zh.jcds))-2) end) from zybwhysjc zh,zycsqk zc 
+	where zh.delflag = 0 and zc.delflag = 0 and zh.cjid = zc.row_id and zc.szzid = t.item_value
+	<isNotEmpty property="queryStartTime">
+		<![CDATA[and to_char(zh.createtime,'yyyy-MM-dd') >= #queryStartTime#]]>
+	</isNotEmpty>
+	<isNotEmpty property="queryEndTime">
+		<![CDATA[and to_char(zh.createtime,'yyyy-MM-dd') <= #queryEndTime#]]>
+	</isNotEmpty>
+	) as jcdhgl,
+	(select count(*) from zycsjcry zj where zj.delflags = 0 and zj.szzid = t.item_value
+	<isNotEmpty property="queryStartTime">
+		<![CDATA[and zj.tjrq >= #queryStartTime#]]>
+	</isNotEmpty>
+	<isNotEmpty property="queryEndTime">
+		<![CDATA[and zj.tjrq <= #queryEndTime#]]>
+	</isNotEmpty>
+	) as tjygs,
+	(select count(*) from zycsjcry zj where zj.delflags = 0 and zj.tjjguo != '正常' and zj.szzid = t.item_value
+	<isNotEmpty property="queryStartTime">
+		<![CDATA[and zj.tjrq >= #queryStartTime#]]>
+	</isNotEmpty>
+	<isNotEmpty property="queryEndTime">
+		<![CDATA[and zj.tjrq <= #queryEndTime#]]>
+	</isNotEmpty>
+	) as tjycs
+	from codevalue t where t.code_id = '4028e56c4014f290014014f981510003' and t.del_flag = 0
+	</select>
+</sqlMap>

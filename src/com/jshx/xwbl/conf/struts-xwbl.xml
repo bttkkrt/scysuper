@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="INQUIRY_RECORD" extends="default" namespace="/jsp/xwbl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="inquiryRecordQuery" class="com.jshx.xwbl.web.InquiryRecordAction" method="list">
+		</action>
+		
+		<action name="inquiryRecordList" class="com.jshx.xwbl.web.InquiryRecordAction" method="init">
+			<result name="success">/WEB-INF/pages/xwbl/InquiryRecord_List.jsp</result>
+		</action>
+		
+		<action name="inquiryRecordView" class="com.jshx.xwbl.web.InquiryRecordAction" method="view">
+			<result name="view">/WEB-INF/pages/xwbl/InquiryRecord_Detail.jsp</result>
+		</action>
+
+		<action name="inquiryRecordInitEdit" class="com.jshx.xwbl.web.InquiryRecordAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/xwbl/InquiryRecord_Edit.jsp</result>
+		</action>
+
+		<action name="inquiryRecordSave" class="com.jshx.xwbl.web.InquiryRecordAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_inquiryRecord</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="inquiryRecordDel" class="com.jshx.xwbl.web.InquiryRecordAction" method="delete">
+		</action>
+		
+		<action name="inqRecRecordDel" class="com.jshx.xwbl.web.InquiryRecordAction" method="inqRecdelete">
+		</action>
+		
+	</package>
+</struts>

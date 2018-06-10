@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findInstrumentsInfoByMap">
+		select new com.jshx.wsgl.entity.InstrumentsInfo(t.id, t.caseName,t.instrumentType, t.ifPrint,t.ifCheck,t.createUserID,t.needCheckUser,t.instrumentName,t.companyName) from InstrumentsInfo t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="instrumentType">
+			<![CDATA[and t.instrumentType = :instrumentType]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseName">
+			<![CDATA[and t.caseName like :caseName]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifCheck">
+			<![CDATA[and t.ifCheck in (:ifCheck)]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseId">
+			<![CDATA[and t.caseId = :caseId]]>
+		</isNotEmpty>
+		<isNotEmpty property="needCheckUser">
+			<isNotEmpty property="ifcheck">
+				<![CDATA[and (t.ifCheck = :ifcheck or (t.ifCheck = 3 and charindex(:needCheckUser,t.needCheckUser) >0))]]>
+			</isNotEmpty>
+			<isEmpty property="ifcheck">
+				<![CDATA[and t.ifCheck = 3 and charindex(:needCheckUser,t.needCheckUser) >0]]>
+			</isEmpty>
+		</isNotEmpty>
+		<isNotEmpty property="instrumentName">
+			<![CDATA[and t.instrumentName like :instrumentName]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and (t.companyName like :searchLike or t.instrumentName like :searchLike)]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		order by t.time desc,t.createTime desc
+	</select>
+	
+	<update id="deleteInstrumentsInfoByMap" parameterClass="java.util.Map">
+	update INSTRUMENTS_INFO  set DELFLAG = 1 where DELFLAG = 0 and CASE_ID = #caseId# and INSTRUMENT_TYPE = #instrumentType#
+	</update>
+	
+	<select id="findInstrumentsInfoByMaps">
+		from InstrumentsInfo t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="instrumentType">
+			<![CDATA[and t.instrumentType = :instrumentType]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseName">
+			<![CDATA[and t.caseName like :caseName]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseId">
+			<![CDATA[and t.caseId = :caseId]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifReturn">
+			<![CDATA[and t.ifReturn = :ifReturn]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifPrint">
+			<![CDATA[and t.ifPrint = :ifPrint]]>
+		</isNotEmpty>
+		<isNotEmpty property="needCheckUser">
+			<![CDATA[and charindex(:needCheckUser,t.needCheckUser) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="notin">
+			<![CDATA[and t.instrumentType != :notin]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifChecklist">
+			<![CDATA[and t.ifCheck in ('0','5')]]>
+		</isNotEmpty>
+		order by t.sort asc,t.createTime asc
+	</select>
+	
+	
+	<select id="findInstrumentsInfoByMapss">
+		from InstrumentsInfo t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="instrumentType">
+			<![CDATA[and t.instrumentType = :instrumentType]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseName">
+			<![CDATA[and t.caseName like :caseName]]>
+		</isNotEmpty>
+		<isNotEmpty property="caseId">
+			<![CDATA[and t.caseId = :caseId]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifReturn">
+			<![CDATA[and t.ifReturn = :ifReturn]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifPrint">
+			<![CDATA[and t.ifPrint = :ifPrint]]>
+		</isNotEmpty>
+		<isNotEmpty property="needCheckUser">
+			<![CDATA[and charindex(:needCheckUser,t.needCheckUser) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="nocaseId">
+			<![CDATA[and (t.caseId is null or t.caseId = '')]]>
+		</isNotEmpty>
+		<isNotEmpty property="personType">
+			<![CDATA[and t.personType = :personType]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="getInstrumentsInfoListByUserAndType" parameterClass="java.util.Map" resultClass="com.jshx.wsgl.entity.InstrumentsInfo">
+	select t.row_id as id,t.CASE_NAME as caseName,t.INSTRUMENT_TYPE as instrumentType,t.TIME as time,t.IF_PRINT as ifPrint,t.HTTP_URL as httpurl,t.FILE_NAME as fileName,t.FILE_SIZE as fileSize,t.IF_RETURN as ifReturn from INSTRUMENTS_INFO t where t.delflag = 0
+		<isNotEmpty property="caseId">
+			<![CDATA[and t.CASE_ID = #caseId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="needCheckUser">
+			<isNotEmpty property="ifCheck">
+				<![CDATA[and (t.IF_CHECK = #ifCheck# or (t.if_Check = 3 and charindex(#needCheckUser#,t.need_Check_User) >0))]]>
+			</isNotEmpty>
+			<isEmpty property="ifCheck">
+				<![CDATA[and t.if_Check = 3 and charindex(#needCheckUser#,t.need_Check_User) >0]]>
+			</isEmpty>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	
+	<select id="getInstrumentsInfoListSizeByUserAndType" parameterClass="java.util.Map" resultClass="int">
+	select count(*) from INSTRUMENTS_INFO t where t.delflag = 0
+		<isNotEmpty property="caseId">
+			<![CDATA[and t.CASE_ID = #caseId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="needCheckUser">
+			<isNotEmpty property="ifCheck">
+				<![CDATA[and (t.IF_CHECK = #ifCheck# or (t.if_Check = 3 and charindex(#needCheckUser#,t.need_Check_User) >0))]]>
+			</isNotEmpty>
+			<isEmpty property="ifCheck">
+				<![CDATA[and t.if_Check = 3 and charindex(#needCheckUser#,t.need_Check_User) >0]]>
+			</isEmpty>
+		</isNotEmpty>
+		<isNotEmpty property="instrumentType">
+			<![CDATA[and t.INSTRUMENT_TYPE = #instrumentType#]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getMaxAjhNumByMap" parameterClass="java.util.Map" resultClass="String">
+	select max(t.AJH_NUM) from INSTRUMENTS_INFO t where t.delflag = 0
+		<isNotEmpty property="instrumentType">
+			<![CDATA[and t.INSTRUMENT_TYPE = #instrumentType#]]>
+		</isNotEmpty>
+	</select>
+	
+	<update id="updateAllWsInfoByMap" parameterClass="java.util.Map">
+	update INSTRUMENTS_INFO  set 
+	<isNotEmpty property="ifCheck">
+		<![CDATA[IF_CHECK = #ifCheck#]]>
+	</isNotEmpty>
+	<isNotEmpty property="caseName">
+		<![CDATA[CASE_NAME = #caseName#]]>
+	</isNotEmpty>
+	 where delflag = 0
+	<isNotEmpty property="caseId">
+		<![CDATA[and CASE_ID = #caseId#]]>
+	</isNotEmpty>
+	</update>
+	
+	<!-- 查询 所有人员 -->
+	<select id="getAllAjUser" parameterClass="java.util.Map" resultClass="com.jshx.module.admin.entity.User">
+	select t.row_id as id,t.dept_code as deptCode,t.display_name as displayName from Users t where t.del_Flag = 0   and  t.dept_code  like '002001%' and t.dept_code not like '002001005%'
+	<isNotEmpty property="deptcode">
+		<![CDATA[and t.dept_code = #deptcode#]]>
+	</isNotEmpty>
+	</select>
+	<!-- 查询 所有部门 -->
+	<select id="getAllAjDepart" parameterClass="java.util.Map" resultClass="com.jshx.module.infomation.entity.Dept">
+	select
+        t.dept_code as id,
+        t.DEPT_NAME as deptName,
+        SUBSTRING(t.dept_code,0,DATALENGTH(t.dept_code)-2) as parentId
+    from
+        DEPARTMENT t 
+    where
+        t.DEL_FLAG=0 
+        and  t.dept_code  like '002001%'  and t.dept_code not like '002001005%'
+    order by
+        t.DEPT_CODE
+	</select>
+	
+	<delete id="deleteLockUser" parameterClass="java.util.Map">
+	delete from lock_user where 1=1
+	<isNotEmpty property="caseId">
+		<![CDATA[and caseId = #caseId# ]]>
+	</isNotEmpty>
+	<isNotEmpty property="wstype">
+		<![CDATA[and wstype = #wstype# ]]>
+	</isNotEmpty>
+	<isNotEmpty property="lockTime">
+		<![CDATA[and lockTime = #lockTime# ]]>
+	</isNotEmpty>
+	<isNotEmpty property="doUserId">
+		<![CDATA[and doUserId = #doUserId# ]]>
+	</isNotEmpty>
+	<isNotEmpty property="userId">
+		<![CDATA[and userId != #userId# ]]>
+	</isNotEmpty>
+	</delete>
+	
+	
+	<select id="queryXwblUser" parameterClass="java.util.Map" resultClass="String">
+		select t.ASK_PERSON  from INQUIRY_NOTICE t where t.delflag = 0 and t.RELATED_ID in (select ins.row_id from INSTRUMENTS_INFO ins where ins.delflag = 0 and ins.CASE_ID = #caseId# and ins.IF_PRINT = 1)
+	</select>
+</sqlMap>

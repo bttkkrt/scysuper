@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findAqscsgccByMap">
+		from Aqscsgcc t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startYf">
+			<![CDATA[and t.yf >= :startYf]]>
+		</isNotEmpty>
+		<isNotEmpty property="endYf">
+			<![CDATA[and t.yf <= :endYf]]>
+		</isNotEmpty>
+		<isNotEmpty property="tbr">
+			<![CDATA[and t.tbr like :tbr]]>
+		</isNotEmpty>
+		order by t.createTime
+	</select>
+	
+	<delete id="deleteAqscsgccglbByMap" parameterClass="java.util.Map">
+	delete from AQSCSGCCGLB where proid = #proid#
+	</delete>
+	
+	<select id="getAqscsgccIdsByMap" parameterClass="java.util.Map" resultClass="String">
+	select t.row_id from AQSCSGCC t where t.delFlag = 0
+		<isNotEmpty property="startYf">
+			<![CDATA[and t.yf >= #startYf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endYf">
+			<![CDATA[and t.yf <= #endYf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="tbr">
+			<![CDATA[and t.tbr like #tbr#]]>
+		</isNotEmpty>
+	</select>
+	
+</sqlMap>

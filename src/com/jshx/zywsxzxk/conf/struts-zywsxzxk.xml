@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZYWSXZXK" extends="default" namespace="/jsp/zywsxzxk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zywsxzxkQuery" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="list">
+		</action>
+		
+		<action name="zywsxzxkList" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="init">
+			<result name="success1">/WEB-INF/pages/zywsxzxk/Zywsxzxk_List1.jsp</result>
+			<result name="success2">/WEB-INF/pages/zywsxzxk/Zywsxzxk_List2.jsp</result>
+			<result name="success3">/WEB-INF/pages/zywsxzxk/Zywsxzxk_List3.jsp</result>
+			<result name="success4">/WEB-INF/pages/zywsxzxk/Zywsxzxk_List4.jsp</result>
+		</action>
+		
+		<action name="zywsxzxkLists" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="inits">
+			<result name="success">/WEB-INF/pages/zywsxzxk/Zywsxzxk_Lists.jsp</result>
+		</action>
+		
+		<action name="zywsxzxkView" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="view">
+			<result name="view">/WEB-INF/pages/zywsxzxk/Zywsxzxk_Detail.jsp</result>
+		</action>
+
+		<action name="zywsxzxkInitEdit" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zywsxzxk/Zywsxzxk_Edit.jsp</result>
+		</action>
+
+		<action name="zywsxzxkSave" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="save">
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+		</action>
+
+		<action name="zywsxzxkDel" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="delete">
+		</action>
+		
+		<action name="zywsxzxkUpload" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="upload">
+			<result name="success">/WEB-INF/pages/zywsxzxk/Zywsxzxk_upload.jsp</result>
+		</action>
+		<action name="zywsxzxkSavePhoto" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="savePhoto">
+		</action>
+		<action name="zywsxzxkImageDel" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="deleteImage">
+		</action>
+		<action name="zywsxzxkSaveFile" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="saveFile">
+		</action>
+		
+		
+		<action name="zywsxzxkShenhe" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="shenhe">
+			<result name="success">/WEB-INF/pages/zywsxzxk/Zywsxzxk_Shenhe.jsp</result>
+		</action>
+		
+		
+		<action name="zywsxzxkShenheSave" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="shenhesave">
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+		</action>
+		
+		<action name="zywsxzxkExport" class="com.jshx.zywsxzxk.web.ZywsxzxkAction" method="export">
+		</action>
+	</package>
+</struts>

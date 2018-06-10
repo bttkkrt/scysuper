@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="POS_FIN_APP" extends="default" namespace="/jsp/yqjnfkspb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="posFinAppQuery" class="com.jshx.yqjnfkspb.web.PosFinAppAction" method="list">
+		</action>
+		
+		<action name="posFinAppList" class="com.jshx.yqjnfkspb.web.PosFinAppAction" method="init">
+			<result name="success">/WEB-INF/pages/yqjnfkspb/PosFinApp_List.jsp</result>
+		</action>
+		
+		<action name="posFinAppView" class="com.jshx.yqjnfkspb.web.PosFinAppAction" method="view">
+			<result name="view">/WEB-INF/pages/yqjnfkspb/PosFinApp_Detail.jsp</result>
+		</action>
+
+		<action name="posFinAppInitEdit" class="com.jshx.yqjnfkspb.web.PosFinAppAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/yqjnfkspb/PosFinApp_Edit.jsp</result>
+		</action>
+
+		<action name="posFinAppSave" class="com.jshx.yqjnfkspb.web.PosFinAppAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_posFinApp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="posFinAppDel" class="com.jshx.yqjnfkspb.web.PosFinAppAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

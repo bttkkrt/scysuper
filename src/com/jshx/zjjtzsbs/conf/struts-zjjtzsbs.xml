@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZJJTZSBS" extends="default" namespace="/jsp/zjjtzsbs">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zjjtzsbsQuery" class="com.jshx.zjjtzsbs.web.ZjjtzsbsAction" method="list">
+		</action>
+		
+		<action name="zjjtzsbsList" class="com.jshx.zjjtzsbs.web.ZjjtzsbsAction" method="init">
+			<result name="success">/WEB-INF/pages/zjjtzsbs/Zjjtzsbs_List.jsp</result>
+		</action>
+		
+		<action name="zjjtzsbsView" class="com.jshx.zjjtzsbs.web.ZjjtzsbsAction" method="view">
+			<result name="view">/WEB-INF/pages/zjjtzsbs/Zjjtzsbs_Detail.jsp</result>
+		</action>
+
+		<action name="zjjtzsbsInitEdit" class="com.jshx.zjjtzsbs.web.ZjjtzsbsAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zjjtzsbs/Zjjtzsbs_Edit.jsp</result>
+		</action>
+
+		<action name="zjjtzsbsSave" class="com.jshx.zjjtzsbs.web.ZjjtzsbsAction" method="save">
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+		</action>
+
+		<action name="zjjtzsbsDel" class="com.jshx.zjjtzsbs.web.ZjjtzsbsAction" method="delete">
+		</action>
+		
+		<action name="zjjtzsbsDels" class="com.jshx.zjjtzsbs.web.ZjjtzsbsAction" method="deletes">
+		</action>
+		
+		<action name="zjjtzsbsUpload" class="com.jshx.zjjtzsbs.web.ZjjtzsbsAction" method="upload">
+			<result name="success">/WEB-INF/pages/zjjtzsbs/Zjjtzsbs_upload.jsp</result>
+		</action>
+		<action name="zjjtzsbsSaveFile" class="com.jshx.zjjtzsbs.web.ZjjtzsbsAction" method="saveFile">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findZjjtzsbsByMap">
+		from Zjjtzsbs t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzname">
+			<![CDATA[and t.szzname = :szzname]]>
+		</isNotEmpty>
+		<isNotEmpty property="zcdm">
+			<![CDATA[and t.zcdm like :zcdm]]>
+		</isNotEmpty>
+		<isNotEmpty property="sbdah">
+			<![CDATA[and t.sbdah like :sbdah]]>
+		</isNotEmpty>
+		<isNotEmpty property="ccbh">
+			<![CDATA[and t.ccbh like :ccbh]]>
+		</isNotEmpty>
+		
+		
+		<isNotEmpty property="queryDjrqStart">
+			<![CDATA[and t.zcdjrq >= :queryDjrqStart]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryDjrqEnd">
+			<![CDATA[and t.zcdjrq <= :queryDjrqEnd]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryCcrqStart">
+			<![CDATA[and t.ccrq >= :queryCcrqStart]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryCcrqEnd">
+			<![CDATA[and t.ccrq <= :queryCcrqEnd]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryJyrqStart">
+			<![CDATA[and t.jyrq >= :queryJyrqStart]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryJyrqEnd">
+			<![CDATA[and t.jyrq <= :queryJyrqEnd]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryXcjyrqStart">
+			<![CDATA[and t.xcjyrq >= :queryXcjyrqStart]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryXcjyrqEnd">
+			<![CDATA[and t.xcjyrq <= :queryXcjyrqEnd]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<update id="updateAllZjjtzsbs">
+	update ZJJTZSBS t set t.delflag = 1
+	</update>
+</sqlMap>

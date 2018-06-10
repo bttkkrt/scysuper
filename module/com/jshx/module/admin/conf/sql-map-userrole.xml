@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <!-- 创建角色编号 -->
+    <select id="getMaxRoleCodeByParent">
+        select max(cast(SUBSTRING(r.roleCode,
+        <dynamic>
+            <isNotEmpty property="length">
+            :length ,2) as integer)) from UserRole r where 1=1
+            <isEqual property="parentRoleCode" compareValue="%">
+                    and length(r.roleCode)=3
+                </isEqual>
+                <isNotEqual property="parentRoleCode" compareValue="%">
+                    and length(r.roleCode)=:length+1 and r.roleCode like :parentRoleCode 
+                </isNotEqual>
+            </isNotEmpty>
+        </dynamic>
+    </select>
+    
+    <!-- 检查角色编号是否存在 -->
+    <select id="cntRoleByCode"><!-- 没有使用的地方 -->
+    select count(*) from UserRole r where 1=1
+        <dynamic>
+            <isNotEmpty property="roleCode">
+            and r.roleCode = :roleCode
+            </isNotEmpty>
+        </dynamic>
+    </select>
+    <!-- 树形菜单 -->
+    <select id="queryRoleForTree">
+    	from UserRole r where delFlag!=1
+    	<dynamic>
+    		<isNotEmpty property="roleCode">
+    			and r.roleCode like :roleCode
+    		</isNotEmpty>
+    		<isNotEmpty property="length">
+    			and length(r.roleCode) = length(:length)
+    		</isNotEmpty>
+    		<isNotEmpty property="roleName">
+    			and r.roleName like :roleName
+    		</isNotEmpty>
+    	</dynamic>
+    	order by r.sortSq asc,r.roleCode asc
+    </select>
+    <!-- 禁用角色 -->
+    <select id="inactiveRole">
+        update UserRole r set r.delFlag=1 where 1=2
+        <dynamic>
+            <isNotEqual property="roleCode" compareValue="0">
+                or r.roleCode like :roleCode 
+            </isNotEqual>
+        </dynamic>
+    </select>
+    
+    <!-- 变更上层角色 -->
+    <select id="updateRole">
+        <isNotEqual property="roleCode" compareValue="%">
+            <isNotEmpty property="length">
+                update UserRole r set r.roleCode=concat(:newRoleCode,substring(r.roleCode,:length,length(r.roleCode))) where r.roleCode like :oldRoleCode and length(r.roleCode)> (:length -1)
+            </isNotEmpty>
+        </isNotEqual>
+    </select>
+    
+    <select id="updateRoleType">
+    	update UserRole r set r.roleType = :roleType where r.roleCode like :roleCode
+    </select>
+
+	<select id="queryUserRole">
+		from UserRole r where r.delFlag!=1 
+		<isNotEmpty property="roleCode">
+		   and r.roleCode like :roleCode
+		</isNotEmpty>
+		 <isNotEmpty property="length">
+		   and length(r.roleCode) = :length
+		 </isNotEmpty>
+		 <isNotEmpty property="roleType">
+		   and r.roleType = :roleType
+		 </isNotEmpty>
+		order by r.sortSq asc
+	</select>
+	
+	<select id="findLeafRole">
+		from UserRole r where r.delFlag!=1
+		<isNotEmpty property="roleCode">
+			and r.roleCode like :roleCode
+		</isNotEmpty>
+		<isNotEmpty property="length">
+			and length(r.roleCode) = length(:length)
+		</isNotEmpty>
+		<isNotEmpty property="roleType">
+		   and r.roleType = :roleType
+		 </isNotEmpty>
+		order by r.createTime desc
+	</select>
+	<select id="findDataAccessRole">
+		select ro 
+		 from UserRole ro ,UserRight ur 
+		 where ur.role.id =ro.id
+		<dynamic>
+			<isNotEmpty property="userId">
+				and ur.user.id= :userId
+			</isNotEmpty>
+			<isNotEmpty property="roleId">
+				and ur.role.id= :roleId
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="findUserRight">
+		select ur 
+		 from UserRole ro ,UserRight ur 
+		 where ur.role.id =ro.id
+		<dynamic>
+			<isNotEmpty property="roleId">
+				and ro.id= :roleId
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="cntUsersinRole">
+	    select count(ur) from UserRight ur where ur.user.delFlag!=1
+	    <dynamic>
+			<isNotEmpty property="roleIds">
+				and ur.role.id in :roleIds
+			</isNotEmpty>
+		</dynamic>
+	</select>
+</sqlMap>

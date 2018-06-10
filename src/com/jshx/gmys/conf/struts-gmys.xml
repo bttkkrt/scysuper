@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="GMYS" extends="default" namespace="/jsp/gmys">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="gmysQuery" class="com.jshx.gmys.web.GmysAction" method="list">
+		</action>
+		
+		<action name="gmysList">
+			<result name="success">/WEB-INF/pages/gmys/Gmys_List.jsp</result>
+		</action>
+		
+		<action name="gmysView" class="com.jshx.gmys.web.GmysAction" method="view">
+			<result name="view">/WEB-INF/pages/gmys/Gmys_Detail.jsp</result>
+		</action>
+
+		<action name="gmysInitEdit" class="com.jshx.gmys.web.GmysAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/gmys/Gmys_Edit.jsp</result>
+		</action>
+
+		<action name="gmysSave" class="com.jshx.gmys.web.GmysAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_gmys</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="gmysDel" class="com.jshx.gmys.web.GmysAction" method="delete">
+		</action>
+		<action name="gmysExport" class="com.jshx.gmys.web.GmysAction" method="export">
+		</action>
+	</package>
+</struts>

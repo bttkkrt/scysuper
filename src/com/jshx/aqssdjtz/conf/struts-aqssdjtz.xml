@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SAF_LED" extends="default" namespace="/jsp/aqssdjtz">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="safLedQuery" class="com.jshx.aqssdjtz.web.SafLedAction" method="list">
+		</action>
+		
+		<action name="safLedList" class="com.jshx.aqssdjtz.web.SafLedAction" method="init">
+			<result name="success">/WEB-INF/pages/aqssdjtz/SafLed_List.jsp</result>
+		</action>
+		
+		<action name="safLedView" class="com.jshx.aqssdjtz.web.SafLedAction" method="view">
+			<result name="view">/WEB-INF/pages/aqssdjtz/SafLed_Detail.jsp</result>
+		</action>
+
+		<action name="safLedInitEdit" class="com.jshx.aqssdjtz.web.SafLedAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqssdjtz/SafLed_Edit.jsp</result>
+		</action>
+
+		<action name="safLedSave" class="com.jshx.aqssdjtz.web.SafLedAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_safLed</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="safLedDel" class="com.jshx.aqssdjtz.web.SafLedAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

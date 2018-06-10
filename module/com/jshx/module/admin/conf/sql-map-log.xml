@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <select id="queryOperationLog">
+    from OperationLog l where 1=1
+        <dynamic>
+            <isNotEmpty property="userName">
+            and (l.visitor.displayName like :userName or l.visitor.loginId like :userName)
+            </isNotEmpty>
+            <isNotEmpty property="deptCode">
+            and l.visitor.deptCode like :deptCode
+            </isNotEmpty>
+            <isNotEmpty property="module">
+            and l.module = :module
+            </isNotEmpty>
+            <isNotEmpty property="url">
+            and l.url like :url
+            </isNotEmpty>
+            <isNotEmpty property="beginDate">
+            and l.visitedDate &gt;= :beginDate
+            </isNotEmpty>
+            <isNotEmpty property="endDate">
+            and l.visitedDate &lt;= :endDate
+            </isNotEmpty>
+        </dynamic>
+        order by l.visitedDate desc
+    </select>
+    
+    <select id="queryLogonLog">
+    from LogonLog l where 1=1
+        <dynamic>
+            <isNotEmpty property="beginDate">
+            and l.visitedDate &gt;= :beginDate
+            </isNotEmpty>
+            <isNotEmpty property="deptCode">
+            and l.visitor.deptCode like :deptCode
+            </isNotEmpty>
+            <isNotEmpty property="endDate">
+            and l.visitedDate &lt;= :endDate
+            </isNotEmpty>
+            <isNotEmpty property="userName">
+            and (l.visitor.displayName like :userName or l.visitor.loginId like :userName)
+            </isNotEmpty>
+            <isNotEmpty property="browser">
+            and l.browser = :browser
+            </isNotEmpty>
+            <isNotEmpty property="os">
+            and l.os = :os
+            </isNotEmpty>
+            <isNotEmpty property="loginType">
+            and l.loginType = :loginType
+            </isNotEmpty>
+        </dynamic>
+        order by l.visitedDate desc
+    </select>
+</sqlMap>

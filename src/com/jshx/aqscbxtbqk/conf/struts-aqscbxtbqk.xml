@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SEC_PRO_INS" extends="default" namespace="/jsp/aqscbxtbqk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="secProInsQuery" class="com.jshx.aqscbxtbqk.web.SecProInsAction" method="list">
+		</action>
+		
+		<action name="secProInsList" class="com.jshx.aqscbxtbqk.web.SecProInsAction" method="init">
+			<result name="success">/WEB-INF/pages/aqscbxtbqk/SecProIns_List.jsp</result>
+		</action>
+		
+		<action name="secProInsView" class="com.jshx.aqscbxtbqk.web.SecProInsAction" method="view">
+			<result name="view">/WEB-INF/pages/aqscbxtbqk/SecProIns_Detail.jsp</result>
+		</action>
+
+		<action name="secProInsInitEdit" class="com.jshx.aqscbxtbqk.web.SecProInsAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqscbxtbqk/SecProIns_Edit.jsp</result>
+		</action>
+
+		<action name="secProInsSave" class="com.jshx.aqscbxtbqk.web.SecProInsAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_secProIns</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProInsDel" class="com.jshx.aqscbxtbqk.web.SecProInsAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

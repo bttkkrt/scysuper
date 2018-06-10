@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SITE_CHECK_RECORD" extends="default" namespace="/jsp/xcjcjl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="siteCheckRecordQuery" class="com.jshx.xcjcjl.web.SiteCheckRecordAction" method="list">
+		</action>
+		
+		<action name="siteCheckRecordList" class="com.jshx.xcjcjl.web.SiteCheckRecordAction" method="init">
+			<result name="success">/WEB-INF/pages/xcjcjl/SiteCheckRecord_List.jsp</result>
+		</action>
+		
+		<action name="siteCheckRecordView" class="com.jshx.xcjcjl.web.SiteCheckRecordAction" method="view">
+			<result name="view">/WEB-INF/pages/xcjcjl/SiteCheckRecord_Detail.jsp</result>
+		</action>
+
+		<action name="siteCheckRecordInitEdit" class="com.jshx.xcjcjl.web.SiteCheckRecordAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/xcjcjl/SiteCheckRecord_Edit.jsp</result>
+		</action>
+
+		<action name="siteCheckRecordSave" class="com.jshx.xcjcjl.web.SiteCheckRecordAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_siteCheckRecord</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="siteCheckRecordDel" class="com.jshx.xcjcjl.web.SiteCheckRecordAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 获得所有的省份 -->
+	<select id="getProvinces">
+	    select d.id,d.deptCode,d.deptName from Department d where length(d.deptCode)=6 and d.deptCode like '012%' and d.delFlag!=2
+	</select>
+	<!-- 根据父id获取子机构 -->
+	<select id="findChildrenByParentId">
+		select d.id,d.deptCode,d.deptName from Department d where  d.delFlag!=2
+		<isNotEmpty property="parentDeptCode">
+			and d.parentDeptCode like :parentDeptCode
+		</isNotEmpty>
+	</select>
+	<!-- 根据上层部门编码查找下层部门的最大编码值 -->
+	<select id="getMaxDeptCodeByParent">
+		select max(cast(SUBSTRING(d.deptCode,(length(d.deptCode)-3+1),3) as
+		integer)) from Department d where 1=1
+		<dynamic>
+		    <isNotEmpty property="parentDeptCode">
+			<isNotEqual property="parentDeptCode" compareValue="0">
+				<isNotEmpty property="length">
+					and length(d.deptCode)= (:length + 3
+					) and
+					substring(d.deptCode,1,:length)=:parentDeptCode
+			    </isNotEmpty>
+			</isNotEqual>
+			<isEqual property="parentDeptCode" compareValue="0">
+				and
+				length(d.deptCode)=3
+			</isEqual>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="findChildDeptIds">
+	    select d.id from Department d where d.deptCode like :deptCode and d.delFlag!=2
+	</select>
+	
+	<select id="cntUsersByDept">
+	    select count(*) from User u where u.deptCode like :deptCode and u.delFlag!=2
+	</select>
+
+	<!-- 根据相关条件搜索部门 -->
+	<select id="searchDept">
+		from Department d where d.delFlag!=2
+		<dynamic>
+			<isNotEmpty property="delFlag">
+				and d.delFlag=:delFlag
+	         </isNotEmpty>
+			<!-- 详细匹配部门编码 -->
+			<isNotEmpty property="deptCode">
+				and d.deptCode = :deptCode
+			    </isNotEmpty>
+			<!-- 根据部门编码模糊搜索 -->
+			<isNotEmpty property="parentDeptCode">
+				and d.deptCode like :parentDeptCode 
+			</isNotEmpty>
+			<isEmpty property="parentDeptCode">
+			    and length(d.deptCode)=3
+		    </isEmpty>
+			<isNotEmpty property="parentDept">
+				and d.parentDept = :parentDept
+			</isNotEmpty>
+			<isNotEmpty property="deptName">
+				and d.deptName like :deptName
+			</isNotEmpty>
+			<isNotEmpty property="length">
+				and length(d.deptCode) = :length
+			</isNotEmpty>
+		</dynamic>
+		order by d.sortSQ, d.deptCode
+	</select>
+	
+	<select id="searchDeptByParentId">
+		from Department d where  d.delFlag!=2
+		<dynamic>
+			<isNotEmpty property="parentDept" prepend="and">
+				d.parentDept = :parentDept
+			</isNotEmpty>
+			<isEmpty property="parentDept" prepend="and">
+				d.parentDept is null
+			</isEmpty>
+		</dynamic>
+		order by d.sortSQ desc, d.createTime desc
+	</select>
+	
+    <select id="searchOrderedDept">
+		from Department d where 1=1 and d.delFlag=0
+		<dynamic>
+			<isNotEmpty property="parentDeptCode">
+				and d.deptCode like :parentDeptCode
+			</isNotEmpty>
+			<isNotEmpty property="equalDept">
+				and d.deptCode !=:equalDept
+			</isNotEmpty>
+			<isNotEmpty property="deptCode">
+				and d.deptCode not like :deptCode
+			</isNotEmpty>
+		</dynamic>
+		order by d.deptCode asc
+	</select>
+	<!-- 逻辑删除部门，并删除下面的部门 -->
+	<update id="inactiveDept">
+		update Department d set d.delFlag=1
+		<dynamic prepend="where">
+			<isNotEmpty property="deptCode" prepend="and">
+				d.deptCode like :deptCode
+			</isNotEmpty>
+		</dynamic>
+	</update>
+
+	<!-- 激活被删除的部门 -->
+	<select id="activeDept">
+		update Department d set d.delFlag=0 where 1=1
+		<dynamic>
+			<isNotEmpty property="id">
+				and d.id = :id
+		    </isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 变更上层部门 -->
+	<select id="updateDept">
+		<isNotEmpty property="oldDeptCode">
+			<isNotEmpty property="newDeptCode">
+				<isNotEmpty property="length">
+					update Department set
+					deptCode=concat(:newDeptCode,substring(deptCode,:length,length(deptCode)))
+					where deptCode like :oldDeptCode and length(deptCode)>:length
+				</isNotEmpty>
+			</isNotEmpty>
+		</isNotEmpty>
+	</select>
+
+	<!-- 变更某部门编号后，变更部门用户的部门编号 -->
+	<select id="changeUserDept">
+		<isNotEmpty property="newDeptCode">
+			<isNotEmpty property="oldDeptCode">
+				<isNotEmpty property="length">
+					update User set
+					deptCode=concat(:newDeptCode,substring(deptCode,:length,length(deptCode)))
+					where deptCode like :oldDeptCode
+	        </isNotEmpty>
+			</isNotEmpty>
+		</isNotEmpty>
+	</select>
+
+	<!-- 统计下属部门数(统计数包括自己) -->
+	<select id="cntDepts">
+		select count(d) from Department d where  d.delFlag!=2
+		<isNotEmpty property="deptCode">
+			and d.deptCode like :deptCode
+		</isNotEmpty>
+	</select>
+	
+	<select id="checkDept">
+	    select count(d) from Department d where  d.delFlag!=2
+	    <dynamic>
+	        <isNotEmpty property="length">
+	        and length(d.deptCode) =  length(:length)
+	        </isNotEmpty>
+	        <isNotEmpty property="deptCode">
+	        and d.deptCode like :deptCode
+	        </isNotEmpty>
+	        <isNotEmpty property="deptName">
+	        and d.deptName = :deptName
+	        </isNotEmpty>
+	    </dynamic>
+	</select>
+	
+	<select id="checkDept1">
+	    select count(d) from Department d where  d.delFlag!=2
+	    <dynamic>
+	        <isNotEmpty property="deptCode">
+	        and d.deptCode = :deptCode
+	        </isNotEmpty>
+	    </dynamic>
+	</select>
+	
+	<select id="cntUserByMobile">
+	    select count(u) from User u where u.mobile = :mobile and u.delFlag!=2
+	</select>
+	
+	<!--  <select id="findIndependenceDept">
+	    from Department d where  d.delFlag!=2 and :deptCode like concat(deptCode,'%') and length(deptCode)=(select max(length(deptCode)) from Department where :deptCode like concat(deptCode,'%') and needSubFlow='1')
+	</select>-->
+	
+	<select id="findIndependenceDept">
+	    <![CDATA[from Department d where  d.delFlag!=2 and locate(deptCode,:deptCode,0)>=0 and length(deptCode)=(select max(length(deptCode)) from Department where locate(deptCode,:deptCode,0)>=0 and needSubFlow='1')]]>
+	</select>
+	
+	<select id="findIndependenceDeptSQL">
+	    <![CDATA[select * from DEPARTMENT department0_ 
+    where
+        department0_.DEL_FLAG<>2 
+        and locate(department0_.DEPT_CODE, :deptCode)>0 
+        and length(department0_.DEPT_CODE)=(
+            select
+                max(length(department1_.DEPT_CODE)) 
+            from
+                DEPARTMENT department1_ 
+            where
+                locate(department1_.DEPT_CODE, :deptCode)>0 
+                and department1_.NEED_SUB_FLOW='1'
+        )]]>
+	</select>
+	
+	<!-- 根据主部门删除关联部门 -->
+	<select id="delLinkedDept">
+		delete from LinkedDept l where 1=2
+		<dynamic>
+			<isNotEmpty property="mainDept">
+				or l.mainDept = :mainDept
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 根据主部门查找关联部门列表 -->
+	<select id="findLinkedDept">
+		select l.subDept from LinkedDept l where 1=1
+		<dynamic>
+			<isNotEmpty property="mainDept">
+				and l.mainDept = :mainDept
+			</isNotEmpty>
+		</dynamic>
+	</select>
+</sqlMap>

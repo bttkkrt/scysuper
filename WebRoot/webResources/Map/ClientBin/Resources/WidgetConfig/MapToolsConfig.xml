@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RootNode>
+  <!--Summary 工具配置信息描述
+  ========Group 显示时为一组地图工具纵向的排列，多组间有5像素的间隔
+  ========Node  显示为单个地图工具或一组工具集
+  
+  ========Group【 id：工具组ID, label：工具组显示名称】
+  ========Node 【id：工具ID，label：工具显示名称，可Tip出现，icon：工具显示的图标，enable：工具是否可被使用，type：工具的类型（btn 或 bar 2类），clickfun：点击时已注册监听的消息id】
+  -->
+  
+  <Group id="g1" label="">
+    <Node id="mapScreen" label="全图" icon="Images/mapTool/icon_btn_fullMap.png" enable="1" visible="1" type="btn"  clickfun="fullMap"/>
+    <Node id="zoomin" label="放大" icon="Images/mapTool/icon_btn_zoomIn.png" enable="1" visible="1" type="btn"  clickfun="zoomIn"/>
+    <Node id="zoomout" label="缩小" icon="Images/mapTool/icon_btn_zoomOut.png" enable="1" visible="1" type="btn"  clickfun="zoomOut"/>
+    <Node id="move" label="平移" icon="Images/mapTool/icon_btn_move.png" enable="1" visible="1" type="btn"  clickfun="panMap"/>
+  </Group>
+
+  <Group id="g2" label="">
+    <Node id="measureArea" label="量测距离" icon="Images/mapTool/icon_btn_rulerDist.png" enable="1" visible="1" type="btn"  clickfun="startDistMeasure"/>
+    <Node id="measureLength" label="量测面积" icon="Images/mapTool/icon_btn_rulerArea.png" enable="1" visible="1" type="btn"  clickfun="startAreaMeasure"/>
+    <Node id="drawArrows" label="绘制箭头" icon="Images/mapTool/icon_btn_DrawArrows.png" enable="1" visible="1" type="btn"  clickfun="drawGraphic" widget="Arrow" />
+    <!--<Node id="drawPolygon" label="绘制多边形" icon="Images/mapTool/icon_btn_drawPolygon.png" enable="1" visible="1" type="btn" clickfun="drawGraphic" widget="Polygon" />-->
+    <Node id="getCoor"        label="获取坐标" enabled="1" icon="Images/mapTool/icon_btn_drawPoint.png"  visible="1" type="btn"  clickfun="getcoor" widget=""/>
+    <Node id="analysis"      label="周边分析" enabled="1" icon="Images/mapTool/icon_btn_FXArounnd.png"  visible="1" type="btn"  clickfun="aroundAnalysis" widget="Arround"/>
+
+    <!--<Node id="statistics" label="查询统计" icon="Images/mapTool/icon_btn_Statistics.png" enable="1" visible="1" type="btn" clickfun="statistics" widget="circle" />-->
+    <Node id="Statis" label="统计分析" icon="Images/mapTool/icon_btn_Statistics.png" enable="1" visible="1" type="bar" widget=""  clickfun="">
+      <Node id="StatisByPolygon" label="多边形" icon="Images/mapTool/icon_btn_drawPolygon.png" enable="1" visible="1" type="btn" clickfun="drawGraphic" widget="PolygonStat" />
+      <Node id="StatisByGrid" label="网格" icon="Images/mapTool/icon_btn_GridStatistics.png" enable="1" visible="1" type="btn" clickfun="statistics" widget="Grid" />
+      <Node id="StatYHByGrid" label="网格隐患统计" icon="Images/mapTool/icon_btn_overlay.png" enable="1" visible="1" type="btn" clickfun="statGridYH" widget="Grid" />
+    </Node> 
+    
+    <!--<Node id="DangerSource" label="网格查询危险源" icon="Images/mapTool/Wei.png" enable="1" visible="1" type="bar" widget="危险源"  clickfun="">
+      <Node id="DangerSource_ZDian" label="重点危险源" icon="Images/mapTool/Danger.png" enable="1" visible="1" type="btn" clickfun="gridsearch" widget="危险源" />
+      <Node id="DangerSource_ZDa" label="重大危险源" icon="Images/mapTool/ImportDanger.png" enable="1" visible="1" type="btn" clickfun="gridsearch" widget="重大危险源" />
+    </Node>-->
+
+    <Node id="DS_ZDian" label="重点危险源" icon="Images/mapTool/Danger.png" enable="1" visible="1" type="bar" widget="企业"  clickfun="gridsearch">
+      <Node id="QueryByPolygon" label="多边形" icon="Images/mapTool/icon_btn_drawPolygon.png" enable="1" visible="1" type="btn" clickfun="drawGraphic" widget="危险源" />
+      <Node id="QueryByGrid" label="网格" icon="Images/mapTool/icon_btn_GridStatistics.png" enable="1" visible="1" type="btn" clickfun="gridsearch" widget="危险源" />
+    </Node>
+
+    <Node id="DS_ZDa" label="重大危险源" icon="Images/mapTool/ImportDanger.png" enable="1" visible="1" type="bar" widget="企业"  clickfun="gridsearch">
+      <Node id="QueryByPolygon" label="多边形" icon="Images/mapTool/icon_btn_drawPolygon.png" enable="1" visible="1" type="btn" clickfun="drawGraphic" widget="重大危险源" />
+      <Node id="QueryByGrid" label="网格" icon="Images/mapTool/icon_btn_GridStatistics.png" enable="1" visible="1" type="btn" clickfun="gridsearch" widget="重大危险源" />
+    </Node>
+    
+    <Node id="Companys" label="网格查询企业" icon="Images/mapTool/Qi.png" enable="1" visible="1" type="bar" widget="企业"  clickfun="gridsearch">
+      <Node id="QueryByPolygon" label="多边形" icon="Images/mapTool/icon_btn_drawPolygon.png" enable="1" visible="1" type="btn" clickfun="drawGraphic" widget="企业" />
+      <Node id="QueryByGrid" label="网格" icon="Images/mapTool/icon_btn_GridStatistics.png" enable="1" visible="1" type="btn" clickfun="gridsearch" widget="企业" />
+    </Node>
+
+    <Node id="Analysis" label="事故模拟" icon="Images/mapTool/icon_simulation.png" enable="1" visible="1" type="btn"  clickfun="aroundAnalysis" widget="Accident"/>
+    <Node id="clear" label="清除" icon="Images/mapTool/icon_btn_clear.png" enable="1" visible="1" type="btn"  clickfun="clearLayersEvent" widget="清除"/>
+
+  </Group>
+</RootNode>

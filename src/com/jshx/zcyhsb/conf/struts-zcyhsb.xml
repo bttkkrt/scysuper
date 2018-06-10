@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHX_ZCYHSB" extends="default" namespace="/jsp/zcyhsb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxZcyhsbQuery" class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="list">
+		</action>
+		<action name="fourList" class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="fourList">
+		</action>
+		<action name="fourZcyhsbList"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="initFour">
+			<result name="success">/WEB-INF/pages/zcyhsb/fourList.jsp</result>
+		</action>
+		<action name="jshxZcyhsbList"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="init">
+			<result name="success">/WEB-INF/pages/zcyhsb/JshxZcyhsb_List.jsp</result>
+		</action>
+		
+		<action name="jshxZcyhsbView" class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="view">
+			<result name="view">/WEB-INF/pages/zcyhsb/JshxZcyhsb_Detail.jsp</result>
+		</action>
+
+		<action name="jshxZcyhsbInitEdit" class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zcyhsb/JshxZcyhsb_Edit.jsp</result>
+		</action>
+
+		<action name="jshxZcyhsbSave" class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/zcyhsb/JshxZcyhsb_Edit.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="jshxZcyhsbDel" class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="delete">
+		</action>
+		<!-- 李军 2013-08-31 附件上传处理 -->
+		<action name="jshxZcyhsbUpload" class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="upload">
+			<result name="success">/WEB-INF/pages/zcyhsb/JshxZcyhsb_upload.jsp</result>
+		</action>
+		<action name="jshxZcyhsbSavePhoto" class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="uploadAttach">
+		</action>
+		<action name="jshxZcyhsbImageDel" class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="deleteImage">
+		</action>
+		<action name="jshxZcyhsbSaveFile" class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="saveFile">
+		</action>
+		<!-- 自查隐患企业统计 2013-11-1 李军 -->
+		<action name="jshxZcyhsbTjList"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="tongJi">
+			<result name="tongji">/WEB-INF/pages/zcyhsb/JshxZcyhsb_TongJi.jsp</result>
+		</action>
+		<action name="jshxZcyhsbTjType"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="tjType">
+		</action>
+		<!-- 按部门统计隐患信息 2013-11-11 李军 -->
+		<action name="jshxZcyhsbDataDept"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="deptTongJi">
+			<result name="dataDept">/WEB-INF/pages/zcyhsb/JshxZcyhsb_dataDept.jsp</result>
+		</action>
+		<!-- 按行业统计隐患信息 2013-11-11 李军 -->
+		<action name="jshxZcyhsbDataHyfl"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="hyflTongJi">
+			<result name="dataHyfl">/WEB-INF/pages/zcyhsb/JshxZcyhsb_dataHyfl.jsp</result>
+		</action>
+			<!-- 按检查类别统计隐患信息 2013-11-12 李军 -->
+		<action name="jshxZcyhsbDataPie"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="pieTongJi">
+			<result name="dataPie">/WEB-INF/pages/zcyhsb/JshxZcyhsb_dataPie.jsp</result>
+		</action>
+		<!-- 按隐患类别统计3隐患信息 2013-11-13 李军 -->
+		<action name="jshxZcyhsbChart3"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="chart3TongJi">
+			<result name="dataChart3">/WEB-INF/pages/zcyhsb/JshxZcyhsb_dataChart3.jsp</result>
+		</action>
+		
+		<!-- 安全标准化企业达标隐患自查自纠信息 -->
+		<action name="jshxZcyhsbBzhList"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="bzhTongji">
+			<result name="dataBzh">/WEB-INF/pages/zcyhsb/JshxZcyhsb_bzhzcyh.jsp</result>
+		</action>
+		
+		<!-- 职业危害企业自查自纠信息 -->
+		<action name="jshxZcyhsbZywhList"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="zywhTongji">
+			<result name="dataZywh">/WEB-INF/pages/zcyhsb/JshxZcyhsb_zywhzcyh.jsp</result>
+		</action>
+		
+		<!-- 危险化学品企业自查自纠信息 -->
+		<action name="jshxZcyhsbWhpList"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="whpTongji">
+			<result name="dataWhp">/WEB-INF/pages/zcyhsb/JshxZcyhsb_whpzcyh.jsp</result>
+		</action>
+		
+		
+		<!-- 按部门统计隐患信息导出 2013-12-02 陆婷 -->
+		<action name="jshxZcyhsbDataDeptExport"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="deptTongJiExport">
+		</action>
+		<!-- 按行业统计隐患信息导出  2013-12-02 陆婷 -->
+		<action name="jshxZcyhsbDataHyflExport"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="hyflTongJiExport">
+		</action>
+		<!-- 按安全标准化达标企业信息导出 -->
+		<action name="jshxZcyhsbDataBzhExport"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="bzhTongJiExport">
+		</action>
+		<!-- 按职业危害企业信息导出 -->
+		<action name="jshxZcyhsbDataZywhExport"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="zywhTongJiExport">
+		</action>
+		<!-- 按危险化学品企业信息导出 -->
+		<action name="jshxZcyhsbDataWhpExport"  class="com.jshx.zcyhsb.web.JshxZcyhsbAction" method="whpTongJiExport">
+		</action>
+		
+	</package>
+</struts>

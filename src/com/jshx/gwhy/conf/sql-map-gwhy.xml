@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findGwhyByMap">
+		select new com.jshx.gwhy.entity.Gwhy(t.id, t.monthTime, t.areaName) from Gwhy t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startMonthTime">
+			<![CDATA[and t.monthTime >= :startMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endMonthTime">
+			<![CDATA[and t.monthTime <= :endMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+	</select>
+	<select id="getGwhyListByMap" parameterClass="java.util.Map" resultClass="com.jshx.gwhy.entity.GwhyBean">
+	select  b.data1,b.data4,b.data5,b.data6,
+  (case when (select count(*)from gwhy  a where a.delflag=0 and a.ygbtzmxs='未完成'  and a.area_name=b.data1
+   <isNotEmpty property="startMonthTime">
+			<![CDATA[and a.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and a.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+  )>0 then '未完成' ELSE'已完成' end)as data2,
+ (case when (select count(*)from gwhy  a where a.delflag=0 and a.ztdyh='未完成'  and a.area_name=b.data1 
+  <isNotEmpty property="startMonthTime">
+			<![CDATA[and a.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and a.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+ 
+ )>0 then '未完成' ELSE'已完成' end)as data3
+from 
+     (SELECT DISTINCT t.area_name as data1,
+     sum(cast(t.ybsdqy as int))as data4,
+     sum(cast(t.sdqyaqpgs as int))as data5,
+     sum(cast(t.sdqyytb as int))as data6 from gwhy t where t.delflag=0 
+     <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+     group by t.area_name ) b
+	</select>
+	
+	<select id="getTotalGwhyListByMap" parameterClass="java.util.Map" resultClass="com.jshx.gwhy.entity.GwhyBean">
+	 SELECT 
+     sum(cast(t.ybsdqy as int))as data4,
+     sum(cast(t.sdqyaqpgs as int))as data5,
+     sum(cast(t.sdqyytb as int))as data6 from gwhy t where t.delflag=0
+     <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+	</select>
+</sqlMap>

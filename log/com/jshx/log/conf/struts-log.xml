@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="EXCEPTION_LOG" extends="default" namespace="/jsp/admin/log">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="exceptionLogQuery" class="com.jshx.log.web.ExceptionLogAction" method="list">
+		</action>
+		
+		<action name="exceptionLogList">
+			<result name="success">/WEB-INF/pages/admin/log/ExceptionLog_List.jsp</result>
+		</action>
+		
+		<action name="exceptionLogView" class="com.jshx.log.web.ExceptionLogAction" method="view">
+			<result name="view">/WEB-INF/pages/admin/log/ExceptionLog_Detail.jsp</result>
+		</action>
+        <!--
+		<action name="exceptionLogInitEdit" class="com.jshx.log.web.ExceptionLogAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/admin/log/ExceptionLog_Edit.jsp</result>
+		</action>
+
+		<action name="exceptionLogSave" class="com.jshx.log.web.ExceptionLogAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="exceptionLogDel" class="com.jshx.log.web.ExceptionLogAction" method="delete">
+		</action>
+		-->
+		<!-- 列表查询，返回Json数据 -->
+		<action name="dataLogQuery" class="com.jshx.log.web.DataLogAction" method="list">
+		</action>
+		
+		<action name="dataLogList">
+			<result name="success">/WEB-INF/pages/admin/log/DataLog_List.jsp</result>
+		</action>
+		
+		<action name="dataLogView" class="com.jshx.log.web.DataLogAction" method="view">
+			<result name="view">/WEB-INF/pages/admin/log/DataLog_Detail.jsp</result>
+		</action>
+		<!--
+		<action name="dataLogInitEdit" class="com.jshx.log.web.DataLogAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/admin/log/DataLog_Edit.jsp</result>
+		</action>
+
+		<action name="dataLogSave" class="com.jshx.log.web.DataLogAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="dataLogDel" class="com.jshx.log.web.DataLogAction" method="delete">
+		</action>
+		-->
+	</package>
+</struts>

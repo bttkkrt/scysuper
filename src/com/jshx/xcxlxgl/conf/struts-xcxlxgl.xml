@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PAT_TYP_MAN" extends="default" namespace="/jsp/xcxlxgl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="patTypManQuery" class="com.jshx.xcxlxgl.web.PatTypManAction" method="list">
+		</action>
+		
+		<action name="patTypManList" class="com.jshx.xcxlxgl.web.PatTypManAction" method="init">
+			<result name="success">/WEB-INF/pages/xcxlxgl/PatTypMan_List.jsp</result>
+		</action>
+		
+		<action name="patTypManView" class="com.jshx.xcxlxgl.web.PatTypManAction" method="view">
+			<result name="view">/WEB-INF/pages/xcxlxgl/PatTypMan_Detail.jsp</result>
+		</action>
+
+		<action name="patTypManInitEdit" class="com.jshx.xcxlxgl.web.PatTypManAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/xcxlxgl/PatTypMan_Edit.jsp</result>
+		</action>
+
+		<action name="patTypManSave" class="com.jshx.xcxlxgl.web.PatTypManAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_patTypMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="patTypManDel" class="com.jshx.xcxlxgl.web.PatTypManAction" method="delete">
+		</action>
+		
+		<action name="patTypManGetName" class="com.jshx.xcxlxgl.web.PatTypManAction" method="getName">
+		</action>
+		
+	</package>
+</struts>

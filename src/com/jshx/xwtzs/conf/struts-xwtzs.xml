@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="INQUIRY_NOTICE" extends="default" namespace="/jsp/xwtzs">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="inquiryNoticeQuery" class="com.jshx.xwtzs.web.InquiryNoticeAction" method="list">
+		</action>
+		
+		<action name="inquiryNoticeList" class="com.jshx.xwtzs.web.InquiryNoticeAction" method="init">
+			<result name="success">/WEB-INF/pages/xwtzs/InquiryNotice_List.jsp</result>
+		</action>
+		
+		<action name="inquiryNoticeView" class="com.jshx.xwtzs.web.InquiryNoticeAction" method="view">
+			<result name="view">/WEB-INF/pages/xwtzs/InquiryNotice_Detail.jsp</result>
+		</action>
+
+		<action name="inquiryNoticeInitEdit" class="com.jshx.xwtzs.web.InquiryNoticeAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/xwtzs/InquiryNotice_Edit.jsp</result>
+		</action>
+
+		<action name="inquiryNoticeSave" class="com.jshx.xwtzs.web.InquiryNoticeAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_inquiryNotice</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="inquiryNoticeDel" class="com.jshx.xwtzs.web.InquiryNoticeAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

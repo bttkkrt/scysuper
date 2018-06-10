@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	
+		<select id="getCarEquipmentByName">
+		from CarEquipment t where t.delFlag = 0
+		<isNotEmpty property="detailName">
+			<![CDATA[and t.detailName like :detailName]]>
+		</isNotEmpty>
+		<isNotEmpty property="detailNames">
+			<![CDATA[and t.detailName like :detailNames]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = :createUserID]]>
+		</isNotEmpty>
+		<isNotEmpty property="deptId">
+			<![CDATA[and t.deptId = :deptId]]>
+		</isNotEmpty>
+		<isNotEmpty property="guid">
+			<![CDATA[and t.guid = :guid]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getCarEquipmentStateByMap">
+		from CarEquipmentState t where 1=1
+		<isNotEmpty property="month">
+			<![CDATA[and t.month = :month]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="getEquipmentLists" parameterClass="java.util.Map" resultClass="com.jshx.carDoneInfo.entity.CarEquipment">
+		select t.row_id as id,t.* from CarEquipment t where t.delFlag = 0
+		<isNotEmpty property="detailName">
+			<![CDATA[and t.detailName like #detailName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="detailNames">
+			<![CDATA[and t.detailName like #detailNames#]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = #createUserID#]]>
+		</isNotEmpty>
+		<isNotEmpty property="deptId">
+			<![CDATA[and t.deptId = #deptId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="guid">
+			<![CDATA[and t.guid = #guid#]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getEquipmentListSize" parameterClass="java.util.Map" resultClass="java.lang.Integer">
+		select count(*) from CarEquipment t where t.delFlag = 0
+		<isNotEmpty property="detailName">
+			<![CDATA[and t.detailName like #detailName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="detailNames">
+			<![CDATA[and t.detailName like #detailNames#]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = #createUserID#]]>
+		</isNotEmpty>
+		<isNotEmpty property="deptId">
+			<![CDATA[and t.deptId = #deptId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="guid">
+			<![CDATA[and t.guid = #guid#]]>
+		</isNotEmpty>
+	</select>
+
+		<select id="getEquipmentListsForShowname" parameterClass="java.util.Map" resultClass="com.jshx.carDoneInfo.entity.CarEquipment">
+		select 
+       		c.row_id as id,c.deptId as deptId,c.guid as guid,c.puid as puid,
+       		c.streamId as streamId,v.companyname as companyName,v.qylx,v.sort,
+       		v.showname as localName,c.detailname as detailName
+       	from carequipment c, vedio_name v
+       	where c.delFlag = 0 and v.vedioname = c.detailname and v.delflag = 0
+       
+		<isNotEmpty property="detailName">
+			<![CDATA[and v.showname like #detailName#]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyid">
+			<![CDATA[and v.companyid = #companyid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="detailNames">
+			<![CDATA[and v.companyname like #detailNames#]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and c.createuserid = #createUserID#]]>
+		</isNotEmpty>
+		<isNotEmpty property="deptId">
+			<![CDATA[and c.deptid = #deptId#]]>
+		</isNotEmpty>
+		<isNotEmpty property="guid">
+			<![CDATA[and c.guid = #guid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and v.companyname = #companyName#]]>
+		</isNotEmpty>
+		order by v.sort
+	</select>
+
+</sqlMap>

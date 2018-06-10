@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="DISHONESTY" extends="default" namespace="/jsp/sxxw">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="dishonestyQuery" class="com.jshx.sxxw.web.DishonestyAction" method="list">
+		</action>
+		
+		<action name="dishonestyList" class="com.jshx.sxxw.web.DishonestyAction" method="init">
+			<result name="success">/WEB-INF/pages/sxxw/Dishonesty_List.jsp</result>
+		</action>
+		
+		<action name="dishonestyView" class="com.jshx.sxxw.web.DishonestyAction" method="view">
+			<result name="view">/WEB-INF/pages/sxxw/Dishonesty_Detail.jsp</result>
+		</action>
+
+		<action name="dishonestyInitEdit" class="com.jshx.sxxw.web.DishonestyAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/sxxw/Dishonesty_Edit.jsp</result>
+		</action>
+
+		<action name="dishonestySave" class="com.jshx.sxxw.web.DishonestyAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_dishonesty</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="dishonestyDel" class="com.jshx.sxxw.web.DishonestyAction" method="delete">
+		</action>
+		
+		<action name="dishonestyCheck1" class="com.jshx.sxxw.web.DishonestyAction" method="check1">
+			<result name="check1">/WEB-INF/pages/sxxw/Dishonesty_Check1.jsp</result>
+		</action>
+		
+		<action name="dishonestyCheckSave" class="com.jshx.sxxw.web.DishonestyAction" method="checkSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_dishonesty</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="dishonestyCheck2" class="com.jshx.sxxw.web.DishonestyAction" method="check2">
+			<result name="check2">/WEB-INF/pages/sxxw/Dishonesty_Check2.jsp</result>
+		</action>
+		
+		
+	</package>
+</struts>

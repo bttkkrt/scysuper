@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findSupTasByMap">
+		select new com.jshx.jdjcrw.entity.SupTas(t.id, t.areaName, t.companyName, t.taskNum, t.checkTime, t.checkUsername, t.taskState, t.taskType,t.stime,t.ftime,t.createUserID,t.checkUserid,t.checkTimeEnd,t.xbUserId,t.xbUserName) from SupTas t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="taskNum">
+			<![CDATA[and t.taskNum like :taskNum]]>
+		</isNotEmpty>
+		<isNotEmpty property="startCheckTime">
+			<![CDATA[and t.checkTime >= :startCheckTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCheckTime">
+			<![CDATA[and t.checkTimeEnd <= :endCheckTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkUserid">
+			<![CDATA[and (t.checkUserid = :checkUserid or t.xbUserId = :checkUserid)]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkUsername">
+			<![CDATA[and t.checkUsername like :checkUsername]]>
+		</isNotEmpty>
+		<isNotEmpty property="taskState">
+			<![CDATA[and t.taskState = :taskState]]>
+		</isNotEmpty>
+		<isNotEmpty property="taskType">
+			<![CDATA[and t.taskType = :taskType]]>
+		</isNotEmpty>
+		<isNotEmpty property="planId">
+			<![CDATA[and t.planId = :planId]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkDeptId">
+			<![CDATA[and t.checkDeptId like :checkDeptId]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+	<!-- 查询巡查项信息 -->
+	<select id="queryCheckByMap"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		SELECT t.ROW_ID as checkUserid,t.DISPLAY_NAME  as checkUserName from USERS  t where t.DEPT_CODE=#deptcode#
+		and t.DEL_FLAG=0
+	</select>
+	<!-- 查询巡查项列表 -->
+	<select id="checkList"  parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		SELECT t.ROW_ID as id,t.PATROL_NAME as checkName from PAT_MAN  t where t.delFlag=0 
+		<isNotEmpty property="checkItemId">
+			<![CDATA[and INSTR(t.PATROL_TYPE,#checkItemId#) >0 ]]>
+		</isNotEmpty>
+	</select>
+	
+	<!-- 查询巡查结果 -->
+	<select id="findSupTasResultByMap"  parameterClass="java.util.Map" resultClass="com.jshx.jdjcrw.entity.SupTasResult">
+		SELECT t.ROW_ID as id,t.remark  ,t.xcxResult ,t.xcxId as xcxId  from SUP_TAS_RESULT  t where t.delFlag=0 
+		<isNotEmpty property="taskId">
+			<![CDATA[and t.taskId=#taskId#]]>
+		</isNotEmpty>
+	</select>
+</sqlMap>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findTbMapByMap">
+		select new com.jshx.map.entity.TbMap(t.id) from TbMap t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+	</select>
+	<!-- 查询企业列表数据 2015-10-31 lj -->
+	<select id="query_company_list_map" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select ENTERPRISE_CODE as id, ENTERPRISE_NAME as name from ENT_BASE_INFO where delflag = 0 
+		<isNotEmpty property="name">
+			 and ENTERPRISE_NAME like #name#
+		</isNotEmpty>
+	</select>
+	<!-- 查询企业的详情 lj 2015-10-31 -->
+	<select id="get_company_detail_map" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select ENTERPRISE_CODE as id,
+			   ENTERPRISE_NAME as name,
+			   ENTERPRISE_ADDRESS as address,
+			   ENTERPRISE_LEGAL_NAME as  legalName,
+			   ENTERPRISE_LEGAL_PHONE as  legalPhone,
+			   DATE_FORMAT(ENTERPRISE_FOUND_DATE, '%H')  as foundDate,
+			  <!--  CONVERT(varchar,ENTERPRISE_FOUND_DATE, 120)  as foundDate, -->
+			  GRID_MANAGETEAM_NAME as managerTeam,
+			  GRID_MANAGER_NAME as  manager,
+			  ENTERPRISE_CODE as enterpriseCode 
+			 from ENT_BASE_INFO where ENTERPRISE_CODE = #id# or login_id = #id#
+			 limit 0,1
+	</select>
+	<!-- 查询网格列表数据 lj 2015-10-31 -->
+	<select id="query_grid_list_map" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select row_id as id ,GRID_NAME as name from COM_GRI_MAN where delflag = 0 
+		<isNotEmpty property="name">
+			 and GRID_NAME like #name#
+		</isNotEmpty>
+	</select>
+	<!-- 查询登录人的未读通知信息 lj 2015-12-23 -->
+	<select id="query_noRead_notices_index" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select 
+			ci.row_id as id ,
+		    ci.info_title as title 
+		 from CONTENT_INFORMATIONS ci,NOTICECALLBACK n 
+		 where ci.row_id = n.noticeId and ci.DEL_FLAG = 0 
+		 and n.isRead='未读'
+		 and n.userID  =#userId#  order by ci.CREATETIME desc  
+		 limit 0,5
+	</select>
+	<!-- 查询中队长 待审核的 隐患数 和 挂牌督办数  lj 2015-12-23-->
+	<select id="query_audit_info_A11" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select (select count(row_id) from tro_man  where delflag = 0 
+			and  INSTR(company_Id,#companyIds#) >0 
+			and RECTIFICATION_STATE  in ('2','20') ) as yhCount <!-- ,
+			 (	
+			select count(*) as TOTAL from ( select s.CREATETIME,s.ROW_ID,s.DANGER_NAME,CONVERT(varchar(100), s.LISTING_TIME, 20) LISTING_TIME,s.RECTIFICATION_STATE,
+		  	 COMPANY_NAME,s.RECTIFICATION_LEVEL,s.RECTIFICATION_MONEY,s.CREATEUSERID,s.COMPANY_ID,
+		  	(select cv.item_text from CODEVALUE cv ,CODE c where cv.CODE_ID=c.ROW_ID and c.CODE_NAME='隐患类别' and cv.ITEM_VALUE=s.DANGER_SORT) SORT
+			from SUPERVICE s where s.delFlag=0 )t where 1=1 
+			and  t.RECTIFICATION_LEVEL ='3'  
+			 and  t.RECTIFICATION_STATE = '已整改待审核' 
+			 and t.COMPANY_ID in (select e.row_id from ENT_BASE_INFO e where e.GRID in (select g.row_id from COM_GRI_MAN g where g.GRID_MANAGE_DEPT=#ajzddz2#)))
+			 as dbCount   -->
+	</select>
+	
+	
+	<!-- 查询局领导待审核的 隐患、收文、发文、案件、文书、失信行为的待审核数 lj 2015-12-24 -->
+	<select id="query_audit_info_A02" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select (
+			select count(row_id) from tro_man where delflag = 0 and RECTIFICATION_STATE  = '7'  and trouble_level = '3'
+			) as yhCount,
+	 		(SELECT count(*) 
+			from SEND_INFORMATION t ,NoticeCallback n where t.delFlag=0 and t.row_id = n.noticeId
+			   and t.AUDIT_STATE='待审核' and n.userID=#userId#) as fwCount,
+			(select count(*)  from CASE_INFO t where t.delflag = 0 and t.CASE_STATUS = '1' ) as ajCount,
+			(select count(*) from INSTRUMENTS_INFO t where t.delflag = 0 and (t.IF_CHECK = '2' or (t.if_Check = '3' and INSTR(#needCheckUser#,t.need_Check_User) >0))) as wsCount,
+			(select count(*) from DISHONESTY where delflag = 0 and CHECK_STATUS = '审核通过') as sxxwCount,
+		   (select COUNT(*) as dbCount1  from  supervice where RECTIFICATION_STATE = '待审批' and delFlag=0) as dbCount1,
+		   (select COUNT(*) as dbCount2  from  supervice where RECTIFICATION_STATE = '已整改待审批' and delFlag=0) as dbCount2,
+		   (select COUNT(*) as zzCount  from  INT_SIT where AUDIT_STATE='待审核' and delFlag=0) as zzCount,
+		   (select COUNT(*) as bzCount  from  HON_REC where AUDIT_STATE='待审核' and delFlag=0) as bzCount  
+			    
+	</select>
+	<!-- 查询检查大队的待审核的 隐患、危险源、企业检查计划、案件、文书数 、失信行为 lj 2015-12-24-->
+	<select id="query_audit_info_A09" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select (
+			select count(row_id) from tro_man where delflag = 0 and 
+			((RECTIFICATION_STATE  = '5'  and trouble_level = '2') or 
+					(RECTIFICATION_STATE  = '5' and trouble_level = '3' and if_corrected = '0'))
+			) as yhCount,
+			( SELECT count(*) from COM_DAN_IDE t where t.delFlag=0  and t.AUDIT_STATE='待审核') as wxyCount,
+           (select count(row_id) from DAN_PLA_MAN where delflag = 0 and AUDIT_RESULT = '待审核') as wxyxcCount,
+           (select count(*)  from CASE_INFO t where t.delflag = 0 and (t.CASE_STATUS = 0 or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #userId#)) ) as ajCount,
+		   (select count(*) from INSTRUMENTS_INFO t where t.delflag = 0 and (t.IF_CHECK = '1' or (t.if_Check = '3' and INSTR(#needCheckUser#,t.need_Check_User) >0))) as wsCount ,
+		   (select count(*) from DISHONESTY where delflag = 0 and CHECK_STATUS = '待审核') as sxxwCount 
+           
+	</select>
+	<!-- 查询综合处处长待审核的 挂牌督办 lj 2015-12-24 -->
+	<select id="query_audit_info_A03" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	<!--
+		  select (select count(*) as TOTAL from ( select s.CREATETIME,s.ROW_ID,s.DANGER_NAME,CONVERT(varchar(100), s.LISTING_TIME, 20) LISTING_TIME,s.RECTIFICATION_STATE,
+		   COMPANY_NAME,s.RECTIFICATION_LEVEL,s.RECTIFICATION_MONEY,s.CREATEUSERID,s.COMPANY_ID,
+		  (select cv.item_text from CODEVALUE cv ,CODE c where cv.CODE_ID=c.ROW_ID and c.CODE_NAME='隐患类别' and cv.ITEM_VALUE=s.DANGER_SORT) SORT
+		from SUPERVICE s where s.delFlag=0 )t where 1=1 and  (t.RECTIFICATION_LEVEL ='1' or t.RECTIFICATION_LEVEL ='2') and  t.RECTIFICATION_STATE = '已整改待审核'
+			) as dbCount  
+	-->
+	select (select COUNT(*) as dbCount1  from  supervice where RECTIFICATION_STATE = '待审核' and delFlag=0) as dbCount1,
+		(select COUNT(*) as dbCount2  from  supervice where RECTIFICATION_STATE = '已整改待审核' and delFlag=0) as dbCount2,
+		(select count(*) from INSTRUMENTS_INFO t where t.delflag = 0 and t.if_Check = '3' and INSTR(#needCheckUser#,t.need_Check_User) >0) as wsCount
+	
+	</select>
+	<!-- 查询危化处处长待审核的节假日开停工、领导带班情况 lj2015-12-24 -->
+	<select id="query_audit_info_A05" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select (select count(*) as TOTAL from LEA_CLA  where delFlag=0 and  AUDIT_STATE = '待审核' )
+				as lddbCount,
+		(select count(*) as TOTAL from SHU_HOL  where delFlag=0 and  AUDIT_STATE = '待审核')
+		        as jjrktgCount,
+		(select count(*) from INSTRUMENTS_INFO t where t.delflag = 0 and  t.if_Check = '3' and INSTR(#needCheckUser#,t.need_Check_User) >0) as wsCount
+	</select>
+	<!-- 查询企业待整改的隐患 lj 2015-12-24 -->
+	<select id="query_audit_info_A23" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select (select count(row_id) from tro_man where delflag = 0 and RECTIFICATION_STATE  = '11'
+				and createuserid = #id#
+				) as yhCount 
+			
+	</select>
+	<!-- 查询安委会办公室 待处理的 隐患 lj 2015-12-24 -->
+	<select id="query_audit_info_A17" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select (select count(row_id) from tro_man where delflag = 0 and RECTIFICATION_STATE  = '21'
+				) as yhShCount
+			
+	</select>
+	<!-- 查询职能部门 待处理的 隐患 lj 2015-12-24 -->
+	<select id="query_audit_info_A18" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select (select count(row_id) from tro_man where delflag = 0 and 
+				RECTIFICATION_STATE  = '4' and DEAL_DEPT_ID like #deptCode#
+				) as yhCount 
+			
+	</select>
+	<!-- 查询中队队员 待整改的隐患、待整改的挂牌督办、待检查的任务、待审核的企业-->
+	<select id="query_audit_info_A12" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	select 
+			(select count(row_id) from tro_man  where delflag = 0 
+			and  INSTR(company_Id,#companyIds#) >0 
+			and RECTIFICATION_STATE  = '3' ) as yhShCount,
+			(select count(row_id) from tro_man  where delflag = 0 
+			and  INSTR(company_Id,#companyIds#) >0 
+			and RECTIFICATION_STATE  = '6' ) as yhCount,
+		  (select count(*) from SUP_TAS  t where t.delFlag=0 and t.CHECK_USERID = #userId# and task_state='未完成' 
+				) as jdjcCount,
+		  ( select count(*)
+     		from ENT_BASE_INFO where delflag = 0 and BASE_PASS = 0 and  INSTR(row_id,#companyIds#) >0  )
+     		as qyCount 
+			
+	</select> 
+	
+	<!-- 查询综合处科员待整改的挂牌督办数量 fq 2016-2-5 -->
+	<select id="query_audit_info_A04" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select (select COUNT(*) from  supervice where RECTIFICATION_STATE = '待整改' and delFlag=0) as dbCount,
+		 (select count(*) from INSTRUMENTS_INFO t where t.delflag = 0 and t.if_Check = '3' and INSTR(#needCheckUser#,t.need_Check_User) >0) as wsCount
+	</select>
+	
+	<!-- 查询检查大队队员的待审核的 案件、文书数  lt 2016-2-19-->
+	<select id="query_audit_info_A10" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select 
+           (select count(*)  from CASE_INFO t where t.delflag = 0 and t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #userId#) as ajCount,
+		   (select count(*) from INSTRUMENTS_INFO t where t.delflag = 0 and t.if_Check = '3' and INSTR(#needCheckUser#,t.need_Check_User) >0) as wsCount 
+           
+	</select>
+	
+	
+	<select id="query_audit_info_A1011" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select (select count(row_id) from tro_man  where delflag = 0 
+			and  INSTR(company_Id,#companyIds#) >0 
+			and RECTIFICATION_STATE  in ('2','20') ) as yhCount,
+			(select count(*)  from CASE_INFO t where t.delflag = 0 and t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #userId#) as ajCount,
+		   (select count(*) from INSTRUMENTS_INFO t where t.delflag = 0 and t.if_Check = '3' and INSTR(#needCheckUser#,t.need_Check_User) >0) as wsCount 
+	</select>
+	
+	<select id="query_audit_info_A1012" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	select
+			(select count(row_id) from tro_man  where delflag = 0 
+			and  INSTR(company_Id,#companyIds#) >0 
+			and RECTIFICATION_STATE  = '3' ) as yhShCount, 
+			(select count(row_id) from tro_man  where delflag = 0 
+			and  INSTR(company_Id,#companyIds#) >0 
+			and RECTIFICATION_STATE  = '6' ) as yhCount,
+		  (select count(*) from SUP_TAS  t where t.delFlag=0 and t.CHECK_USERID = #userId# and task_state='未完成' 
+				) as jdjcCount,
+		  ( select count(*)
+     		from ENT_BASE_INFO where delflag = 0 and BASE_PASS = 0 and  INSTR(row_id,#companyIds#) >0  )
+     		as qyCount,
+     		(select count(*)  from CASE_INFO t where t.delflag = 0 and t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #userId#) as ajCount,
+		   (select count(*) from INSTRUMENTS_INFO t where t.delflag = 0 and t.if_Check = '3' and INSTR(#needCheckUser#,t.need_Check_User) >0) as wsCount 
+	</select> 
+	
+	
+	<!-- 查询安监其他人员的待审核的文书数 lt 2016-2-19-->
+	<select id="query_audit_info_ALL" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select 
+		   (select count(*) from INSTRUMENTS_INFO t where t.delflag = 0 and t.if_Check = '3' and INSTR(#needCheckUser#,t.need_Check_User) >0) as wsCount
+           
+	</select>
+	
+	<!-- 查询法务的 文书数 lt 2016-2-22 -->
+	<select id="query_audit_info_A30" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select 
+			(select count(*)  from CASE_INFO t where t.delflag = 0 and (t.CASE_STATUS = '8' or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #userId#))) as ajCount,
+		    (select count(*) from INSTRUMENTS_INFO t where t.delflag = 0 and (t.IF_CHECK = '8' or (t.if_Check = '3' and INSTR(#needCheckUser#,t.need_Check_User) >0))) as wsCount
+           
+	</select>
+	
+	<select id="query_audit_info_A3011" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select (select count(row_id) from tro_man  where delflag = 0 
+			and  INSTR(company_Id,#companyIds#) >0 
+			and RECTIFICATION_STATE  in ('2','20') ) as yhCount,
+			(select count(*)  from CASE_INFO t where t.delflag = 0 and (t.CASE_STATUS = '8' or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #userId#))) as ajCount,
+		    (select count(*) from INSTRUMENTS_INFO t where t.delflag = 0 and (t.IF_CHECK = '8' or (t.if_Check = '3' and INSTR(#needCheckUser#,t.need_Check_User) >0))) as wsCount
+	</select>
+	
+	<select id="query_audit_info_A3012" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	select (select count(row_id) from tro_man  where delflag = 0 
+			and  INSTR(company_Id,#companyIds#) >0 
+			and RECTIFICATION_STATE  = '3' ) as yhShCount,
+			(select count(row_id) from tro_man  where delflag = 0 
+			and  INSTR(company_Id,#companyIds#) >0 
+			and RECTIFICATION_STATE  = '6' ) as yhCount,
+		  (select count(*) from SUP_TAS  t where t.delFlag=0 and t.CHECK_USERID = #userId# and task_state='未完成' 
+				) as jdjcCount,
+		  ( select count(*)
+     		from ENT_BASE_INFO where delflag = 0 and BASE_PASS = 0 and  INSTR(row_id,#companyIds#) >0  )
+     		as qyCount,
+     		(select count(*)  from CASE_INFO t where t.delflag = 0 and (t.CASE_STATUS = '8' or (t.CASE_STATUS = '7' and t.UNDERTAKER_ID = #userId#))) as ajCount,
+		    (select count(*) from INSTRUMENTS_INFO t where t.delflag = 0 and (t.IF_CHECK = '8' or (t.if_Check = '3' and INSTR(#needCheckUser#,t.need_Check_User) >0))) as wsCount
+	</select> 
+	
+</sqlMap>

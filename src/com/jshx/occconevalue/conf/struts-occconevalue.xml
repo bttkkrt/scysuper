@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="OCC_CON_EVA" extends="default" namespace="/jsp/occconevalue">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="occConEvaQuery" class="com.jshx.occconevalue.web.OccConEvaAction" method="list">
+		</action>
+		
+		<action name="occConEvaList" class="com.jshx.occconevalue.web.OccConEvaAction" method="init">
+			<result name="success">/WEB-INF/pages/occconevalue/OccConEva_List.jsp</result>
+		</action>
+		
+		<action name="occConEvaView" class="com.jshx.occconevalue.web.OccConEvaAction" method="view">
+			<result name="view">/WEB-INF/pages/occconevalue/OccConEva_Detail.jsp</result>
+		</action>
+
+		<action name="occConEvaInitEdit" class="com.jshx.occconevalue.web.OccConEvaAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/occconevalue/OccConEva_Edit.jsp</result>
+		</action>
+
+		<action name="occConEvaSave" class="com.jshx.occconevalue.web.OccConEvaAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_occConEva</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occConEvaDel" class="com.jshx.occconevalue.web.OccConEvaAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

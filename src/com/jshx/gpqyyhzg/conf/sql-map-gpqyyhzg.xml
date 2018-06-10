@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findGpqyyhzgByMap">
+		from Gpqyyhzg t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="startTjyf">
+			<![CDATA[and t.tjyf >= :startTjyf]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTjyf">
+			<![CDATA[and t.tjyf <= :endTjyf]]>
+		</isNotEmpty>
+		order by t.createTime
+	</select>
+	
+	<select id="getGpdbDataByMap" parameterClass="java.util.Map" resultClass="com.jshx.gpqyyhzg.entity.Gpqyyhzg">
+	select sum(case when t.yhlb = 0 then 1 else 0 end) as sgps,
+	sum(case when t.yhlb = 0 and t.state = 3 then 1 else 0 end) as syzg,
+	sum(case when t.yhlb = 0 and t.state = 1 then 1 else 0 end) as szgz,
+	sum(case when t.yhlb = 0 and (t.state = 0 or t.state = 2) then 1 else 0 end) as swzg,
+	sum(case when t.yhlb = 1 then 1 else 0 end) as qgps,
+	sum(case when t.yhlb = 1 and t.state = 3 then 1 else 0 end) as qyzg,
+	sum(case when t.yhlb = 1 and t.state = 1 then 1 else 0 end) as yzgz,
+	sum(case when t.yhlb = 1 and (t.state = 0 or t.state = 2) then 1 else 0 end) as qwzg,
+	sum(case when t.yhlb = 2 then 1 else 0 end) as zgps,
+	sum(case when t.yhlb = 2 and t.state = 3 then 1 else 0 end) as zyzg,
+	sum(case when t.yhlb = 2 and t.state = 1 then 1 else 0 end) as zzgz,
+	sum(case when t.yhlb = 2 and (t.state = 0 or t.state = 2) then 1 else 0 end) as zwzg,
+	count(distinct t.qyid) as jcqys,
+	sum(case when t.yhs is not null then to_number(t.yhs) else 0 end) as fxyhs,
+	sum(case when t.yhzgs is not null then to_number(t.yhzgs) else 0 end) as zgyhs
+	from gpdb t
+	where t.delflag = 0 
+	<isNotEmpty property="szzid">
+		<![CDATA[and t.szzid = #szzid#]]>
+	</isNotEmpty>
+	<isNotEmpty property="tjyf">
+		<![CDATA[and to_char(t.createtime,'yyyy-MM') >= #tjyf# and to_char(t.createtime,'yyyy-MM') <= #tjyf#]]>
+	</isNotEmpty>
+	</select>
+	
+	<select id="findGpqyyhzgAllListByMap" parameterClass="java.util.Map" resultClass="com.jshx.gpqyyhzg.entity.Gpqyyhzg">
+	select distinct t.szzname,sum(t.zfyc) as zfyc,sum(t.cyqy) as cyqy,sum(t.sgps) as sgps,sum(t.syzg) as syzg,
+	sum(t.szgz) as szgz,sum(t.swzg) as swzg,sum(t.qgps) as qgps,sum(t.qyzg) as qyzg,sum(t.yzgz) as yzgz,sum(t.qwzg) as qwzg,
+	sum(t.zyzg) as zyzg,sum(t.zgps) as zgps,sum(t.zzgz) as zzgz,sum(t.zwzg) as zwzg,sum(t.jcqys) as jcqys,
+	sum(t.fxyhs) as fxyhs,sum(t.zgyhs) as zgyhs,sum(t.ndmb) as ndmb,sum(t.wcrs) as wcrs,round(avg(t.wcl),2) as wcl
+    from gpqyyhzg t
+    where t.delflag = 0 
+    <isNotEmpty property="szzid">
+		<![CDATA[and t.szzid = #szzid#]]>
+	</isNotEmpty>
+	<isNotEmpty property="startTjyf">
+		<![CDATA[and t.tjyf >= #startTjyf#]]>
+	</isNotEmpty>
+	<isNotEmpty property="endTjyf">
+		<![CDATA[and t.tjyf <= #endTjyf#]]>
+	</isNotEmpty>
+	<isNotEmpty property="deptCodes">
+		and t.deptId in 
+		<iterate conjunction="," open="(" close=")" property="deptCodes">
+			#deptCodes[]# 
+		</iterate>
+	</isNotEmpty>
+    group by t.szzname
+	</select>
+	
+	
+	<select id="findGpqyyhzgAllByMap" parameterClass="java.util.Map" resultClass="com.jshx.gpqyyhzg.entity.Gpqyyhzg">
+	select sum(t.zfyc) as zfyc,sum(t.cyqy) as cyqy,sum(t.sgps) as sgps,sum(t.syzg) as syzg,
+	sum(t.szgz) as szgz,sum(t.swzg) as swzg,sum(t.qgps) as qgps,sum(t.qyzg) as qyzg,sum(t.yzgz) as yzgz,sum(t.qwzg) as qwzg,
+	sum(t.zyzg) as zyzg,sum(t.zgps) as zgps,sum(t.zzgz) as zzgz,sum(t.zwzg) as zwzg,sum(t.jcqys) as jcqys,
+	sum(t.fxyhs) as fxyhs,sum(t.zgyhs) as zgyhs,sum(t.ndmb) as ndmb,sum(t.wcrs) as wcrs,round(avg(t.wcl),2) as wcl
+    from gpqyyhzg t
+    where t.delflag = 0 
+    <isNotEmpty property="szzid">
+		<![CDATA[and t.szzid = #szzid#]]>
+	</isNotEmpty>
+	<isNotEmpty property="startTjyf">
+		<![CDATA[and t.tjyf >= #startTjyf#]]>
+	</isNotEmpty>
+	<isNotEmpty property="endTjyf">
+		<![CDATA[and t.tjyf <= #endTjyf#]]>
+	</isNotEmpty>
+	<isNotEmpty property="deptCodes">
+		and t.deptId in 
+		<iterate conjunction="," open="(" close=")" property="deptCodes">
+			#deptCodes[]# 
+		</iterate>
+	</isNotEmpty>
+	</select>
+</sqlMap>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PRE_BUS_LIC" extends="default" namespace="/jsp/prebuslicense">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="preBusLicQuery" class="com.jshx.prebuslicense.web.PreBusLicAction" method="list">
+		</action>
+		
+		<action name="preBusLicList" class="com.jshx.prebuslicense.web.PreBusLicAction" method="init">
+			<result name="success">/WEB-INF/pages/prebuslicense/PreBusLic_List.jsp</result>
+		</action>
+		
+		<action name="preBusLicView" class="com.jshx.prebuslicense.web.PreBusLicAction" method="view">
+			<result name="view">/WEB-INF/pages/prebuslicense/PreBusLic_Detail.jsp</result>
+		</action>
+
+		<action name="preBusLicInitEdit" class="com.jshx.prebuslicense.web.PreBusLicAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/prebuslicense/PreBusLic_Edit.jsp</result>
+		</action>
+
+		<action name="preBusLicSave" class="com.jshx.prebuslicense.web.PreBusLicAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_preBusLic</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="preBusLicDel" class="com.jshx.prebuslicense.web.PreBusLicAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

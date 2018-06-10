@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZYCSJCRY" extends="default" namespace="/jsp/zycsjcry">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zycsjcryQuery" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="list">
+		</action>
+		
+		<action name="zycsjcryList" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="init">
+			<result name="success">/WEB-INF/pages/zycsjcry/Zycsjcry_List.jsp</result>
+		</action>
+		
+		<action name="zycsjcryLists" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="inits">
+			<result name="success">/WEB-INF/pages/zycsjcry/Zycsjcry_Lists.jsp</result>
+		</action>
+		
+		<action name="zycsjcryListss" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="initss">
+			<result name="success">/WEB-INF/pages/zycsjcry/Zycsjcry_Listss.jsp</result>
+		</action>
+		
+		<action name="zycsjcryQuerys" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="lists">
+		</action>
+		
+		<action name="zycsjcryView" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="view">
+			<result name="view">/WEB-INF/pages/zycsjcry/Zycsjcry_Detail.jsp</result>
+		</action>
+		
+		<action name="zycsjcryViews" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="view">
+			<result name="view">/WEB-INF/pages/zycsjcry/Zycsjcry_Details.jsp</result>
+		</action>
+
+		<action name="zycsjcryInitEdit" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zycsjcry/Zycsjcry_Edit.jsp</result>
+		</action>
+		
+		<action name="zycsjcryInitEdits" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="initEdits">
+			<result name="edit">/WEB-INF/pages/zycsjcry/Zycsjcry_Edits.jsp</result>
+		</action>
+
+		<action name="zycsjcrySave" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zycsjcryDel" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="delete">
+		</action>
+		
+		
+		<action name="zycsjcryDels" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="deletes">
+		</action>
+		
+		<action name="zycsjcryUpload" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="upload">
+			<result name="success">/WEB-INF/pages/zycsjcry/Zycsjcry_upload.jsp</result>
+		</action>
+		<action name="zycsjcrySavePhoto" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="savePhoto">
+		</action>
+		<action name="zycsjcryImageDel" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="deleteImage">
+		</action>
+		<action name="zycsjcrySaveFile" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="saveFile">
+		</action>
+		
+		<action name="hyflList" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="hyfllist">
+			<result name="success">/WEB-INF/pages/zycsjcry/Hyfl_List.jsp</result>
+		</action>
+		
+		<action name="zclxList" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="zclxlist">
+			<result name="success">/WEB-INF/pages/zycsjcry/Zclx_List.jsp</result>
+		</action>
+		
+		<action name="xzqyList" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="xzqylist">
+			<result name="success">/WEB-INF/pages/zycsjcry/Xzqy_List.jsp</result>
+		</action>
+		<action name="whysList" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="whyslist">
+			<result name="success">/WEB-INF/pages/zycsjcry/Whys_List.jsp</result>
+		</action>
+		
+		<action name="qylbList" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="qylblist">
+			<result name="success">/WEB-INF/pages/zycsjcry/Qylb_List.jsp</result>
+		</action>
+		<!-- add by  陆婷    2013-12-3 按行业分类统计导出 -->
+		<action name="hyflListExport" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="hyfllistExport">
+		</action>
+		<!-- add by  陆婷    2013-12-3 按注册类型统计导出 -->
+		<action name="zclxListExport" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="zclxlistExport">
+		</action>
+		<!-- add by  陆婷    2013-12-3 按行政区域统计导出 -->
+		<action name="xzqyListExport" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="xzqylistExport">
+		</action>
+		<!-- add by  陆婷    2013-12-3 按危化因素统计导出 -->
+		<action name="whysListExport" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="whyslistExport">
+		</action>
+		<!-- add by  陆婷    2013-12-3 按企业列表统计导出 -->
+		<action name="qylbListExport" class="com.jshx.zycsjcry.web.ZycsjcryAction" method="qylblistExport">
+		</action>
+		
+	</package>
+</struts>

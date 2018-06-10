@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SEC_PRO_MAN" extends="default" namespace="/jsp/aqscgljl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="secProManQuery" class="com.jshx.aqscgljl.web.SecProManAction" method="list">
+		</action>
+		
+		<action name="secProManList" class="com.jshx.aqscgljl.web.SecProManAction" method="init">
+			<result name="success">/WEB-INF/pages/aqscgljl/SecProMan_List.jsp</result>
+		</action>
+		
+		<action name="secProManLists" class="com.jshx.aqscgljl.web.SecProManAction" method="init">
+			<result name="success">/WEB-INF/pages/aqscgljl/SecProMan_Lists.jsp</result>
+		</action>
+		
+		<action name="secProManView" class="com.jshx.aqscgljl.web.SecProManAction" method="view">
+			<result name="view">/WEB-INF/pages/aqscgljl/SecProMan_Detail.jsp</result>
+		</action>
+
+		<action name="secProManInitEdit" class="com.jshx.aqscgljl.web.SecProManAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqscgljl/SecProMan_Edit.jsp</result>
+		</action>
+
+		<action name="secProManSave" class="com.jshx.aqscgljl.web.SecProManAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_secProMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="secProManDel" class="com.jshx.aqscgljl.web.SecProManAction" method="delete">
+		</action>
+		
+		
+		<action name="sendInfo" class="com.jshx.aqscgljl.web.SecProManAction" method="sendInfo">
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="OCC_CON_DES" extends="default" namespace="/jsp/occcondesign">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="occConDesQuery" class="com.jshx.occcondesign.web.OccConDesAction" method="list">
+		</action>
+		
+		<action name="occConDesList" class="com.jshx.occcondesign.web.OccConDesAction" method="init">
+			<result name="success">/WEB-INF/pages/occcondesign/OccConDes_List.jsp</result>
+		</action>
+		
+		<action name="occConDesView" class="com.jshx.occcondesign.web.OccConDesAction" method="view">
+			<result name="view">/WEB-INF/pages/occcondesign/OccConDes_Detail.jsp</result>
+		</action>
+
+		<action name="occConDesInitEdit" class="com.jshx.occcondesign.web.OccConDesAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/occcondesign/OccConDes_Edit.jsp</result>
+		</action>
+
+		<action name="occConDesSave" class="com.jshx.occcondesign.web.OccConDesAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_occConDes</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="occConDesDel" class="com.jshx.occcondesign.web.OccConDesAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

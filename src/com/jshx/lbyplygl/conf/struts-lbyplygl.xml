@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PPE_USE_MANAGE" extends="default" namespace="/jsp/lbyplygl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="ppeUseManageQuery" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="list">
+		</action>
+		
+		<action name="ppeUseManageList" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="init">
+			<result name="success">/WEB-INF/pages/lbyplygl/PpeUseManage_List.jsp</result>
+		</action>
+		
+		<action name="ppeUseManageView" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="view">
+			<result name="view">/WEB-INF/pages/lbyplygl/PpeUseManage_Detail.jsp</result>
+		</action>
+
+		<action name="ppeUseManageInitEdit" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/lbyplygl/PpeUseManage_Edit.jsp</result>
+		</action>
+
+		<action name="ppeUseManageSave" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_ppeUseManage</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="ppeUseManageDel" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="delete">
+		</action>
+		
+		<action name="initImportPpeUseManage" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="initImport">
+		    <result name="success">/WEB-INF/pages/lbyplygl/importPpeUseManage.jsp</result>
+		</action>
+		
+		<action name="importPpeUseManage" class="com.jshx.lbyplygl.web.PpeUseManageAction" method="importPpeUseManage">
+			<result name="success" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+		</action>
+		
+	</package>
+</struts>

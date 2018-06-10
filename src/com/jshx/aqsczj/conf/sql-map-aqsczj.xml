@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findSecProMajByMap">
+		select new com.jshx.aqsczj.entity.SecProMaj(t.id, t.areaId, t.companyName, t.majordomoName, t.majordomoPhone, t.majordomoSpecializedNum) from SecProMaj t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="majordomoSpecializedNum">
+			<![CDATA[and t.majordomoSpecializedNum like :majordomoSpecializedNum]]>
+		</isNotEmpty>
+		<isNotEmpty property="majordomoCardNum">
+			<![CDATA[and t.majordomoCardNum like :majordomoCardNum]]>
+		</isNotEmpty>
+		<isNotEmpty property="majordomoName">
+			<![CDATA[and t.majordomoName like :majordomoName]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="searchLike">
+			<![CDATA[and (t.companyName like :searchLike or t.majordomoName like  :searchLike or t.majordomoSpecializedNum like :searchLike)]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+	
+	<select id="findSecProMajByMaps">
+		from SecProMaj t where t.delFlag = 0 
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="majordomoSpecializedNum">
+			<![CDATA[and t.majordomoSpecializedNum like :majordomoSpecializedNum]]>
+		</isNotEmpty>
+		<isNotEmpty property="majordomoCardNum">
+			<![CDATA[and t.majordomoCardNum like :majordomoCardNum]]>
+		</isNotEmpty>
+		<isNotEmpty property="majordomoName">
+			<![CDATA[and t.majordomoName like :majordomoName]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="searchLike">
+			<![CDATA[and (t.companyName like :searchLike or t.majordomoName like  :searchLike or t.majordomoSpecializedNum like :searchLike)]]>
+		</isNotEmpty>
+		<isNotEmpty property="inserOrUpdateStartTime">
+			<![CDATA[and (t.createTime > :inserOrUpdateStartTime or t.updateTime > :inserOrUpdateStartTime)]]>
+		</isNotEmpty>
+		<isNotEmpty property="inserOrUpdateEndTime">
+			<![CDATA[and (t.createTime <= :inserOrUpdateEndTime or t.updateTime <= :inserOrUpdateEndTime)]]>
+		</isNotEmpty>
+		order by t.createTime asc ,t.updateTime asc
+	</select>
+</sqlMap>

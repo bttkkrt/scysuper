@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findContentInformationsByMap">
+		select t 
+		from ContentInformations t , User u where t.userId = u.id
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="infoTitle">
+			<![CDATA[and t.infoTitle like :infoTitle]]>
+		</isNotEmpty>
+		<isNotEmpty property="infoType">
+			<![CDATA[and t.infoType = :infoType]]>
+		</isNotEmpty>
+		<isNotEmpty property="delFlag">
+			<![CDATA[and t.delFlag = :delFlag]]>
+		</isNotEmpty>
+		<isNotEmpty property="topFlag">
+			<![CDATA[and t.topFlag like :topFlag]]>
+		</isNotEmpty>
+		<isNotEmpty property="expireFlag">
+			<![CDATA[and t.expireFlag = :expireFlag]]>
+		</isNotEmpty>
+		<isNotEmpty property="userId">
+			<![CDATA[and t.userId like :userId]]>
+		</isNotEmpty>
+		<isNotEmpty property="username">
+			<![CDATA[and u.displayName like :username]]>
+		</isNotEmpty>
+		<isNotEmpty property="startPublicDate">
+			<![CDATA[and t.publicDate >= :startPublicDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="endPublicDate">
+			<![CDATA[and t.publicDate <= :endPublicDate]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+				<![CDATA[and (t.createUserID = :createUserID)]]>
+		</isNotEmpty>
+		<isNotEmpty property="reciverUserID">
+				<![CDATA[and INSTR(t.userIds,:reciverUserID)>0]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+	
+	<!-- 根据搜索条件查询 信息附件 -->
+	<select id="findContentAttachsByMap">
+		from ContentAttachs t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="infoId">
+			<![CDATA[and t.infoId = :infoId]]>
+		</isNotEmpty>
+		<isNotEmpty property="docUrl">
+			<![CDATA[and t.docUrl like :docUrl]]>
+		</isNotEmpty>
+		<isNotEmpty property="docType">
+			<![CDATA[and t.docType = :docType]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+	<!-- 查询 所有人员 -->
+	<select id="getAllUsersByMap" parameterClass="java.util.Map" resultClass="com.jshx.module.admin.entity.User">
+	select t.row_id as id,t.dept_code as deptCode,t.display_name as displayName from Users t where t.del_Flag = 0 
+	</select>
+	<!-- 查询 所有部门 -->
+	<select id="getAllDepartByMap" parameterClass="java.util.Map" resultClass="com.jshx.module.infomation.entity.Dept">
+	select
+        t.dept_code as id,
+        t.DEPT_NAME as deptName,
+        SUBSTRING(t.dept_code,0,length(t.dept_code)-2) as parentId
+    from
+        DEPARTMENT t 
+    where
+        t.DEL_FLAG=0 
+        <isNotEmpty property="deptCode">
+        	and  t.dept_code not like '009%'
+        </isNotEmpty>
+    order by
+        t.DEPT_CODE
+	</select>
+	<!-- 删除已有阅读记录 -->
+	<delete id="deleteNoticeBackByMap" parameterClass="java.util.Map">
+	delete from NOTICECALLBACK  where noticeId = #noticeId# 
+	</delete>
+	<!-- 获取公告阅读记录 -->
+	<select id="queryreadedusersids" >
+		 from NoticeCallback t where t.noticeId =:id and t.userID =:userid
+	</select>
+	<!-- 获取公告阅读记录 -->
+	<select id="querynoticeback" >
+		from NoticeCallback t 
+		<isNotEmpty property="id">
+			<![CDATA[where t.noticeId =:id]]>
+		</isNotEmpty>
+		order by t.isRead desc,t.lastReadTime DESC
+	</select>
+	<select id="findContentInformationsList" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.Information">
+		select t.row_id as id,t.INFO_TITLE as infoTitle,d.DEPT_NAME as deptName,t.PUBLIC_DATE as time,
+		n.isRead as readed,u.display_name as userName
+		from CONTENT_INFORMATIONS t , Department d ,NoticeCallback n,Users u where t.DEPT_ID = d.row_id
+		and u.row_id = t.user_id and t.row_id = n.noticeId and t.DEL_FLAG = 0 and t.EXPIRE_FLAG = 0 
+		and d.DEL_FLAG = 0 and u.del_flag = 0
+ 		<isNotEmpty property="infoTitle">
+			<![CDATA[and t.INFO_TITLE like #infoTitle#]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and n.userID = #createUserID#]]>
+		</isNotEmpty>
+		<isNotEmpty property="readed">
+			<![CDATA[and n.isRead = #readed#]]>
+		</isNotEmpty>
+		order by n.isRead asc,t.PUBLIC_DATE desc
+	</select>
+	<select id="findsUserIds" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+	SELECT t.ROW_ID as id from USERS t where t.DEPT_CODE = #deptcode#
+	</select>
+	<select id="findUnreadList" parameterClass="java.util.Map" resultClass="com.jshx.http.bean.Information">
+	 SELECT t.ROW_ID as id,t.INFO_TITLE as infoTitle,t.CREATEUSERID as createUserId from CONTENT_INFORMATIONS t where t.DEL_FLAG=0
+	 <isNotEmpty property="time">
+			<![CDATA[and t.READ_PERIOD <= #time#]]>
+		</isNotEmpty>
+	</select>
+	<select id="findUnreadUserList" parameterClass="java.util.Map" resultClass="com.jshx.module.infomation.entity.NoticeCallback">
+	 select t.userID  from NOTICECALLBACK t where t.isRead='未读'
+	 <isNotEmpty property="noticeId">
+			<![CDATA[and t.noticeId = #noticeId#]]>
+		</isNotEmpty>
+	</select>
+</sqlMap>

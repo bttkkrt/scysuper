@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="COMPANY_INFO_PLAN" extends="default" namespace="/jsp/companyInfoPlan">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="companyInfoPlanQuery" class="com.jshx.companyInfoPlan.web.CompanyInfoPlanAction" method="list">
+		</action>
+		
+		<action name="companyInfoPlanList">
+			<result name="success">/WEB-INF/pages/companyInfoPlan/CompanyInfoPlan_List.jsp</result>
+		</action>
+		
+		<action name="companyInfoPlanView" class="com.jshx.companyInfoPlan.web.CompanyInfoPlanAction" method="view">
+			<result name="view">/WEB-INF/pages/companyInfoPlan/CompanyInfoPlan_Detail.jsp</result>
+		</action>
+
+		<action name="companyInfoPlanInitEdit" class="com.jshx.companyInfoPlan.web.CompanyInfoPlanAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/companyInfoPlan/CompanyInfoPlan_Edit.jsp</result>
+		</action>
+
+		<action name="companyInfoPlanSave" class="com.jshx.companyInfoPlan.web.CompanyInfoPlanAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_companyInfoPlan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="companyInfoPlanDel" class="com.jshx.companyInfoPlan.web.CompanyInfoPlanAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

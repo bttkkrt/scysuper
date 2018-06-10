@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="COMPANY" extends="default" namespace="/jsp/company">
+
+     <!-- 登录注册页面  上一步 高强 7-19  -->
+      <action name="companyRegisterUI"  class="com.jshx.company.web.CompanyAction" method="companyRegisterUI">
+			<result name="success">/WEB-INF/pages/company/CompanyRegisterStep1.jsp</result>
+		</action>
+		     <!-- 登录注册页面下一步  高强 8-8  -->
+		  <action name="companyRegisterNextUI"  class="com.jshx.company.web.CompanyAction" method="companyRegisterNextUI">
+		  	<result name="1">/WEB-INF/pages/company/CompanyRegisterStep1.jsp</result>
+			<result name="2">/WEB-INF/pages/company/CompanyRegisterStep2.jsp</result>
+			<result name="3">/WEB-INF/pages/company/CompanyRegisterStep3.jsp</result>
+			<result name="4">/WEB-INF/pages/company/CompanyRegisterStep4.jsp</result>
+		</action>
+		 <!-- 提交注册信息  高强 7-19  -->
+      <action name="companyRegister"  class="com.jshx.company.web.CompanyAction" method="companyRegister">
+			<result name="success">/WEB-INF/pages/company/CompanyRegisterStep5.jsp</result>
+			<result name="edit">/WEB-INF/pages/company/CompanyRegisterStep4.jsp</result>
+		</action>
+			 <!-- 校验注册的用户名  高强 7-19  -->
+		<action name="isCompanyExsit" class="com.jshx.company.web.CompanyAction" method="checkCompany">
+		</action>
+		
+		<!-- 列表查询，返回Json数据 -->
+		<action name="companyQuery" class="com.jshx.company.web.CompanyAction" method="list">
+		</action>
+		
+		<action name="findReviewLogState" class="com.jshx.company.web.CompanyAction" method="findReviewLogState">
+		</action>
+		<action name="findInputProgress" class="com.jshx.company.web.CompanyAction" method="findInputProgress">
+		</action>
+		
+		<action name="companyList"  class="com.jshx.company.web.CompanyAction" method="initList">
+			<result name="success">/WEB-INF/pages/company/Company_List.jsp</result>
+		</action>
+		
+		<action name="companyView" class="com.jshx.company.web.CompanyAction" method="view">
+			<result name="view">/WEB-INF/pages/company/Company_Detail.jsp</result>
+			<result name="shenhe">/WEB-INF/pages/company/CompanyShenhe_Detail.jsp</result>
+		</action>
+
+		<action name="companyInitEdit" class="com.jshx.company.web.CompanyAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/company/Company_Edit.jsp</result>
+			<result name="view">/WEB-INF/pages/company/Company_Detail.jsp</result>
+		</action>
+      <action name="companySaveBase" class="com.jshx.company.web.CompanyAction" method="saveBase">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/company/CompanyShenhe_Detail.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		<action name="companySave" class="com.jshx.company.web.CompanyAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+         <action name="companySaveMySelf" class="com.jshx.company.web.CompanyAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+    		<result name="success" type="redirect">/common/successToSelf.jsp</result>
+			<result name="reload">/WEB-INF/pages/company/Company_Edit.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		<action name="companyDel" class="com.jshx.company.web.CompanyAction" method="delete">
+		</action>
+		
+		<action name="companyQuerys" class="com.jshx.company.web.CompanyAction" method="lists">
+		</action>
+		
+		<action name="companyLists"  class="com.jshx.company.web.CompanyAction" method="initList">
+			<result name="success">/WEB-INF/pages/company/Company_Lists.jsp</result>
+		</action>
+		
+		<action name="updatePass" class="com.jshx.company.web.CompanyAction" method="updatePass">
+		</action>
+		
+		<action name="queryCompanyList" class="com.jshx.company.web.CompanyAction" method="queryCompanyList">
+			<result name="success">/WEB-INF/pages/company/Jshx_companyList.jsp</result>
+		</action>
+		
+		<action name="companyListQuery" class="com.jshx.company.web.CompanyAction" method="companyList">
+		</action>
+		
+		<action name="companyInfo" class="com.jshx.company.web.CompanyAction" method="info">
+		</action>
+		
+		<action name="companyToSelf" class="com.jshx.company.web.CompanyAction" method="companyToSelf">
+			<result name="success" type="redirect">
+				/index.action?indexFlag=2&amp;pageNumber=${pageNumber}
+			</result>
+		</action>
+		
+		<action name="companyQuerySzc" class="com.jshx.company.web.CompanyAction" method="companyQuerySzc"></action>
+		<action name="companyQuerySzz" class="com.jshx.company.web.CompanyAction" method="companyQuerySzz"></action>
+		
+		<action name="companyExport" class="com.jshx.company.web.CompanyAction" method="export">
+		</action>
+		
+		<action name="companyUser" class="com.jshx.company.web.CompanyAction" method="companyUser">
+		</action>
+		<action name="initImportCompany" class="com.jshx.company.web.CompanyAction" method="initImportCompany">
+			<result name="success">/WEB-INF/pages/company/importCompany.jsp</result>
+		</action>
+		<action name="importCompany" class="com.jshx.company.web.CompanyAction" method="importCompany">
+			<result name="success" type="redirect">/common/successToSelf.jsp</result>
+		</action>
+		<action name="hyflTwoLevel" class="com.jshx.company.web.CompanyAction" method="hyflTwoLevel"></action>
+		<action name="hyflThreeLevel" class="com.jshx.company.web.CompanyAction" method="hyflThreeLevel"></action>
+		<action name="hyflFourLevel" class="com.jshx.company.web.CompanyAction" method="hyflFourLevel"></action>
+	</package>
+</struts>

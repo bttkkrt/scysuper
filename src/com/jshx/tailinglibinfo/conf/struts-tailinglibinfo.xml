@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="TAILING_LIB_INFO" extends="default" namespace="/jsp/tailinglibinfo">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="tailingLibInfoQuery" class="com.jshx.tailinglibinfo.web.TailingLibInfoAction" method="list">
+		</action>
+		
+		<action name="findState" class="com.jshx.tailinglibinfo.web.TailingLibInfoAction" method="findState">
+		</action>
+		
+		<action name="tailingLibInfoList" class="com.jshx.tailinglibinfo.web.TailingLibInfoAction" method="initList" >
+			<result name="success">/WEB-INF/pages/tailinglibinfo/TailingLibInfo_List.jsp</result>
+		</action>
+		
+		<action name="tailingLibInfoView" class="com.jshx.tailinglibinfo.web.TailingLibInfoAction" method="view">
+			<result name="view">/WEB-INF/pages/tailinglibinfo/TailingLibInfo_Detail.jsp</result>
+		</action>
+
+		<action name="tailingLibInfoInitEdit" class="com.jshx.tailinglibinfo.web.TailingLibInfoAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/tailinglibinfo/TailingLibInfo_Edit.jsp</result>
+		</action>
+
+		<action name="tailingLibInfoSave" class="com.jshx.tailinglibinfo.web.TailingLibInfoAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="tailingLibInfoDel" class="com.jshx.tailinglibinfo.web.TailingLibInfoAction" method="delete">
+		</action>
+		
+		<action name="tailingLibInfoShenhe" class="com.jshx.tailinglibinfo.web.TailingLibInfoAction" method="shenhe">
+			<result name="success">/WEB-INF/pages/tailinglibinfo/TailingLibInfo_Shenhe.jsp</result>
+		</action>
+		
+		<action name="tailingLibInfoShenheSave" class="com.jshx.tailinglibinfo.web.TailingLibInfoAction" method="shenhesave">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+	</package>
+</struts>

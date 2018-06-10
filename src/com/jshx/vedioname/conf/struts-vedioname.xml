@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="VEDIO_NAME" extends="default" namespace="/jsp/vedioname">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="vedioNameQuery" class="com.jshx.vedioname.web.VedioNameAction" method="list">
+		</action>
+		
+		<action name="vedioNameList">
+			<result name="success">/WEB-INF/pages/vedioname/VedioName_List.jsp</result>
+		</action>
+		
+		<action name="vedioNameView" class="com.jshx.vedioname.web.VedioNameAction" method="view">
+			<result name="view">/WEB-INF/pages/vedioname/VedioName_Detail.jsp</result>
+		</action>
+
+		<action name="vedioNameInitEdit" class="com.jshx.vedioname.web.VedioNameAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/vedioname/VedioName_Edit.jsp</result>
+		</action>
+
+		<action name="vedioNameSave" class="com.jshx.vedioname.web.VedioNameAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="vedioNameDel" class="com.jshx.vedioname.web.VedioNameAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

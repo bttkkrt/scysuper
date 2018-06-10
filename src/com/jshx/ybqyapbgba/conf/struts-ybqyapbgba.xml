@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ASS_REP_FIL" extends="default" namespace="/jsp/ybqyapbgba">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="assRepFilQuery" class="com.jshx.ybqyapbgba.web.AssRepFilAction" method="list">
+		</action>
+		
+		<action name="assRepFilList" class="com.jshx.ybqyapbgba.web.AssRepFilAction" method="init">
+			<result name="success">/WEB-INF/pages/ybqyapbgba/AssRepFil_List.jsp</result>
+		</action>
+		
+		<action name="assRepFilView" class="com.jshx.ybqyapbgba.web.AssRepFilAction" method="view">
+			<result name="view">/WEB-INF/pages/ybqyapbgba/AssRepFil_Detail.jsp</result>
+		</action>
+
+		<action name="assRepFilInitEdit" class="com.jshx.ybqyapbgba.web.AssRepFilAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/ybqyapbgba/AssRepFil_Edit.jsp</result>
+		</action>
+
+		<action name="assRepFilSave" class="com.jshx.ybqyapbgba.web.AssRepFilAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_assRepFil</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="assRepFilDel" class="com.jshx.ybqyapbgba.web.AssRepFilAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

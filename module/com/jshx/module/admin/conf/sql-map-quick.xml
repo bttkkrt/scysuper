@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap>
+    <select id="queryQuickStart">
+    from QuicklyStart q where 1=1
+        <dynamic>
+            <isNotEmpty property="user">
+            and q.user = :user
+            </isNotEmpty>
+             <isNotEmpty property="useridlist">
+            <![CDATA[and q.id in (:useridlist)]]>
+            </isNotEmpty>
+            
+        </dynamic>
+    order by q.module.id
+    </select>
+    
+    <select id="cntQuickStartByModule">
+    select count(*) from QuicklyStart q where 1=1
+        <dynamic>
+            <isNotEmpty property="module">
+            and q.module = :module
+            </isNotEmpty>
+            <isNotEmpty property="user">
+            and q.user = :user
+            </isNotEmpty>
+        </dynamic>
+    </select>
+    
+    <select id="delQuickStart">
+    delete from QuicklyStart q where 1=2
+        <dynamic>
+            <isNotEmpty property="user">
+            or q.user = :user
+            </isNotEmpty>
+        </dynamic>
+    </select>
+</sqlMap>

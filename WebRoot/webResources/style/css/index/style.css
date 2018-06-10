@@ -1,0 +1,66 @@
+@charset "utf-8";
+/* CSS Document */
+body{background:#fff;font-size:12px;font-family:微软雅黑,tahoma;}
+*{margin:0;padding:0;outline:0;color:#333}
+a{text-decoration:none}
+ul,li{list-style:none}
+img{border:0 none}
+@keyframes effects_01{0%{transform:translate(0,20px)  scale(0.1,0.1);opacity:0}50%{transform:translate(0,10px);opacity:0.5;}100%{transform:translate(0,0);opacity:1}}@-webkit-keyframes effects_01{0%{-webkit-transform:translate(0,20px) scale(0.1,0.1);opacity:0}50%{-webkit-transform:translate(0,10px);opacity:0.5;}100%{-webkit-transform:translate(0,0);opacity:1}}
+
+/*wrap*/
+.wrap{width:100%; height:auto; overflow:hidden;}
+.pad20{padding:10px;}
+.alert{font-size:16px;border-radius:0;height:50px;line-height:50px;background:url(../images/icon_01.png) no-repeat 15px #dff0d8;text-indent:40px;margin-bottom:20px;border:1px solid #d6e9c6;color:#468847;}
+.alert a{float:right; margin:20px 20px 0 0;}
+/*模块*/
+.menubigbox{width:100%;overflow:hidden;}
+.menubigbox a{ width:19.8%; height:240px;float:left;border:1px dashed #e5e5e5}
+.menubigbox a:hover{ background:#f2f2f2;}
+.menubigbox .infobox-icon{ float:left; margin-left:10%; margin-top:32px;padding-top: 12px;margin-left: 26%;}
+.menubigbox .infobox-data{ float:left; padding-left: 44px;text-align: center;}
+.menubigbox .infobox-data h2{font-size:20px; margin-bottom:10px;}
+.menubigbox .infobox-data p{ font-size:14px;color:#666666}
+/*line*/
+.line{width:100%; height:1px; background:#eeeeee; margin-bottom:15px;}
+/*通知公告 宣传片*/
+.box2{width:100%;margin-bottom:25px;overflow:hidden;}
+.box2 .left{width:48%;float:left;margin-right:2%;}
+.box2 .left2{width:48%;float:right;}
+.box2 .column{color:#4383c4;font-size:18px;width:100%;line-height:50px; margin-bottom:10px;background:url(../images/menu_01.png) no-repeat left center;border-bottom:1px solid #dce8f1;text-indent:35px;}
+.box2 .column2{color:#4383c4;font-size:18px;width:100%;line-height:50px; margin-bottom:10px;background:url(../images/menu_02.png) no-repeat left center;border-bottom:1px solid #dce8f1;text-indent:35px;}
+.box2 .column span a,.column2 span a{float:right;color:#999999; font-size:14px;}
+.box2 .column a:hover,.column2 a:hover{color:#ec2c27}
+.box2 .content{width:100%}
+.box2 .content li{font-size:14px;line-height:40px;background:url(../images/sj.jpg) no-repeat left center;margin-left:10px;text-indent:20px;}
+.box2 .content li a{color:#666666;}
+.box2 .content li a:hover{color:#4383c4}
+.box2 .content span{color:#999999;float:right;}
+/*刷卡数据 统计表*/
+.thrbox{width:100%; margin-bottom:25px;overflow:hidden;}
+.thrbox .spth_left{width:40%;float:left; margin-right:2%;}
+.thrbox .spth_left .column{color:#4383c4;font-size:18px;width:100%;line-height:50px;background:url(../images/menu_03.png) no-repeat left center;border-bottom:1px solid #dce8f1;text-indent:35px;}
+.thrbox .spth_left .column span a,.thrbox .tj_right .column3 span a{float:right;color:#999999; font-size:14px;}
+.thrbox .spth_left span a:hover,.thrbox .tj_right span a:hover{color:#ec2c27}
+.thrbox .tj_right{width:58%;float:right;}
+.thrbox .tj_right .column3{color:#4383c4;font-size:18px;width:100%;line-height:50px; margin-bottom:10px;background:url(../images/menu_04.png) no-repeat left center;border-bottom:1px solid #dce8f1;text-indent:35px;}
+.cell table{border-collapse:collapse;font-size:14px;width:100%;}
+.cell th{height:38px;border-right:1px solid #d9d9d9;color:#333;text-align:left;background:url(../images/sj_2.jpg) no-repeat 10px; text-indent:4%;}
+.cell td{height:38px;border:1px solid #d9d9d9; border-left:none;text-align:left;padding-left:4%;color:#545454;}
+/*违章检查 专项检查*/
+.thrbox3{width:100%;overflow:hidden;}
+.thrbox3 .wzjc_left{width:48%;float:left; margin-right:2%;}
+.thrbox3 .wzjc_left .column{color:#4383c4;font-size:18px;width:100%;line-height:50px;margin-bottom:10px;background:url(../images/menu_05.png) no-repeat left center;border-bottom:1px solid #dce8f1;text-indent:35px;}
+.thrbox3 .wzjc_left .column span a,.thrbox3 .zxjc_right .column3 span a{float:right;color:#999999; font-size:14px;}
+.thrbox3 .wzjc_left span a:hover,.thrbox3 .zxjc_right span a:hover{color:#ec2c27}
+.thrbox3 .zxjc_right{width:48%;float:right;}
+.thrbox3 .zxjc_right .column3{color:#4383c4;font-size:18px;width:100%;line-height:50px; margin-bottom:10px;background:url(../images/menu_06.png) no-repeat left center;border-bottom:1px solid #dce8f1;text-indent:35px;}
+.thrbox3 .cell{width:98%;height:270px;margin:auto;}
+
+
+
+
+
+
+
+
+

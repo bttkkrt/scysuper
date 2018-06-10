@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="EME_FAC" extends="default" namespace="/jsp/yjsszbwz">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="emeFacQuery" class="com.jshx.yjsszbwz.web.EmeFacAction" method="list">
+		</action>
+		
+		<action name="emeFacList" class="com.jshx.yjsszbwz.web.EmeFacAction" method="init">
+			<result name="success">/WEB-INF/pages/yjsszbwz/EmeFac_List.jsp</result>
+		</action>
+		<action name="emeFacLists" class="com.jshx.yjsszbwz.web.EmeFacAction" method="inits">
+			<result name="success">/WEB-INF/pages/yjsszbwz/EmeFac_Lists.jsp</result>
+		</action>
+		<action name="emeFacView" class="com.jshx.yjsszbwz.web.EmeFacAction" method="view">
+			<result name="view">/WEB-INF/pages/yjsszbwz/EmeFac_Detail.jsp</result>
+		</action>
+
+		<action name="emeFacInitEdit" class="com.jshx.yjsszbwz.web.EmeFacAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/yjsszbwz/EmeFac_Edit.jsp</result>
+		</action>
+
+		<action name="emeFacSave" class="com.jshx.yjsszbwz.web.EmeFacAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_emeFac</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="emeFacDel" class="com.jshx.yjsszbwz.web.EmeFacAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

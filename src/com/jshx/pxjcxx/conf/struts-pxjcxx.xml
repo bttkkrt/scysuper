@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="TRA_INF" extends="default" namespace="/jsp/pxjcxx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="traInfQuery" class="com.jshx.pxjcxx.web.TraInfAction" method="list">
+		</action>
+		
+		<action name="traInfList" class="com.jshx.pxjcxx.web.TraInfAction" method="init">
+			<result name="success">/WEB-INF/pages/pxjcxx/TraInf_List.jsp</result>
+		</action>
+		
+		<action name="traInfView" class="com.jshx.pxjcxx.web.TraInfAction" method="view">
+			<result name="view">/WEB-INF/pages/pxjcxx/TraInf_Detail.jsp</result>
+		</action>
+
+		<action name="traInfInitEdit" class="com.jshx.pxjcxx.web.TraInfAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/pxjcxx/TraInf_Edit.jsp</result>
+		</action>
+
+		<action name="traInfSave" class="com.jshx.pxjcxx.web.TraInfAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_traInf</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="traInfDel" class="com.jshx.pxjcxx.web.TraInfAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

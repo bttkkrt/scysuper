@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SAMPLING_EVIDENCE" extends="default" namespace="/jsp/cyqzpz">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="samplingEvidenceQuery" class="com.jshx.cyqzpz.web.SamplingEvidenceAction" method="list">
+		</action>
+		
+		<action name="samplingEvidenceList" class="com.jshx.cyqzpz.web.SamplingEvidenceAction" method="init">
+			<result name="success">/WEB-INF/pages/cyqzpz/SamplingEvidence_List.jsp</result>
+		</action>
+		
+		<action name="samplingEvidenceView" class="com.jshx.cyqzpz.web.SamplingEvidenceAction" method="view">
+			<result name="view">/WEB-INF/pages/cyqzpz/SamplingEvidence_Detail.jsp</result>
+		</action>
+
+		<action name="samplingEvidenceInitEdit" class="com.jshx.cyqzpz.web.SamplingEvidenceAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/cyqzpz/SamplingEvidence_Edit.jsp</result>
+		</action>
+
+		<action name="samplingEvidenceSave" class="com.jshx.cyqzpz.web.SamplingEvidenceAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_samplingEvidence</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="samplingEvidenceDel" class="com.jshx.cyqzpz.web.SamplingEvidenceAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

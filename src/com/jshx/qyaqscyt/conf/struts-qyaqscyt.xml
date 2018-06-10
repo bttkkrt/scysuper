@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="QYAQSCYT" extends="default" namespace="/jsp/qyaqscyt">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="qyaqscytQuery" class="com.jshx.qyaqscyt.web.QyaqscytAction" method="list">
+		</action>
+		
+		<action name="qyaqscytList">
+			<result name="success">/WEB-INF/pages/qyaqscyt/Qyaqscyt_List.jsp</result>
+		</action>
+		
+		<action name="qyaqscytView" class="com.jshx.qyaqscyt.web.QyaqscytAction" method="view">
+			<result name="view">/WEB-INF/pages/qyaqscyt/Qyaqscyt_Detail.jsp</result>
+		</action>
+
+		<action name="qyaqscytInitEdit" class="com.jshx.qyaqscyt.web.QyaqscytAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/qyaqscyt/Qyaqscyt_Edit.jsp</result>
+		</action>
+
+		<action name="qyaqscytSave" class="com.jshx.qyaqscyt.web.QyaqscytAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_qyaqscyt</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="qyaqscytDel" class="com.jshx.qyaqscyt.web.QyaqscytAction" method="delete">
+		</action>
+		<action name="qyaqscytExport" class="com.jshx.qyaqscyt.web.QyaqscytAction" method="export">
+		</action>
+	</package>
+</struts>

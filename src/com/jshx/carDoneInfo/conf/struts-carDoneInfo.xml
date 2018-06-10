@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CARDONEINFO" extends="default" namespace="/jsp/carDoneInfo">
+		<!-- 修改前的配置 
+		<action name="cardoneinfoList" class="com.jshx.carDoneInfo.web.CardoneinfoAction" method="list">
+			<result name="list">/WEB-INF/pages/carDoneInfo/Cardoneinfo_List.jsp</result>
+		</action>
+		-->
+		<action name="getDevList" class="com.jshx.carDoneInfo.web.CardoneinfoAction" method="getDevList">
+			<result name="success">/WEB-INF/pages/carDoneInfo/Cardoneinfo_equipmentList.jsp</result>
+		</action>
+		
+		<action name="savePass" class="com.jshx.carDoneInfo.web.CardoneinfoAction" method="savePass">
+		</action>
+		
+		<action name="saveDevList" class="com.jshx.carDoneInfo.web.CardoneinfoAction" method="saveDevList">
+		</action>
+		<action name="viewVideo" class="com.jshx.carDoneInfo.web.CardoneinfoAction" method="viewVideo">
+		<result name="success">/WEB-INF/pages/carDoneInfo/Cardoneinfo_ViewVideo.jsp</result>
+		</action>
+		
+		<action name="carEquipmentList" class="com.jshx.carDoneInfo.web.CardoneinfoAction" method="carEquipmentList">
+			<result name="success">/WEB-INF/pages/carDoneInfo/Cardoneinfo_equipmentList.jsp</result>
+		</action>
+		
+		<action name="carEquipmentVvideo" class="com.jshx.carDoneInfo.web.CardoneinfoAction" method="carEquipmentVvideo">
+			<result name="success">/WEB-INF/pages/carDoneInfo/Cardoneinfo_VVideo.jsp</result>
+		</action>
+		
+		<action name="carEquipmentLists" class="com.jshx.carDoneInfo.web.CardoneinfoAction" method="carEquipmentLists">
+			<result name="success">/WEB-INF/pages/carDoneInfo/Cardoneinfo_equipmentLists.jsp</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZYWSQK" extends="default" namespace="/jsp/zywsqk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zywsqkQuery" class="com.jshx.zywsqk.web.ZywsqkAction" method="list">
+		</action>
+		
+		<action name="zywsqkList" class="com.jshx.zywsqk.web.ZywsqkAction" method="init">
+			<result name="success">/WEB-INF/pages/zywsqk/Zywsqk_List.jsp</result>
+		</action>
+		
+		<action name="zywsqkView" class="com.jshx.zywsqk.web.ZywsqkAction" method="view">
+			<result name="view">/WEB-INF/pages/zywsqk/Zywsqk_Detail.jsp</result>
+		</action>
+
+		<action name="zywsqkInitEdit" class="com.jshx.zywsqk.web.ZywsqkAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zywsqk/Zywsqk_Edit.jsp</result>
+		</action>
+
+		<action name="zywsqkSave" class="com.jshx.zywsqk.web.ZywsqkAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zywsqkDel" class="com.jshx.zywsqk.web.ZywsqkAction" method="delete">
+		</action>
+		
+		<action name="zywsqkExport" class="com.jshx.zywsqk.web.ZywsqkAction" method="export">
+		</action>
+		
+	</package>
+</struts>

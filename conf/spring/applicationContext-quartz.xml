@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- 要调用的工作类 -->
+       <bean id="wireMove" class="com.jshx.base.PlanConvertTaskTools"></bean>
+       <!-- 定义调用对象和调用对象的方法 -->
+       <bean id="jobtask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+           <!-- 调用的类 -->
+           <property name="targetObject">
+               <ref bean="wireMove"/>
+           </property>
+           <!-- 调用类中的方法 -->
+           <property name="targetMethod">
+               <value>notice</value>
+           </property>
+       </bean>
+       <!-- 定义调用对象和调用对象的方法 -->
+       <bean id="jobtask2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+           <!-- 调用的类 -->
+           <property name="targetObject">
+               <ref bean="wireMove"/>
+           </property>
+           <!-- 调用类中的方法 -->
+           <property name="targetMethod">
+               <value>info</value>
+           </property>
+       </bean>
+        <!-- 定义触发时间 每天一早上6点 -->
+       <bean id="doTime_day" class="org.springframework.scheduling.quartz.CronTriggerBean">
+           <property name="jobDetail">
+               <ref bean="jobtask"/>
+           </property>
+           <!-- cron表达式 -->
+           <property name="cronExpression">
+              	<value>0 0 0 ? * *</value>
+           </property>
+       </bean>
+       <!-- 定义触发时间 每周一早上6点 
+       <bean id="doTime_week" class="org.springframework.scheduling.quartz.CronTriggerBean">
+           <property name="jobDetail">
+               <ref bean="jobtask"/>
+           </property>
+           <property name="cronExpression">
+              	<value>0 0 6 ? * MON</value>
+           </property>
+       </bean> -->
+        <!-- 定义触发时间 每月1号6点
+       <bean id="doTime_month" class="org.springframework.scheduling.quartz.CronTriggerBean">
+           <property name="jobDetail">
+               <ref bean="jobtask"/>
+           </property>
+           <property name="cronExpression">
+              	<value>0 0 6 1 * ?</value>
+           </property>
+       </bean> -->
+         <!-- 定义触发时间 每年1月1号6点 
+       <bean id="doTime_year" class="org.springframework.scheduling.quartz.CronTriggerBean">
+           <property name="jobDetail">
+               <ref bean="jobtask"/>
+           </property>
+           <property name="cronExpression">
+              	<value>0 0 6 1 1 ?</value>
+           </property>
+       </bean> -->
+       <!-- 定义触发时间 每小时 -->
+       <bean id="doTime_hour" class="org.springframework.scheduling.quartz.CronTriggerBean">
+           <property name="jobDetail">
+               <ref bean="jobtask2"/>
+           </property>
+           <property name="cronExpression">
+              	<value>0 0 * * * ?</value>
+           </property>
+       </bean>
+       <!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  -->
+       <bean id="startQuertz" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+           <property name="triggers">
+               <list>
+                   <ref bean="doTime_day"/>
+                   <ref bean="doTime_hour"/>
+               </list>
+           </property>
+       </bean>
+       
+         
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+</beans>

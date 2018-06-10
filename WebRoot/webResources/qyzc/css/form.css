@@ -1,0 +1,66 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{margin:0;padding:0;font-size:12px;font-family:微软雅黑,tahoma;outline:0;color:#434343}
+body{background:url(../images/default/reg_bg.jpg) no-repeat top center #fff;}
+a{text-decoration:none}
+a:hover{}
+ul,li{list-style:none}
+img{border:0 none}
+
+
+
+
+
+
+
+.topbar{width:1100px; height:80px; margin:0 auto}
+.topbar img{ margin-top:30px; margin-left:15px;}
+.user{margin-top:100px; width:115px; height:40px; line-height:40px; background:url(../images/default/icon_user.png) no-repeat 5px; font-size:16px; color:#666; text-indent:35px;}
+.af_add{width:1100px;margin:0 auto;}
+.padd20{padding:20px;}
+  
+
+/*添加步骤*/
+.addcontent{background:#fff;height:auto}
+.steps{height:46px;border-bottom: 2px solid #e6e6e6; width:800px; margin:16px auto}
+.steps ul {margin: 0 auto; width:765px;}
+.steps ul li {display:inline-block;height:46px;line-height:46px;font-weight: bold; font-size:16px;}
+.steps ul li i {display:inline-block;zoom: 1;margin-right:5px;width: 24px;height: 24px;text-align: center;font-style: normal;line-height: 24px;font-size: 14px;font-weight: bold;color: #FFF;background: url(../images/default/ico-circle2.png) no-repeat 0 0;}
+.steps ul li.active {color:#3e3e3e;border-bottom:2px solid #529cd1; color:#187bc2}
+.steps ul li.active i {background-image:url(../images/default/ico-circle1.png);}
+.steps-3 ul li {width:250px; text-align:center}
+.steps ul li i span{font-size:14px;}
+
+.steps_main{padding:5px 20px 40px 20px;}
+.steps_01 table{width:115%;}
+.steps_01 table,.steps_01 td{border-collapse:collapse;}
+.steps_01 td{padding:0 0 0 8px;height:60px;line-height:60px; font-size:14px;}
+.steps_01 th{height:32px;line-height:32px;background:none;color:#555;text-align:right;padding:0 8px 0 0; font-weight:normal; font-size:14px;}
+.steps_01 span{margin-right:6px; font-size:14px}
+.steps_01 .red{margin:0 6px;color:red;line-height:24px;vertical-align:middle}
+.steps_01 input{margin:0 5px 0 0;border-radius:4px;-webkit-border-radius:4px;vertical-align:middle;height:28px;line-height:30px;border:1px solid #cccccc;padding:0 0 0 1px;color:#333}
+.steps_01 checkbox{vertical-align:middle; margin-right:10px;}
+.steps_01 .tips_01{display:inline-block;background:url(../images/default/icon_01.png) no-repeat center left; margin-left:10px;}
+.steps_01 .tips_01 p{text-indent:20px;font-size:14px; color:#555}
+.steps_01 .tips_02{display:inline-block;background:url(../images/default//icon_02.png) no-repeat center left; margin-left:10px;}
+.steps_01 .tips_02 p{text-indent:20px;font-size:14px; color:#555}
+.steps_01 .tips_03{display:inline-block;background:url(../images/default/icon_03.png) no-repeat center left; margin-left:10px;}
+.steps_01 .tips_03 p{text-indent:20px;font-size:14px; color:#555}
+.steps_01 p{line-height:45px; font-size:14px;}
+a.btn_next{ margin-top:30px;width:248px; height:40px; background:#f2484e; line-height:40px; display:block;border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px; text-align:center;
+color:#fff; font-size:18px;}
+a.btn_next:hover{background:#f3383f;}
+a.btn_next:active{background:#f2232a;}
+
+
+.steps_03{ text-align:center; margin-top:70px;padding:0 15px}
+.steps_03 p{font-size:26px; color:#999; text-align:center; margin:50px 0}
+
+
+/*bottom*/
+.bottom{height:68px;text-align:center;color:#999;text-shadow:1px 1px 0 #fff; padding-top:20px; background:#f1f1f1; border-top:1px solid #cccccc;}
+.bottom span{margin:0 4px;font-size:12px;color:#464646}
+.bottom p{margin:8px 4px;font-size:12px;color:#464646;}
+.bottom span a{font-size:12px;color:#464646}
+.bottom span a:hover{color:#2f8ad3}

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="TRO_MAN" extends="default" namespace="/jsp/yhb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="troManQuery" class="com.jshx.yhb.web.TroManAction" method="list">
+		</action>
+		
+		<action name="troManListQy" class="com.jshx.yhb.web.TroManAction" method="init">
+			<result name="qy">/WEB-INF/pages/yhb/TroMan_List.jsp</result>
+			<result name="aj">/WEB-INF/pages/yhb_aj/TroMan_List.jsp</result>
+		</action>
+		<action name="troManList" class="com.jshx.yhb.web.TroManAction" method="init">
+			<result name="qy">/WEB-INF/pages/yhb/TroMan_List.jsp</result>
+			<result name="aj">/WEB-INF/pages/yhb_aj/TroMan_List.jsp</result>
+		</action>
+		
+		<action name="troManView" class="com.jshx.yhb.web.TroManAction" method="view">	
+			<result name="view">/WEB-INF/pages/yhb/TroMan_Detail.jsp</result>
+		</action>
+
+		<action name="troManInitEdit" class="com.jshx.yhb.web.TroManAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/yhb/TroMan_Edit.jsp</result>
+		</action>
+
+		<action name="troManSave" class="com.jshx.yhb.web.TroManAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_troMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="troManDel" class="com.jshx.yhb.web.TroManAction" method="delete">
+		</action>
+		<!-- 上传整改信息  lj 2015-10-20 -->
+		<action name="troManUploadRect" class="com.jshx.yhb.web.TroManAction" method="uploadRect">
+			<result name="edit">/WEB-INF/pages/yhb/TroMan_UploadRect.jsp</result>
+		</action>
+		<!-- 保存整改信息 lj 2015-10-20 -->
+		<action name="troManRectSave" class="com.jshx.yhb.web.TroManAction" method="rectSave">
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_troMan</result>
+		</action>
+		<!-- 跳转到审核界面 lj 2015-10-20 -->
+		<action name="troManAudit" class="com.jshx.yhb.web.TroManAction" method="audit">
+			<result name="edit">/WEB-INF/pages/yhb/TroMan_Audit.jsp</result>
+		</action>
+		<!-- 审核整改信息 lj 2015-10-20 -->
+		<action name="troManAuditSave" class="com.jshx.yhb.web.TroManAction" method="auditSave">
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_troMan</result>
+		</action>
+		
+		<!-- 列表查询，返回Json数据 -->
+		<action name="troManQueryAJ" class="com.jshx.yhb.web.TroManAction" method="listAJ">
+		</action>
+		<action name="troManViewAJ" class="com.jshx.yhb.web.TroManAction" method="viewAJ">	
+			<result name="view">/WEB-INF/pages/yhb_aj/TroMan_Detail.jsp</result>
+		</action>
+
+		<action name="troManInitEditAJ" class="com.jshx.yhb.web.TroManAction" method="initEditAJ">
+			<result name="edit">/WEB-INF/pages/yhb_aj/TroMan_Edit.jsp</result>
+			<result name="edit0">/WEB-INF/pages/yhb_aj/TroMan_Edit0.jsp</result>
+			<result name="edit1">/WEB-INF/pages/yhb_aj/TroMan_Edit1.jsp</result>
+			<result name="edit2">/WEB-INF/pages/yhb_aj/TroMan_Edit2.jsp</result>
+			<result name="edit3">/WEB-INF/pages/yhb_aj/TroMan_Edit3.jsp</result>
+			<result name="edit4">/WEB-INF/pages/yhb_aj/TroMan_Edit4.jsp</result>
+			<result name="edit5">/WEB-INF/pages/yhb_aj/TroMan_Edit5.jsp</result>
+			<result name="edit6">/WEB-INF/pages/yhb_aj/TroMan_Edit6.jsp</result>
+		</action>
+
+		<action name="troManSaveAJ" class="com.jshx.yhb.web.TroManAction" method="saveAJ">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_troMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		<action name="troManBaseSaveAJ" class="com.jshx.yhb.web.TroManAction" method="saveBaseAJ">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_troMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<!-- 上传整改信息  FQ 2015-10-30 -->
+		<action name="troManUploadRectAJ" class="com.jshx.yhb.web.TroManAction" method="uploadRectAJ">
+			<result name="edit">/WEB-INF/pages/yhb_aj/TroMan_UploadRect.jsp</result>
+		</action>
+		<!-- 保存整改信息 FQ 2015-10-30 -->
+		<action name="troManRectSaveAJ" class="com.jshx.yhb.web.TroManAction" method="rectSaveAJ">
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_troMan</result>
+		</action>
+		<!-- 跳转到审核界面 FQ 2015-10-30 -->
+		<action name="troManAuditAJ" class="com.jshx.yhb.web.TroManAction" method="auditAJ">
+			<result name="edit">/WEB-INF/pages/yhb_aj/TroMan_Audit.jsp</result>
+		</action>
+		<!-- 审核整改信息 FQ 2015-10-30 -->
+		<action name="troManAuditSaveAJ" class="com.jshx.yhb.web.TroManAction" method="auditSaveAJ">
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_troMan</result>
+		</action>
+		
+		<!-- 导出 FQ 2015-12-24 -->
+		<action name="troManExportXls" class="com.jshx.yhb.web.TroManAction" method="exportXls">
+		</action>
+		
+		<!-- 转接 -->
+		<action name="redirect" class="com.jshx.yhb.web.TroManAction" method="redirect">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_troMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<!-- 生成现场检查记录 lt 2016-5-7 -->
+		<action name="troManXcjc" class="com.jshx.yhb.web.TroManAction" method="troManXcjc">
+			<result name="edit">/WEB-INF/pages/yhb_aj/TroMan_Xcjcjl.jsp</result>
+		</action>
+		
+		<action name="troManXcjcSave" class="com.jshx.yhb.web.TroManAction" method="troManXcjcSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_troMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="troManXcjcExport" class="com.jshx.yhb.web.TroManAction" method="exportXcjc">
+		</action>
+		<!-- 自查隐患企业统计 -->
+		<action name="jshxZcyhsbTjList"  class="com.jshx.yhb.web.TroManAction" method="tongJi">
+			<result name="tongji">/WEB-INF/pages/yhb/JshxZcyhsb_TongJi.jsp</result>
+		</action>
+		<!-- 按部门统计隐患信息  -->
+		<action name="jshxZcyhsbDataDept"  class="com.jshx.yhb.web.TroManAction" method="deptTongJi">
+			<result name="dataDept">/WEB-INF/pages/yhb/JshxZcyhsb_dataDept.jsp</result>
+		</action>
+	
+		<!-- 按隐患类别统计隐患信息 -->
+		<action name="getCounts"  class="com.jshx.yhb.web.TroManAction" method="getCounts">
+		</action>
+		
+		<!-- 按企业名称统计隐患信息  -->
+		<action name="jshxZcyhsbDataCompany"  class="com.jshx.yhb.web.TroManAction" method="companyTongJi">
+			<result name="success">/WEB-INF/pages/yhb/JshxZcyhsb_dataCompany.jsp</result>
+		</action>
+		<!-- 按企业名称统计隐患信息 -->
+		<action name="companyTroManTongji"  class="com.jshx.yhb.web.TroManAction" method="companyTroManTongji">
+		</action>
+		
+		
+		<!-- 自查隐患企业统计 -->
+		<action name="ajyhTjList"  class="com.jshx.yhb.web.TroManAction" method="ajyhTjList">
+			<result name="success">/WEB-INF/pages/yhb_aj/Ajyhtj_TongJi.jsp</result>
+		</action>
+		<!-- 按部门统计安监隐患信息  -->
+		<action name="ajyhDataDept"  class="com.jshx.yhb.web.TroManAction" method="ajyhDataDept">
+			<result name="dataDept">/WEB-INF/pages/yhb_aj/Ajyhtj_dataDept.jsp</result>
+		</action>
+		
+		<!-- 按隐患类别统计隐患信息 -->
+		<action name="getCountsAj"  class="com.jshx.yhb.web.TroManAction" method="getCountsAj">
+		</action>
+		
+		<!-- 按上报人统计隐患信息 -->
+		<action name="reportmanTroManTongji"  class="com.jshx.yhb.web.TroManAction" method="reportmanTroManTongji">
+		</action>
+		
+		<!-- js获取网格的隐患统计信息 -->
+		<action name="getTongjiByGridCode"  class="com.jshx.yhb.web.TroManAction" method="getTongjiByGridCode">
+		</action>
+		
+		
+		<!-- 立案 lt 2016-5-7 -->
+		<action name="troManCase" class="com.jshx.yhb.web.TroManAction" method="troManCase">
+			<result name="edit">/WEB-INF/pages/yhb_aj/TroMan_Case.jsp</result>
+		</action>
+		
+		<action name="troManCaseSave" class="com.jshx.yhb.web.TroManAction" method="troManCaseSave">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_troMan</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+	</package>
+</struts>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <select id="delRightByPortal">
+        delete from PortalRight r where 1=2
+        <dynamic>
+            <isNotEmpty property="portal">
+            or r.portal = :portal
+            </isNotEmpty>
+        </dynamic>
+    </select>
+    
+    <select id="findRightByPortal">
+        from PortalRight r where 1=1
+        <dynamic>
+            <isNotEmpty property="portal">
+             and r.protal = :portal
+            </isNotEmpty>
+        </dynamic>
+    </select>
+    
+    <select id="findMyPortal">
+        from PasonnelPortal p where 1=1
+        <dynamic>
+            <isNotEmpty property="userCode">
+            and p.userCode = :userCode
+            </isNotEmpty>
+        </dynamic>
+    </select>
+    
+    <select id="findPortalByUser">
+        from Portal p where 1=1
+        <dynamic>
+            <isNotEmpty property="user">
+            and (p.isPublic=1 or p in(select r.portal from PortalRight r where r.role in (select rr.role from UserRight rr where rr.user = :user)))
+            </isNotEmpty>
+        </dynamic>
+    </select>
+</sqlMap>

@@ -1,0 +1,44 @@
+<%@page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@include file="/common/header.jsp"%>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title><s:if test="flag=='add'">新增</s:if><s:else>修改</s:else>记录</title>
+	<%@include file="/common/jsLib.jsp"%>
+	${fakeditorscript}
+</head>
+
+<body validform="true">
+   <div class="box_01 boxBmargin12 submitdata">
+		<div class="inner6px">
+			<div class="cell" style="width: ${tableWidth}">
+	<form name="myform1" method="post" enctype="multipart/form-data" action="${lowerclassname}Save.action">
+		<s:token />
+		<input type="hidden" name="flag" value="${flag}">
+		<input type="hidden" name="${lowerclassname}.id" value="${${lowerclassname}.id}">
+		<input type="hidden" name="${lowerclassname}.createTime" value="<fmt:formatDate type="both" value="${${lowerclassname}.createTime}" />">
+		<input type="hidden" name="${lowerclassname}.updateTime" value="${${lowerclassname}.updateTime}">
+		<input type="hidden" name="${lowerclassname}.createUserID" value="${${lowerclassname}.createUserID}">
+		<input type="hidden" name="${lowerclassname}.updateUserID" value="${${lowerclassname}.updateUserID}">
+		<input type="hidden" name="${lowerclassname}.deptId" value="${${lowerclassname}.deptId}">
+		<input type="hidden" name="${lowerclassname}.delFlag" value="${${lowerclassname}.delFlag}">
+		
+			<table width="100%" border="0">
+				<tr>${detailjspcode}
+				</tr>
+				<tr>
+					<td colspan="4" height="100px" style="text-align:center">
+						<s:if test="flag=='add'">
+							<a href="#" class="btn_01" type="submit" >添加<b></b></a>&nbsp;
+						</s:if>
+						<s:else>
+							<a href="#" class="btn_01" type="submit" >更新<b></b></a>&nbsp;
+						</s:else>						
+						<a href="#" class="btn_01"  onclick="document.myform1.reset()">重置<b></b></a>&nbsp;
+						<a href="#" class="btn_01"  onclick="parent.close_win('win_${lowerclassname}');">关闭<b></b></a>
+					</td>
+				</tr>
+			</table>
+	</form>
+	</div></div></div>
+</body>
+</html>

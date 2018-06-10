@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findPartyManageByMap">
+		select new com.jshx.xgfgl.entity.PartyManage(t.id, t.areaId, t.companyName, t.partyName, t.wokrshopName) from PartyManage t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="partyName">
+			<![CDATA[and t.partyName like :partyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="wokrshopId">
+			<![CDATA[and t.wokrshopId = :wokrshopId]]>
+		</isNotEmpty>
+		<isNotEmpty property="wokrshopName">
+			<![CDATA[and t.wokrshopName like :wokrshopName]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  charindex(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and ( t.companyName like :searchLike or  t.partyName like :searchLike)]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+		
+	</select>
+</sqlMap>

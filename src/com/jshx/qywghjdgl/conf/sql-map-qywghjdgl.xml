@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findComGriManByMap">
+		select new com.jshx.qywghjdgl.entity.ComGriMan(t.id, t.gridManageDeptName, t.gridManagePersonName, t.gridName,t.createUserID) from ComGriMan t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="gridName">
+			<![CDATA[and t.gridName like :gridName]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridManageDeptName">
+			<![CDATA[and t.gridManageDeptName like :gridManageDeptName]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridManageDept">
+			<![CDATA[and t.gridManageDept = :gridManageDept]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridManagePersonName">
+			<![CDATA[and t.gridManagePersonName like :gridManagePersonName]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridManagePerson">
+			<![CDATA[and t.gridManagePerson like :gridManagePerson]]>
+		</isNotEmpty>
+		
+		order by t.createTime desc
+	</select>
+	
+	<select id="findComGriManByMaps">
+		from ComGriMan t where t.delFlag = 0
+		<isNotEmpty property="mapKey">
+			<![CDATA[and t.mapKey = :mapKey]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridName">
+			<![CDATA[and t.gridName = :gridName]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridManageDeptName">
+			<![CDATA[and t.gridManageDeptName like :gridManageDeptName]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridManageDept">
+			<![CDATA[and t.gridManageDept = :gridManageDept]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridManagePersonName">
+			<![CDATA[and t.gridManagePersonName like :gridManagePersonName]]>
+		</isNotEmpty>
+		<isNotEmpty property="gridManagePerson">
+			<![CDATA[and t.gridManagePerson like :gridManagePerson]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+</sqlMap>

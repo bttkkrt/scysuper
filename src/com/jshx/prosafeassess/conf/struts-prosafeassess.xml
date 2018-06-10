@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PRO_SAF_ASS" extends="default" namespace="/jsp/prosafeassess">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="proSafAssQuery" class="com.jshx.prosafeassess.web.ProSafAssAction" method="list">
+		</action>
+		
+		<action name="proSafAssList" class="com.jshx.prosafeassess.web.ProSafAssAction" method="init">
+			<result name="success">/WEB-INF/pages/prosafeassess/ProSafAss_List.jsp</result>
+		</action>
+		
+		<action name="proSafAssView" class="com.jshx.prosafeassess.web.ProSafAssAction" method="view">
+			<result name="view">/WEB-INF/pages/prosafeassess/ProSafAss_Detail.jsp</result>
+		</action>
+
+		<action name="proSafAssInitEdit" class="com.jshx.prosafeassess.web.ProSafAssAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/prosafeassess/ProSafAss_Edit.jsp</result>
+		</action>
+
+		<action name="proSafAssSave" class="com.jshx.prosafeassess.web.ProSafAssAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_proSafAss</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proSafAssDel" class="com.jshx.prosafeassess.web.ProSafAssAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

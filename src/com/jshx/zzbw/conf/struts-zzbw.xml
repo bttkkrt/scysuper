@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHX_ZZBW" extends="default" namespace="/jsp/zzbw">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxZzbwQuery" class="com.jshx.zzbw.web.JshxZzbwAction" method="list">
+		</action>
+		
+		<action name="jshxZzbwList" class="com.jshx.zzbw.web.JshxZzbwAction" method="init">
+			<result name="success">/WEB-INF/pages/zzbw/JshxZzbw_List.jsp</result>
+		</action>
+		
+		<action name="jshxZzbwView" class="com.jshx.zzbw.web.JshxZzbwAction" method="view">
+			<result name="view">/WEB-INF/pages/zzbw/JshxZzbw_Detail.jsp</result>
+		</action>
+
+		<action name="jshxZzbwInitEdit" class="com.jshx.zzbw.web.JshxZzbwAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zzbw/JshxZzbw_Edit.jsp</result>
+		</action>
+
+		<action name="jshxZzbwSave" class="com.jshx.zzbw.web.JshxZzbwAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="jshxZzbwDel" class="com.jshx.zzbw.web.JshxZzbwAction" method="delete">
+		</action>
+		
+		<!--陆婷 2013-08-27 附件上传处理 -->
+		<action name="zzbwUpload" class="com.jshx.zzbw.web.JshxZzbwAction" method="upload">
+			<result name="success">/WEB-INF/pages/zzbw/JshxZzbw_upload.jsp</result>
+		</action>
+		
+		<!--陆婷 2013-08-27 附件上传处理 -->
+		<action name="zzbwUploads" class="com.jshx.zzbw.web.JshxZzbwAction" method="uploads">
+			<result name="success">/WEB-INF/pages/zzbw/JshxZzbw_uploads.jsp</result>
+		</action>
+		
+		<action name="fileUpload" class="com.jshx.zzbw.web.JshxZzbwAction" method="fileUpload">
+		</action>
+		
+		<action name="deleteFile" class="com.jshx.zzbw.web.JshxZzbwAction" method="deleteFile">
+		</action>
+		
+		<action name="download" class="com.jshx.zzbw.web.JshxZzbwAction" method="download">
+		</action>
+		
+	</package>
+</struts>

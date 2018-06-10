@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findPreManRecByMap">
+		select new com.jshx.premanrecord.entity.PreManRec(t.id, t.areaId, t.companyName, t.receptName, t.reviewName, t.fileNo, t.isComplete,t.createUserID) from PreManRec t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="areaId">
+			<![CDATA[and t.areaId = :areaId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyName">
+			<![CDATA[and t.companyName like :companyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="receptName">
+			<![CDATA[and t.receptName like :receptName]]>
+		</isNotEmpty>
+		<isNotEmpty property="reviewName">
+			<![CDATA[and t.reviewName like :reviewName]]>
+		</isNotEmpty>
+		<isNotEmpty property="fileNo">
+			<![CDATA[and t.fileNo like :fileNo]]>
+		</isNotEmpty>
+		<isNotEmpty property="isComplete">
+			<![CDATA[and t.isComplete = :isComplete]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID= :createUserId]]>
+		</isNotEmpty>
+		<isNotEmpty property="companmyIds">
+			<![CDATA[and  INSTR(t.companyId,:companmyIds) >0]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyId">
+			<![CDATA[and t.companyId = :companyId]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and ( t.companyName like :searchLike or t.fileNo like :searchLike)]]>
+		</isNotEmpty>
+		order by t.createTime desc 
+	</select>
+</sqlMap>

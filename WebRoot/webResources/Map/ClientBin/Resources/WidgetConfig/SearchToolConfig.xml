@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <Node id="threeZdService" label="宗地"  MapType="3" dvalue="73064" />
+  <Node id="threeXqdService" label="兴趣点"  MapType="3" dvalue="邻里中心"/>
+  <Node id="threeDlService" label="道路"  MapType="3" dvalue="星港街"/>
+  <Node id="threeJzwService" label="建筑物"  MapType="3" dvalue="61011"/>
+  <Node id="zdService" label="征地批次"  MapType="3" dvalue="2013"/>
+</configuration>

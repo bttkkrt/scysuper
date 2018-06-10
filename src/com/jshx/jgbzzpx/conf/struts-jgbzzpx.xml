@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="GRO_LEA_TRA" extends="default" namespace="/jsp/jgbzzpx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="groLeaTraQuery" class="com.jshx.jgbzzpx.web.GroLeaTraAction" method="list">
+		</action>
+		
+		<action name="groLeaTraList" class="com.jshx.jgbzzpx.web.GroLeaTraAction" method="init">
+			<result name="success">/WEB-INF/pages/jgbzzpx/GroLeaTra_List.jsp</result>
+		</action>
+		
+		<action name="groLeaTraView" class="com.jshx.jgbzzpx.web.GroLeaTraAction" method="view">
+			<result name="view">/WEB-INF/pages/jgbzzpx/GroLeaTra_Detail.jsp</result>
+		</action>
+
+		<action name="groLeaTraInitEdit" class="com.jshx.jgbzzpx.web.GroLeaTraAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/jgbzzpx/GroLeaTra_Edit.jsp</result>
+		</action>
+
+		<action name="groLeaTraSave" class="com.jshx.jgbzzpx.web.GroLeaTraAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_groLeaTra</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="groLeaTraDel" class="com.jshx.jgbzzpx.web.GroLeaTraAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

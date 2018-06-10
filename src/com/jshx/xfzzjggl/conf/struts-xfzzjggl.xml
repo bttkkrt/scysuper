@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="FIR_INS" extends="default" namespace="/jsp/xfzzjggl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="firInsQuery" class="com.jshx.xfzzjggl.web.FirInsAction" method="list">
+		</action>
+		
+		<action name="firInsList" class="com.jshx.xfzzjggl.web.FirInsAction" method="init">
+			<result name="success">/WEB-INF/pages/xfzzjggl/FirIns_List.jsp</result>
+		</action>
+		
+		<action name="firInsView" class="com.jshx.xfzzjggl.web.FirInsAction" method="view">
+			<result name="view">/WEB-INF/pages/xfzzjggl/FirIns_Detail.jsp</result>
+		</action>
+
+		<action name="firInsInitEdit" class="com.jshx.xfzzjggl.web.FirInsAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/xfzzjggl/FirIns_Edit.jsp</result>
+		</action>
+
+		<action name="firInsSave" class="com.jshx.xfzzjggl.web.FirInsAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_firIns</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="firInsDel" class="com.jshx.xfzzjggl.web.FirInsAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

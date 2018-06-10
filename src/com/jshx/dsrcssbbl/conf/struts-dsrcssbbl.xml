@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PARTY_STATE_NOTE" extends="default" namespace="/jsp/dsrcssbbl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="partyStateNoteQuery" class="com.jshx.dsrcssbbl.web.PartyStateNoteAction" method="list">
+		</action>
+		
+		<action name="partyStateNoteList" class="com.jshx.dsrcssbbl.web.PartyStateNoteAction" method="init">
+			<result name="success">/WEB-INF/pages/dsrcssbbl/PartyStateNote_List.jsp</result>
+		</action>
+		
+		<action name="partyStateNoteView" class="com.jshx.dsrcssbbl.web.PartyStateNoteAction" method="view">
+			<result name="view">/WEB-INF/pages/dsrcssbbl/PartyStateNote_Detail.jsp</result>
+		</action>
+
+		<action name="partyStateNoteInitEdit" class="com.jshx.dsrcssbbl.web.PartyStateNoteAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/dsrcssbbl/PartyStateNote_Edit.jsp</result>
+		</action>
+
+		<action name="partyStateNoteSave" class="com.jshx.dsrcssbbl.web.PartyStateNoteAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_partyStateNote</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="partyStateNoteDel" class="com.jshx.dsrcssbbl.web.PartyStateNoteAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

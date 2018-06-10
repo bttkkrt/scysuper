@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="COM_DAN_EME" extends="default" namespace="/jsp/zdwxyyjcz">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="comDanEmeQuery" class="com.jshx.zdwxyyjcz.web.ComDanEmeAction" method="list">
+		</action>
+		
+		<action name="comDanEmeList" class="com.jshx.zdwxyyjcz.web.ComDanEmeAction" method="init">
+			<result name="success">/WEB-INF/pages/zdwxyyjcz/ComDanEme_List.jsp</result>
+		</action>
+		
+		<action name="comDanEmeView" class="com.jshx.zdwxyyjcz.web.ComDanEmeAction" method="view">
+			<result name="view">/WEB-INF/pages/zdwxyyjcz/ComDanEme_Detail.jsp</result>
+		</action>
+
+		<action name="comDanEmeInitEdit" class="com.jshx.zdwxyyjcz.web.ComDanEmeAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zdwxyyjcz/ComDanEme_Edit.jsp</result>
+		</action>
+
+		<action name="comDanEmeSave" class="com.jshx.zdwxyyjcz.web.ComDanEmeAction" method="save">
+			<interceptor-ref name="tokenInterceptor" /> 
+			<interceptor-ref name="coreStack" /> 
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_comDanEme</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="comDanEmeDel" class="com.jshx.zdwxyyjcz.web.ComDanEmeAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

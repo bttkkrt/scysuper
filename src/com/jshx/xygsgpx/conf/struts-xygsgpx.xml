@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="NEW_WOR_TRA" extends="default" namespace="/jsp/xygsgpx">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="newWorTraQuery" class="com.jshx.xygsgpx.web.NewWorTraAction" method="list">
+		</action>
+		
+		<action name="newWorTraList" class="com.jshx.xygsgpx.web.NewWorTraAction" method="init">
+			<result name="success">/WEB-INF/pages/xygsgpx/NewWorTra_List.jsp</result>
+		</action>
+		
+		<action name="newWorTraView" class="com.jshx.xygsgpx.web.NewWorTraAction" method="view">
+			<result name="view">/WEB-INF/pages/xygsgpx/NewWorTra_Detail.jsp</result>
+		</action>
+
+		<action name="newWorTraInitEdit" class="com.jshx.xygsgpx.web.NewWorTraAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/xygsgpx/NewWorTra_Edit.jsp</result>
+		</action>
+
+		<action name="newWorTraSave" class="com.jshx.xygsgpx.web.NewWorTraAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_newWorTra</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="newWorTraDel" class="com.jshx.xygsgpx.web.NewWorTraAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

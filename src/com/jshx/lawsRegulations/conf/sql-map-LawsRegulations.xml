@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findLawsRegulationsByMap">
+		from LawsRegulations t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="title">
+			<![CDATA[and t.title like :title]]>
+		</isNotEmpty>
+		<isNotEmpty property="startFbtime">
+			<![CDATA[and t.fbtime >= :startFbtime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endFbtime">
+			<![CDATA[and t.fbtime <= :endFbtime]]>
+		</isNotEmpty>
+		<isNotEmpty property="startSxtime">
+			<![CDATA[and t.sxtime >= :startSxtime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endSxtime">
+			<![CDATA[and t.sxtime <= :endSxtime]]>
+		</isNotEmpty>
+		<isNotEmpty property="fabr">
+			<![CDATA[and t.fabr like :fabr]]>
+		</isNotEmpty>
+		<isNotEmpty property="fgstatus">
+			<![CDATA[and t.fgstatus like :fgstatus]]>
+		</isNotEmpty>
+		<isNotEmpty property="regutionsid">
+			<![CDATA[and t.regutionsid like :regutionsid]]>
+		</isNotEmpty>
+		order by t.createTime
+	</select>
+</sqlMap>

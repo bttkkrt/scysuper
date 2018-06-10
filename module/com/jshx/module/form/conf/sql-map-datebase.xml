@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<select id="oracle.getImportForm">
+		select table_Name from User_Tables 
+		<dynamic>
+		<isNotEmpty property="modelphysicalName">
+		where table_Name like :modelphysicalName
+		</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="oracle.getPriKey">
+		select  COLUMN_NAME   from   user_cons_columns where   constraint_name   =  
+		 (select   constraint_name   from   user_constraints where   table_name   =  :PhyName and constraint_type   = 'P')
+	</select>
+	
+	<select id="oracle.getUserCols">
+		select column_name,data_type,data_length,nullable,column_id ,DATA_PRECISION,DATA_SCALE from user_tab_columns where table_name =  :PhyName
+	</select>
+	
+	<select id="oracle.isColExist">
+	select 1 from user_tab_columns where table_name= :tableName  and column_name= :fieldName
+	</select>
+	
+	<select id="oracle.isTabExist">
+	select 1 from user_tables where table_name= :tableName 
+	</select>
+	
+</sqlMap>

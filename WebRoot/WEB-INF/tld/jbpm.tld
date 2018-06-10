@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE taglib PUBLIC 
+    "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" 
+    "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>jBPM tags</shortname>
+	<info>jBPM tags</info>
+
+	<!-- PROCESS IMAGE -->
+	<tag>
+		<name>processimage</name>
+		<tagclass>com.jshx.workflow.web.tag.ProcessImageTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>task</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>processimageToken</name>
+		<tagclass>com.jshx.workflow.web.tag.ProcessImageTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>token</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>processMonitor</name>
+		<tagclass>com.jshx.workflow.web.tag.ProcessImageTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>businessId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>approveList</name>
+		<tagclass>
+			com.jshx.workflow.web.tag.ProcessApprovListTag
+		</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>businessId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>row</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>statisticWork</name>
+		<tagclass>
+			com.jshx.workflow.web.tag.StatisticsFinishedWorkTag
+		</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute>
+			<name>chartType</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>width</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>height</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>

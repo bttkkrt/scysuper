@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+
+	<select id="findPicById">
+		from PhotoPic t where 1=1
+		<isNotEmpty property="picType">
+			<![CDATA[and t.picType like :picType]]>
+		</isNotEmpty>
+		<![CDATA[and t.taskProId like :taskProId]]>
+		order by t.createTime
+	</select>
+	
+	<!-- 李军 2013-08-24 根据条企业信息 -->
+	<select id="query_qyids_byMap"  parameterClass="java.util.Map" resultClass="java.lang.String">
+		select c.row_id from companybackup c where 1=1 and c.basepass = 1
+		<isEqual property="whp" compareValue="1">
+			and c.ifwhpqylx  =  1
+		</isEqual>
+		<isEqual property="zyjk" compareValue="1">
+			and c.ifzywhqylx  =  1
+		</isEqual>
+		<isNotEmpty property="flag">
+			<![CDATA[and c.row_id = #flag#]]>
+		</isNotEmpty>
+	</select>
+	<!-- lijun 2013-09-17 根据企业登录名 查询企业id -->
+	<select id="query_qyids_byLoginId" parameterClass="java.lang.String" resultClass="java.lang.String">
+		select c.row_id from company c where  c.delflag = 0 and c.loginname = #value#
+	</select>
+</sqlMap>

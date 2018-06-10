@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MAI_MAT" extends="default" namespace="/jsp/zyyl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="maiMatQuery" class="com.jshx.zyyl.web.MaiMatAction" method="list">
+		</action>
+		
+		<action name="maiMatList" class="com.jshx.zyyl.web.MaiMatAction" method="init">
+			<result name="success">/WEB-INF/pages/zyyl/MaiMat_List.jsp</result>
+		</action>
+		
+		<action name="maiMatView" class="com.jshx.zyyl.web.MaiMatAction" method="view">
+			<result name="view">/WEB-INF/pages/zyyl/MaiMat_Detail.jsp</result>
+		</action>
+
+		<action name="maiMatInitEdit" class="com.jshx.zyyl.web.MaiMatAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zyyl/MaiMat_Edit.jsp</result>
+		</action>
+
+		<action name="maiMatSave" class="com.jshx.zyyl.web.MaiMatAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_maiMat</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="maiMatDel" class="com.jshx.zyyl.web.MaiMatAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

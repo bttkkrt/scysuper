@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="INVENTORY_ASSOCIATE" extends="default" namespace="/jsp/xxdjbczjqdglb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="inventoryAssociateQuery" class="com.jshx.xxdjbczjqdglb.web.InventoryAssociateAction" method="list">
+		</action>
+		
+		<action name="inventoryAssociateList" class="com.jshx.xxdjbczjqdglb.web.InventoryAssociateAction" method="init">
+			<result name="success">/WEB-INF/pages/xxdjbczjqdglb/InventoryAssociate_List.jsp</result>
+		</action>
+		
+		<action name="inventoryAssociateView" class="com.jshx.xxdjbczjqdglb.web.InventoryAssociateAction" method="view">
+			<result name="view">/WEB-INF/pages/xxdjbczjqdglb/InventoryAssociate_Detail.jsp</result>
+		</action>
+
+		<action name="inventoryAssociateInitEdit" class="com.jshx.xxdjbczjqdglb.web.InventoryAssociateAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/xxdjbczjqdglb/InventoryAssociate_Edit.jsp</result>
+		</action>
+
+		<action name="inventoryAssociateSave" class="com.jshx.xxdjbczjqdglb.web.InventoryAssociateAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_inventoryAssociate</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="inventoryAssociateDel" class="com.jshx.xxdjbczjqdglb.web.InventoryAssociateAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

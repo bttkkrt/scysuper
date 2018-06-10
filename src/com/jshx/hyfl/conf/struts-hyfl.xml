@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="HYFL" extends="default" namespace="/jsp/hyfl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="hyflQuery" class="com.jshx.hyfl.web.HyflAction" method="list">
+		</action>
+		
+		<action name="hyflList">
+			<result name="success">/WEB-INF/pages/hyfl/Hyfl_List.jsp</result>
+		</action>
+		
+		<action name="hyflView" class="com.jshx.hyfl.web.HyflAction" method="view">
+			<result name="view">/WEB-INF/pages/hyfl/Hyfl_Detail.jsp</result>
+		</action>
+
+		<action name="hyflInitEdit" class="com.jshx.hyfl.web.HyflAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/hyfl/Hyfl_Edit.jsp</result>
+		</action>
+
+		<action name="hyflSave" class="com.jshx.hyfl.web.HyflAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="hyflDel" class="com.jshx.hyfl.web.HyflAction" method="delete">
+		</action>
+		
+		<action name="initImportHyfl" class="com.jshx.hyfl.web.HyflAction" method="initImportHyfl">
+			<result name="success">/WEB-INF/pages/hyfl/importHyfl.jsp</result>
+		</action>
+		<action name="importHyfl" class="com.jshx.hyfl.web.HyflAction" method="importHyfl">
+			<result name="success">/common/importResult.jsp</result>
+		</action>
+		
+		<action name="findCodeName" class="com.jshx.hyfl.web.HyflAction" method="findCodeName"></action>
+	</package>
+</struts>

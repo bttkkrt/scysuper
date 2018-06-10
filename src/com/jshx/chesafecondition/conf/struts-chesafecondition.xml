@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CHE_SAF_CON" extends="default" namespace="/jsp/chesafecondition">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="cheSafConQuery" class="com.jshx.chesafecondition.web.CheSafConAction" method="list">
+		</action>
+		
+		<action name="cheSafConList" class="com.jshx.chesafecondition.web.CheSafConAction" method="init">
+			<result name="success">/WEB-INF/pages/chesafecondition/CheSafCon_List.jsp</result>
+		</action>
+		
+		<action name="cheSafConView" class="com.jshx.chesafecondition.web.CheSafConAction" method="view">
+			<result name="view">/WEB-INF/pages/chesafecondition/CheSafCon_Detail.jsp</result>
+		</action>
+
+		<action name="cheSafConInitEdit" class="com.jshx.chesafecondition.web.CheSafConAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/chesafecondition/CheSafCon_Edit.jsp</result>
+		</action>
+
+		<action name="cheSafConSave" class="com.jshx.chesafecondition.web.CheSafConAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_cheSafCon</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="cheSafConDel" class="com.jshx.chesafecondition.web.CheSafConAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

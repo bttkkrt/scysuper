@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="LAW_BASIS" extends="default" namespace="/jsp/zfyj">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="lawBasisQuery" class="com.jshx.zfyj.web.LawBasisAction" method="list">
+		</action>
+		
+		<action name="lawBasisList" class="com.jshx.zfyj.web.LawBasisAction" method="init">
+			<result name="success">/WEB-INF/pages/zfyj/LawBasis_List.jsp</result>
+		</action>
+		
+		<action name="lawBasisLists" class="com.jshx.zfyj.web.LawBasisAction" method="inits">
+			<result name="success">/WEB-INF/pages/zfyj/LawBasis_Lists.jsp</result>
+		</action>
+		
+		<action name="lawBasisView" class="com.jshx.zfyj.web.LawBasisAction" method="view">
+			<result name="view">/WEB-INF/pages/zfyj/LawBasis_Detail.jsp</result>
+		</action>
+
+		<action name="lawBasisInitEdit" class="com.jshx.zfyj.web.LawBasisAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zfyj/LawBasis_Edit.jsp</result>
+		</action>
+
+		<action name="lawBasisSave" class="com.jshx.zfyj.web.LawBasisAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_lawBasis</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="lawBasisDel" class="com.jshx.zfyj.web.LawBasisAction" method="delete">
+		</action>
+		
+		<action name="initImportLawBasis" class="com.jshx.zfyj.web.LawBasisAction" method="initImport">
+		    <result name="success">/WEB-INF/pages/zfyj/importLawBasis.jsp</result>
+		</action>
+		
+		
+		
+		<action name="importLawBasis" class="com.jshx.zfyj.web.LawBasisAction" method="importLawBasis">
+			<result name="success" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+			<result name="error" >
+				/common/successToSelf.jsp?windowId=importUser
+			</result>
+		</action>
+		
+	</package>
+</struts>

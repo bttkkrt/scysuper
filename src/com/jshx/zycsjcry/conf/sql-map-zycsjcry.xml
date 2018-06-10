@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findZycsjcryByMap">
+		from Zycsjcry t where 1=1
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="xm">
+			<![CDATA[and t.xm like :xm]]>
+		</isNotEmpty>
+		<isNotEmpty property="sfz">
+			<![CDATA[and t.sfz like :sfz]]>
+		</isNotEmpty>
+		<isNotEmpty property="xb">
+			<![CDATA[and t.xb = :xb]]>
+		</isNotEmpty>
+		<isNotEmpty property="zycsid">
+			<![CDATA[and t.zycsid = :zycsid]]>
+		</isNotEmpty>
+		<isNotEmpty property="querySgsjStart">
+			<![CDATA[and t.sgsj >= :querySgsjStart]]>
+		</isNotEmpty>
+		<isNotEmpty property="querySgsjEnd">
+			<![CDATA[and t.sgsj <= :querySgsjEnd]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="tjlx">
+			<![CDATA[and t.tjlx = :tjlx]]>
+		</isNotEmpty>
+		<isNotEmpty property="tjjguo">
+			<![CDATA[and t.tjjguo = :tjjguo]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryTjrqStart">
+			<![CDATA[and t.tjrq >= :queryTjrqStart]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryTjrqEnd">
+			<![CDATA[and t.tjrq <= :queryTjrqEnd]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyid">
+			<![CDATA[and t.qyid = :qyid]]>
+		</isNotEmpty>
+		<isNotEmpty property="delFlag">
+			<![CDATA[and t.delFlag = :delFlag]]>
+		</isNotEmpty>
+		<isNotEmpty property="delFlags">
+			<![CDATA[and t.delFlags = :delFlags]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	
+	<select id="getZycsjcryTotalCountByMap" parameterClass="java.util.Map" resultClass="String">
+		select count(*) from zycsjcry t where t.delFlag = 0
+		<isNotEmpty property="xb">
+			<![CDATA[and t.xb = #xb#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyid">
+			<![CDATA[and t.qyid = #qyid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="zycsid">
+			<![CDATA[and t.zycsid = #zycsid#]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getZycsjcryListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zycsjcry.entity.Zycsjcry">
+	select distinct t.qyid,t.szzid,t.qymc,t.szzname from ZYCSJCRY t where t.delflags = 0
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like #qymc#]]>
+		</isNotEmpty>
+	
+	</select>
+	
+	<!-- 按行业分类 陆婷 2013-11-29 -->
+	<select id="getHyflListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zycsjcry.entity.Hyfl">
+	select t.item_text as hylx,
+	(select count(*) from companybackup c where c.basepass = 1 and c.hyfl = t.item_value) as qyzs,
+	(select IFNULL(sum(c.cyry),0) from companybackup c where c.basepass = 1 and c.hyfl = t.item_value) as ldzzs,
+	(select IFNULL(sum(zj.lnzgrs),0) from zywsjbxx zj where zj.delflag = 0 and zj.hyfl = t.item_value) as zybrs,
+	(select count(*) from zycsjcry z where z.delflag = 0 and z.hyfl = t.item_value) as jcrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.hyfl = t.item_value and zs.zywhysmcid like '%FC%') as fcrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.hyfl = t.item_value and zs.zywhysmcid like '%HX%') as hxrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.hyfl = t.item_value and zs.zywhysmcid like '%WL%') as wlrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.hyfl = t.item_value and zs.zywhysmcid like '%SW%') as fsrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.hyfl = t.item_value and zs.zywhysmcid like '%QT%') as qtrs
+	from codevalue t where t.code_id = '402880484076bce30140a04236590a02' and t.del_flag = 0
+	</select>
+	
+	<!-- 按注册类型  陆婷 2013-11-29 -->
+	<select id="getZclxListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zycsjcry.entity.Zclx">
+	select t.item_text as zclx,
+	(select count(*) from companybackup c where c.basepass = 1 and c.qyzclx = t.item_value) as qyzs,
+	(select IFNULL(sum(c.cyry),0) from companybackup c where c.basepass = 1 and c.qyzclx = t.item_value) as ldzzs,
+	(select IFNULL(sum(zj.lnzgrs),0) from zywsjbxx zj where zj.delflag = 0 and zj.qyzclx = t.item_value) as zybrs,
+	(select count(*) from zycsjcry z where z.delflag = 0 and z.qyzclx = t.item_value) as jcrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.qyzclx = t.item_value and zs.zywhysmcid like '%FC%') as fcrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.qyzclx = t.item_value and zs.zywhysmcid like '%HX%') as hxrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.qyzclx = t.item_value and zs.zywhysmcid like '%WL%') as wlrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.qyzclx = t.item_value and zs.zywhysmcid like '%SW%') as fsrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.qyzclx = t.item_value and zs.zywhysmcid like '%QT%') as qtrs
+	from codevalue t where t.code_id = '402880484076bce30140a04025e509f7' and t.del_flag = 0
+	</select>
+	
+	<!-- 按行政区域  陆婷 2013-11-29 -->
+	<select id="getXzqyListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zycsjcry.entity.Xzqy">
+	select t.item_text as qy,
+	(select count(*) from companybackup c where c.basepass = 1 and c.dwdz1 like t.item_value) as qyzs,
+	(select IFNULL(sum(c.cyry),0) from companybackup c where c.basepass = 1 and c.dwdz1 like t.item_value) as ldzzs,
+	(select IFNULL(sum(zj.lnzgrs),0) from zywsjbxx zj where zj.delflag = 0 and zj.szzid = t.item_value) as zybrs,
+	(select count(*) from zycsjcry z where z.delflag = 0 and z.qyzclx = t.item_value) as jcrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.szzid = t.item_value and zs.zywhysmcid like '%FC%') as fcrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.szzid = t.item_value and zs.zywhysmcid like '%HX%') as hxrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.szzid = t.item_value and zs.zywhysmcid like '%WL%') as wlrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.szzid = t.item_value and zs.zywhysmcid like '%SW%') as fsrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.szzid = t.item_value and zs.zywhysmcid like '%QT%') as qtrs
+	from codevalue t where t.code_id = '4028e56c4014f290014014f981510003' and t.del_flag = 0
+	</select>
+	
+	<!-- 按行政区域合计  陆婷 2013-11-29 -->
+	<select id="getXzqyByMap" parameterClass="java.util.Map" resultClass="com.jshx.zycsjcry.entity.Xzqy">
+	select 
+	(select count(*) from companybackup c where c.basepass = 1) as qyzs,
+	(select IFNULL(sum(c.cyry),0) from companybackup c where c.basepass = 1) as ldzzs,
+	(select IFNULL(sum(zj.lnzgrs),0) from zywsjbxx zj where zj.delflag = 0) as zybrs,
+	(select count(*) from zycsjcry z where z.delflag = 0) as jcrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.zywhysmcid like '%FC%') as fcrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.zywhysmcid like '%HX%') as hxrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.zywhysmcid like '%WL%') as wlrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.zywhysmcid like '%SW%') as fsrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.zywhysmcid like '%QT%') as qtrs
+	from dual
+	</select>
+	
+	<!-- 按危害因素  陆婷 2013-11-29 -->
+	<select id="getWhysListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zycsjcry.entity.Whys">
+	select t.item_text as whysmc,
+	(select count(*) from whysjbqk w where w.delflag = 0 and w.whysid like concat(concat('%',t.item_value),'%')) as qyzs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.zywhysmcid like concat(concat('%',t.item_value),'%')) as jcrs
+	from codevalue t where t.code_id in ('402880484076bce30140a570040f0b91','402880484076bce30140a57205a40b9f','402880484076bce30140a584ab8e0c33','402880484076bce30140a582ef330c24') and t.del_flag = 0
+	order by t.item_value
+	</select>
+	
+	<!-- 按危害因素合计  陆婷 2013-11-29 -->
+	<select id="getWhysByMap" parameterClass="java.util.Map" resultClass="com.jshx.zycsjcry.entity.Whys">
+	select 
+	(select count(*) from whysjbqk w where w.delflag = 0) as qyzs,
+	(select count(*) from zycsjcry z where z.delflag = 0) as jcrs
+	from dual
+	</select>
+	
+	<!-- 按企业列表  陆婷 2013-11-29 -->
+	<select id="getQylbListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zycsjcry.entity.Qylb">
+	select t.companyname as qymc,
+	(select IFNULL(sum(c.cyry),0) from companybackup c where c.row_id = t.row_id) as ldzzs,
+	(select IFNULL(sum(zj.lnzgrs),0) from zywsjbxx zj where zj.delflag = 0 and zj.qyid = t.companyid) as zybrs,
+	(select count(*) from zycsjcry z where z.delflag = 0 and z.qyid = t.row_id) as jcrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.qyid = t.row_id and zs.zywhysmcid like '%FC%') as fcrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.qyid = t.row_id and zs.zywhysmcid like '%HX%') as hxrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.qyid = t.row_id and zs.zywhysmcid like '%WL%') as wlrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.qyid = t.row_id and zs.zywhysmcid like '%SW%') as fsrs,
+	(select count(*) from zycsjcry z,zycsqk zs where zs.delflag = 0 and z.delflag = 0 and z.zycsid = zs.row_id and zs.qyid = t.row_id and zs.zywhysmcid like '%QT%') as qtrs
+	from companybackup t where t.basepass = 1 and t.delflag = 0
+	<isNotEmpty property="qymc">
+		<![CDATA[and t.companyname like #qymc#]]>
+	</isNotEmpty>
+	</select>
+	
+	
+	
+	
+</sqlMap>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="CONTENT_INFORMATIONS" extends="default" namespace="/jsp/information">
+		<!-- 修改前的配置 
+		<action name="contentInformationsList" class="com.jshx.module.infomation.web.ContentInformationsAction" method="list">
+			<result name="list">/WEB-INF/pages/information/ContentInformations_List.jsp</result>
+		</action>
+		-->
+		
+		<!-- 修改列表方法，返回Json数据 -->
+		<action name="contentInformationsQuery" class="com.jshx.module.infomation.web.ContentInformationsAction" method="list">
+		</action>
+		<action name="contentInformationsQuerys" class="com.jshx.module.infomation.web.ContentInformationsAction" method="lists">
+		</action>
+		
+		<action name="contentInformationsList" class="com.jshx.module.infomation.web.ContentInformationsAction" method="initList">
+			<result name="success">/WEB-INF/pages/information/ContentInformations_List.jsp</result>
+		</action>
+		<action name="contentInformationsLists" class="com.jshx.module.infomation.web.ContentInformationsAction" method="initLists">
+			<result name="success">/WEB-INF/pages/information/ContentInformations_MyList.jsp</result>
+		</action>
+		
+		<action name="contentInformationsView" class="com.jshx.module.infomation.web.ContentInformationsAction" method="view">
+			<result name="view">/WEB-INF/pages/information/ContentInformations_Detail.jsp</result>
+		</action>
+
+		<action name="contentInformationsInitEdit" class="com.jshx.module.infomation.web.ContentInformationsAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/information/ContentInformations_Edit.jsp</result>
+		</action>
+
+		<action name="save" class="com.jshx.module.infomation.web.ContentInformationsAction" method="save">
+		 	<interceptor-ref name="tokenInterceptor" />
+		 	<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/information/ContentInformations_MyList.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>   
+		</action>
+
+		<action name="contentInformationsDel" class="com.jshx.module.infomation.web.ContentInformationsAction" method="delete">
+		</action>
+		
+		<action name="activeInfo" class="com.jshx.module.infomation.web.ContentInformationsAction" method="activeInfo">
+		</action>
+		
+		<action name="inactiveInfo" class="com.jshx.module.infomation.web.ContentInformationsAction" method="inactiveInfo">
+		</action>
+		
+		<action name="expireInfo" class="com.jshx.module.infomation.web.ContentInformationsAction" method="expireInfo">
+		</action>
+		
+		<action name="inexpireInfo" class="com.jshx.module.infomation.web.ContentInformationsAction" method="inexpireInfo">
+		</action>
+		
+		<action name="selectUsers" class="com.jshx.module.infomation.web.ContentInformationsAction" method="selectUsers">
+			<result name="success">/WEB-INF/pages/information/ContentInformations_SelectUserNew.jsp</result>
+		</action>
+		<action name="getDepartUser" class="com.jshx.module.infomation.web.ContentInformationsAction" method="getDepartUser">
+		</action>
+		<action name="uploadFile" class="com.jshx.module.infomation.web.ContentInformationsAction" method="uploadFile">
+		</action>
+		<action name="download" class="com.jshx.module.infomation.web.ContentInformationsAction" method="download">
+		</action>
+	</package>
+	
+</struts>

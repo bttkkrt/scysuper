@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findYgtjbghzbByMap">
+		from Ygtjbghzb t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId =:deptCodes]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="hzname">
+			<![CDATA[and t.hzname like :hzname]]>
+		</isNotEmpty>
+			<isNotEmpty property="qyid">
+			<![CDATA[and t.comid =:qyid]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifwhpqylx">
+			<![CDATA[and t.ifwhpqylx =:ifwhpqylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifzywhqylx">
+			<![CDATA[and t.ifzywhqylx =:ifzywhqylx]]>
+		</isNotEmpty>
+		<isNotEmpty property="ifyhbzjyqy">
+			<![CDATA[and t.ifyhbzjyqy =:ifyhbzjyqy]]>
+		</isNotEmpty>
+		<isNotEmpty property="startCreateTime">
+			<![CDATA[and t.tjsj >= :startCreateTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCreateTime">
+			<![CDATA[and t.tjsj <= :endCreateTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		<isNotEmpty property="zrs">
+			<![CDATA[and t.zrs = :zrs]]>
+		</isNotEmpty>
+		<isNotEmpty property="result">
+			<![CDATA[and t.result = :result]]>
+		</isNotEmpty>
+		<isNotEmpty property="tjlx">
+			<![CDATA[and t.tjlx = :tjlx]]>
+		</isNotEmpty>
+		<isNotEmpty property="tjjg">
+			<![CDATA[and t.tjjg = :tjjg]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+</sqlMap>

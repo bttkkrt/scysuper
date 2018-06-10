@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="DOC_REVIEW" extends="default" namespace="/jsp/docReview">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="docReviewQuery" class="com.jshx.docReview.web.DocReviewAction" method="list">
+		</action>
+		
+		<action name="docReviewList">
+			<result name="success">/WEB-INF/pages/docReview/DocReview_List.jsp</result>
+		</action>
+		
+		<action name="myDocReviewQuery" class="com.jshx.docReview.web.DocReviewAction" method="myList">
+		</action>
+		
+		<action name="myDocReviewList">
+			<result name="success">/WEB-INF/pages/docReview/DocReview_MyList.jsp</result>
+		</action>
+		
+		<action name="docReviewView" class="com.jshx.docReview.web.DocReviewAction" method="view">
+			<result name="view">/WEB-INF/pages/docReview/DocReview_Detail.jsp</result>
+			<result name="AUDITVIEW">/WEB-INF/pages/docReview/DocReview_AuditDetail.jsp</result>
+		</action>
+
+		<action name="docReviewInitEdit" class="com.jshx.docReview.web.DocReviewAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/docReview/DocReview_Edit.jsp</result>
+		</action>
+
+		<action name="docReviewSave" class="com.jshx.docReview.web.DocReviewAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+
+<!-- zhangzh start -->
+
+		<action name="initToClaimTaskList">
+			<result name="success">/WEB-INF/pages/docReview/DocReview_toClaimTaskList.jsp</result>
+		</action>
+		
+	    <action name="findToClaimTaskList" class="com.jshx.docReview.web.DocReviewAction" 
+	    	method="findToClaimTaskList">
+		</action>
+		
+		<action name="initClaimedTaskList">
+			<result name="success">/WEB-INF/pages/docReview/DocReview_claimedTaskList.jsp</result>
+		</action>	
+		
+	    <action name="findClaimedTaskList" class="com.jshx.docReview.web.DocReviewAction" 
+	    	method="findClaimedTaskList">
+	    	
+		</action>		
+		<action name="claimTask" class="com.jshx.docReview.web.DocReviewAction" method="claimTask"/>
+		 
+		
+		<action name="doAudit" class="com.jshx.docReview.web.DocReviewAction" 	method="doAudit"/>
+		 
+		
+		<action name="endProcess" class="com.jshx.docReview.web.DocReviewAction" method="endProcess"/>
+		<!-- zhangzh end -->
+
+
+		<action name="docReviewDel" class="com.jshx.docReview.web.DocReviewAction" method="delete">
+		</action>
+		
+		<action name="fileUpload" class="com.jshx.docReview.web.DocReviewAction" method="fileUpload">
+		</action>
+		
+		<action name="deleteFile" class="com.jshx.docReview.web.DocReviewAction" method="deleteFile">
+		</action>
+		
+		<action name="download" class="com.jshx.docReview.web.DocReviewAction" method="download">
+		</action>
+		
+		<action name="selectUsers" class="com.jshx.docReview.web.DocReviewAction" method="selectUsers">
+			<result name="success">/WEB-INF/pages/docReview/DocReview_SelectUser.jsp</result>
+		</action>
+		
+		<action name="getDepartUser" class="com.jshx.docReview.web.DocReviewAction" method="getDepartUser">
+		</action>
+	</package>
+</struts>

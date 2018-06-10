@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="WZXX" extends="default" namespace="/wzxx">
+
+		<action name="index" class="com.wzxx.wzxx.web.WzxxAction" method="index">
+			<result name="success">/WEB-INF/wzPage/wzxx/index.jsp</result>
+		</action>
+		
+		<action name="newsList" class="com.wzxx.wzxx.web.WzxxAction" method="newsList">
+			<result name="success">/WEB-INF/wzPage/wzxx/news_list.jsp</result>
+		</action>
+		
+		<action name="newsContent" class="com.wzxx.wzxx.web.WzxxAction" method="newsContent">
+			<result name="success">/WEB-INF/wzPage/wzxx/news_content.jsp</result>
+		</action>
+		
+		<action name="gzdtList" class="com.wzxx.wzxx.web.WzxxAction" method="gzdtList">
+			<result name="success">/WEB-INF/wzPage/wzxx/gzdt_list.jsp</result>
+		</action>
+		
+		<action name="gzdtContent" class="com.wzxx.wzxx.web.WzxxAction" method="gzdtContent">
+			<result name="success">/WEB-INF/wzPage/wzxx/gzdt_content.jsp</result>
+		</action>
+		
+		<action name="bgxzList" class="com.wzxx.wzxx.web.WzxxAction" method="bgxzList">
+			<result name="success">/WEB-INF/wzPage/wzxx/bgxz_list.jsp</result>
+		</action>
+		
+		<action name="bgxzContent" class="com.wzxx.wzxx.web.WzxxAction" method="bgxzContent">
+			<result name="success">/WEB-INF/wzPage/wzxx/bgxz_content.jsp</result>
+		</action>
+		
+		<action name="xyjcAdd" class="com.wzxx.wzxx.web.WzxxAction" method="xyjcAdd">
+			<result name="success">/WEB-INF/wzPage/wzxx/xyjc_edit.jsp</result>
+		</action>
+		
+		<action name="xyjcSave" class="com.wzxx.wzxx.web.WzxxAction" method="xyjcSave">
+			<result name="reload" type="redirect">/index.action</result>
+		</action>
+		
+		
+		
+		
+		<action name="awhgzList" class="com.wzxx.wzInfoManage.web.WzInfoManageAction" method="awhgzList">
+			<result name="awhgz">/WEB-INF/wzPage/wzInfoManage/awhgz_list.jsp</result>
+			<result name="zwxx">/WEB-INF/wzPage/wzInfoManage/zwxx_list.jsp</result>
+			<result name="zfjc">/WEB-INF/wzPage/wzInfoManage/zfjc_list.jsp</result>
+			<result name="wxhxp">/WEB-INF/wzPage/wzInfoManage/wxhxp_list.jsp</result>
+			<result name="zyws">/WEB-INF/wzPage/wzInfoManage/zyws_list.jsp</result>
+			<result name="zzjg">/WEB-INF/wzPage/wzInfoManage/zzjg_list.jsp</result>
+			<result name="zxzz">/WEB-INF/wzPage/wzInfoManage/zxzz_list.jsp</result>
+			<result name="xzxkgs">/WEB-INF/wzPage/wzInfoManage/xzxkgs_list.jsp</result>
+			<result name="bslc">/WEB-INF/wzPage/wzInfoManage/bslc_list.jsp</result>
+		</action>
+		
+		<action name="awhgzContent" class="com.wzxx.wzInfoManage.web.WzInfoManageAction" method="viewContent">
+			<result name="awhgz">/WEB-INF/wzPage/wzInfoManage/awhgz_content.jsp</result>
+			<result name="zwxx">/WEB-INF/wzPage/wzInfoManage/zwxx_content.jsp</result>
+			<result name="zfjc">/WEB-INF/wzPage/wzInfoManage/zfjc_content.jsp</result>
+			<result name="wxhxp">/WEB-INF/wzPage/wzInfoManage/wxhxp_content.jsp</result>
+			<result name="zyws">/WEB-INF/wzPage/wzInfoManage/zyws_content.jsp</result>
+			<result name="zzjg">/WEB-INF/wzPage/wzInfoManage/zzjg_content.jsp</result>
+			<result name="zxzz">/WEB-INF/wzPage/wzInfoManage/zxzz_content.jsp</result>
+			<result name="xzxkgs">/WEB-INF/wzPage/wzInfoManage/xzxkgs_content.jsp</result>
+			<result name="bslc">/WEB-INF/wzPage/wzInfoManage/bslc_content.jsp</result>
+		</action>
+		
+		<action name="lxwmList" class="com.wzxx.lxwm.web.LxwmAction" method="lxwmList">
+			<result name="success">/WEB-INF/wzPage/lxwm/Lxwm_Content.jsp</result>
+		</action>
+		<action name="bgtList" class="com.wzxx.bgt.web.LighthouseAction" method="bgtList">
+			<result name="success">/WEB-INF/wzPage/bgt/Bgt_List.jsp</result>
+		</action>
+		<action name="bgtContent" class="com.wzxx.bgt.web.LighthouseAction" method="bgtContent">
+			<result name="success">/WEB-INF/wzPage/bgt/Bgt_Content.jsp</result>
+		</action>
+			<action name="flfgList" class="com.wzxx.flfg.web.LawAction" method="flfgList">
+			<result name="success">/WEB-INF/wzPage/flfg/Flfg_List.jsp</result>
+		</action>
+		<action name="flfgList2" class="com.wzxx.flfg.web.LawAction" method="flfgList2">
+			<result name="success">/WEB-INF/wzPage/flfg/Flfg_List2.jsp</result>
+		</action>
+		<action name="flfgContent" class="com.wzxx.flfg.web.LawAction" method="flfgContent">
+			<result name="success">/WEB-INF/wzPage/flfg/Flfg_Content.jsp</result>
+		</action>
+		<action name="aqwhList" class="com.wzxx.aqwh.web.SafCulAction" method="aqwhList">
+			<result name="success">/WEB-INF/wzPage/aqwh/Aqwh_List.jsp</result>
+		</action>
+		<action name="aqwhContent" class="com.wzxx.aqwh.web.SafCulAction" method="aqwhContent">
+			<result name="success">/WEB-INF/wzPage/aqwh/Aqwh_Content.jsp</result>
+		</action>
+		<action name="aqsczjList" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="aqsczjList">
+			<result name="success">/WEB-INF/pages/aqsczjk/Aqsczj_List.jsp</result>
+		</action>
+		<action name="aqsczjContent" class="com.jshx.aqsczjk.web.SafetyExpertsAction" method="aqsczjContent">
+			<result name="success">/WEB-INF/pages/aqsczjk/Aqsczj_Content.jsp</result>
+		</action>
+		<action name="whpaqscxkList" class="com.jshx.cheprolicense.web.CheProLicAction" method="whpaqscxkList">
+			<result name="success">/WEB-INF/pages/cheprolicense/Whpaqscxk_List.jsp</result>
+		</action>
+		<action name="whpaqscxkContent" class="com.jshx.cheprolicense.web.CheProLicAction" method="whpaqscxkContent">
+			<result name="success">/WEB-INF/pages/cheprolicense/Whpaqscxk_Content.jsp</result>
+		</action>
+		<action name="whpjyxkzList" class="com.jshx.whpxzxk.web.CheManLicAction" method="whpjyxkzList">
+			<result name="success">/WEB-INF/pages/whpxzxk/Whpjyxkz_List.jsp</result>
+		</action>
+		<action name="whpjyxkzContent" class="com.jshx.whpxzxk.web.CheManLicAction" method="whpjyxkzContent">
+			<result name="success">/WEB-INF/pages/whpxzxk/Whpjyxkz_Content.jsp</result>
+		</action>
+		<action name="yhbzjyxkzList" class="com.jshx.yhbzxzxk.web.FirLicAction" method="yhbzjyxkzList">
+			<result name="success">/WEB-INF/pages/yhbzxzxk/Yhbzjyxkz_List.jsp</result>
+		</action>
+		<action name="yhbzjyxkzContent" class="com.jshx.yhbzxzxk.web.FirLicAction" method="yhbzjyxkzContent">
+			<result name="success">/WEB-INF/pages/yhbzxzxk/Yhbzjyxkz_Content.jsp</result>
+		</action>
+		
+		<action name="search" class="com.wzxx.wzxx.web.WzxxAction" method="search">
+			<result name="success">/WEB-INF/wzPage/wzxx/search.jsp</result>
+		</action>
+		
+		<action name="zhzfWzList" class="com.wzxx.zhzf.web.ZhzfAction" method="zhzfList">
+			<result name="success">/WEB-INF/wzPage/zhzf/Zhzf_WzList.jsp</result>
+		</action>
+		<action name="zhzfContent" class="com.wzxx.zhzf.web.ZhzfAction" method="zhzfContent">
+			<result name="success">/WEB-INF/wzPage/zhzf/Zhzf_Content.jsp</result>
+		</action>
+		
+		<action name="csglWzList" class="com.wzxx.csgl.web.CityManAction" method="csglList">
+			<result name="success">/WEB-INF/wzPage/csgl/Csgl_WzList.jsp</result>
+		</action>
+		<action name="csglContent" class="com.wzxx.csgl.web.CityManAction" method="csglContent">
+			<result name="success">/WEB-INF/wzPage/csgl/Csgl_Content.jsp</result>
+		</action>
+		
+		<action name="jgdlWzList" class="com.wzxx.jgdl.web.JgdlAction" method="jgdlList">
+			<result name="success">/WEB-INF/wzPage/jgdl/Jgdl_WzList.jsp</result>
+		</action>
+		<action name="jgdlContent" class="com.wzxx.jgdl.web.JgdlAction" method="jgdlContent">
+			<result name="success">/WEB-INF/wzPage/jgdl/Jgdl_Content.jsp</result>
+		</action>
+		
+		<action name="sousuoList" class="com.wzxx.wzxx.web.WzxxAction" method="sousuoList">
+			<result name="success">/WEB-INF/wzPage/wzxx/sousuo_list.jsp</result>
+		</action>
+		
+		
+		<action name="xsdw" class="com.wzxx.wzxx.web.WzxxAction" method="xsdw">
+			<result name="cgdd">/WEB-INF/wzPage/wzxx/cgdd.jsp</result>
+			<result name="ajdd">/WEB-INF/wzPage/wzxx/ajdd.jsp</result>
+			<result name="jcdd">/WEB-INF/wzPage/wzxx/jcdd.jsp</result>
+		</action>
+	</package>
+</struts>

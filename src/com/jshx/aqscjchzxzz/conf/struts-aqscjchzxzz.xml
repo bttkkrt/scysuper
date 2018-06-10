@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="AQSCJCHZXZZ" extends="default" namespace="/jsp/aqscjchzxzz">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="aqscjchzxzzQuery" class="com.jshx.aqscjchzxzz.web.AqscjchzxzzAction" method="list">
+		</action>
+		
+		<action name="aqscjchzxzzList">
+			<result name="success">/WEB-INF/pages/aqscjchzxzz/Aqscjchzxzz_List.jsp</result>
+		</action>
+		
+		<action name="aqscjchzxzzView" class="com.jshx.aqscjchzxzz.web.AqscjchzxzzAction" method="view">
+			<result name="view">/WEB-INF/pages/aqscjchzxzz/Aqscjchzxzz_Detail.jsp</result>
+		</action>
+
+		<action name="aqscjchzxzzInitEdit" class="com.jshx.aqscjchzxzz.web.AqscjchzxzzAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqscjchzxzz/Aqscjchzxzz_Edit.jsp</result>
+		</action>
+
+		<action name="aqscjchzxzzSave" class="com.jshx.aqscjchzxzz.web.AqscjchzxzzAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_aqscjchzxzz</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="aqscjchzxzzDel" class="com.jshx.aqscjchzxzz.web.AqscjchzxzzAction" method="delete">
+		</action>
+		<action name="aqscjchzxzzExport" class="com.jshx.aqscjchzxzz.web.AqscjchzxzzAction" method="export">
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findZycsqkByMap">
+		from Zycsqk t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid like :szzid]]>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="cjmc">
+			<![CDATA[and t.cjmc like :cjmc]]>
+		</isNotEmpty>
+		<isNotEmpty property="wccj">
+			<![CDATA[and t.wccj = :wccj]]>
+		</isNotEmpty>
+		<isNotEmpty property="sbzt">
+			<![CDATA[and t.sbzt like :sbzt]]>
+		</isNotEmpty>
+		<isNotEmpty property="czfs">
+			<![CDATA[and t.czfs like :czfs]]>
+		</isNotEmpty>
+		<isNotEmpty property="fhssmc">
+			<![CDATA[and t.fhssmc like :fhssmc]]>
+		</isNotEmpty>
+		<isNotEmpty property="grfhyp">
+			<![CDATA[and t.grfhyp like :grfhyp]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyid">
+			<![CDATA[and t.qyid = :qyid]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		order by t.createTime desc
+	</select>
+	
+	<select id="getZywhysByMap" parameterClass="java.util.Map" resultClass="com.jshx.zycsqk.entity.Zywhys">
+	select t.whysid as id,t.whysmc as name from whysjbqk t where t.delflag = 0 
+	<isNotEmpty property="qyid">
+		<![CDATA[and t.qyid = #qyid#]]>
+	</isNotEmpty>
+	</select>
+	
+	<select id="getZycsTotalCountByMap" parameterClass="java.util.Map" resultClass="String">
+	select count(*) from zycsqk t where t.delFlag = 0
+		<isNotEmpty property="qyid">
+			<![CDATA[and t.qyid = #qyid#]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getZybwhdaListByMap" parameterClass="java.util.Map" resultClass="com.jshx.zycsqk.entity.Zybwhda">
+	select t.companyname as qymc,(select IFNULL(w.whyssl,0) from whysjbqk w where w.qyid = t.row_id and w.delflag = 0) as zybwhys,
+	(select count(*) from zycsqk z where z.delflag = 0 and z.qyid = t.row_id)  as  whcs,
+	(select count(*) from zycsjcry zj where zj.delflag = 0 and zj.qyid = t.row_id) as jcrs,
+	(select count(*) from zycsjcry zj where zj.delflags = 0 and zj.qyid = t.row_id) as jhrs,
+	(select count(*) from zycsjcry zj where zj.delflags = 0 and zj.qyid = t.row_id and zj.tjjguo = '正常') as zcrs,
+	(select count(*) from zycsjcry zj where zj.delflags = 0 and zj.qyid = t.row_id and zj.tjjguo = '职业相关异常') as ycrs,
+	(select count(*) from zycsjcry zj where zj.delflags = 0 and zj.qyid = t.row_id and zj.tjjguo = '职业禁忌') as jjrs,
+	(select count(*) from zycsjcry zj where zj.delflags = 0 and zj.qyid = t.row_id and zj.tjjguo = '疑似职业病人') as ysrs,
+	(select IFNULL(sum(zh.jcds),0) from zybwhysjc zh,zycsqk z where z.row_id = zh.cjid and z.delflag = 0 and zh.delflag = 0 and z.qyid = t.row_id) as jcds,
+	(select c.item_text from zywsjbxx zz,codevalue c where zz.qyid = t.companyid and zz.delflag = 0 and c.item_value = zz.hylb and c.code_id = '4028e5144279293b01427944b4660005') as hylb,
+	(select c.item_text from zywsjbxx zz,codevalue c where zz.qyid = t.companyid and zz.delflag = 0 and c.item_value = zz.whlb and c.code_id = '4028e51442781e160142792405d20011') as whcd  
+	from companybackup t where t.delflag = 0 and t.basepass = 1
+	<isNotEmpty property="qymc">
+		<![CDATA[and t.companyname like #qymc#]]>
+	</isNotEmpty>
+	</select>
+</sqlMap>

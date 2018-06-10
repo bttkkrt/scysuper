@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<!-- 
+	<select id="findSafeInspectDistributeByMap"  parameterClass="java.util.Map" resultClass="com.jshx.safeInspectDistribute.entity.SafeInspectDistribute">
+		select t.row_id as id,t.* from safe_inspect_distribute t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.row_id in (:ids)]]>
+		</isNotEmpty>
+		<isNotEmpty property="inspectType">
+			<![CDATA[and t.inspectType like :inspectType]]>
+		</isNotEmpty>
+		<isNotEmpty property="title">
+			<![CDATA[and t.title like :title]]>
+		</isNotEmpty>
+		<isNotEmpty property="quarters">
+			<![CDATA[and t.quarters like :quarters]]>
+		</isNotEmpty>
+		<isNotEmpty property="cycleFlag">
+			<![CDATA[and t.cycle_Flag like :cycleFlag]]>
+		</isNotEmpty>
+		<isNotEmpty property="cycleValue">
+			<![CDATA[and t.cycle_Value like :cycleValue]]>
+		</isNotEmpty>
+		<isNotEmpty property="personnel">
+			<![CDATA[and t.personnel like :personnel]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyFlag">
+			<![CDATA[and t.company_Flag like :companyFlag]]>
+		</isNotEmpty>		
+		<isNotEmpty property="taskStatus">
+			<![CDATA[and t.task_Status like :taskStatus]]>
+		</isNotEmpty>
+		<isNotEmpty property="rootId">
+			<![CDATA[and t.root_Id like :rootId]]>
+		</isNotEmpty>
+		<isNotEmpty property="taskTime">
+			<![CDATA[and t.task_Time like :taskTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="reportTime">
+			<![CDATA[and t.report_Time like :reportTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="taskStatusNotZero">
+			<![CDATA[and t.task_Status not like :taskStatusNotZero]]>
+		</isNotEmpty>
+		<isNotEmpty property="inspectNum">
+			<![CDATA[and t.inspect_Num like :inspectNum]]>
+		</isNotEmpty>
+		<isNotEmpty property="personnelDeptCode">
+			<![CDATA[and t.personnel_Dept_Code like :personnelDeptCode]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryTimeStart">
+			<![CDATA[and t.task_Time >= :queryTimeStart]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryTimeEnd">
+			<![CDATA[and t.task_Time <= :queryTimeEnd]]>
+		</isNotEmpty>
+		order by t.task_Time desc,t.createTime desc,t.inspect_Num
+	</select>
+	 -->
+	
+	<select id="findMaxSerialNum" resultClass="java.lang.String">
+		select max(t.serial_num) "maxSerialNum" from safe_inspect_distribute t 
+	</select>
+	
+	
+	<select id="findSafeInspectDistributeByMap">
+		from SafeInspectDistribute t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="inspectType">
+			<![CDATA[and t.inspectType like :inspectType]]>
+		</isNotEmpty>
+		<isNotEmpty property="title">
+			<![CDATA[and t.title like :title]]>
+		</isNotEmpty>
+		<isNotEmpty property="quarters">
+			<![CDATA[and t.quarters like :quarters]]>
+		</isNotEmpty>
+		<isNotEmpty property="cycleFlag">
+			<![CDATA[and t.cycleFlag like :cycleFlag]]>
+		</isNotEmpty>
+		<isNotEmpty property="cycleValue">
+			<![CDATA[and t.cycleValue like :cycleValue]]>
+		</isNotEmpty>
+		<isNotEmpty property="personnel">
+			<![CDATA[and t.personnel like :personnel]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyFlag">
+			<![CDATA[and t.companyFlag like :companyFlag]]>
+		</isNotEmpty>		
+		<isNotEmpty property="taskStatus">
+			<isEqual  property="taskStatus"  compareValue="0"> 
+				<![CDATA[and (t.taskStatus = 0 or t.taskStatus = 4)]]>
+			</isEqual>
+		</isNotEmpty>
+		<isNotEmpty property="rootId">
+			<![CDATA[and t.rootId like :rootId]]>
+		</isNotEmpty>
+		<isNotEmpty property="taskTime">
+			<![CDATA[and t.taskTime like :taskTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="reportTime">
+			<![CDATA[and t.reportTime like :reportTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="taskStatusNotZero">
+			<![CDATA[and t.taskStatus not like :taskStatusNotZero and t.taskStatus != 4 ]]>
+		</isNotEmpty>
+		<isNotEmpty property="inspectNum">
+			<![CDATA[and t.inspectNum like :inspectNum]]>
+		</isNotEmpty>
+		<isNotEmpty property="personnelDeptCode">
+			<![CDATA[and t.personnelDeptCode like :personnelDeptCode]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryTimeStart">
+			<![CDATA[and t.taskTime >= :queryTimeStart]]>
+		</isNotEmpty>
+		<isNotEmpty property="queryTimeEnd">
+			<![CDATA[and t.taskTime <= :queryTimeEnd]]>
+		</isNotEmpty>
+		order by t.taskTime desc,t.createTime desc,t.inspectNum
+	</select>
+	
+	<!-- hanxc 20150325 统计信息 -->
+	<select id="query_safeInspect_data" parameterClass="java.util.Map" resultClass="com.jshx.safeInspectDistribute.entity.SafeInspectTjBean"> 
+		select a.title title,
+		       a.root_id rootId, 
+		       decode(a.total,null,0,a.total,a.total) total,
+		       decode(b.notNum,null,0,b.notNum,b.notNum) notNum,
+		       decode(e.doneNum,null,0,e.doneNum,e.doneNum) doneNum,
+		       decode(c.rightNum,null,0,c.rightNum,c.rightNum) rightNum,
+		       decode(d.wrongNum,null,0,d.wrongNum,d.wrongNum) wrongNum,
+		       decode(c.rightNum / e.doneNum,null,0,c.rightNum / e.doneNum,c.rightNum / e.doneNum) goodrate
+		from (select t.title title,t.root_id root_id,count(t.root_id) total from safe_inspect_distribute t where t.root_id is not null and t.task_status !=4  group by t.root_id,t.title order by t.title desc) a
+		left join (select t.root_id root_id,count(t.root_id) notNum from safe_inspect_distribute t where t.task_status = 1 group by t.root_id) b on a.root_id=b.root_id
+		left join (select t.root_id root_id,count(t.root_id) rightNum from safe_inspect_distribute t where t.task_status = 2 group by t.root_id) c  on a.root_id=c.root_id
+		left join (select t.root_id root_id,count(t.root_id) wrongNum from safe_inspect_distribute t where t.task_status = 3 group by t.root_id) d  on a.root_id=d.root_id
+		left join (select t.root_id root_id,count(t.root_id) doneNum from safe_inspect_distribute t where t.task_status = 2 or t.task_status = 3 group by t.root_id) e  on a.root_id=e.root_id
+	</select>
+</sqlMap>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="HYFL_RELATION" extends="default" namespace="/jsp/HYFL">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="hyflRelationQuery" class="com.jshx.heflRelation.web.HyflRelationAction" method="list">
+		</action>
+		
+		<action name="hyflRelationList">
+			<result name="success">/WEB-INF/pages/HYFL/HyflRelation_List.jsp</result>
+		</action>
+		
+		<action name="hyflRelationView" class="com.jshx.heflRelation.web.HyflRelationAction" method="view">
+			<result name="view">/WEB-INF/pages/HYFL/HyflRelation_Detail.jsp</result>
+		</action>
+
+		<action name="hyflRelationInitEdit" class="com.jshx.heflRelation.web.HyflRelationAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/HYFL/HyflRelation_Edit.jsp</result>
+		</action>
+
+		<action name="hyflRelationSave" class="com.jshx.heflRelation.web.HyflRelationAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/common/successToSelf.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="hyflRelationDel" class="com.jshx.heflRelation.web.HyflRelationAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

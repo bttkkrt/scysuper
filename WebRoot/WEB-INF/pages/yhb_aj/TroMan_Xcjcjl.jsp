@@ -1,0 +1,61 @@
+<%@page language="java" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@include file="/common/header.jsp"%>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>现场检查记录</title>
+	<%@include file="/common/jsLib.jsp"%>
+</head>
+
+<body validform="true" style="overflow: auto;">
+   <div class="box_01 boxBmargin12 submitdata" style="overflow-y: auto;overflow-x: hidden;padding: 0;top: 0px;left: 0px;right: 0px;bottom: 0;position: absolute; ">
+		<div class="inner6px">
+			<div class="cell" style="width: 100%">
+	<form name="myform1" method="post" enctype="multipart/form-data" action="troManXcjcSave.action">
+		<s:token />
+		<input type="hidden" name="troMan.id" value="${troMan.id}">
+		<input type="hidden" name="siteCheckRecord.id" value="${siteCheckRecord.id}">
+		<input type="hidden" name="siteCheckRecord.relatedId" value="${siteCheckRecord.relatedId}">
+		
+			<table width="100%" border="0">
+				<tr>
+						<th width="15%">检查开始时间</th>
+						<td width="35%">
+							<input id="starttime4" name="siteCheckRecord.startTime" value="<fmt:formatDate type='both' value='${siteCheckRecord.startTime}' pattern='yyyy-MM-dd HH:mm:ss'/>" type="text" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'endtime4\')}'})" datatype="*1-127" errormsg='检查开始时间必须是1到127位字符！' nullmsg='检查开始时间不能为空！' sucmsg='检查开始时间填写正确！'  maxlength="127" style="width:50%"/><font style='color:red'>*</font>
+						</td>
+						<th width="15%">检查结束时间</th>
+						<td width="35%">
+							<input id="endtime4" name="siteCheckRecord.endTime" value="<fmt:formatDate type='both' value='${siteCheckRecord.endTime}' pattern='yyyy-MM-dd HH:mm:ss'/>" type="text" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'starttime4\')}'})" datatype="*1-127" errormsg='检查结束时间必须是1到127位字符！' nullmsg='检查结束时间不能为空！' sucmsg='检查结束时间填写正确！'  maxlength="127" style="width:50%"/><font style='color:red'>*</font>
+						</td>
+					</tr>
+					<tr>
+						<th width="15%">检查人员1</th>
+						<td width="35%">
+							<input type="hidden" name="siteCheckRecord.checkPersonName1" value="${siteCheckRecord.checkPersonName1}">
+							${siteCheckRecord.checkPersonName1}
+						</td>
+						<th width="15%">检查人员2</th>
+						<td width="35%">
+							<cus:SelectOneTag property="siteCheckRecord.checkPerson" defaultText='请选择' codeSql="select t.row_id,t.display_name from users t where t.del_flag = 0 and t.dept_code like '002001%' and t.row_id != '${userId}' order by t.sort_Sq" value="${siteCheckRecord.checkPerson}" datatype="*1-127" errormsg='检查人员必须是1到127位字符！' nullmsg='检查人员不能为空！' sucmsg='检查人员填写正确！'  maxlength="127" style="width:50%" /><font style='color:red'>*</font>
+						</td>
+					</tr>
+					<tr>
+						<th width="15%">检查场所</th>
+						<td width="85%" colspan="3"><input name="siteCheckRecord.checkAddress" value="${siteCheckRecord.checkAddress}" type="text" datatype="*1-127" errormsg='检查场所必须是1到127位字符！' nullmsg='检查场所不能为空！' sucmsg='检查场所填写正确！'  maxlength="127" style="width:80%" class="clsdiv9"><font style='color:red'>*</font></td>
+					</tr>
+					<tr>
+						<th width="15%">检查情况</th>
+						<td width="85%" colspan="3">
+							<textarea name="siteCheckRecord.checkCondition" style="width:78%;height:120px" datatype="*1-2000" errormsg='检查情况必须是1到2000位字符！' nullmsg='检查情况不能为空！' sucmsg='检查情况填写正确！'  onKeyDown="if(this.value.length > 2000) this.value=this.value.substr(0,2000)" class="clsdiv9">${siteCheckRecord.checkCondition}</textarea><font style='color:red'>*</font>
+						</td>
+					</tr>
+				<tr>
+					<td colspan="4" height="100px" style="text-align:center">
+						<a href="#" class="btn_01" type="submit" >确认<b></b></a>&nbsp;
+						<a href="#" class="btn_01"  onclick="parent.close_win('win_troMan');">关闭<b></b></a>
+					</td>
+				</tr>
+			</table>
+	</form>
+	</div></div></div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="ZYCSJCBG" extends="default" namespace="/jsp/zycsjcbg">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="zycsjcbgQuery" class="com.jshx.zycsjcbg.web.ZycsjcbgAction" method="list">
+		</action>
+		
+		<action name="zycsjcbgList" class="com.jshx.zycsjcbg.web.ZycsjcbgAction" method="initlist">
+			<result name="success">/WEB-INF/pages/zycsjcbg/Zycsjcbg_List.jsp</result>
+		</action>
+		
+		<action name="zycsjcbgQuerys" class="com.jshx.zycsjcbg.web.ZycsjcbgAction" method="lists">
+		</action>
+		
+		<action name="zycsjcbgLists" class="com.jshx.zycsjcbg.web.ZycsjcbgAction" method="initlists">
+			<result name="success">/WEB-INF/pages/zycsjcbg/Zycsjcbg_Lists.jsp</result>
+		</action>
+		
+		<action name="zycsjcbgView" class="com.jshx.zycsjcbg.web.ZycsjcbgAction" method="view">
+			<result name="view">/WEB-INF/pages/zycsjcbg/Zycsjcbg_Detail.jsp</result>
+		</action>
+
+		<action name="zycsjcbgInitEdit" class="com.jshx.zycsjcbg.web.ZycsjcbgAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zycsjcbg/Zycsjcbg_Edit.jsp</result>
+		</action>
+
+		<action name="zycsjcbgSave" class="com.jshx.zycsjcbg.web.ZycsjcbgAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="zycsjcbgDel" class="com.jshx.zycsjcbg.web.ZycsjcbgAction" method="delete">
+		</action>
+		
+		<action name="zycsjcbgExport" class="com.jshx.zycsjcbg.web.ZycsjcbgAction" method="export">
+		</action>
+		
+	</package>
+</struts>

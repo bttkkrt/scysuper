@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findZfjhByMap">
+		from Zfjh t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="proId">
+			<![CDATA[and t.proId like :proId]]>
+		</isNotEmpty>
+		<isNotEmpty property="zfjhYear">
+			<![CDATA[and t.zfjhYear like :zfjhYear]]>
+		</isNotEmpty>
+		<isNotEmpty property="zfjhWeek">
+			<![CDATA[and t.zfjhWeek like :zfjhWeek]]>
+		</isNotEmpty>
+		<isNotEmpty property="zgqyName">
+			<![CDATA[and t.zgqyName like :zgqyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="zgqyDay">
+			<![CDATA[and t.zgqyDay like :zgqyDay]]>
+		</isNotEmpty>
+		<isNotEmpty property="zgqyContent">
+			<![CDATA[and t.zgqyContent like :zgqyContent]]>
+		</isNotEmpty>
+		<isNotEmpty property="hylyName">
+			<![CDATA[and t.hylyName like :hylyName]]>
+		</isNotEmpty>
+		<isNotEmpty property="hylyDay">
+			<![CDATA[and t.hylyDay like :hylyDay]]>
+		</isNotEmpty>
+		<isNotEmpty property="hylyContent">
+			<![CDATA[and t.hylyContent like :hylyContent]]>
+		</isNotEmpty>
+		<isNotEmpty property="zhjgName">
+			<![CDATA[and t.zhjgName like :zhjgName]]>
+		</isNotEmpty>
+		<isNotEmpty property="zhjgDay">
+			<![CDATA[and t.zhjgDay like :zhjgDay]]>
+		</isNotEmpty>
+		<isNotEmpty property="zhjgContent">
+			<![CDATA[and t.zhjgContent like :zhjgContent]]>
+		</isNotEmpty>
+		<isNotEmpty property="xqzfName">
+			<![CDATA[and t.xqzfName like :xqzfName]]>
+		</isNotEmpty>
+		<isNotEmpty property="xqzfDay">
+			<![CDATA[and t.xqzfDay like :xqzfDay]]>
+		</isNotEmpty>
+		<isNotEmpty property="xqzfContent">
+			<![CDATA[and t.xqzfContent like :xqzfContent]]>
+		</isNotEmpty>
+		order by t.createTime
+	</select>
+</sqlMap>

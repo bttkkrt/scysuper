@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="${tablename}" extends="default" namespace="/jsp/${project}">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="${lowerclassname}Query" class="${package}web.${classname}Action" method="list">
+		</action>
+		
+		<action name="${lowerclassname}List">
+			<result name="success">/WEB-INF/pages/${project}/${classname}_List.jsp</result>
+		</action>
+		
+		<action name="${lowerclassname}View" class="${package}web.${classname}Action" method="view">
+			<result name="view">/WEB-INF/pages/${project}/${classname}_Detail.jsp</result>
+		</action>
+
+		<action name="${lowerclassname}InitEdit" class="${package}web.${classname}Action" method="initEdit">
+			<result name="edit">/WEB-INF/pages/${project}/${classname}_Edit.jsp</result>
+		</action>
+
+		<action name="${lowerclassname}Save" class="${package}web.${classname}Action" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_${lowerclassname}</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="${lowerclassname}Del" class="${package}web.${classname}Action" method="delete">
+		</action>
+		${viewimageaction}
+	</package>
+</struts>

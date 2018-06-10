@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findPatManByMap">
+		select new com.jshx.xcxgl.entity.PatMan(t.id, t.patrolName, t.patrolType) from PatMan t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="patrolName">
+			<![CDATA[and t.patrolName like :patrolName]]>
+		</isNotEmpty>
+		<isNotEmpty property="patrolType">
+			<![CDATA[and t.patrolType = :patrolType]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserId">
+			<![CDATA[and t.createUserID = :createUserId]]>
+		</isNotEmpty>
+		order by t.createTime
+	</select>
+	<!-- 获取巡查项类型列表 lj 2015-10-12 --> 
+	<select id="query_xcx_type_list" parameterClass="java.util.Map" resultClass="java.util.HashMap">
+		select row_id as id, PATROL_TYPE_NAME as name from PAT_TYP_MAN where delflag = 0
+	</select>
+</sqlMap>

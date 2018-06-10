@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findJshxAqscbByMap">
+		from JshxAqscb t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like :qymc]]>
+		</isNotEmpty>
+		<isNotEmpty property="startYf">
+			<![CDATA[and t.jshxYear >= :startYf]]>
+		</isNotEmpty>
+		<isNotEmpty property="endYf">
+			<![CDATA[and t.jshxYear <= :endYf]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyfzr">
+			<![CDATA[and t.qyfzr like :qyfzr]]>
+		</isNotEmpty>
+		<isNotEmpty property="tbr">
+			<![CDATA[and t.tbr like :tbr]]>
+		</isNotEmpty>
+		<isNotEmpty property="startTbsj">
+			<![CDATA[and t.tbsj >= :startTbsj]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTbsj">
+			<![CDATA[and t.tbsj <= :endTbsj]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = :createUserID]]>
+		</isNotEmpty>
+		<isNotEmpty property="deptCode">
+			<![CDATA[and t.szzid like :deptCode]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="qyids">
+			<![CDATA[and t.qyid in (:qyids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="whp">
+			<![CDATA[and t.ifwhpqylx = :whp]]>
+		</isNotEmpty>
+		<isNotEmpty property="zyjk">
+			<![CDATA[and t.ifzywhqylx = :zyjk]]>
+		</isNotEmpty>
+		<isNotEmpty property="yhbz">
+			<![CDATA[and t.ifyhbzjyqy = :yhbz]]>
+		</isNotEmpty>
+		<isNotEmpty property="deptCode">
+			<![CDATA[and t.szzid like :deptCode]]>
+		</isNotEmpty>
+		<isNotEmpty	property="qyid">
+			<![CDATA[and t.qyid = :qyid]]>
+		</isNotEmpty>
+		<isNotEmpty property="szc">
+			<![CDATA[and t.szc = :szc]]>
+		</isNotEmpty>
+		<!--hanxc 20141223 start-->
+		<isNotEmpty property="ifzsqy">
+			<![CDATA[and t.ifzsqy =:ifzsqy]]>
+		</isNotEmpty>
+		<isNotEmpty property="isNotZsqy">
+			<![CDATA[and (t.ifzsqy != 1 or t.ifzsqy is null) ]]>
+		</isNotEmpty>
+		<isNotEmpty property="companyType">
+			<![CDATA[and ( t.companyType like $companyType$ )]]>
+		</isNotEmpty>
+		<!--hanxc 20141223 end-->
+		
+		order by t.createTime desc
+	</select>
+	<!-- 查询最近一次企业上报的月份 李军 2013-08-28 -->
+	<select id="query_laterMonth_byMap" parameterClass="java.util.Map" resultClass="java.lang.String">
+		select max(t.jshx_year) from jshx_aqscb t where t.delFlag = 0
+			<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = #createUserID#]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getAqscIdsByMap" parameterClass="java.util.Map" resultClass="java.lang.String">
+	select t.row_id from Jshx_Aqscb t
+	where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			and t.deptId in 
+			<iterate conjunction="," open="(" close=")" property="deptCodes">
+				#deptCodes[]# 
+			</iterate>
+		</isNotEmpty>
+		<isNotEmpty property="qymc">
+			<![CDATA[and t.qymc like #qymc#]]>
+		</isNotEmpty>
+		<isNotEmpty property="startYf">
+			<![CDATA[and t.jshx_Year >= #startYf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endYf">
+			<![CDATA[and t.jshx_Year <= #endYf#]]>
+		</isNotEmpty>
+		<isNotEmpty property="qyfzr">
+			<![CDATA[and t.qyfzr like #qyfzr#]]>
+		</isNotEmpty>
+		<isNotEmpty property="tbr">
+			<![CDATA[and t.tbr like #tbr#]]>
+		</isNotEmpty>
+		<isNotEmpty property="startTbsj">
+			<![CDATA[and t.tbsj >= #startTbsj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="endTbsj">
+			<![CDATA[and t.tbsj <= #endTbsj#]]>
+		</isNotEmpty>
+		<isNotEmpty property="createUserID">
+			<![CDATA[and t.createUserID = #createUserID#]]>
+		</isNotEmpty>
+		<isNotEmpty property="deptCode">
+			<![CDATA[and t.szzid like #deptCode#]]>
+		</isNotEmpty>
+		<isNotEmpty property="whp">
+			<![CDATA[and t.ifwhpqylx = #whp#]]>
+		</isNotEmpty>
+		<isNotEmpty property="zyjk">
+			<![CDATA[and t.ifzywhqylx = #zyjk#]]>
+		</isNotEmpty>
+		<isNotEmpty property="yhbz">
+			<![CDATA[and t.ifyhbzjyqy = #yhbz#]]>
+		</isNotEmpty>
+		<isNotEmpty property="szzid">
+			<![CDATA[and t.szzid = #szzid#]]>
+		</isNotEmpty>
+		<isNotEmpty	property="qyid">
+			<![CDATA[and t.qyid = #qyid#]]>
+		</isNotEmpty>
+		<!-- heyc 20141210 修改 start -->
+		<isNotEmpty property="fmks">
+			<![CDATA[and t.iffmksjyqy = #fmks#]]>
+		</isNotEmpty>
+		<isNotEmpty property="fmgm">
+			<![CDATA[and (t.iffmksjyqy is null or t.iffmksjyqy =0) and (t.ifwhpqylx is null or t.ifwhpqylx =0) and (t.ifyhbzjyqy  is null or t.ifyhbzjyqy =0) and (t.ifzywhqylx  is null or t.ifzywhqylx =0)]]>
+		</isNotEmpty>
+		<!-- heyc 20141210 修改 end -->
+		
+	</select>
+</sqlMap>

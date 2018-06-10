@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="MOBILE_%ClassName%" extends="default" namespace="/mobile/%ObjectName%">
+		<action name="save%ClassName%s" class="%PackageName%.web.%ClassName%MobileAction" method="save%ClassName%s">
+			<result name="success">/common/jsonString.jsp</result>
+		</action>
+		
+		<action name="list%ClassName%s" class="%PackageName%.web.%ClassName%MobileAction" method="list">
+			<result name="success">/common/jsonString.jsp</result>
+		</action>
+		
+		<action name="delete%ClassName%s" class="%PackageName%.web.%ClassName%MobileAction" method="delete">
+			<result name="success">/common/jsonString.jsp</result>
+		</action>
+		
+		<action name="save%ClassName%" class="%PackageName%.web.%ClassName%MobileAction" method="save">
+			<result name="success">/common/jsonString.jsp</result>
+		</action>
+	</package>
+</struts>

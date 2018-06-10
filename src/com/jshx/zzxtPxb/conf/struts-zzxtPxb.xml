@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="JSHX_ZZXT_PXB" extends="default" namespace="/jsp/zzxtPxb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="jshxZzxtPxbQuery" class="com.jshx.zzxtPxb.web.JshxZzxtPxbAction" method="list">
+		</action>
+		
+		<action name="jshxZzxtPxbList" class="com.jshx.zzxtPxb.web.JshxZzxtPxbAction" method="init">
+			<result name="success">/WEB-INF/pages/zzxtPxb/JshxZzxtPxb_List.jsp</result>
+		</action>
+		
+		<!-- add by gq 8-30 查询人员 -->
+			<action name="queryPersonList" class="com.jshx.zzxtPxb.web.JshxZzxtPxbAction" method="queryPerson">
+			<result name="success">/WEB-INF/pages/zzxtPxb/Carrier_List.jsp</result>
+		</action>
+		
+		
+		
+		
+		
+		<action name="jshxZzxtPxbView" class="com.jshx.zzxtPxb.web.JshxZzxtPxbAction" method="view">
+			<result name="view">/WEB-INF/pages/zzxtPxb/JshxZzxtPxb_Detail.jsp</result>
+		</action>
+
+		<action name="jshxZzxtPxbInitEdit" class="com.jshx.zzxtPxb.web.JshxZzxtPxbAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/zzxtPxb/JshxZzxtPxb_Edit.jsp</result>
+		</action>
+
+		<action name="jshxZzxtPxbSave" class="com.jshx.zzxtPxb.web.JshxZzxtPxbAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="jshxZzxtPxbDel" class="com.jshx.zzxtPxb.web.JshxZzxtPxbAction" method="delete">
+		</action>
+		
+		<action name="jshxZzxtPxbQuerys" class="com.jshx.zzxtPxb.web.JshxZzxtPxbAction" method="lists">
+		</action>
+		
+		<action name="jshxZzxtPxbLists" class="com.jshx.zzxtPxb.web.JshxZzxtPxbAction" method="inits">
+			<result name="success">/WEB-INF/pages/zzxtPxb/JshxZzxtPxb_Lists.jsp</result>
+		</action>
+	</package>
+</struts>

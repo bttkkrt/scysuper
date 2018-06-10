@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+<package name="Upload" extends="default">
+		<default-interceptor-ref name="completeStack"></default-interceptor-ref>
+		<action name="flashupload" method="execute"
+			class="com.jshx.module.form.web.action.FlashUploadAction">
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">4096000</param><!-- maxinumSize: 4G -->
+				<param name="allowedTypes">
+					application/zip,application/rar,application/octet-stream
+				</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+
+			<result name="success">
+				/common/FlashUpload.jsp
+			</result>
+			<result name="input">
+				/common/FlashUpload.jsp
+			</result>
+
+		</action>
+		
+		<action name="findChildCate" method="findChildCate" class="com.jshx.module.form.web.action.FormCategoryAction"></action>
+
+		<action name="fileUpload">
+			<result>/WEB-INF/pages/admin/form/fileUpload.jsp</result>
+		</action>
+		
+		<action name="getXMLData"
+			class="com.jshx.module.form.web.action.FormTableAction" method="getXMLData">
+		</action>
+		
+		
+		<action name="fileUploadforExcel">
+			<result>/WEB-INF/pages/admin/form/fileUploadforExcel.jsp</result>
+		</action>
+
+		<action name="readFile" class="com.jshx.module.form.web.action.FlashUploadAction"
+			method="readFile">
+		</action>
+
+	</package>
+
+
+	<package name="form" extends="default"
+		namespace="/jsp/admin/form">
+		<action name="formTableSave"
+			class="com.jshx.module.form.web.action.FormTableAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+    		<interceptor-ref name="defaultStack" />  
+			<result name="success">
+				/common/successToSelf.jsp?windowId=formWindow
+			</result>
+				<result name="invalid.token">/invalid.jsp</result>   
+		</action>
+		
+		<action name="tableIsExist" class="com.jshx.module.form.web.action.FormTableAction"
+			method="tableIsExist">
+		</action>
+
+		<action name="formTableGet"
+			class="com.jshx.module.form.web.action.FormTableAction" method="get">
+			<result name="success">
+				/WEB-INF/pages/admin/form/formTableEdit.jsp
+			</result>
+		</action>
+
+		<action name="formTableDel"
+			class="com.jshx.module.form.web.action.FormTableAction" method="delete">
+			
+		</action>
+
+		<action name="formTableListUp"
+			class="com.jshx.module.form.web.action.FormTableAction" method="listUp">
+			<result name="success" type="redirect">
+				/jsp/admin/form/formTableList.action
+			</result>
+		</action>
+
+		<action name="createCopyTable"
+			class="com.jshx.module.form.web.action.FormTableAction" method="similar">
+			<result name="success">
+				/common/successToSelf.jsp
+			</result>
+		</action>
+
+		<action name="formTableExp"
+			class="com.jshx.module.form.web.action.FormTableAction"
+			method="exportXML">
+		</action>
+		
+
+		<action name="getimportExcel"
+			class="com.jshx.module.form.web.action.FormTableAction"
+			method="getimportExcel">
+			<result name="success">
+				/WEB-INF/pages/admin/form/excelUploadforCommon.jsp
+			</result>
+		</action>
+		
+		<action name="importExcelForCommon"
+			class="com.jshx.module.form.web.action.FormTableAction"
+			method="importExcelforCommon">
+			<result name="success">/common/successToSelf.jsp</result>
+		</action>
+		
+		
+		<action name="getimportForm"
+			class="com.jshx.module.form.web.action.FormTableAction"
+			method="getimportForm">
+		</action>
+		
+		
+		<action name="importFormInit"
+			class="com.jshx.module.form.web.action.FormTableAction"
+			method="importFormInit">
+			<result name="success">/WEB-INF/pages/admin/form/importForm.jsp</result>
+		</action>
+		
+		<action name="importForm"
+			class="com.jshx.module.form.web.action.FormTableAction"
+			method="importForm">
+			<result name="success">
+			/common/successToParent.jsp?successUrl=/jsp/admin/form/getimportForm.action
+			</result>
+		</action>
+		
+		<action name="getExceltemplate"
+			class="com.jshx.module.form.web.action.FormTableAction"
+			method="getExceltemplate">
+		</action>
+
+		<action name="formTableImp"
+			class="com.jshx.module.form.web.action.FormTableAction"
+			method="importXML">
+			<result name="success">
+				/common/successToSelf.jsp
+			</result>
+		</action>
+
+		<action name="importExcel"
+			class="com.jshx.module.form.web.action.FormTableAction"
+			method="importExcel">
+			<result name="success">
+				/common/successToSelf.jsp
+			</result>
+		</action>
+
+		<action name="formTableList"
+			class="com.jshx.module.form.web.action.FormTableAction" method="list">
+			
+		</action>
+		
+		<action name="formTableInitList"
+			class="com.jshx.module.form.web.action.FormTableAction" method="initList">
+			<result name="success">
+				/WEB-INF/pages/admin/form/formTableList.jsp
+			</result>
+		</action>
+
+		<action name="reCreateTable"
+			class="com.jshx.module.form.web.action.FormTableAction"
+			method="reCreateTable">
+		</action>
+
+		<action name="formFieldList" class="com.jshx.module.form.web.action.FormFieldAction"
+			method="list">
+		</action>
+		
+		<action name="findFieldListByTableId" class="com.jshx.module.form.web.action.FormFieldAction"
+			method="findFieldListByTableId">
+		</action>
+		
+		<action name="formFieldInitList" class="com.jshx.module.form.web.action.FormFieldAction"
+			method="initList">
+			<result name="success">
+				/WEB-INF/pages/admin/form/formFieldList.jsp
+			</result>
+		</action>
+
+		<action name="formFieldListUp" 	class="com.jshx.module.form.web.action.FormFieldAction" method="listUp">
+			
+		</action>
+
+		<action name="formFieldSave" class="com.jshx.module.form.web.action.FormFieldAction"
+			method="save">
+		</action>
+		
+		<action name="checkFieldName" class="com.jshx.module.form.web.action.FormFieldAction"
+			method="checkFieldName">
+		</action>
+
+		<action name="formFieldGet" class="com.jshx.module.form.web.action.FormFieldAction" method="get">
+			<result name="success">
+				/WEB-INF/pages/admin/form/formFieldEdit.jsp
+			</result>
+		</action>
+
+		<action name="formFieldDelA" class="com.jshx.module.form.web.action.FormFieldAction" method="delete">
+			
+		</action>
+
+		<action name="genCode"
+			class="com.jshx.module.form.web.action.FormTableAction" method="genCode">
+		</action>
+
+		<action name="genALLCode"
+			class="com.jshx.module.form.web.action.FormTableAction"
+			method="genALLCode">
+			<result name="success">
+				/WEB-INF/pages/admin/form/genCode.jsp
+			</result>
+		</action>
+
+
+
+
+
+
+		<!-- 记录操作 -->
+		<action name="viewList"
+			class="com.jshx.module.form.web.action.FormRecordAction"
+			method="viewList">
+			<result name="success">
+				/WEB-INF/pages/admin/form/recordList.jsp
+			</result>
+		</action>
+		<action name="viewRecord"
+			class="com.jshx.module.form.web.action.FormRecordAction"
+			method="viewRecord">
+		</action>
+		<action name="formRecordAdd"
+			class="com.jshx.module.form.web.action.FormRecordAction"
+			method="formRecordAdd">
+			<result name="success">
+				/WEB-INF/pages/admin/form/recordEdit.jsp
+			</result>
+		</action>
+		<action name="formRecordSave"
+			class="com.jshx.module.form.web.action.FormRecordAction" method="save">
+			<result name="success">
+				/WEB-INF/pages/admin/form/recordEdit.jsp
+			</result>
+		</action>
+		<action name="formRecordEdit"
+			class="com.jshx.module.form.web.action.FormRecordAction" method="view">
+			<result name="success">
+				/WEB-INF/pages/admin/form/recordEdit.jsp
+			</result>
+		</action>
+		<action name="formRecordView"
+			class="com.jshx.module.form.web.action.FormRecordAction" method="view">
+			<result name="success">
+				/WEB-INF/pages/admin/form/recordView.jsp
+			</result>
+		</action>
+		<action name="deleteRecord"
+			class="com.jshx.module.form.web.action.FormRecordAction"
+			method="deleteRecord">
+		</action>
+		<action name="formRecordUpdate"
+			class="com.jshx.module.form.web.action.FormRecordAction" method="update">
+			<result name="success" type="redirect">
+				formRecordView.action?rowId=${rowId}&amp;tableId=${tableId}
+			</result>
+			<result name="error">
+				/WEB-INF/pages/admin/form/recordEdit.jsp
+			</result>
+		</action>
+
+		<!--表单类别管理开始-->
+		<!-- added by Huairu -->
+		<action name="indexCategory" class="com.jshx.module.form.web.action.FormCategoryAction" method="index">
+			<result name="success">
+				/WEB-INF/pages/admin/form/categoryIndex.jsp
+			</result>
+		</action>
+		
+		<action name="tableIndex" class="com.jshx.module.form.web.action.FormCategoryAction" method="index">
+			<result name="success">
+				/WEB-INF/pages/admin/form/tableIndex.jsp
+			</result>
+		</action>
+		
+		
+		<action name="categoryTableTree" class="com.jshx.module.form.web.action.FormCategoryAction" method="showTree">
+			<result name="success">
+				/WEB-INF/pages/admin/form/categoryTableTree.jsp
+			</result>
+		</action>
+		
+		<!-- added by Huairu -->
+		<action name="treeCategory" class="com.jshx.module.form.web.action.FormCategoryAction" method="showTree">
+			<result name="success">
+				/WEB-INF/pages/admin/form/categoryTree.jsp
+			</result>
+		</action>
+		
+		<!-- added by Huairu -->
+		<action name="initList" class="com.jshx.module.form.web.action.FormCategoryAction" method="initList">
+			<result name="success">
+				/WEB-INF/pages/admin/form/categoryList.jsp
+			</result>
+		</action>
+		
+		<action name="listCategory" class="com.jshx.module.form.web.action.FormCategoryAction" method="listCategory">
+			
+		</action>
+
+		<!-- added by Huairu -->
+		<action name="editCategory" class="com.jshx.module.form.web.action.FormCategoryAction" method="editCategory">
+			<result name="edit">
+				/WEB-INF/pages/admin/form/categoryEdit.jsp
+			</result>
+		</action>
+
+		<!-- added by Huairu -->
+		<action name="saveCategory" class="com.jshx.module.form.web.action.FormCategoryAction" method="saveCategory">
+			<result name="reload">
+				/common/successToSelf.jsp
+			</result>
+			<result name="list" type="redirect">
+				/jsp/admin/form/listCategory.action?categoryNum=${categoryNum}
+			</result>			
+		</action>
+		
+		<!-- added by Huairu -->
+		<action name="deleteCategory" class="com.jshx.module.form.web.action.FormCategoryAction" method="deleteCategory">
+			<result name="reload">
+				/WEB-INF/pages/admin/form/categoryList.jsp
+			</result>
+		</action>
+		<!--表单类别管理结束-->
+
+
+		<action name="viewPage"
+			class="com.jshx.module.form.web.action.FormRecordAction" method="view">
+			<result name="success">
+				/WEB-INF/pages/user/form/page/view_${tableId}.jsp
+			</result>
+		</action>
+		<action name="addPage"
+			class="com.jshx.module.form.web.action.FormRecordAction"
+			method="formRecordAdd">
+			<result name="success">
+				/WEB-INF/pages/user/form/page/edit_${tableId}.jsp
+			</result>
+		</action>
+		<action name="editPage"
+			class="com.jshx.module.form.web.action.FormRecordAction" method="view">
+			<result name="success">
+				/WEB-INF/pages/user/form/page/edit_${tableId}.jsp
+			</result>
+		</action>
+		<action name="listPage"
+			class="com.jshx.module.form.web.action.FormRecordAction"
+			method="viewRecord">
+			<result name="success">
+				/WEB-INF/pages/user/form/page/list_${tableId}.jsp
+			</result>
+		</action>
+		<action name="savePage"
+			class="com.jshx.module.form.web.action.FormRecordAction" method="save">
+			<result name="success" type="redirect">
+				listPage.action?tableId=${tableId}
+			</result>
+		</action>
+		<action name="updatePage"
+			class="com.jshx.module.form.web.action.FormRecordAction" method="update">
+			<result name="success" type="redirect">
+				viewPage.action?rowId=${rowId}&amp;tableId=${tableId}
+			</result>
+		</action>
+		<action name="deletePage"
+			class="com.jshx.module.form.web.action.FormRecordAction"
+			method="deleteRecord">
+			<result name="success" type="redirect">
+				listPage.action?tableId=${tableId}
+			</result>
+		</action>
+
+
+		<action name="createFormSrc" method="createFormSrc"
+			class="com.jshx.module.form.web.action.FormSrcAvtion">
+			<result name="success">/common/successToSelf.jsp</result>
+		</action>
+
+		<action name="readFile"
+			class="com.jshx.module.form.web.action.FormRecordAction"
+			method="viewImage">
+		</action>
+
+		<action name="readAttFile"
+			class="com.jshx.module.form.web.action.FlashUploadAction" method="readFile">
+		</action>
+
+		<action name="index">
+			<result name="success">
+				/WEB-INF/pages/admin/form/form_index.jsp
+			</result>
+		</action>
+
+		<action name="formTableMove"
+			class="com.jshx.module.form.web.action.FormTableAction" method="move">
+			
+		</action>
+		
+		<action name="select_category">
+			<result name="success">
+				/WEB-INF/pages/admin/form/select_category_dialogs.jsp
+			</result>
+		</action>
+
+		<action name="select_category_list" class="com.jshx.module.form.web.action.FormTableAction" method="initList">
+			<result name="success">
+				/WEB-INF/pages/admin/form/select_category_list.jsp
+			</result>
+		</action>
+		
+
+		<!-- 表单页面组管理开始 -->
+		<action name="indexGroup">
+			<result name="success">
+				/WEB-INF/pages/admin/form/multi/index.jsp
+			</result>
+		</action>
+		<action name="listGroup" class="com.jshx.module.form.web.action.FormPageGroupAction" method="list">
+		    <result name="success">
+		        /WEB-INF/pages/admin/form/multi/group_list.jsp
+		    </result>
+		</action>
+
+		<action name="getGroup" class="com.jshx.module.form.web.action.FormPageGroupAction" method="get">
+		    <result name="success">
+		        /WEB-INF/pages/admin/form/multi/group_edit.jsp
+		    </result>
+		</action>
+
+		<action name="saveGroup" class="com.jshx.module.form.web.action.FormPageGroupAction" method="save">
+		    <result name="reload" type="redirect">
+		        /common/successToParent.jsp?successUrl=/jsp/admin/form/listGroup.action
+		    </result>
+		</action>
+
+		<action name="delGroup" class="com.jshx.module.form.web.action.FormPageGroupAction" method="delete">
+		    <result name="reload" type="redirect">
+		        /common/successToParent.jsp?successUrl=/jsp/admin/form/listGroup.action
+		    </result>
+		</action>
+		<!-- 表单页面组管理结束 -->
+
+		<!-- 表单页面管理-->
+		<action name="pageList" class="com.jshx.module.form.web.action.FormPageAction" method="list">
+		    <result name="success">
+		        /WEB-INF/pages/admin/form/multi/page_list.jsp
+		    </result>
+		    <result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+
+		<action name="getPage" class="com.jshx.module.form.web.action.FormPageAction" method="get">
+		    <result name="success">
+		        /WEB-INF/pages/admin/form/multi/page_edit.jsp
+		    </result>
+		    <result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+
+		<action name="pageSave" class="com.jshx.module.form.web.action.FormPageAction" method="save">
+		    <result name="reload" type="redirect">
+		        /common/successToParent.jsp?successUrl=/jsp/admin/form/pageList.action?formPage.group.id=${formPage.group.id}
+		    </result>
+		    <result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+
+		<action name="delPage" class="com.jshx.module.form.web.action.FormPageAction" method="delete">
+		    <result name="reload" type="redirect">
+		        /common/successToParent.jsp?successUrl=/jsp/admin/form/pageList.action?formPage.group.id=${formPage.group.id}
+		    </result>
+		    <result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="managePage" class="com.jshx.module.form.web.action.FormPageAction" method="manage">
+			<result name="success">
+				/WEB-INF/pages/admin/form/multi/page_manage.jsp?pageId=${pageId}
+			</result>
+		</action>
+
+		<!-- 表单页面内容管理-->
+		<!-- Param -->
+		<action name="getParam" class="com.jshx.module.form.web.action.FormPageParamAction" method="get">
+			<result name="success">
+				/WEB-INF/pages/admin/form/multi/param_edit.jsp
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="getParamList" class="com.jshx.module.form.web.action.FormPageParamAction" method="list">
+			<result name="success">
+				/WEB-INF/pages/admin/form/multi/param_list.jsp
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="saveParam" class="com.jshx.module.form.web.action.FormPageParamAction" method="save">
+			<result name="reload" type="redirect">
+				/common/successToParent.jsp?successUrl=/jsp/admin/form/getParamList.action?pageId=${pageId}
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="delParam" class="com.jshx.module.form.web.action.FormPageParamAction" method="delete">
+			<result name="reload" type="redirect">
+				/common/successToParent.jsp?successUrl=/jsp/admin/form/getParamList.action?pageId=${pageId}
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<!-- Block -->
+		<action name="getBlock" class="com.jshx.module.form.web.action.FormPageBlockAction" method="get">
+			<result name="success">
+				/WEB-INF/pages/admin/form/multi/block_edit.jsp
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="getBlockList" class="com.jshx.module.form.web.action.FormPageBlockAction" method="list">
+			<result name="success">
+				/WEB-INF/pages/admin/form/multi/block_list.jsp
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="saveBlock" class="com.jshx.module.form.web.action.FormPageBlockAction" method="save">
+			<result name="reload" type="redirect">
+				/common/successToParent.jsp?successUrl=/jsp/admin/form/getBlockList.action?pageId=${pageId}
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="delBlock" class="com.jshx.module.form.web.action.FormPageBlockAction" method="delete">
+			<result name="reload" type="redirect">
+				/common/successToParent.jsp?successUrl=/jsp/admin/form/getBlockList.action?pageId=${pageId}
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="manageBlock" class="com.jshx.module.form.web.action.FormPageBlockAction" method="manage">
+			<result name="success">
+				/WEB-INF/pages/admin/form/multi/block_manage.jsp?blockId=${blockId}
+			</result>
+		</action>
+
+		<!-- Block Relation -->
+		<action name="getRelationList" class="com.jshx.module.form.web.action.FormPageBlockRelationAction" method="list">
+			<result name="success">
+				/WEB-INF/pages/admin/form/multi/relation_list.jsp
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="saveRelation" class="com.jshx.module.form.web.action.FormPageBlockRelationAction"
+				method="save">
+			<result name="reload" type="redirect">
+				/common/successToParent.jsp?successUrl=/jsp/admin/form/getRelationList.action?blockId=${blockId}
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="delRelation" class="com.jshx.module.form.web.action.FormPageBlockRelationAction"
+				method="delete">
+			<result name="reload" type="redirect">
+				/common/successToParent.jsp?successUrl=/jsp/admin/form/getRelationList.action?blockId=${blockId}
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="getRelation" class="com.jshx.module.form.web.action.FormPageBlockRelationAction"
+				method="get">
+			<result name="success">
+				/WEB-INF/pages/admin/form/multi/relation_edit.jsp
+			</result>
+		</action>
+
+
+		<!-- Block Column -->
+		<action name="getColumnList" class="com.jshx.module.form.web.action.FormPageBlockColumnAction" method="list">
+			<result name="success">
+				/WEB-INF/pages/admin/form/multi/column_list.jsp
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+
+		<action name="saveColumn" class="com.jshx.module.form.web.action.FormPageBlockColumnAction"
+				method="save">
+			<result name="reload" type="redirect">
+				/common/successToParent.jsp?successUrl=/jsp/admin/form/getColumnList.action?blockId=${blockId}
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="delColumn" class="com.jshx.module.form.web.action.FormPageBlockColumnAction"
+				method="delete">
+			<result name="reload" type="redirect">
+				/common/successToParent.jsp?successUrl=/jsp/admin/form/getColumnList.action?blockId=${blockId}
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="getColumn" class="com.jshx.module.form.web.action.FormPageBlockColumnAction"
+				method="get">
+			<result name="success">
+				/WEB-INF/pages/admin/form/multi/column_edit.jsp
+			</result>
+		</action>
+
+		<!-- Block Button -->
+ 		<action name="getButtonList" class="com.jshx.module.form.web.action.FormPageBlockButtonAction" method="list">
+			<result name="success">
+				/WEB-INF/pages/admin/form/multi/button_list.jsp
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+
+		<action name="saveButton" class="com.jshx.module.form.web.action.FormPageBlockButtonAction"
+				method="save">
+			<result name="reload" type="redirect">
+				/common/successToParent.jsp?successUrl=/jsp/admin/form/getButtonList.action?blockId=${blockId}
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="delButton" class="com.jshx.module.form.web.action.FormPageBlockButtonAction"
+				method="delete">
+			<result name="reload" type="redirect">
+				/common/successToParent.jsp?successUrl=/jsp/admin/form/getButtonList.action?blockId=${blockId}
+			</result>
+			<result name="error">
+		       /common/error.jsp
+		    </result>
+		</action>
+		<action name="getButton" class="com.jshx.module.form.web.action.FormPageBlockButtonAction"
+				method="get">
+			<result name="success">
+				/WEB-INF/pages/admin/form/multi/button_edit.jsp
+			</result>
+		</action>
+
+
+		<action name="searchFormTable" class="com.jshx.module.form.web.action.FormTableAction" method="searchFormTable" ></action>
+
+
+
+	</package>
+</struts>

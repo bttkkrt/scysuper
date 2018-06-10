@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findRecResByMap">
+		select new com.jshx.zxzzjcjl.entity.RecRes(t.id, t.checkTime, t.checkDept, t.rectificationMeasure,t.rectificationDate,t.planId,t.planName,t.createUserID) from RecRes t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startCheckTime">
+			<![CDATA[and t.checkTime >= :startCheckTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endCheckTime">
+			<![CDATA[and t.checkTime <= :endCheckTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="checkDept">
+			<![CDATA[and t.checkDept like :checkDept]]>
+		</isNotEmpty>
+		<isNotEmpty property="rectificationMeasure">
+			<![CDATA[and t.rectificationMeasure like :rectificationMeasure]]>
+		</isNotEmpty>
+		<isNotEmpty property="planId">
+			<![CDATA[and t.planId = :planId]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchLike">
+			<![CDATA[and (t.planName like :searchLike or t.checkDept like :searchLike)]]>
+		</isNotEmpty>
+		<isNotEmpty property="planName">
+			<![CDATA[and t.planName like :planName ]]>
+		</isNotEmpty>
+		
+		order by t.checkTime desc
+	</select>
+	<!-- s删除记录的时候修改计划 费谦 2015-11-5 -->
+	<update id="updateRecPlanByRecResIds" parameterClass="java.util.Map">
+		update REC_PLA  set STATUS = 0
+		where ROW_ID in ( select r.PLAN_ID from REC_RES r where charindex(r.ROW_ID,#ids# )>0) 
+	</update>
+</sqlMap>

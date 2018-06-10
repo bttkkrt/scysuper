@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+        "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<!-- 根据搜索条件查询  -->
+	<select id="findAqscjchzxzzByMap">
+		select new com.jshx.aqscjchzxzz.entity.Aqscjchzxzz(t.id, t.monthTime, t.areaName) from Aqscjchzxzz t where t.delFlag = 0
+		<isNotEmpty property="deptCodes">
+			<![CDATA[and t.deptId in (:deptCodes)]]>
+		</isNotEmpty>
+		<isNotEmpty property="ids">
+			<![CDATA[and t.id in (:ids)]]>
+		</isNotEmpty>
+		
+		<isNotEmpty property="startMonthTime">
+			<![CDATA[and t.monthTime >= :startMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="endMonthTime">
+			<![CDATA[and t.monthTime <= :endMonthTime]]>
+		</isNotEmpty>
+		<isNotEmpty property="areaName">
+			<![CDATA[and t.areaName like :areaName]]>
+		</isNotEmpty>
+	</select>
+	
+	<select id="getAqscjchzxzzListByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqscjchzxzz.entity.AqscjchzxzzBean">
+	 SELECT DISTINCT t.area_name as data1,
+     sum(cast(t.jgqys as int))as data2,
+     sum(cast(t.jcqymb as int))as data3,
+     sum(cast(t.jcqys as int))as data4, 
+     sum(cast(t.ybyhpcs as int))as data5, 
+     sum(cast(t.ybyhyzzs as int))as data6,  
+     sum(cast(t.zdyhpcs as int))as data8, 
+     sum(cast(t.zdyhyzzs as int))as data9, 
+     sum(cast(t.djffwfxw as int))as data11, 
+     sum(cast(t.zzwgwfxw as int))as data12, 
+     sum(cast(t.cfzqs as int))as data13, 
+     sum(cast(t.yjasg as int))as data14,
+     sum(cast(t.cfje as float))as data15,
+     sum(cast(t.zjxszr as int))as data16,
+     sum(cast(t.cfzqssg as int))as data17, 
+     sum(cast(t.yjasgsg as int))as data18,
+     sum(cast(t.cfjesg as float))as data19
+     from AQSCJCHZXZZ t where t.delflag=0
+      <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+     group by t.area_name
+	</select>
+	
+	<select id="getTotalAqscjchzxzzListByMap" parameterClass="java.util.Map" resultClass="com.jshx.aqscjchzxzz.entity.AqscjchzxzzBean">
+	 SELECT 
+     sum(cast(t.jgqys as int))as data2,
+     sum(cast(t.jcqymb as int))as data3,
+     sum(cast(t.jcqys as int))as data4, 
+     sum(cast(t.ybyhpcs as int))as data5, 
+     sum(cast(t.ybyhyzzs as int))as data6,  
+     sum(cast(t.zdyhpcs as int))as data8, 
+     sum(cast(t.zdyhyzzs as int))as data9, 
+     sum(cast(t.djffwfxw as int))as data11, 
+     sum(cast(t.zzwgwfxw as int))as data12, 
+     sum(cast(t.cfzqs as int))as data13, 
+     sum(cast(t.yjasg as int))as data14,
+     sum(cast(t.cfje as float))as data15,
+     sum(cast(t.zjxszr as int))as data16,
+     sum(cast(t.cfzqssg as int))as data17, 
+     sum(cast(t.yjasgsg as int))as data18,
+     sum(cast(t.cfjesg as float))as data19
+     from AQSCJCHZXZZ t where t.delflag=0
+     <isNotEmpty property="startMonthTime">
+			<![CDATA[and t.month_time >= #startMonthTime#]]>
+		</isNotEmpty>
+	 <isNotEmpty property="endMonthTime">
+			<![CDATA[and t.month_time <= #endMonthTime#]]>
+	 </isNotEmpty>
+	</select>
+</sqlMap>

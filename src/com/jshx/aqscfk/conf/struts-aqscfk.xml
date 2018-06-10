@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="AQSCFK" extends="default" namespace="/jsp/aqscfk">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="aqscfkQuery" class="com.jshx.aqscfk.web.AqscfkAction" method="list">
+		</action>
+		
+		<action name="aqscfkReport1" class="com.jshx.aqscfk.web.AqscfkAction" method="aqscfkReport1">
+			<result name="success">/WEB-INF/pages/aqscfk/Aqscfk_report1.jsp</result>
+		</action>
+		
+		<action name="aqscfkReport2" class="com.jshx.aqscfk.web.AqscfkAction" method="aqscfkReport2">
+			<result name="success">/WEB-INF/pages/aqscfk/Aqscfk_report2.jsp</result>
+		</action>
+		
+		<action name="aqscfkList" class="com.jshx.aqscfk.web.AqscfkAction" method="init">
+			<result name="success">/WEB-INF/pages/aqscfk/Aqscfk_List.jsp</result>
+		</action>
+		
+		<action name="aqscfkView" class="com.jshx.aqscfk.web.AqscfkAction" method="view">
+			<result name="view">/WEB-INF/pages/aqscfk/Aqscfk_Detail.jsp</result>
+		</action>
+
+		<action name="aqscfkInitEdit" class="com.jshx.aqscfk.web.AqscfkAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/aqscfk/Aqscfk_Edit.jsp</result>
+		</action>
+
+		<action name="aqscfkSave" class="com.jshx.aqscfk.web.AqscfkAction" method="save">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="aqscfkDel" class="com.jshx.aqscfk.web.AqscfkAction" method="delete">
+		</action>
+		
+		<action name="aqscfkUpload" class="com.jshx.aqscfk.web.AqscfkAction" method="upload">
+			<result name="success">/WEB-INF/pages/aqscfk/Aqscfk_upload.jsp</result>
+		</action>
+		<action name="aqscfkSavePhoto" class="com.jshx.aqscfk.web.AqscfkAction" method="savePhoto">
+		</action>
+		<action name="aqscfkImageDel" class="com.jshx.aqscfk.web.AqscfkAction" method="deleteImage">
+		</action>
+		<action name="aqscfkSaveFile" class="com.jshx.aqscfk.web.AqscfkAction" method="saveFile">
+		</action>
+		
+		<action name="aqscfkShenhe" class="com.jshx.aqscfk.web.AqscfkAction" method="shenhe">
+			<result name="success">/WEB-INF/pages/aqscfk/Aqscfk_Shenhe.jsp</result>
+		</action>
+		
+		
+		<action name="aqscfkShenheSave" class="com.jshx.aqscfk.web.AqscfkAction" method="shenhesave">
+			<interceptor-ref name="tokenSession" />  
+    		<interceptor-ref name="coreStack" />
+			<result name="reload">/WEB-INF/pages/common/successToClose1.jsp</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+		
+		<action name="aqscfkExport" class="com.jshx.aqscfk.web.AqscfkAction" method="export">
+		</action>
+	</package>
+</struts>

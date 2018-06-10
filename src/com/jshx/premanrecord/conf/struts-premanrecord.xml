@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PRE_MAN_REC" extends="default" namespace="/jsp/premanrecord">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="preManRecQuery" class="com.jshx.premanrecord.web.PreManRecAction" method="list">
+		</action>
+		
+		<action name="preManRecList" class="com.jshx.premanrecord.web.PreManRecAction" method="init">
+			<result name="success">/WEB-INF/pages/premanrecord/PreManRec_List.jsp</result>
+		</action>
+		
+		<action name="preManRecView" class="com.jshx.premanrecord.web.PreManRecAction" method="view">
+			<result name="view">/WEB-INF/pages/premanrecord/PreManRec_Detail.jsp</result>
+		</action>
+
+		<action name="preManRecInitEdit" class="com.jshx.premanrecord.web.PreManRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/premanrecord/PreManRec_Edit.jsp</result>
+		</action>
+
+		<action name="preManRecSave" class="com.jshx.premanrecord.web.PreManRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_preManRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="preManRecDel" class="com.jshx.premanrecord.web.PreManRecAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

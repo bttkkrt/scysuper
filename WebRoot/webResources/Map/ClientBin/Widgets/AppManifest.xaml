@@ -1,0 +1,65 @@
+﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="Geone_AJ" EntryPointType="Geone_AJ.App" RuntimeVersion="5.0.61118.0">
+  <Deployment.Parts>
+    <AssemblyPart x:Name="Geone_AJ" Source="Geone_AJ.dll" />
+    <AssemblyPart x:Name="ESRI.ArcGIS.Client.Behaviors" Source="ESRI.ArcGIS.Client.Behaviors.dll" />
+    <AssemblyPart x:Name="ESRI.ArcGIS.Client.Bing" Source="ESRI.ArcGIS.Client.Bing.dll" />
+    <AssemblyPart x:Name="ESRI.ArcGIS.Client" Source="ESRI.ArcGIS.Client.dll" />
+    <AssemblyPart x:Name="ESRI.ArcGIS.Client.Portal" Source="ESRI.ArcGIS.Client.Portal.dll" />
+    <AssemblyPart x:Name="ESRI.ArcGIS.Client.Printing" Source="ESRI.ArcGIS.Client.Printing.dll" />
+    <AssemblyPart x:Name="ESRI.ArcGIS.Client.Toolkit.DataSources" Source="ESRI.ArcGIS.Client.Toolkit.DataSources.dll" />
+    <AssemblyPart x:Name="ESRI.ArcGIS.Client.Toolkit" Source="ESRI.ArcGIS.Client.Toolkit.dll" />
+    <AssemblyPart x:Name="FJ.Core" Source="FJ.Core.dll" />
+    <AssemblyPart x:Name="Geone.GeoAnalysis" Source="Geone.GeoAnalysis.dll" />
+    <AssemblyPart x:Name="Microsoft.CSharp" Source="Microsoft.CSharp.dll" />
+    <AssemblyPart x:Name="Newtonsoft.Json" Source="Newtonsoft.Json.dll" />
+    <AssemblyPart x:Name="SLVisifire.Charts" Source="SLVisifire.Charts.dll" />
+    <AssemblyPart x:Name="SLVisifire.Gauges" Source="SLVisifire.Gauges.dll" />
+    <AssemblyPart x:Name="Sym.Common" Source="Sym.Common.dll" />
+    <AssemblyPart x:Name="Sym.ConfigManager.SL5" Source="Sym.ConfigManager.SL5.dll" />
+    <AssemblyPart x:Name="Sym.EventsManager.SL5" Source="Sym.EventsManager.SL5.dll" />
+    <AssemblyPart x:Name="Sym.LayoutManager.SL5" Source="Sym.LayoutManager.SL5.dll" />
+    <AssemblyPart x:Name="Sym.MapEvents" Source="Sym.MapEvents.dll" />
+    <AssemblyPart x:Name="Sym.MapViewer" Source="Sym.MapViewer.dll" />
+    <AssemblyPart x:Name="Sym.ViewContainer" Source="Sym.ViewContainer.dll" />
+    <AssemblyPart x:Name="Sym.WidgetManager.SL5" Source="Sym.WidgetManager.SL5.dll" />
+    <AssemblyPart x:Name="Sym.Widgets.LayersManager" Source="Sym.Widgets.LayersManager.dll" />
+    <AssemblyPart x:Name="Sym.Widgets.Silverlight" Source="Sym.Widgets.Silverlight.dll" />
+    <AssemblyPart x:Name="GeoMatrix.Client" Source="GeoMatrix.Client.dll" />
+    <AssemblyPart x:Name="System.Windows.Interactivity" Source="System.Windows.Interactivity.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls.Data" Source="System.Windows.Controls.Data.dll" />
+    <AssemblyPart x:Name="System.Xml.Linq" Source="System.Xml.Linq.dll" />
+    <AssemblyPart x:Name="System.Observable" Source="System.Observable.dll" />
+    <AssemblyPart x:Name="System.CoreEx" Source="System.CoreEx.dll" />
+    <AssemblyPart x:Name="silverPDF" Source="silverPDF.dll" />
+    <AssemblyPart x:Name="System.Reactive" Source="System.Reactive.dll" />
+    <AssemblyPart x:Name="System.Json" Source="System.Json.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls" Source="System.Windows.Controls.dll" />
+    <AssemblyPart x:Name="System.ComponentModel.DataAnnotations" Source="System.ComponentModel.DataAnnotations.dll" />
+    <AssemblyPart x:Name="System.Windows.Data" Source="System.Windows.Data.dll" />
+    <AssemblyPart x:Name="System.ServiceModel.Syndication" Source="System.ServiceModel.Syndication.dll" />
+    <AssemblyPart x:Name="Microsoft.Expression.Interactions" Source="Microsoft.Expression.Interactions.dll" />
+    <AssemblyPart x:Name="Geone.UDX.SL5" Source="Geone.UDX.SL5.dll" />
+    <AssemblyPart x:Name="System.Windows.Controls.Data.Input" Source="System.Windows.Controls.Data.Input.dll" />
+    <AssemblyPart x:Name="System.Xml.Serialization" Source="System.Xml.Serialization.dll" />
+    <AssemblyPart Source="zh-Hans/ESRI.ArcGIS.Client.resources.dll" />
+    <AssemblyPart Source="zh-Hans/ESRI.ArcGIS.Client.Behaviors.resources.dll" />
+    <AssemblyPart Source="zh-Hans/ESRI.ArcGIS.Client.Bing.resources.dll" />
+    <AssemblyPart Source="zh-Hans/ESRI.ArcGIS.Client.Portal.resources.dll" />
+    <AssemblyPart Source="zh-Hans/ESRI.ArcGIS.Client.Printing.resources.dll" />
+    <AssemblyPart Source="zh-Hans/ESRI.ArcGIS.Client.Toolkit.resources.dll" />
+    <AssemblyPart Source="zh-Hans/ESRI.ArcGIS.Client.Toolkit.DataSources.resources.dll" />
+    <AssemblyPart Source="zh-Hans/Microsoft.CSharp.resources.dll" />
+    <AssemblyPart Source="zh-Hans/System.Windows.Controls.Data.resources.dll" />
+    <AssemblyPart Source="zh-Hans/System.Xml.Linq.resources.dll" />
+    <AssemblyPart Source="zh-Hans/System.Json.resources.dll" />
+    <AssemblyPart Source="zh-Hans/System.Windows.Controls.resources.dll" />
+    <AssemblyPart Source="zh-Hans/System.ComponentModel.DataAnnotations.resources.dll" />
+    <AssemblyPart Source="zh-Hans/System.Windows.Data.resources.dll" />
+    <AssemblyPart Source="zh-Hans/System.ServiceModel.Syndication.resources.dll" />
+    <AssemblyPart Source="zh-Hans/System.Windows.Controls.Data.Input.resources.dll" />
+    <AssemblyPart Source="zh-Hans/System.Xml.Serialization.resources.dll" />
+  </Deployment.Parts>
+  <Deployment.ExternalParts>
+    <ExtensionPart Source="System.Data.Services.Client.zip" />
+  </Deployment.ExternalParts>
+</Deployment>

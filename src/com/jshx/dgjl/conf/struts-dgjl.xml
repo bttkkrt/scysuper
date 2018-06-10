@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="PRO_REC" extends="default" namespace="/jsp/dgjl">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="proRecQuery" class="com.jshx.dgjl.web.ProRecAction" method="list">
+		</action>
+		
+		<action name="proRecList" class="com.jshx.dgjl.web.ProRecAction" method="init">
+			<result name="success">/WEB-INF/pages/dgjl/ProRec_List.jsp</result>
+		</action>
+		
+		<action name="proRecView" class="com.jshx.dgjl.web.ProRecAction" method="view">
+			<result name="view">/WEB-INF/pages/dgjl/ProRec_Detail.jsp</result>
+		</action>
+
+		<action name="proRecInitEdit" class="com.jshx.dgjl.web.ProRecAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/dgjl/ProRec_Edit.jsp</result>
+		</action>
+
+		<action name="proRecSave" class="com.jshx.dgjl.web.ProRecAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_proRec</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="proRecDel" class="com.jshx.dgjl.web.ProRecAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

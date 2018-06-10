@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="SAMPLING_ASSOCIATE" extends="default" namespace="/jsp/cyzjglb">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="samplingAssociateQuery" class="com.jshx.cyzjglb.web.SamplingAssociateAction" method="list">
+		</action>
+		
+		<action name="samplingAssociateList" class="com.jshx.cyzjglb.web.SamplingAssociateAction" method="init">
+			<result name="success">/WEB-INF/pages/cyzjglb/SamplingAssociate_List.jsp</result>
+		</action>
+		
+		<action name="samplingAssociateView" class="com.jshx.cyzjglb.web.SamplingAssociateAction" method="view">
+			<result name="view">/WEB-INF/pages/cyzjglb/SamplingAssociate_Detail.jsp</result>
+		</action>
+
+		<action name="samplingAssociateInitEdit" class="com.jshx.cyzjglb.web.SamplingAssociateAction" method="initEdit">
+			<result name="edit">/WEB-INF/pages/cyzjglb/SamplingAssociate_Edit.jsp</result>
+		</action>
+
+		<action name="samplingAssociateSave" class="com.jshx.cyzjglb.web.SamplingAssociateAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_samplingAssociate</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="samplingAssociateDel" class="com.jshx.cyzjglb.web.SamplingAssociateAction" method="delete">
+		</action>
+		
+	</package>
+</struts>

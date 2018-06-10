@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="WZ_INFO_MANAGE" extends="default" namespace="/jsp/wzInfoManage">
+
+		<!-- 列表查询，返回Json数据 -->
+		<action name="wzInfoManageQuery" class="com.wzxx.wzInfoManage.web.WzInfoManageAction" method="list">
+		</action>
+		
+		<action name="wzInfoManageList" class="com.wzxx.wzInfoManage.web.WzInfoManageAction" method="init">
+			<result name="success">/WEB-INF/wzPage/wzInfoManage/WzInfoManage_List.jsp</result>
+			<result name="xzxkgs">/WEB-INF/wzPage/wzInfoManage/WzInfoManage_xzxkgs_List.jsp</result>
+		</action>
+		
+		<action name="wzInfoManageView" class="com.wzxx.wzInfoManage.web.WzInfoManageAction" method="view">
+			<result name="view">/WEB-INF/wzPage/wzInfoManage/WzInfoManage_Detail.jsp</result>
+			<result name="xzxkgs">/WEB-INF/wzPage/wzInfoManage/WzInfoManage_xzxkgs_Detail.jsp</result>
+		</action>
+
+		<action name="wzInfoManageInitEdit" class="com.wzxx.wzInfoManage.web.WzInfoManageAction" method="initEdit">
+			<result name="edit">/WEB-INF/wzPage/wzInfoManage/WzInfoManage_Edit.jsp</result>
+			<result name="xzxkgs">/WEB-INF/wzPage/wzInfoManage/WzInfoManage_xzxkgs_Edit.jsp</result>
+		</action>
+
+		<action name="wzInfoManageSave" class="com.wzxx.wzInfoManage.web.WzInfoManageAction" method="save">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_wzInfoManage</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+
+		<action name="wzInfoManageDel" class="com.wzxx.wzInfoManage.web.WzInfoManageAction" method="delete">
+		</action>
+		
+		<action name="wzInfoManageMove" class="com.wzxx.wzInfoManage.web.WzInfoManageAction" method="move">
+			<result name="move">/WEB-INF/wzPage/wzInfoManage/WzInfoManage_Move.jsp</result>
+		</action>
+		<action name="wzInfoManageSaveMove" class="com.wzxx.wzInfoManage.web.WzInfoManageAction" method="saveMove">
+			<interceptor-ref name="tokenInterceptor" />  
+			<interceptor-ref name="coreStack" />
+			<result name="reload" type="redirect">/common/successToSelf.jsp?windowId=win_wzInfoManage</result>
+			<result name="invalid.token">/invalid.jsp</result>
+		</action>
+	</package>
+</struts>
